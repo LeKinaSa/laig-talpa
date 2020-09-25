@@ -1,11 +1,11 @@
 # LAIG 2020/2021 - TP1
 
-## Group: T0xG0y
+## Group T06G02
 
-| Name             | Number    | E-Mail             |
-| ---------------- | --------- | ------------------ |
-| John Doe         | 201801010 | ...                |
-| Jane Doe         | 201801011 | ...                |
+| Name                       | Number    | E-Mail              |
+| ---------------------------| --------- | --------------------|
+| Clara Alves Martins        | 201806528 | up201806528@fe.up.pt|
+| Beatriz Costa Silva Mendes | 201806551 | up201806551@fe.up.pt|
 
 ----
 ## Project information
