@@ -12,7 +12,7 @@
 
 - (items describing main strong points)
 - Scene
-  - (Brief description of the created scene)
+  - The scene consists of a camp in a forest, in which tents, logs, and a bonfire are present.
   - (relative link to the scene)
 ----
 ## Issues/Problems
