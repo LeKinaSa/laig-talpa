@@ -77,6 +77,7 @@
 
                 <noderef id="bonfire" />
                 <noderef id="side_log"/>
+                <noderef id="tent"/>
 
                 <leaf type="rectangle" x1="-5" y1="-3" x2="5" y2="3" /> <!-- TODO: -->
 
@@ -283,7 +284,152 @@
             </descendants>
 
         </node>
+
+        <node id="tent">
+
+            <!-- next two lines are mandatory -->
+            <!-- TODO: -->
+            <material id="demoMaterial" />
+
+            <texture id="demoTexture">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <!-- TODO: -->
+
+            </transformations>
+
+            <descendants>
+
+                <noderef id="door"/>
+                <noderef id="back"/>
+                <noderef id="floor"/>
+                <noderef id="left"/>
+                <noderef id="right"/>
+
+            </descendants>
+
+        </node>
+
+        <node id="door">
+
+            <!-- next two lines are mandatory -->
+            <!-- TODO: -->
+            <material id="demoMaterial" />
+
+            <texture id="demoTexture">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <!-- TODO: -->
+
+            </transformations>
+
+            <descendants>
+
+                <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
+
+            </descendants>     
+
+        </node>
+
+        <node id="back">
+
+            <!-- next two lines are mandatory -->
+            <!-- TODO: -->
+            <material id="demoMaterial" />
+
+            <texture id="demoTexture">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <!-- TODO: -->
+
+            </transformations>
+
+            <descendants>
+
+                <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
+
+            </descendants>     
+
+        </node>      
+
+        <node id="floor">
+
+            <!-- next two lines are mandatory -->
+            <!-- TODO: -->
+            <material id="demoMaterial" />
+
+            <texture id="demoTexture">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <!-- TODO: -->
+
+            </transformations>
+
+            <descendants>
+
+                <leaf type="rectangle" x1="ii" y1="ii" x2="ii" y2="ii" /> <!-- TODO: -->
+
+            </descendants>     
+        </node>
         
+        <node id="left">
+
+            <!-- next two lines are mandatory -->
+            <!-- TODO: -->
+            <material id="demoMaterial" />
+
+            <texture id="demoTexture">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <!-- TODO: -->
+
+            </transformations>
+
+            <descendants>
+
+                <leaf type="rectangle" x1="ii" y1="ii" x2="ii" y2="ii" /> <!-- TODO: -->
+
+            </descendants>     
+        </node>
+
+        <node id="right">
+
+            <!-- next two lines are mandatory -->
+            <!-- TODO: -->
+            <material id="demoMaterial" />
+
+            <texture id="demoTexture">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <!-- TODO: -->
+
+            </transformations>
+
+            <descendants>
+
+                <leaf type="rectangle" x1="ii" y1="ii" x2="ii" y2="ii" /> <!-- TODO: -->
+
+            </descendants>     
+        </node>
+
     </nodes>
 </lsf>
 
