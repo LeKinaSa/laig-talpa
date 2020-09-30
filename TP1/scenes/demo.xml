@@ -40,18 +40,29 @@
 
     <textures>
         <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
-        <texture id="demoTexture" path="./scenes/images/vidral.jpg" />
+        <texture id="logTexture"         path="./scenes/images/log.jpg" />
+        <texture id="forestFloorTexture" path="./scenes/images/moss.jpg" />
+        <texture id="rocksTexture"       path="./scenes/images/rocks.jpg" />
+        <texture id="coalTexture"        path="./scenes/images/coal.jpg" />
+        <texture id="leavesTexture"      path="./scenes/images/leaves.jpg" />
     </textures>
 
 
     <materials>
         <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
          requires a distinct "id". At least one material should be present. -->
-        <material id="demoMaterial">
+        <material id="flamesMaterial">
             <shininess value="ff" />
-            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
-            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
+            <ambient  r="1.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse  r="0.7" g="0.4" b="0.0" a="1.0" />
+            <specular r="0.7" g="0.7" b="0.0" a="1.0" />
+            <emissive r="0.3" g="0.3" b="0.0" a="1.0" />
+        </material>
+        <material id="tentMaterial">
+            <shininess value="ff" />
+            <ambient  r="0.6" g="0.3" b="0.0" a="1.0" />
+            <diffuse  r="1.0" g="0.8" b="0.6" a="1.0" />
+            <specular r="1.0" g="0.8" b="0.6" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
     </materials>
@@ -62,7 +73,7 @@
             <!-- next two lines are mandatory -->
             <material id="null" />
 
-            <texture id="clear">
+            <texture id="forestFloorTexture">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -116,7 +127,7 @@
             <!-- next two lines are mandatory -->
             <material id="null" />
 
-            <texture id="clear">
+            <texture id="coalTexture">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -140,7 +151,7 @@
             <!-- next two lines are mandatory -->
             <material id="null" />
 
-            <texture id="clear">
+            <texture id="coalTexture">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -162,7 +173,7 @@
         <node id="flames">
 
             <!-- next two lines are mandatory -->
-            <material id="null" />
+            <material id="flamesMaterial" />
 
             <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
@@ -283,7 +294,7 @@
             <!-- next two lines are mandatory -->
             <material id="null" />
 
-            <texture id="clear">
+            <texture id="logTexture">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -304,7 +315,7 @@
         <node id="tent">
 
             <!-- next two lines are mandatory -->
-            <material id="null" />
+            <material id="tentMaterial" />
 
             <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
@@ -567,7 +578,7 @@
             <!-- next two lines are mandatory -->
             <material id="null" />
 
-            <texture id="clear">
+            <texture id="logTexture">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -590,7 +601,7 @@
             <!-- next two lines are mandatory -->
             <material id="null" />
 
-            <texture id="clear">
+            <texture id="leavesTexture">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
