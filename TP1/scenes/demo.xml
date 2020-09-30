@@ -60,16 +60,13 @@
         <node id="root_terrain">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO: -->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
             <transformations>
-
-                <!-- TODO: -->
 
             </transformations>
 
@@ -80,7 +77,7 @@
                 <noderef id="tent"/>
                 <noderef id="trees"/>
 
-                <leaf type="rectangle" x1="-5" y1="-3" x2="5" y2="3" /> <!-- TODO: -->
+                <leaf type="rectangle" x1="-10" y1="-6" x2="10" y2="6" /> <!-- TODO: -->
 
             </descendants>
 
@@ -89,16 +86,15 @@
         <node id="bonfire">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO: -->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
             <transformations>
 
-                <!-- TODO: -->
+                <!-- the bonfire will be in the center of the scene -->
 
             </transformations>
 
@@ -109,7 +105,7 @@
 
                 <noderef id="flames"/>
 
-                <leaf type="torus" inner="1" outer="3" slices="ii" loops="ii" /> <!-- TODO: -->
+                <leaf type="torus" inner="" outer="" slices="ii" loops="ii" /> <!-- TODO: -->
 
             </descendants>
 
@@ -500,109 +496,12 @@
 
             <descendants>
 
-                <noderef id="log1"/>
-                <noderef id="leaves1"/>
+                <noderef id="log"/>
+                <noderef id="leaves"/>
 
             </descendants>
 
         </node>
-
-        <node id="log1">
-
-            <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
-
-            <texture id="demoTexture">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <!-- TODO: -->
-
-            </transformations>
-
-            <descendants>
-
-                <leaf type="cylinder" height="ff" topRadius="ff" bottomRadius="ff" stacks="ii" slices="ii"/>
-
-            </descendants>
-
-        </node>
-
-        <node id="leaves1">
-
-            <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
-
-            <texture id="demoTexture">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <!-- TODO: -->
-
-            </transformations>
-
-            <descendants>
-
-                <noderef id="leaf1.1"/>
-                <noderef id="leaf1.2"/>
-
-            </descendants>
-
-        </node>   
-        
-        <node id="leaf1.1">
-
-            <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
-
-            <texture id="demoTexture">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <!-- TODO: -->
-
-            </transformations>
-
-            <descendants>
-
-                <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
-
-            </descendants>
-
-        </node>    
-
-        <node id="leaf1.2">
-
-            <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
-
-            <texture id="demoTexture">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <!-- TODO: -->
-
-            </transformations>
-
-            <descendants>
-
-                <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
-
-            </descendants>
-
-        </node>   
 
         <node id="tree2">
 
@@ -622,109 +521,12 @@
 
             <descendants>
 
-                <noderef id="log2"/>
-                <noderef id="leaves2"/>
+                <noderef id="log"/>
+                <noderef id="leaves"/>
 
             </descendants>
 
-        </node>
-
-        <node id="log2">
-
-            <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
-
-            <texture id="demoTexture">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <!-- TODO: -->
-
-            </transformations>
-
-            <descendants>
-
-                <leaf type="cylinder" height="ff" topRadius="ff" bottomRadius="ff" stacks="ii" slices="ii"/>
-
-            </descendants>
-
-        </node>
-
-        <node id="leaves2">
-
-            <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
-
-            <texture id="demoTexture">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <!-- TODO: -->
-
-            </transformations>
-
-            <descendants>
-
-                <noderef id="leaf2.1"/>
-                <noderef id="leaf2.2"/>
-
-            </descendants>
-
-        </node>   
-
-        <node id="leaf2.1">
-
-            <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
-
-            <texture id="demoTexture">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <!-- TODO: -->
-
-            </transformations>
-
-            <descendants>
-
-                <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
-
-            </descendants>
-
-        </node>    
-
-        <node id="leaf2.2">
-
-            <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
-
-            <texture id="demoTexture">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <!-- TODO: -->
-
-            </transformations>
-
-            <descendants>
-
-                <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
-
-            </descendants>
-
-        </node>   
+        </node> 
 
         <node id="tree3">
 
@@ -744,109 +546,12 @@
 
             <descendants>
 
-                <noderef id="log3"/>
-                <noderef id="leaves3"/>
+                <noderef id="log"/>
+                <noderef id="leaves"/>
 
             </descendants>
 
         </node>
-
-        <node id="log3">
-
-            <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
-
-            <texture id="demoTexture">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <!-- TODO: -->
-
-            </transformations>
-
-            <descendants>
-
-                <leaf type="cylinder" height="ff" topRadius="ff" bottomRadius="ff" stacks="ii" slices="ii"/>
-
-            </descendants>
-
-        </node>
-
-        <node id="leaves3">
-
-            <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
-
-            <texture id="demoTexture">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <!-- TODO: -->
-
-            </transformations>
-
-            <descendants>
-
-                <noderef id="leaf3.1"/>
-                <noderef id="leaf3.2"/>
-
-            </descendants>
-
-        </node>   
-
-        <node id="leaf3.1">
-
-            <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
-
-            <texture id="demoTexture">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <!-- TODO: -->
-
-            </transformations>
-
-            <descendants>
-
-                <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
-
-            </descendants>
-
-        </node>    
-
-        <node id="leaf3.2">
-
-            <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
-
-            <texture id="demoTexture">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <!-- TODO: -->
-
-            </transformations>
-
-            <descendants>
-
-                <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
-
-            </descendants>
-
-        </node>   
 
         <node id="tree4">
 
@@ -866,14 +571,14 @@
 
             <descendants>
 
-                <noderef id="log4"/>
-                <noderef id="leaves4"/>
+                <noderef id="log"/>
+                <noderef id="leaves"/>
 
             </descendants>
 
         </node>
 
-        <node id="log4">
+        <node id="log">
 
             <!-- next two lines are mandatory -->
             <!-- TODO:-->
@@ -897,7 +602,7 @@
 
         </node>
 
-        <node id="leaves4">
+        <node id="leaves">
 
             <!-- next two lines are mandatory -->
             <!-- TODO:-->
@@ -915,15 +620,14 @@
 
             <descendants>
 
-                <noderef id="leaf4.1"/>
-                <noderef id="leaf4.2"/>
+                <noderef id="leaf1"/>
+                <noderef id="leaf2"/>
 
             </descendants>
 
         </node>   
-
         
-        <node id="leaf4.1">
+        <node id="leaf1">
 
             <!-- next two lines are mandatory -->
             <!-- TODO:-->
@@ -947,7 +651,7 @@
 
         </node>    
 
-        <node id="leaf4.2">
+        <node id="leaf2">
 
             <!-- next two lines are mandatory -->
             <!-- TODO:-->
@@ -969,8 +673,8 @@
 
             </descendants>
 
-        </node>   
-
+        </node>  
+         
     </nodes>
 </lsf>
 
