@@ -105,7 +105,7 @@
 
                 <noderef id="flames"/>
 
-                <leaf type="torus" inner="" outer="" slices="ii" loops="ii" /> <!-- TODO: -->
+                <leaf type="torus" inner="ii" outer="ii" slices="ii" loops="ii" /> <!-- TODO: -->
 
             </descendants>
 
@@ -114,16 +114,16 @@
         <node id="coal1">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
             <transformations>
 
                 <!-- TODO: -->
+                <translation x="0" y="ff" z="0" />
 
             </transformations>
 
@@ -138,16 +138,16 @@
         <node id="coal2">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
             <transformations>
 
                 <!-- TODO: -->
+                <translation x="0" y="-ff" z="0" />
 
             </transformations>
 
@@ -162,10 +162,9 @@
         <node id="flames">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -190,9 +189,9 @@
 
             <!-- next two lines are mandatory -->
             <!-- TODO:-->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -213,10 +212,9 @@
         <node id="flame2">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -237,10 +235,9 @@
         <node id="flame3">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -261,10 +258,9 @@
         <node id="flame4">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -285,10 +281,9 @@
         <node id="side_log">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO: -->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -309,10 +304,9 @@
         <node id="tent">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO: -->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -337,10 +331,9 @@
         <node id="door">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO: -->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -361,10 +354,9 @@
         <node id="back">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO: -->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -385,10 +377,9 @@
         <node id="floor">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO: -->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -408,10 +399,9 @@
         <node id="left">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO: -->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -431,10 +421,9 @@
         <node id="right">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO: -->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -454,10 +443,9 @@
         <node id="trees">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -481,10 +469,9 @@
         <node id="tree1">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -506,10 +493,9 @@
         <node id="tree2">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -531,10 +517,9 @@
         <node id="tree3">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -556,10 +541,9 @@
         <node id="tree4">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -581,10 +565,9 @@
         <node id="log">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -605,10 +588,9 @@
         <node id="leaves">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -630,10 +612,9 @@
         <node id="leaf1">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -654,10 +635,9 @@
         <node id="leaf2">
 
             <!-- next two lines are mandatory -->
-            <!-- TODO:-->
-            <material id="demoMaterial" />
+            <material id="null" />
 
-            <texture id="demoTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
@@ -674,7 +654,7 @@
             </descendants>
 
         </node>  
-         
+
     </nodes>
 </lsf>
 
