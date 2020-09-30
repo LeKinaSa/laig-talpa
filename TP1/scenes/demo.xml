@@ -57,52 +57,233 @@
     </materials>
 
     <nodes>
-        <node id="demoRoot">            <!-- defines one intermediate node; may be repeated as necessary -->
-            <!-- next two lines are mandatory -->
-            <material id="demoMaterial" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+        <node id="root_terrain">
 
-            <texture id="demoTexture"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
-                <amplification afs="2.0" aft="2.0" /><!-- for primitives = dx/afs, dy/aft -->
+            <!-- next two lines are mandatory -->
+            <!-- TODO: -->
+            <material id="demoMaterial" />
+
+            <texture id="demoTexture">
+                <amplification afs="2.0" aft="2.0" />
             </texture>
 
-            <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
-                <translation x="0" y="1.0" z="1.0" />
-                <rotation axis="yy" angle="45" />
-                <scale sx="2" sy="1" sz="1" />
+
+                <!-- TODO: -->
+
             </transformations>
 
-            <!-- declaring descendants, at least one node or one leaf must be present
-             descendants may be mixed, nodes and leafs -->
             <descendants>
-                <noderef id="demoChild" />
-                <!-- "ss" is the identifier of a node or of leaf; -->
-                <!-- may be repeated as necessary. It can refer an -->
-                <!-- identifier of another node, before or later defined in the file. -->
-                <!-- next lines define nodes of type leaf; may be repeated, in any order, as necessary -->
-                <leaf type="rectangle" x1="0" y1="1" x2="1" y2="0" />
-                <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
-            </descendants>
-        </node>
-        <node id="demoChild">            <!-- defines one intermediate node; may be repeated as necessary -->
-            <!-- next two lines are mandatory -->
-            <material id="null" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
 
-            <texture id="clear"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
-                <amplification afs="2.0" aft="2.0" /><!-- for primitives = dx/afs, dy/aft -->
+                <noderef id="bonfire" />
+                <noderef id="side_log"/>
+
+                <leaf type="rectangle" x1="-5" y1="-3" x2="5" y2="3" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="bonfire">
+
+            <!-- next two lines are mandatory -->
+            <!-- TODO: -->
+            <material id="demoMaterial" />
+
+            <texture id="demoTexture">
+                <amplification afs="2.0" aft="2.0" />
             </texture>
 
-            <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
-                <translation x="2" y="0.0" z="2.0" />
+
+                <!-- TODO: -->
+
             </transformations>
 
-            <!-- declaring descendants, at least one node or one leaf must be present
-             descendants may be mixed, nodes and leafs -->
             <descendants>
-                <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" z3="ff"/>
-                <!-- x y z coordinates of each vertex -->
+
+                <noderef id="coal1"/>
+                <noderef id="coal2"/>
+
+                <noderef id="flame1"/>
+                <noderef id="flame2"/>
+                <noderef id="flame3"/>
+                <noderef id="flame4"/>
+
+                <leaf type="torus" inner="1" outer="3" slices="ii" loops="ii" /> <!-- TODO: -->
+
             </descendants>
+
         </node>
+
+        <node id="coal1">
+
+            <!-- next two lines are mandatory -->
+            <!-- TODO:-->
+            <material id="demoMaterial" />
+
+            <texture id="demoTexture">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <!-- TODO: -->
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="sphere" radius="ff" slices="ii" stacks="ii"/> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="coal2">
+
+            <!-- next two lines are mandatory -->
+            <!-- TODO:-->
+            <material id="demoMaterial" />
+
+            <texture id="demoTexture">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <!-- TODO: -->
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="sphere" radius="ff" slices="ii" stacks="ii"/> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame1">
+
+            <!-- next two lines are mandatory -->
+            <!-- TODO:-->
+            <material id="demoMaterial" />
+
+            <texture id="demoTexture">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <!-- TODO: -->
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame2">
+
+            <!-- next two lines are mandatory -->
+            <!-- TODO:-->
+            <material id="demoMaterial" />
+
+            <texture id="demoTexture">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <!-- TODO: -->
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame3">
+
+            <!-- next two lines are mandatory -->
+            <!-- TODO:-->
+            <material id="demoMaterial" />
+
+            <texture id="demoTexture">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <!-- TODO: -->
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame4">
+
+            <!-- next two lines are mandatory -->
+            <!-- TODO:-->
+            <material id="demoMaterial" />
+
+            <texture id="demoTexture">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <!-- TODO: -->
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="side_log">
+
+            <!-- next two lines are mandatory -->
+            <!-- TODO: -->
+            <material id="demoMaterial" />
+
+            <texture id="demoTexture">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <!-- TODO: -->
+
+            </transformations>
+
+            <descendants>
+
+                <leaf type="cylinder" height="ff" topRadius="ff" bottomRadius="ff" stacks="ii" slices="ii"/> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+        
     </nodes>
 </lsf>
+
