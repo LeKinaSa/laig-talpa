@@ -115,7 +115,7 @@
 
         </node>
 
-        <node id="coal1"/>
+        <node id="coal1">
 
             <!-- next two lines are mandatory -->
             <!-- TODO:-->
@@ -139,7 +139,7 @@
 
         </node>
 
-        <node id="coal2"/>
+        <node id="coal2">
 
             <!-- next two lines are mandatory -->
             <!-- TODO:-->
@@ -163,7 +163,7 @@
 
         </node>
 
-        <node id="flame1"/>
+        <node id="flame1">
 
             <!-- next two lines are mandatory -->
             <!-- TODO:-->
@@ -187,7 +187,7 @@
 
         </node>
 
-        <node id="flame2"/>
+        <node id="flame2">
 
             <!-- next two lines are mandatory -->
             <!-- TODO:-->
@@ -211,7 +211,7 @@
 
         </node>
 
-        <node id="flame3"/>
+        <node id="flame3">
 
             <!-- next two lines are mandatory -->
             <!-- TODO:-->
@@ -235,7 +235,7 @@
 
         </node>
 
-        <node id="flame4"/>
+        <node id="flame4">
 
             <!-- next two lines are mandatory -->
             <!-- TODO:-->
@@ -262,3 +262,4 @@
         
     </nodes>
 </lsf>
+
