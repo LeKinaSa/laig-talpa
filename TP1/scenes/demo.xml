@@ -76,6 +76,7 @@
             <descendants>
 
                 <noderef id="bonfire" />
+                <noderef id="side_log"/>
 
                 <leaf type="rectangle" x1="-5" y1="-3" x2="5" y2="3" /> <!-- TODO: -->
 
@@ -259,6 +260,29 @@
 
         </node>
 
+        <node id="side_log">
+
+            <!-- next two lines are mandatory -->
+            <!-- TODO: -->
+            <material id="demoMaterial" />
+
+            <texture id="demoTexture">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <!-- TODO: -->
+
+            </transformations>
+
+            <descendants>
+
+                <leaf type="cylinder" height="ff" topRadius="ff" bottomRadius="ff" stacks="ii" slices="ii"/> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
         
     </nodes>
 </lsf>
