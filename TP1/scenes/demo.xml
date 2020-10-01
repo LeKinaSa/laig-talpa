@@ -2,7 +2,7 @@
     <initials>
         <reference length="2" />
         <!-- axis length; "0" means no axis displayed -->
-        <root id="root_terrain" />
+        <root id="root" />
         <!-- identifier of root node of the scene graph; this node -->
         <!-- must be defined in one of the following NODE declarations -->
     </initials>
@@ -75,7 +75,7 @@
     </materials>
 
     <nodes>
-        <node id="root_terrain">
+        <node id="root">
 
             <!-- next two lines are mandatory -->
             <material id="null" />
@@ -386,7 +386,126 @@
 
             <descendants>
 
-                <leaf type="cylinder" height="3" topRadius="1" bottomRadius="1" stacks="1" slices="3"/>
+                <noderef id="frontTent"/>
+                <noderef id="backTent"/>
+                <noderef id="leftTent"/>
+                <noderef id="rightTent"/>
+                <noderef id="bottomTent"/>
+
+                <!-- <leaf type="cylinder" height="3" topRadius="1" bottomRadius="1" stacks="1" slices="3"/> -->
+
+            </descendants>
+
+        </node>
+
+        <node id="frontTent">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+            </transformations>
+
+            <descendants>
+
+                <leaf type="triangle" x1="-1" y1="0" x2="0" y2="1.73" x3="1" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="backTent">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <translation x="0" y="0" z="-6" />
+
+            </transformations>
+
+            <descendants>
+
+                <leaf type="triangle" x1="-1" y1="0" x2="0" y2="1.73" x3="1" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="leftTent">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <!-- TODO: -->
+
+            </transformations>
+
+            <descendants>
+
+                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="rightTent">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <!-- TODO: -->
+
+            </transformations>
+
+            <descendants>
+
+                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="bottomTent">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <!-- TODO: -->
+
+            </transformations>
+
+            <descendants>
+
+                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5" /> <!-- TODO: -->
 
             </descendants>
 
