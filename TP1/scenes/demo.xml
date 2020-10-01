@@ -379,133 +379,17 @@
 
             <transformations>
 
-                <translation x="3" y="0.23" z="1.5" />
+                <translation x="3" y="0.46" z="1.2" />
                 <rotation axis="z" angle="90" />
 
             </transformations>
 
             <descendants>
 
-                <noderef id="door"/>
-                <noderef id="back"/>
-                <noderef id="floor"/>
-                <noderef id="left"/>
-                <noderef id="right"/>
+                <leaf type="cylinder" height="3" topRadius="1" bottomRadius="1" stacks="1" slices="3"/>
 
             </descendants>
 
-        </node>
-
-        <node id="door">
-
-            <!-- next two lines are mandatory -->
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <!-- TODO: -->
-
-            </transformations>
-
-            <descendants>
-
-                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
-
-            </descendants>     
-
-        </node>
-
-        <node id="back">
-
-            <!-- next two lines are mandatory -->
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <!-- TODO: -->
-
-            </transformations>
-
-            <descendants>
-
-                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
-
-            </descendants>     
-
-        </node>      
-
-        <node id="floor">
-
-            <!-- next two lines are mandatory -->
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <!-- TODO: -->
-
-            </transformations>
-
-            <descendants>
-
-                <leaf type="rectangle" x1="ii" y1="ii" x2="ii" y2="ii" /> <!-- TODO: -->
-
-            </descendants>     
-        </node>
-        
-        <node id="left">
-
-            <!-- next two lines are mandatory -->
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <!-- TODO: -->
-
-            </transformations>
-
-            <descendants>
-
-                <leaf type="rectangle" x1="ii" y1="ii" x2="ii" y2="ii" /> <!-- TODO: -->
-
-            </descendants>     
-        </node>
-
-        <node id="right">
-
-            <!-- next two lines are mandatory -->
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <!-- TODO: -->
-
-            </transformations>
-
-            <descendants>
-
-                <leaf type="rectangle" x1="ii" y1="ii" x2="ii" y2="ii" /> <!-- TODO: -->
-
-            </descendants>     
         </node>
 
         <node id="trees">
