@@ -65,6 +65,13 @@
             <specular r="1.0" g="0.8" b="0.6" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
+        <material id="rocksMaterial">
+            <shininess value="ff" />
+            <ambient  r="0.6" g="0.6" b="0.6" a="1.0" />
+            <diffuse  r="0.8" g="0.8" b="0.8" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
     </materials>
 
     <nodes>
@@ -88,8 +95,29 @@
                 <noderef id="tent"/>
                 <noderef id="trees"/>
 
-                <leaf type="rectangle" x1="-10" y1="-6" x2="10" y2="6" /> <!-- TODO: -->
+                <noderef id="ground" /> <!-- TODO: -->
 
+            </descendants>
+
+        </node>
+
+        <node id="ground">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="forestFloorTexture">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+
+                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5" /> <!-- TODO: -->
+            
             </descendants>
 
         </node>
@@ -116,7 +144,29 @@
 
                 <noderef id="flames"/>
 
-                <leaf type="torus" inner="ii" outer="ii" slices="ii" loops="ii" /> <!-- TODO: -->
+                <noderef id="rocks" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="rocks">
+
+            <!-- next two lines are mandatory -->
+            <material id="rocksMaterial" />
+
+            <texture id="rocksTexture">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0.1" z="0" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+
+                <leaf type="torus" inner="0.2" outer="1" slices="32" loops="32" /> <!-- TODO: -->
 
             </descendants>
 
@@ -133,14 +183,13 @@
 
             <transformations>
 
-                <!-- TODO: -->
-                <translation x="0" y="ff" z="0" />
+                <translation x="-0.5" y="0.1" z="0.1" />
 
             </transformations>
 
             <descendants>
 
-                 <leaf type="sphere" radius="ff" slices="ii" stacks="ii"/> <!-- TODO: -->
+                 <leaf type="sphere" radius="0.3" slices="32" stacks="32"/> <!-- TODO: -->
 
             </descendants>
 
@@ -157,14 +206,13 @@
 
             <transformations>
 
-                <!-- TODO: -->
-                <translation x="0" y="-ff" z="0" />
+                <translation x="0.2" y="0.1" z="-0.3" />
 
             </transformations>
 
             <descendants>
 
-                 <leaf type="sphere" radius="ff" slices="ii" stacks="ii"/> <!-- TODO: -->
+                 <leaf type="sphere" radius="0.3" slices="32" stacks="32"/> <!-- TODO: -->
 
             </descendants>
 
@@ -209,12 +257,14 @@
             <transformations>
 
                 <!-- TODO: -->
+                <translation x="-0.5" y="0.3" z="0.1" />
+                <rotation axis="y" angle="-90" />
 
             </transformations>
 
             <descendants>
 
-                 <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
+                 <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
 
             </descendants>
 
@@ -231,13 +281,14 @@
 
             <transformations>
 
-                <!-- TODO: -->
+                <translation x="-0.5" y="0.3" z="0.1" />
+                <scale sx="-1" sy="1" sz="1" />
 
             </transformations>
 
             <descendants>
 
-                 <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
+                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
 
             </descendants>
 
@@ -254,13 +305,14 @@
 
             <transformations>
 
-                <!-- TODO: -->
+                <translation x="0.2" y="0.1" z="-0.3" />
+                <rotation axis="y" angle="-90" />
 
             </transformations>
 
             <descendants>
 
-                 <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
+                 <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
 
             </descendants>
 
@@ -277,13 +329,14 @@
 
             <transformations>
 
-                <!-- TODO: -->
+                <translation x="0.2" y="0.1" z="-0.3" />
+                <scale sx="-1" sy="1" sz="1" />
 
             </transformations>
 
             <descendants>
 
-                 <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
+                 <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
 
             </descendants>
 
@@ -300,13 +353,16 @@
 
             <transformations>
 
-                <!-- TODO: -->
+                <translation x="-1.5" y="0.35" z="1.5" />
+                <rotation axis="y" angle="-30" />
+                <rotation axis="z" angle="90" />
+                <rotation axis="x" angle="90" />
 
             </transformations>
 
             <descendants>
 
-                <leaf type="cylinder" height="ff" topRadius="ff" bottomRadius="ff" stacks="ii" slices="ii"/> <!-- TODO: -->
+                <leaf type="cylinder" height="2" topRadius="0.5" bottomRadius="0.5" stacks="32" slices="32"/> <!-- TODO: -->
 
             </descendants>
 
@@ -323,7 +379,8 @@
 
             <transformations>
 
-                <!-- TODO: -->
+                <translation x="3" y="0.23" z="1.5" />
+                <rotation axis="z" angle="90" />
 
             </transformations>
 
@@ -356,7 +413,7 @@
 
             <descendants>
 
-                <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
+                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
 
             </descendants>     
 
@@ -379,7 +436,7 @@
 
             <descendants>
 
-                <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
+                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
 
             </descendants>     
 
@@ -488,7 +545,8 @@
 
             <transformations>
 
-                <!-- TODO: -->
+                <translation x="3" y="0" z="-3" />
+                <rotation axis="x" angle="-90" />
 
             </transformations>
 
@@ -512,7 +570,8 @@
 
             <transformations>
 
-                <!-- TODO: -->
+                <translation x="2" y="0" z="-1" />
+                <rotation axis="x" angle="-90" />
 
             </transformations>
 
@@ -536,7 +595,8 @@
 
             <transformations>
 
-                <!-- TODO: -->
+                <translation x="-3" y="0" z="2" />
+                <rotation axis="x" angle="-90" />
 
             </transformations>
 
@@ -560,7 +620,8 @@
 
             <transformations>
 
-                <!-- TODO: -->
+                <translation x="-2" y="0" z="-3" />
+                <rotation axis="x" angle="-90" />
 
             </transformations>
 
@@ -590,7 +651,7 @@
 
             <descendants>
 
-                <leaf type="cylinder" height="ff" topRadius="ff" bottomRadius="ff" stacks="ii" slices="ii"/>
+                <leaf type="cylinder" height="2" topRadius="0.5" bottomRadius="0.5" stacks="32" slices="32"/>
 
             </descendants>
 
@@ -607,7 +668,10 @@
 
             <transformations>
 
-                <!-- TODO: -->
+                <translation x="0" y="0" z="1.5" />
+                <rotation axis="z" angle="-90" />
+                <rotation axis="x" angle="90" />
+                <scale sx="2.5" sy="2.5" sz="2.5" />
 
             </transformations>
 
@@ -631,13 +695,13 @@
 
             <transformations>
 
-                <!-- TODO: -->
+                <rotation axis="y" angle="-90" />
 
             </transformations>
 
             <descendants>
 
-                <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
+                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
 
             </descendants>
 
@@ -660,7 +724,7 @@
 
             <descendants>
 
-                <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" /> <!-- TODO: -->
+                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
 
             </descendants>
 
