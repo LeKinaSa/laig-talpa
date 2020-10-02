@@ -392,8 +392,6 @@
                 <noderef id="rightTent"/>
                 <noderef id="bottomTent"/>
 
-                <!-- <leaf type="cylinder" height="3" topRadius="1" bottomRadius="1" stacks="1" slices="3"/> -->
-
             </descendants>
 
         </node>
@@ -453,13 +451,14 @@
 
             <transformations>
 
-                <!-- TODO: -->
+                <rotation axis="z" angle="30" />
+                <rotation axis="y" angle="90" />
 
             </transformations>
 
             <descendants>
 
-                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5" /> <!-- TODO: -->
+                <leaf type="rectangle" x1="-3" y1="-1" x2="3" y2="1" />
 
             </descendants>
 
@@ -476,13 +475,15 @@
 
             <transformations>
 
-                <!-- TODO: -->
+                <translation x="-2" y="0" z="0" />
+                <rotation axis="z" angle="-30" />
+                <rotation axis="y" angle="90" />
 
             </transformations>
 
             <descendants>
 
-                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5" /> <!-- TODO: -->
+                <leaf type="rectangle" x1="-3" y1="-1" x2="3" y2="1" />
 
             </descendants>
 
@@ -499,13 +500,14 @@
 
             <transformations>
 
-                <!-- TODO: -->
+                <rotation axis="z" angle="90" />
+                <rotation axis="y" angle="90" />
 
             </transformations>
 
             <descendants>
 
-                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5" /> <!-- TODO: -->
+                <leaf type="rectangle" x1="-3" y1="-1" x2="3" y2="1" />
 
             </descendants>
 
