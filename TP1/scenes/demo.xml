@@ -379,8 +379,7 @@
 
             <transformations>
 
-                <translation x="3" y="0.46" z="1.2" />
-                <rotation axis="z" angle="90" />
+                <translation x="5" y="0" z="5"/>
 
             </transformations>
 
@@ -411,7 +410,7 @@
 
             <descendants>
 
-                <leaf type="triangle" x1="-1" y1="0" x2="0" y2="1.73" x3="1" y3="0" /> <!-- TODO: -->
+                <leaf type="triangle" x1="-2" y1="0" x2="-1" y2="1.73" x3="0" y3="0" />
 
             </descendants>
 
@@ -428,19 +427,19 @@
 
             <transformations>
 
-                <translation x="0" y="0" z="-6" />
+                <translation x="0" y="0" z="-4" />
 
             </transformations>
 
             <descendants>
 
-                <leaf type="triangle" x1="-1" y1="0" x2="0" y2="1.73" x3="1" y3="0" /> <!-- TODO: -->
+                <leaf type="triangle" x1="-2" y1="0" x2="-1" y2="1.73" x3="0" y3="0" />
 
             </descendants>
 
         </node>
 
-        <node id="leftTent">
+        <node id="rightTent">
 
             <!-- next two lines are mandatory -->
             <material id="null" />
@@ -458,13 +457,13 @@
 
             <descendants>
 
-                <leaf type="rectangle" x1="-3" y1="-1" x2="3" y2="1" />
+                <leaf type="rectangle" x1="0" y1="2" x2="4" y2="2" />
 
             </descendants>
 
         </node>
 
-        <node id="rightTent">
+        <node id="leftTent">
 
             <!-- next two lines are mandatory -->
             <material id="null" />
@@ -483,7 +482,7 @@
 
             <descendants>
 
-                <leaf type="rectangle" x1="-3" y1="-1" x2="3" y2="1" />
+                <leaf type="rectangle" x1="0" y1="2" x2="4" y2="2" />
 
             </descendants>
 
@@ -507,7 +506,7 @@
 
             <descendants>
 
-                <leaf type="rectangle" x1="-3" y1="-1" x2="3" y2="1" />
+                <leaf type="rectangle" x1="0" y1="2" x2="4" y2="2" />
 
             </descendants>
 
