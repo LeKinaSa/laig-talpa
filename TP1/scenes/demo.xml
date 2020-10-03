@@ -457,7 +457,7 @@
 
             <descendants>
 
-                <leaf type="rectangle" x1="0" y1="2" x2="4" y2="2" />
+                <leaf type="rectangle" x1="0" y1="0" x2="4" y2="2" />
 
             </descendants>
 
@@ -482,7 +482,7 @@
 
             <descendants>
 
-                <leaf type="rectangle" x1="0" y1="2" x2="4" y2="2" />
+                <leaf type="rectangle" x1="0" y1="0" x2="4" y2="2" />
 
             </descendants>
 
@@ -506,7 +506,7 @@
 
             <descendants>
 
-                <leaf type="rectangle" x1="0" y1="2" x2="4" y2="2" />
+                <leaf type="rectangle" x1="0" y1="0" x2="4" y2="2" />
 
             </descendants>
 
