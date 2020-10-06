@@ -6,11 +6,12 @@ class MyLeaf {
 
     constructor(graph, element) {
         this.graph = graph;
-        this.primitive;
+        this.primitive = null;
 
         // gets the type of the primitive from the xml file
-        var type = this.graph.reader.getItem(element, 'type', ['rectangle']);
-
+        var type = this.graph.reader.getItem(element, 'type', ['rectangle', 'torus', 'triangle', 'sphere', 'cylinder']);
+        console.log("Leaf: " + type);
+        
         // switch to decide what primitive is going to be shown in the screen
         switch(type){
             case 'rectangle':
@@ -22,6 +23,7 @@ class MyLeaf {
                 break;
             default:
                 console.log("Not implemented yet");
+                this.primitive = null;
                 break;
         }
 

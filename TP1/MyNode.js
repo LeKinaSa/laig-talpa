@@ -10,11 +10,17 @@ class MyNode {
         this.children = [];
         this.leaves = [];
 
+        console.log("Node: " + nodeID);
+
     /*  this.material = null;
         this.texture = null;
 
         this.matrix = mat4.create();
         mat4.identity(this.matrix); */
+    }
+    // add a child identified by leaf
+    addLeaf(leaf){
+        this.leaves.push(leaf);
     }
 
     // add a child identified by nodeID
@@ -22,8 +28,6 @@ class MyNode {
         this.children.push(nodeID);
     }
 
-    // add a child identified by leaf
-    addChild(leaf){
-        this.leaves.push(leaf);
-    }
 }
+
+    

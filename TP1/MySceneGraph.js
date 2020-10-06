@@ -443,6 +443,9 @@ class MySceneGraph {
             if (this.nodes[nodeID] != null)
                 return "ID must be unique for each node (conflict: ID = " + nodeID + ")";
 
+            // Creates node with information about the graph and it's ID
+            this.nodes[nodeID] = new MyNode(this, nodeID);
+
             grandChildren = children[i].children;
 
             nodeNames = [];
@@ -450,19 +453,47 @@ class MySceneGraph {
                 nodeNames.push(grandChildren[j].nodeName);
             }
 
+            // -------------------- Transformations -------------------- 
+
             var transformationsIndex = nodeNames.indexOf("transformations");
+
+            currentNode.leaves[i].primitive
+
+            // -------------------- Material -------------------- 
+
             var materialIndex = nodeNames.indexOf("material");
+
+            // -------------------- Texture -------------------- 
+
             var textureIndex = nodeNames.indexOf("texture");
+
+            // -------------------- Descendants -------------------- 
+
             var descendantsIndex = nodeNames.indexOf("descendants");
 
+            // list where each element corresponds to a noderef or a leaf
+            var descendants = grandChildren[descendantsIndex].children;
+
+            // identify if it's a noderef or a leaf and treat them
+            for(var j = 0; j < descendants.length; j++){
+                if(descendants[j].nodeName == "noderef"){
+                    var currentNodeID = this.reader.getString(descendants[j], 'id');
+
+                    if(currentNodeID == null)
+                        this.onXMLMinorError("Error: parse descendants - noderef");
+                    else{
+                        this.nodes[nodeID].addChild(currentNodeID);
+                    }
+                }
+                else if(descendants[j].nodeName == "leaf"){
+                    this.nodes[nodeID].addLeaf(new MyLeaf(this, descendants[j]));
+                }
+                else{
+                    this.onXMLMinorError("unknown tag <" + descendants[j].nodeName + ">");
+                }
+            }
+
             this.onXMLMinorError("To do: Parse nodes.");
-            // Transformations
-
-            // Material
-
-            // Texture
-
-            // Descendants
         }
     }
 
@@ -569,5 +600,22 @@ class MySceneGraph {
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
         
         //this.nodes[this.idRoot].display()
+
+        this.displaySceneRecursive(this.idRoot);
+    }
+
+    displaySceneRecursive(nodeID){
+        var currentNode = this.nodes[nodeID];
+
+        for(var i = 0; i < currentNode.leaves.length; i++){
+            if(currentNode.leaves[i].primitive != null)
+                currentNode.leaves[i].primitive.display();
+        }
+
+        for(var i = 0; i < currentNode.children.length; i++){
+            this.scene.pushMatrix();
+            this.displaySceneRecursive(currentNode.children[i]);
+            this.scene.popMatrix();
+        }        
     }
 }
