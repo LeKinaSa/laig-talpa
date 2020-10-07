@@ -25,19 +25,19 @@ class MyCylinder extends CGFobject {
         this.indices = [];
         this.normals = [];
         this.texCoords = [];
-        
+    
         var angleInc = (2 * Math.PI) / this.circleDivs;
         var circleVertices = this.circleDivs + 1;    
-        var heightInc = this.height / this.heightDivs;
+        var heightInc = - this.height / this.heightDivs;
         var currentRadius = this.bottomRadius;
         var radiusInc = (this.topRadius - this.bottomRadius) / this.heightDivs;
     
-        var currentHeight = 0;
+        var currentHeight = this.height;
         var angle = 0;
 
         // build an all-around stack at a time, starting on "z=0" and proceeding "for positive z"
-        for (let stack = 0; stack <= this.height; stack++) {
-            // in each stack, build all the slices around, starting on longitude 0
+        for (let stack = 0; stack <= this.heightDivs; stack++) {
+            // in each stack, build all the slices around
             angle = 0;
             for (let slice = 0; slice <= this.circleDivs; slice++) {
                 //--- Vertices coordinates
@@ -45,7 +45,6 @@ class MyCylinder extends CGFobject {
                 var y = currentRadius * Math.cos(angle);
                 var z = currentHeight;
                 this.vertices.push(x, y, z);
-                console.log(x, y, z);
     
                 //--- Indices
                 if (stack < this.heightDivs && slice < this.circleDivs) {
@@ -54,7 +53,6 @@ class MyCylinder extends CGFobject {
                     // pushing two triangles using indices from this round (current, current+1)
                     // and the ones directly south (next, next+1)
                     // (i.e. one full round of slices ahead)
-                    
                     this.indices.push(current + 1, current, next);
                     this.indices.push(current + 1, next, next + 1);
                 }
@@ -71,7 +69,7 @@ class MyCylinder extends CGFobject {
             currentHeight += heightInc;
             currentRadius += radiusInc;
         }
-
+  
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
