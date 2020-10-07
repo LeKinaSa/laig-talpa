@@ -387,7 +387,7 @@ class MySceneGraph {
         }
 
 
-        this.onXMLMinorError("Parsed textures");
+        console.log("Parsed textures");
     }
 
     /**
