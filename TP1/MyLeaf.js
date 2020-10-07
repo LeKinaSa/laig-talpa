@@ -55,6 +55,7 @@ class MyLeaf {
                 this.stacks       = this.graph.reader.getFloat(element, 'stacks');
                 this.slices       = this.graph.reader.getFloat(element, 'slices');
                 this.primitive = new MyCylinder(this.graph.scene, this.height, this.topRadius, this.bottomRadius, this.stacks, this.slices);
+                break;
             default:
                 console.log("Not implemented yet");
                 this.primitive = null;
