@@ -31,9 +31,9 @@ class MyLeaf {
                 this.primitive = new MyTriangle(this.graph.scene, this.x1, this.y1, this.x2, this.y2, this.x3, this.y3);
                 break;
             case 'sphere':
-                this.radius = this.graph.reader.getString(element, 'radius');
-                this.slices = this.graph.reader.getString(element, 'slices');
-                this.stacks = this.graph.reader.getString(element, 'stacks');
+                this.radius = this.graph.reader.getFloat(element, 'radius');
+                this.slices = this.graph.reader.getFloat(element, 'slices');
+                this.stacks = this.graph.reader.getFloat(element, 'stacks');
                 this.primitive = new MySphere(this.graph.scene, this.radius, this.slices, this.stacks);
                 break;
             default:
