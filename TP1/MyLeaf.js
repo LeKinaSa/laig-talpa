@@ -30,6 +30,11 @@ class MyLeaf {
                 this.y3 = this.graph.reader.getString(element, 'y3');
                 this.primitive = new MyTriangle(this.graph.scene, this.x1, this.y1, this.x2, this.y2, this.x3, this.y3);
                 break;
+            case 'sphere':
+                this.radius = this.graph.reader.getString(element, 'radius');
+                this.slices = this.graph.reader.getString(element, 'slices');
+                this.stacks = this.graph.reader.getString(element, 'stacks');
+                this.primitive = new MySphere(this.graph.scene, this.radius, this.slices, this.stacks);
             default:
                 console.log("Not implemented yet");
                 this.primitive = null;
