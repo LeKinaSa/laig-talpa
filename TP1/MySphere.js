@@ -13,7 +13,7 @@ class MySphere extends CGFobject {
     constructor(scene, radius, slices, stacks) {
         super(scene);
         this.radius = radius;
-        this.latDivs = stacks * 2;
+        this.latDivs = stacks;
         this.longDivs = slices;
 
         this.initBuffers();
@@ -39,9 +39,9 @@ class MySphere extends CGFobject {
             theta = 0;
             for (let longitude = 0; longitude <= this.longDivs; longitude++) {
                 //--- Vertices coordinates
-                var x = this.radius * Math.cos(theta) * sinPhi;
-                var y = this.radius * cosPhi;
-                var z = this.radius * Math.sin(-theta) * sinPhi;
+                var x = this.radius * Math.sin(-theta) * sinPhi;
+                var y = this.radius * Math.cos(theta) * sinPhi;
+                var z = this.radius * cosPhi;
                 this.vertices.push(x, y, z);
     
                 //--- Indices
@@ -52,8 +52,8 @@ class MySphere extends CGFobject {
                     // and the ones directly south (next, next+1)
                     // (i.e. one full round of slices ahead)
                     
-                    this.indices.push( current + 1, current, next);
-                    this.indices.push( current + 1, next, next +1);
+                    this.indices.push(current + 1, current, next);
+                    this.indices.push(current + 1, next, next + 1);
                 }
     
                 //--- Normals
