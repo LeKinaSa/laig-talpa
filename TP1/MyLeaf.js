@@ -21,6 +21,15 @@ class MyLeaf {
                 this.y2 = this.graph.reader.getString(element, 'y2');
                 this.primitive = new MyRectangle(this.graph.scene, this.x1, this.y1, this.x2, this.y2);
                 break;
+            case 'triangle':
+                this.x1 = this.graph.reader.getString(element, 'x1');
+                this.y1 = this.graph.reader.getString(element, 'y1');
+                this.x2 = this.graph.reader.getString(element, 'x2');
+                this.y2 = this.graph.reader.getString(element, 'y2');
+                this.x3 = this.graph.reader.getString(element, 'x3');
+                this.y3 = this.graph.reader.getString(element, 'y3');
+                this.primitive = new MyTriangle(this.graph.scene, this.x1, this.y1, this.x2, this.y2, this.x3, this.y3);
+                break;
             default:
                 console.log("Not implemented yet");
                 this.primitive = null;
