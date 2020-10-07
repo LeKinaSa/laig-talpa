@@ -82,7 +82,7 @@ class MyCylinder extends CGFobject {
                 //--- Vertices coordinates
                 x = line * this.topRadius * Math.sin(-angle);
                 y = line * this.topRadius * Math.cos(angle);
-                z = this.height;
+                z = 0;
                 this.vertices.push(x, y, z);
                 
                 //--- Indices
@@ -90,10 +90,11 @@ class MyCylinder extends CGFobject {
                     var current = (this.heightDivs + 1) * circleVertices + slice;
                     var next = current + circleVertices;
 
-                    this.indices.push(current + 1, next, next + 1);
+
+                    this.indices.push(current + 1, next + 1, next);
                 }
                 //--- Normals
-                this.normals.push(0, 0, 1);
+                this.normals.push(0, 0, -1);
 
                 //--- Texture Coordinates
                 this.texCoords.push(slice/this.circleDivs , line); //TODO
@@ -109,7 +110,7 @@ class MyCylinder extends CGFobject {
                 //--- Vertices coordinates
                 x = line * this.bottomRadius * Math.sin(-angle);
                 y = line * this.bottomRadius * Math.cos(angle);
-                z = 0;
+                z = this.height;
                 this.vertices.push(x, y, z);
                 
                 //--- Indices
@@ -117,10 +118,10 @@ class MyCylinder extends CGFobject {
                     var current = (this.heightDivs + 3) * circleVertices + slice;
                     var next = current + circleVertices;
 
-                    this.indices.push(current + 1, next + 1, next);
+                    this.indices.push(current + 1, next, next + 1);
                 }
                 //--- Normals
-                this.normals.push(0, 0, -1);
+                this.normals.push(0, 0, 1);
 
                 //--- Texture Coordinates
                 this.texCoords.push(slice/this.circleDivs , line); //TODO
