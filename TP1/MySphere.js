@@ -60,8 +60,8 @@ class MySphere extends CGFobject {
                 // at each vertex, the direction of the normal is equal to 
                 // the vector from the center of the sphere to the vertex.
                 // in a sphere of radius equal to one, the vector length is one.
-                // therefore, the value of the normal is equal to the position vectro
-                this.normals.push(x, y, z);
+                // therefore, the value of the normal is equal to the position vector
+                this.normals.push(x/this.radius, y/this.radius, z/this.radius);
                 theta += thetaInc;
     
                 //--- Texture Coordinates
