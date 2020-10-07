@@ -35,6 +35,7 @@ class MyLeaf {
                 this.slices = this.graph.reader.getString(element, 'slices');
                 this.stacks = this.graph.reader.getString(element, 'stacks');
                 this.primitive = new MySphere(this.graph.scene, this.radius, this.slices, this.stacks);
+                break;
             default:
                 console.log("Not implemented yet");
                 this.primitive = null;
