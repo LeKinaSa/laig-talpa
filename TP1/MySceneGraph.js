@@ -454,10 +454,38 @@ class MySceneGraph {
             }
 
             // -------------------- Transformations -------------------- 
+            //                  MISSING: ERROR HANDLING
 
             var transformationsIndex = nodeNames.indexOf("transformations");
 
-            currentNode.leaves[i].primitive
+            var transformations = grandChildren[transformationsIndex].children;
+
+            for(var j = 0; j < transformations.length; j++){
+                switch(transformations[j].nodeName){
+                    case "translation":
+                        console.log("parsing translation");
+                        var x = this.reader.getFloat(transformations[j], 'x');
+                        var y = this.reader.getFloat(transformations[j], 'y');
+                        var z = this.reader.getFloat(transformations[j], 'z');
+                        mat4.translate(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, [x, y, z])
+                        break;
+                    case "rotation":
+                        console.log("parsing rotation");
+                        var axis = this.reader.getItem(transformations[j], 'axis', ['x', 'y', 'z']);
+                        var angle = this.reader.getFloat(transformations[j], 'angle');
+                        mat4.rotate(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, angle * DEGREE_TO_RAD, this.axisCoords[axis]);
+                        break;
+                    case "scale":
+                        console.log("parsins scale");
+                        var sx = this.reader.getFloat(transformations[j], 'sx');
+                        var sy = this.reader.getFloat(transformations[j], 'sy');
+                        var sz = this.reader.getFloat(transformations[j], 'sz');
+                        mat4.scale(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, [sx, sy, sz]);
+                        break;
+                    default:
+                        break;
+                }
+            }
 
             // -------------------- Material -------------------- 
 
@@ -468,6 +496,7 @@ class MySceneGraph {
             var textureIndex = nodeNames.indexOf("texture");
 
             // -------------------- Descendants -------------------- 
+            //                         DONE
 
             var descendantsIndex = nodeNames.indexOf("descendants");
 
@@ -606,6 +635,8 @@ class MySceneGraph {
 
     displaySceneRecursive(nodeID){
         var currentNode = this.nodes[nodeID];
+
+        this.scene.multMatrix(currentNode.matrix);
 
         for(var i = 0; i < currentNode.leaves.length; i++){
             if(currentNode.leaves[i].primitive != null)
