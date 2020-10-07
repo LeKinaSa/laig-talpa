@@ -372,8 +372,22 @@ class MySceneGraph {
     parseTextures(texturesNode) {
 
         //For each texture in textures block, check ID and file URL
-        this.onXMLMinorError("To do: Parse textures.");
-        return null;
+        this.textures = [];
+
+        for(var i = 0; i < texturesNode.children.length; i++){
+            if(texturesNode.children[i].nodeName == "texture"){
+                var textureID = this.reader.getString(texturesNode.children[i], 'id');
+                var path = this.reader.getString(texturesNode.children[i], 'path');
+            }
+            else
+                this.onXMLMinorError("unknown tag name <" + name + ">");
+
+            var texture = new CGFtexture(this.scene, path);
+            this.textures[textureID] = [texture];
+        }
+
+
+        this.onXMLMinorError("Parsed textures");
     }
 
     /**
@@ -492,8 +506,12 @@ class MySceneGraph {
             var materialIndex = nodeNames.indexOf("material");
 
             // -------------------- Texture -------------------- 
+            //          NOT COMPLETED, MISSING AMPLIFICATIONS
 
             var textureIndex = nodeNames.indexOf("texture");
+
+            var textureID = this.reader.getString(grandChildren[textureIndex], 'id');
+            this.nodes[nodeID].textureID = textureID;
 
             // -------------------- Descendants -------------------- 
             //                         DONE
@@ -630,17 +648,35 @@ class MySceneGraph {
         
         //this.nodes[this.idRoot].display()
 
-        this.displaySceneRecursive(this.idRoot);
+        this.displaySceneRecursive(this.idRoot, this.nodes[this.idRoot].textureID);
     }
 
-    displaySceneRecursive(nodeID){
+    // NOT COMPLETED, TEXTURES DONT WORK, MISSING AMPLIFICATIONS
+    displaySceneRecursive(nodeID, textureFather){
         var currentNode = this.nodes[nodeID];
+        var idTexture = textureFather;
 
         this.scene.multMatrix(currentNode.matrix);
 
+        if(this.textures[currentNode.textureID] != null){
+            if(currentNode.textureID == 'clear'){
+                idTexture = null;
+            }
+            else
+                idTexture = currentNode.textureID;
+        }
+
+        var currentTexture = this.textures[idTexture];
+        
+
         for(var i = 0; i < currentNode.leaves.length; i++){
-            if(currentNode.leaves[i].primitive != null)
+            
+            if(currentNode.leaves[i].primitive != null){
+                if(currentTexture != null){
+                }
                 currentNode.leaves[i].primitive.display();
+            }
+                
         }
 
         for(var i = 0; i < currentNode.children.length; i++){
