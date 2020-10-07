@@ -34,6 +34,9 @@ class MyCylinder extends CGFobject {
     
         var currentHeight = this.height;
         var angle = 0;
+        var x;
+        var y;
+        var z;
 
         // build an all-around stack at a time, starting on "z=0" and proceeding "for positive z"
         for (let stack = 0; stack <= this.heightDivs; stack++) {
@@ -41,9 +44,9 @@ class MyCylinder extends CGFobject {
             angle = 0;
             for (let slice = 0; slice <= this.circleDivs; slice++) {
                 //--- Vertices coordinates
-                var x = currentRadius * Math.sin(-angle);
-                var y = currentRadius * Math.cos(angle);
-                var z = currentHeight;
+                x = currentRadius * Math.sin(-angle);
+                y = currentRadius * Math.cos(angle);
+                z = currentHeight;
                 this.vertices.push(x, y, z);
     
                 //--- Indices
@@ -60,16 +63,71 @@ class MyCylinder extends CGFobject {
                 //--- Normals
                 // at each vertex, the direction of the normal is equal to 
                 // the vector from the center of the cylinder to the vertex.
-                this.normals.push(x/this.radius, y/this.radius, 0);
-                angle += angleInc;
+                this.normals.push(x/currentRadius, y/currentRadius, 0);
     
                 //--- Texture Coordinates
-                this.texCoords.push(slice/this.circleDivs , stack/this.heightDivs);
+                this.texCoords.push(slice/this.circleDivs , stack/this.heightDivs); //TODO
+
+                angle += angleInc;
             }
             currentHeight += heightInc;
             currentRadius += radiusInc;
         }
-  
+
+        // Circle : Z = height
+        for (let line = 0; line <= 1; line++) {
+            angle = 0;
+            for (let slice = 0; slice <= this.circleDivs; slice++) {
+                //--- Vertices coordinates
+                x = line * this.topRadius * Math.sin(-angle);
+                y = line * this.topRadius * Math.cos(angle);
+                z = this.height;
+                this.vertices.push(x, y, z);
+                
+                //--- Indices
+                if (line == 1 && slice < this.circleDivs) {
+                    var current = (this.heightDivs + 1) * circleVertices + slice;
+                    var next = current + circleVertices;
+
+                    this.indices.push(current + 1, next, next + 1);
+                }
+                //--- Normals
+                this.normals.push(0, 0, 1);
+
+                //--- Texture Coordinates
+                this.texCoords.push(slice/this.circleDivs , line); //TODO
+
+                angle += angleInc;
+            }
+        }
+
+        // Circle Z = 0
+        for (let line = 0; line <= 1; line++) {
+            angle = 0;
+            for (let slice = 0; slice <= this.circleDivs; slice++) {
+                //--- Vertices coordinates
+                x = line * this.bottomRadius * Math.sin(-angle);
+                y = line * this.bottomRadius * Math.cos(angle);
+                z = 0;
+                this.vertices.push(x, y, z);
+                
+                //--- Indices
+                if (line == 1 && slice < this.circleDivs) {
+                    var current = (this.heightDivs + 3) * circleVertices + slice;
+                    var next = current + circleVertices;
+
+                    this.indices.push(current + 1, next + 1, next);
+                }
+                //--- Normals
+                this.normals.push(0, 0, -1);
+
+                //--- Texture Coordinates
+                this.texCoords.push(slice/this.circleDivs , line); //TODO
+
+                angle += angleInc;
+            }
+        }
+
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
