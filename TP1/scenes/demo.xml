@@ -116,8 +116,8 @@
 
             <descendants>
 
-                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5" /> <!-- TODO: -->
-            
+                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5" />
+
             </descendants>
 
         </node>
