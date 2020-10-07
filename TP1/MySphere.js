@@ -18,6 +18,7 @@ class MySphere extends CGFobject {
 
         this.initBuffers();
     }
+    
     initBuffers() {
         this.vertices = [];
         this.indices = [];
@@ -26,7 +27,7 @@ class MySphere extends CGFobject {
     
         var phi = 0;
         var theta = 0;
-        var phiInc = Math.PI / this.latDivs;
+        var phiInc = (2 * Math.PI) / this.latDivs;
         var thetaInc = (2 * Math.PI) / this.longDivs;
         var latVertices = this.longDivs + 1;
     

@@ -38,6 +38,7 @@ class MyCylinder extends CGFobject {
         var y;
         var z;
 
+        // All Around
         // build an all-around stack at a time, starting on "z=0" and proceeding "for positive z"
         for (let stack = 0; stack <= this.heightDivs; stack++) {
             // in each stack, build all the slices around
