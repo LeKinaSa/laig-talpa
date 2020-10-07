@@ -377,7 +377,8 @@
 
             <transformations>
 
-                <translation x="5" y="0" z="5"/>
+                <translation x="3.5" y="0" z="4"/>
+                <rotation axis="y" angle="-20" />
 
             </transformations>
 
