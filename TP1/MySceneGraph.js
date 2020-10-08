@@ -244,9 +244,181 @@ class MySceneGraph {
      * Parses the <views> block.
      * @param {view block element} viewsNode
      */
-    parseViews(viewsNode) {
-        this.onXMLMinorError("To do: Parse views and create cameras.");
-        return null;
+    parseViews(viewsNode) {        
+        var children = viewsNode.children;
+
+        this.cameras = {};
+        
+        this.default = this.reader.getString(viewsNode, 'default');
+        if (this.default == null) {
+            this.onXMLError('Error Parsing Default View');
+        }
+
+        for(var i = 0; i < children.length; i++){
+            var id = this.reader.getString(children[i], 'id');
+            var camera;
+
+            // perspective or ortho
+            if(children[i].nodeName == "perspective"){
+                var near = this.reader.getFloat(children[i], 'near');
+                var far = this.reader.getFloat(children[i], 'far');
+                var angle = this.reader.getFloat(children[i], 'angle');
+
+                if(isNaN(far)){
+                    this.onXMLMinorError("enter a valid number for 'far'; using far = 500"); 
+                    far = 500;
+                } 
+                if(isNaN(near)){
+                    this.onXMLMinorError("enter a valid number for 'near'; using near = 0.1");
+                    near = 0.1;
+                } 
+                if(isNaN(angle)){
+                    this.onXMLMinorError("enter a valid number for 'angle'; using angle = 45");
+                    angle = 45;
+                } 
+
+                angle = angle * DEGREE_TO_RAD;
+
+                var grandChildren = children[i].children;
+                var nodeNames = [];
+
+                for (var j = 0; j < grandChildren.length; j++) {
+                    nodeNames.push(grandChildren[j].nodeName);
+                }
+
+                var fromID = nodeNames.indexOf('from');
+                var from = [30, 15, 30 ];
+
+                if(fromID == -1) this.onXMLMinorError("unable to parse 'from' values, using [30, 15, 30]");
+                else{
+                    from[0] = this.reader.getFloat(grandChildren[fromID], 'x');
+                    from[1] = this.reader.getFloat(grandChildren[fromID], 'y');
+                    from[2] = this.reader.getFloat(grandChildren[fromID], 'z');
+
+                    if(isNaN(from[0])) this.onXMLMinorError("enter a valid number for 'from[0]'; using from[0] = 30"); 
+                    if(isNaN(from[1])) this.onXMLMinorError("enter a valid number for 'from[1]'; using from[1] = 15");
+                    if(isNaN(from[2])) this.onXMLMinorError("enter a valid number for 'from[2]'; using from[2] = 30");
+                }
+
+                var toID = nodeNames.indexOf("to");
+                var to = [0, -2, 0];
+
+                if(toID == -1) this.onXMLMinorError("unable to parse 'to' values, using [0, -2, 0]");
+                else{
+                    to[0] = this.reader.getFloat(grandChildren[toID], 'x');
+                    to[1] = this.reader.getFloat(grandChildren[toID], 'y');
+                    to[2] = this.reader.getFloat(grandChildren[toID], 'z');
+
+                    if(isNaN(to[0])) this.onXMLMinorError("enter a valid number for 'to[0]'; using to[0] = 0"); 
+                    if(isNaN(to[1])) this.onXMLMinorError("enter a valid number for 'to[1]'; using to[1] = -2");
+                    if(isNaN(to[2])) this.onXMLMinorError("enter a valid number for 'to[2]'; using to[2] = 0");
+                }
+
+                var fromVector = vec3.fromValues(from[0], from[1], from[2]);
+                let toVector = vec3.fromValues(to[0], to[1], to[2]);
+
+                camera = new CGFcamera(angle, near, far, fromVector, toVector);
+
+                this.log("Parsed Perspective Camera");
+            }
+            else if(children[i].nodeName == "ortho"){
+                var near = this.reader.getFloat(children[i], 'near');
+                var far = this.reader.getFloat(children[i], 'far');
+                var left = this.reader.getFloat(children[i], 'left');
+                var right = this.reader.getFloat(children[i], 'right');
+                var top = this.reader.getFloat(children[i], 'top');
+                var bottom = this.reader.getFloat(children[i], 'bottom');
+
+                if(isNaN(far)){
+                    this.onXMLMinorError("enter a valid number for 'far'; using far = 100"); 
+                    far = 100;
+                } 
+                if(isNaN(near)){
+                    this.onXMLMinorError("enter a valid number for 'near'; using near = 0.2");
+                    near = 0.2;
+                } 
+                if(isNaN(left)){
+                    this.onXMLMinorError("enter a valid number for 'left'; using left = -0.2");
+                    left = -0.2;
+                } 
+                if(isNaN(right)){
+                    this.onXMLMinorError("enter a valid number for 'right'; using right = 0.2");
+                    right = 0.2;
+                } 
+                if(isNaN(top)){
+                    this.onXMLMinorError("enter a valid number for 'top'; using top = 0.2");
+                    top = 0.2;
+                } 
+                if(isNaN(bottom)){
+                    this.onXMLMinorError("enter a valid number for 'bottom'; using bottom = -0.2");
+                    bottom = -0.2;;
+                } 
+
+                var grandChildren = children[i].children;
+                var nodeNames = [];
+
+                for (var j = 0; j < grandChildren.length; j++) {
+                    nodeNames.push(grandChildren[j].nodeName);
+                }
+
+                var fromID = nodeNames.indexOf('from');
+                var from = [5, 0, 10];
+
+                if(fromID == -1) this.onXMLMinorError("unable to parse 'from' values, using [5, 0, 10]");
+                else{
+                    from[0] = this.reader.getFloat(grandChildren[fromID], 'x');
+                    from[1] = this.reader.getFloat(grandChildren[fromID], 'y');
+                    from[2] = this.reader.getFloat(grandChildren[fromID], 'z');
+
+                    if(isNaN(from[0])) this.onXMLMinorError("enter a valid number for 'from[0]'; using from[0] = 5"); 
+                    if(isNaN(from[1])) this.onXMLMinorError("enter a valid number for 'from[1]'; using from[1] = 0");
+                    if(isNaN(from[2])) this.onXMLMinorError("enter a valid number for 'from[2]'; using from[2] = 10");
+                }
+
+                var toID = nodeNames.indexOf("to");
+                var to = [5, 0, 0];
+
+                if(toID == -1) this.onXMLMinorError("unable to parse 'to' values, using [5, 0, 0]");
+                else{
+                    to[0] = this.reader.getFloat(grandChildren[toID], 'x');
+                    to[1] = this.reader.getFloat(grandChildren[toID], 'y');
+                    to[2] = this.reader.getFloat(grandChildren[toID], 'z');
+
+                    if(isNaN(to[0])) this.onXMLMinorError("enter a valid number for 'to[0]'; using to[0] = 5"); 
+                    if(isNaN(to[1])) this.onXMLMinorError("enter a valid number for 'to[1]'; using to[1] = 0");
+                    if(isNaN(to[2])) this.onXMLMinorError("enter a valid number for 'to[2]'; using to[2] = 0");
+                }
+
+                var upID = nodeNames.indexOf("up");
+                var up = [0, 1, 0];
+
+                if(upID == -1) this.onXMLMinorError("unable to parse 'to' values, using [0, 1, 0]");
+                else{
+                    up[0] = this.reader.getFloat(grandChildren[upID], 'x');
+                    up[1] = this.reader.getFloat(grandChildren[upID], 'y');
+                    up[2] = this.reader.getFloat(grandChildren[upID], 'z');
+
+                    if(isNaN(up[0])) this.onXMLMinorError("enter a valid number for 'up[0]'; using up[0] = 0"); 
+                    if(isNaN(up[1])) this.onXMLMinorError("enter a valid number for 'up[1]'; using up[1] = 1");
+                    if(isNaN(up[2])) this.onXMLMinorError("enter a valid number for 'up[2]'; using up[2] = 0");
+                }
+
+                var fromVector = vec3.fromValues(from[0], from[1], from[2]);
+                var toVector = vec3.fromValues(to[0], to[1], to[2]);
+                var upVector = vec3.fromValues(up[0], up[1], up[2]);
+
+                camera = new CGFcamera(left, right, bottom, top, near, far, fromVector, toVector, upVector);
+
+                this.log("Parsed Ortho Camera");
+            }
+        }
+
+        this.cameras[id] = camera;
+
+        if (id == this.default) {
+            this.scene.camera = camera;
+            this.scene.interface.setActiveCamera(camera);
+        }
     }
 
     /**
@@ -510,7 +682,15 @@ class MySceneGraph {
 
             var textureIndex = nodeNames.indexOf("texture");
 
+            var amplifications = grandChildren[textureIndex].children;
+
+            var afs = this.reader.getFloat(amplifications[0], 'afs');
+            var aft = this.reader.getFloat(amplifications[0], 'aft');
+
             var textureID = this.reader.getString(grandChildren[textureIndex], 'id');
+            
+            this.textures[textureID] = [this.textures[textureID], afs, aft]; // ???????
+
             this.nodes[nodeID].textureID = textureID;
 
             // -------------------- Descendants -------------------- 
@@ -540,7 +720,6 @@ class MySceneGraph {
                 }
             }
 
-            this.onXMLMinorError("To do: Parse nodes.");
         }
     }
 
@@ -673,6 +852,11 @@ class MySceneGraph {
             
             if(currentNode.leaves[i].primitive != null){
                 if(currentTexture != null){
+                    
+
+
+
+
                 }
                 currentNode.leaves[i].primitive.display();
             }
