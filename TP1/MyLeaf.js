@@ -79,6 +79,13 @@ class MyLeaf {
                 
                 this.primitive = new MyCylinder(this.graph.scene, this.height, this.topRadius, this.bottomRadius, this.stacks, this.slices);
                 break;
+            case 'torus':
+                this.inner  = this.graph.reader.getFloat(element, 'inner');
+                this.outer  = this.graph.reader.getFloat(element, 'outer');
+                this.slices = this.graph.reader.getFloat(element, 'slices');
+                this.loops  = this.graph.reader.getFloat(element, 'loops');
+                this.primitive = new MyTorus(this.graph.scene, this.inner, this.outer, this.slices, this.loops);
+                break;
             default:
                 console.log("Not implemented yet");
                 this.primitive = null;

@@ -282,7 +282,6 @@
             <transformations>
 
                 <translation x="-0.5" y="0.3" z="0.1" />
-                <scale sx="-1" sy="1" sz="1" />
 
             </transformations>
 
@@ -330,7 +329,6 @@
             <transformations>
 
                 <translation x="0.2" y="0.1" z="-0.3" />
-                <scale sx="-1" sy="1" sz="1" />
 
             </transformations>
 
@@ -379,7 +377,8 @@
 
             <transformations>
 
-                <translation x="5" y="0" z="5"/>
+                <translation x="3.5" y="0" z="4"/>
+                <rotation axis="y" angle="-20" />
 
             </transformations>
 
