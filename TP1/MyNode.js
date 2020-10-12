@@ -10,8 +10,6 @@ class MyNode {
         this.children = [];
         this.leaves = [];
 
-        console.log("Node: " + nodeID);
-
         this.material = null;
         this.texture = null;
 

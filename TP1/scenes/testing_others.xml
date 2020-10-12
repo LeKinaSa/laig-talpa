@@ -48,7 +48,7 @@
         <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
          requires a distinct "id". At least one material should be present. -->
         <material id="demoMaterial">
-            <shininess value="ff" />
+            <shininess value="30" />
             <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
             <specular r="0.6" g="0.0" b="0.0" a="1.0" />
@@ -90,13 +90,12 @@
 
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
-
             </transformations>
 
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
             <descendants>
-                <leaf type="cylinder" height="10.0" topRadius="12" bottomRadius="5" stacks="15" slices="7"/>
+                <leaf type="cylinder" height="2.0" topRadius="0.3" bottomRadius="0.5" stacks="10" slices="10"/>
                 <!-- x y z coordinates of each vertex -->
             </descendants>
         </node>

@@ -9,7 +9,7 @@
  * @param  slices - number of slices around Y axis
 */
 class MyCylinder extends CGFobject {
-    constructor(scene, height, topRadius, bottomRadius, stacks, slices) {
+    constructor(scene, height, bottomRadius, topRadius, stacks, slices) {
         super(scene);
         this.height = height;
         this.topRadius = topRadius;
@@ -133,5 +133,9 @@ class MyCylinder extends CGFobject {
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
+    updateTexCoords(coords) {
+		this.texCoords = [...coords];
+		this.updateTexCoordsGLBuffers();
+	}
     
 }

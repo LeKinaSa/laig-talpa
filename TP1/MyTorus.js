@@ -16,7 +16,6 @@ class MyTorus extends CGFobject {
         this.outerRadius = outer;
         this.slices = slices;
         this.loops = loops;
-        console.log(inner, outer, slices, loops);
 
         this.initBuffers();
     }
@@ -78,4 +77,8 @@ class MyTorus extends CGFobject {
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
+    updateTexCoords(coords) {
+		this.texCoords = [...coords];
+		this.updateTexCoordsGLBuffers();
+	}
 }

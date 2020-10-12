@@ -80,7 +80,7 @@
             <!-- next two lines are mandatory -->
             <material id="null" />
 
-            <texture id="forestFloorTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
