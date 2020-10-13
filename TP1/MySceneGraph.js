@@ -471,8 +471,10 @@ class MySceneGraph {
 
                 this.log("Parsed Ortho Camera");
             }
-            else
-                return "Camera type " + children[i].nodeName + " is not accepted";
+            else {
+                this.onXMLMinorError("Camera type " + children[i].nodeName + " is not accepted");
+                continue;
+            }
         
 
             this.cameras[id] = camera;
@@ -507,8 +509,13 @@ class MySceneGraph {
         for (var i = 0; i < children.length; i++)
             nodeNames.push(children[i].nodeName);
 
-        var ambientIndex = nodeNames.indexOf("ambient");
+        var ambientIndex    = nodeNames.indexOf("ambient");
         var backgroundIndex = nodeNames.indexOf("background");
+
+        if (ambientIndex == -1)
+            return "No value for ambient in illumination";
+        if (backgroundIndex == -1)
+            return "No value for background in illumination";
 
         var color = this.parseColor(children[ambientIndex], "ambient");
         if (!Array.isArray(color))
@@ -615,8 +622,8 @@ class MySceneGraph {
         //For each texture in textures block, check ID and file URL
         this.textures = [];
 
-        for(var i = 0; i < texturesNode.children.length; i++){
-            if(texturesNode.children[i].nodeName == "texture"){
+        for (var i = 0; i < texturesNode.children.length; i++) {
+            if (texturesNode.children[i].nodeName == "texture") {
                 var textureID = this.reader.getString(texturesNode.children[i], 'id');
                 var path = this.reader.getString(texturesNode.children[i], 'path');
             }
@@ -666,8 +673,6 @@ class MySceneGraph {
                 nodeNames.push(materialInfo[j].nodeName);
             }
 
-            console.log(materialID);
-
             var shininessIndex = nodeNames.indexOf("shininess");
             var ambientIndex   = nodeNames.indexOf("ambient");
             var diffuseIndex   = nodeNames.indexOf("diffuse");
@@ -675,112 +680,112 @@ class MySceneGraph {
             var emissiveIndex  = nodeNames.indexOf("emissive");
 
             // ------------------------------------- Shininess
-            if(shininessIndex == -1) return " No value for shininess in material: " + materialID;
+            if (shininessIndex == -1) return " No value for shininess in material: " + materialID;
             var shininess = this.reader.getFloat(materialInfo[shininessIndex], 'value');
-            if(isNaN(shininess) || shininess <= 0) return "Not a valid value for shininess in material: " + materialID;
+            if (isNaN(shininess) || shininess <= 0) return "Not a valid value for shininess in material: " + materialID;
                 
             // ------------------------------------- Ambient
-            if(ambientIndex == -1) return "No value for ambient in material: " + materialID;
+            if (ambientIndex == -1) return "No value for ambient in material: " + materialID;
             var ambient_component = [];
 
             // --- Ambient: Red
             var ambient_r = this.reader.getFloat(materialInfo[ambientIndex], 'r');
-            if(isNaN(ambient_r) || ambient_r < 0 || ambient_r > 1) return "Not a valid value for ambient_red in material: " + materialID;
+            if (isNaN(ambient_r) || ambient_r < 0 || ambient_r > 1) return "Not a valid value for ambient_red in material: " + materialID;
             ambient_component.push(ambient_r);
 
             // --- Ambient: Green
             var ambient_g = this.reader.getFloat(materialInfo[ambientIndex], 'g');
-            if(isNaN(ambient_g) || ambient_g < 0 || ambient_g > 1) return "Not a valid value for ambient_green in material: " + materialID;
+            if (isNaN(ambient_g) || ambient_g < 0 || ambient_g > 1) return "Not a valid value for ambient_green in material: " + materialID;
             ambient_component.push(ambient_g);
 
             // --- Ambient: Blue
             var ambient_b = this.reader.getFloat(materialInfo[ambientIndex], 'b');
-            if(isNaN(ambient_b) || ambient_b < 0 || ambient_b > 1) return "Not a valid value for ambient_blue in material: " + materialID;
+            if (isNaN(ambient_b) || ambient_b < 0 || ambient_b > 1) return "Not a valid value for ambient_blue in material: " + materialID;
             ambient_component.push(ambient_b);
 
             // --- Ambient: A
             var ambient_a = this.reader.getFloat(materialInfo[ambientIndex], 'a');
-            if(isNaN(ambient_a) || ambient_a < 0 || ambient_a > 1) return "Not a valid value for ambient_a in material: " + materialID;
+            if (isNaN(ambient_a) || ambient_a < 0 || ambient_a > 1) return "Not a valid value for ambient_alpha in material: " + materialID;
             ambient_component.push(ambient_a);
 
             // ------------------------------------- Diffuse
-            if(diffuseIndex == -1) return " No value for diffuse in material: " + materialID;
+            if (diffuseIndex == -1) return " No value for diffuse in material: " + materialID;
             var diffuse_component = [];
 
             // --- Diffuse: Red
             var diffuse_r = this.reader.getFloat(materialInfo[diffuseIndex], 'r');
-            if(isNaN(diffuse_r) || diffuse_r < 0 || diffuse_r > 1) return "Not a valid value for diffuse_red in material: " + materialID;
+            if (isNaN(diffuse_r) || diffuse_r < 0 || diffuse_r > 1) return "Not a valid value for diffuse_red in material: " + materialID;
             diffuse_component.push(diffuse_r);
 
             // --- Diffuse: Green
             var diffuse_g = this.reader.getFloat(materialInfo[diffuseIndex], 'g');
-            if(isNaN(diffuse_g) || diffuse_g < 0 || diffuse_g > 1) return "Not a valid value for diffuse_green in material: " + materialID;
+            if (isNaN(diffuse_g) || diffuse_g < 0 || diffuse_g > 1) return "Not a valid value for diffuse_green in material: " + materialID;
             diffuse_component.push(diffuse_g);
 
             // --- Diffuse: Blue
             var diffuse_b = this.reader.getFloat(materialInfo[diffuseIndex], 'b');
-            if(isNaN(diffuse_b) || diffuse_b < 0 || diffuse_b > 1) return "Not a valid value for diffuse_blue in material: " + materialID;
+            if (isNaN(diffuse_b) || diffuse_b < 0 || diffuse_b > 1) return "Not a valid value for diffuse_blue in material: " + materialID;
             diffuse_component.push(diffuse_b);
 
             // --- Diffuse: A
             var diffuse_a = this.reader.getFloat(materialInfo[diffuseIndex], 'a');
-            if(isNaN(diffuse_a) || diffuse_a < 0 || diffuse_a > 1) return "Not a valid value for diffuse_a in material: " + materialID;
+            if (isNaN(diffuse_a) || diffuse_a < 0 || diffuse_a > 1) return "Not a valid value for diffuse_alpha in material: " + materialID;
             diffuse_component.push(diffuse_a);
 
             // ------------------------------------- Specular
-            if(specularIndex == -1) return "No value for specular in material: " + materialID;
+            if (specularIndex == -1) return "No value for specular in material: " + materialID;
             var specular_component = [];
 
             // --- specular: Red
             var specular_r = this.reader.getFloat(materialInfo[specularIndex], 'r');
-            if(isNaN(specular_r) || specular_r < 0 || specular_r > 1) return "Not a valid value for specular_red in material: " + materialID;
+            if (isNaN(specular_r) || specular_r < 0 || specular_r > 1) return "Not a valid value for specular_red in material: " + materialID;
             specular_component.push(specular_r);
 
             // --- specular: Green
             var specular_g = this.reader.getFloat(materialInfo[specularIndex], 'g');
-            if(isNaN(specular_g) || specular_g < 0 || specular_g > 1) return "Not a valid value for specular_green in material: " + materialID;
+            if (isNaN(specular_g) || specular_g < 0 || specular_g > 1) return "Not a valid value for specular_green in material: " + materialID;
             specular_component.push(specular_g);
 
             // --- specular: Blue
             var specular_b = this.reader.getFloat(materialInfo[specularIndex], 'b');
-            if(isNaN(specular_b) || specular_b < 0 || specular_b > 1) return "Not a valid value for specular_blue in material: " + materialID;
+            if (isNaN(specular_b) || specular_b < 0 || specular_b > 1) return "Not a valid value for specular_blue in material: " + materialID;
             specular_component.push(specular_b);
 
             // --- specular: A
             var specular_a = this.reader.getFloat(materialInfo[specularIndex], 'a');
-            if(isNaN(specular_a) || specular_a < 0 || specular_a > 1) return "Not a valid value for specular_a in material: " + materialID;
+            if (isNaN(specular_a) || specular_a < 0 || specular_a > 1) return "Not a valid value for specular_alpha in material: " + materialID;
             specular_component.push(specular_a);
 
             // ------------------------------------- Emissive
-            if(emissiveIndex == -1) return "No value for emissive in material: " + materialID;
+            if (emissiveIndex == -1) return "No value for emissive in material: " + materialID;
             var emissive_component = [];
 
             // --- Emissive: Red
             var emissive_r = this.reader.getFloat(materialInfo[emissiveIndex], 'r');
-            if(isNaN(emissive_r) || emissive_r < 0 || emissive_r > 1) return "Not a valid value for emissive_red in material: " + materialID;
+            if (isNaN(emissive_r) || emissive_r < 0 || emissive_r > 1) return "Not a valid value for emissive_red in material: " + materialID;
             emissive_component.push(emissive_r);
 
             // --- Emissive: Green
             var emissive_g = this.reader.getFloat(materialInfo[emissiveIndex], 'g');
-            if(isNaN(emissive_g) || emissive_g < 0 || emissive_g > 1) return "Not a valid value for emissive_green in material: " + materialID;
+            if (isNaN(emissive_g) || emissive_g < 0 || emissive_g > 1) return "Not a valid value for emissive_green in material: " + materialID;
             emissive_component.push(emissive_g);
 
             // --- Emissive: Blue
             var emissive_b = this.reader.getFloat(materialInfo[emissiveIndex], 'b');
-            if(isNaN(emissive_b) || emissive_b < 0 || emissive_b > 1) return "Not a valid value for emissive_blue in material: " + materialID;
+            if (isNaN(emissive_b) || emissive_b < 0 || emissive_b > 1) return "Not a valid value for emissive_blue in material: " + materialID;
             emissive_component.push(emissive_b);
 
             // --- Emissive: A
             var emissive_a = this.reader.getFloat(materialInfo[emissiveIndex], 'a');
-            if(isNaN(emissive_a) || emissive_a < 0 || emissive_a > 1) return "Not a valid value for emissive_a in material: " + materialID;
+            if (isNaN(emissive_a) || emissive_a < 0 || emissive_a > 1) return "Not a valid value for emissive_alpha in material: " + materialID;
             emissive_component.push(emissive_a);
 
             var newMaterial = new CGFappearance(this.scene);
             newMaterial.setShininess(shininess);
-            newMaterial.setAmbient(ambient_component[0],ambient_component[1],ambient_component[2],ambient_component[3]);
-            newMaterial.setDiffuse(diffuse_component[0],diffuse_component[1],diffuse_component[2],diffuse_component[3]);
-            newMaterial.setSpecular(specular_component[0],specular_component[1],specular_component[2],specular_component[3]);
-            newMaterial.setEmission(emissive_component[0],emissive_component[1],emissive_component[2],emissive_component[3]);
+            newMaterial.setAmbient ( ambient_component[0],  ambient_component[1],  ambient_component[2],  ambient_component[3]);
+            newMaterial.setDiffuse ( diffuse_component[0],  diffuse_component[1],  diffuse_component[2],  diffuse_component[3]);
+            newMaterial.setSpecular(specular_component[0], specular_component[1], specular_component[2], specular_component[3]);
+            newMaterial.setEmission(emissive_component[0], emissive_component[1], emissive_component[2], emissive_component[3]);
             
             this.materials[materialID] = newMaterial;            
             
@@ -830,9 +835,13 @@ class MySceneGraph {
             }
 
             // -------------------- Transformations -------------------- 
-            //                  MISSING: ERROR HANDLING
+            //                  TODO: MISSING ERROR HANDLING
 
             var transformationsIndex = nodeNames.indexOf("transformations");
+            if (transformationsIndex == -1) {
+                //TODO
+                continue;
+            }
 
             var transformations = grandChildren[transformationsIndex].children;
 
@@ -842,39 +851,71 @@ class MySceneGraph {
                         var x = this.reader.getFloat(transformations[j], 'x');
                         var y = this.reader.getFloat(transformations[j], 'y');
                         var z = this.reader.getFloat(transformations[j], 'z');
+                        if (x == null) {
+                            this.onXMLMinorError("enter a valid number for 'translation x'; using x = 0");
+                            x = 0;
+                        }
+                        if (y == null) {
+                            this.onXMLMinorError("enter a valid number for 'translation y'; using y = 0");
+                            y = 0;
+                        }
+                        if (z == null) {
+                            this.onXMLMinorError("enter a valid number for 'translation z'; using z = 0");
+                            z = 0;
+                        }
                         mat4.translate(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, [x, y, z])
                         break;
                     case "rotation":
                         var axis = this.reader.getItem(transformations[j], 'axis', ['x', 'y', 'z']);
                         var angle = this.reader.getFloat(transformations[j], 'angle');
+                        if (axis == null) {
+                            this.onXMLMinorError("enter a valid number for 'rotation axis'; using axis = 'x'");
+                            axis = 'x';
+                        }
+                        if (angle == null) {
+                            this.onXMLMinorError("enter a valid number for 'rotation angle'; using angle = 0");
+                            angle = 0;
+                        }
                         mat4.rotate(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, angle * DEGREE_TO_RAD, this.axisCoords[axis]);
                         break;
                     case "scale":
                         var sx = this.reader.getFloat(transformations[j], 'sx');
                         var sy = this.reader.getFloat(transformations[j], 'sy');
                         var sz = this.reader.getFloat(transformations[j], 'sz');
+                        if (sx == null) {
+                            this.onXMLMinorError("enter a valid number for 'scale sx'; using sx = 1");
+                            sx = 1;
+                        }
+                        if (sy == null) {
+                            this.onXMLMinorError("enter a valid number for 'scale sy'; using sy = 1");
+                            sy = 1;
+                        }
+                        if (sz == null) {
+                            this.onXMLMinorError("enter a valid number for 'scale sz'; using sz = 1");
+                            sz = 1;
+                        }
                         mat4.scale(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, [sx, sy, sz]);
                         break;
                     default:
+                        this.onXMLMinorError("unknown transformation: " + transformations[j].nodeName);
                         break;
                 }
             }
 
             // -------------------- Material -------------------- 
-            //                         DONE
-
+            
             var materialIndex = nodeNames.indexOf("material");
-            if(materialIndex == -1) return "Material must be defined for node: " + nodeID;
+            if (materialIndex == -1) return "Material must be defined for node: " + nodeID;
 
             var materialID = this.reader.getString(grandChildren[materialIndex], 'id');
-            if(materialID == null) return "Can't parse materials for node: " + nodeID;
-            if(materialID != "null" && this.materials[materialID] == null)
+            if (materialID == null) return "Can't parse materials for node: " + nodeID;
+            if (materialID != "null" && this.materials[materialID] == null)
                 return "Not a valid materialID for node: " + nodeID;
 
             this.nodes[nodeID].material = materialID;
 
             // -------------------- Texture -------------------- 
-            //          NOT COMPLETED, MISSING AMPLIFICATIONS
+            //          TODO: NOT COMPLETED, MISSING AMPLIFICATIONS
 
             var textureIndex = nodeNames.indexOf("texture");
 
@@ -889,28 +930,30 @@ class MySceneGraph {
             
 
             // -------------------- Descendants -------------------- 
-            //                         DONE
 
             var descendantsIndex = nodeNames.indexOf("descendants");
+            if (descendantsIndex == -1) {
+                //TODO
+                continue;
+            }
 
             // list where each element corresponds to a noderef or a leaf
             var descendants = grandChildren[descendantsIndex].children;
 
             // identify if it's a noderef or a leaf and treat them
             for(var j = 0; j < descendants.length; j++){
-                if(descendants[j].nodeName == "noderef"){
+                if (descendants[j].nodeName == "noderef") {
                     var currentNodeID = this.reader.getString(descendants[j], 'id');
 
-                    if(currentNodeID == null)
+                    if (currentNodeID == null)
                         this.onXMLMinorError("Error: parse descendants - noderef");
-                    else{
+                    else
                         this.nodes[nodeID].addChild(currentNodeID);
-                    }
                 }
-                else if(descendants[j].nodeName == "leaf"){
+                else if (descendants[j].nodeName == "leaf") {
                     this.nodes[nodeID].addLeaf(new MyLeaf(this, descendants[j]));
                 }
-                else{
+                else {
                     this.onXMLMinorError("unknown tag <" + descendants[j].nodeName + ">");
                 }
             }
@@ -1025,7 +1068,7 @@ class MySceneGraph {
         this.displaySceneRecursive(this.idRoot, this.nodes[this.idRoot].texture, this.nodes[this.idRoot].material);
     }
 
-    // NOT COMPLETED, TEXTURES DONT WORK, MISSING AMPLIFICATIONS
+    // TODO: NOT COMPLETED, TEXTURES DONT WORK, MISSING AMPLIFICATIONS
     displaySceneRecursive(nodeID, textureFather, materialFather){
         var currentNode = this.nodes[nodeID];
         var idTexture = textureFather;
