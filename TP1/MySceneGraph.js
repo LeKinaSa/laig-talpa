@@ -131,7 +131,7 @@ class MySceneGraph {
             return "tag <views> missing";
         else {
             if (index != VIEWS_INDEX)
-                this.onXMLMinorError("tag <views> out of order");
+                this.onXMLMinorError("tag <views> out of order " + index);
 
             //Parse views block
             if ((error = this.parseViews(nodes[index])) != null)
@@ -143,7 +143,7 @@ class MySceneGraph {
             return "tag <illumination> missing";
         else {
             if (index != ILLUMINATION_INDEX)
-                this.onXMLMinorError("tag <illumination> out of order");
+                this.onXMLMinorError("tag <illumination> out of order " + index);
 
             //Parse illumination block
             if ((error = this.parseIllumination(nodes[index])) != null)
@@ -155,7 +155,7 @@ class MySceneGraph {
             return "tag <lights> missing";
         else {
             if (index != LIGHTS_INDEX)
-                this.onXMLMinorError("tag <lights> out of order");
+                this.onXMLMinorError("tag <lights> out of order " + index);
 
             //Parse lights block
             if ((error = this.parseLights(nodes[index])) != null)
@@ -166,7 +166,7 @@ class MySceneGraph {
             return "tag <textures> missing";
         else {
             if (index != TEXTURES_INDEX)
-                this.onXMLMinorError("tag <textures> out of order");
+                this.onXMLMinorError("tag <textures> out of order " + index);
 
             //Parse textures block
             if ((error = this.parseTextures(nodes[index])) != null)
@@ -178,7 +178,7 @@ class MySceneGraph {
             return "tag <materials> missing";
         else {
             if (index != MATERIALS_INDEX)
-                this.onXMLMinorError("tag <materials> out of order");
+                this.onXMLMinorError("tag <materials> out of order " + index);
 
             //Parse materials block
             if ((error = this.parseMaterials(nodes[index])) != null)
@@ -190,13 +190,13 @@ class MySceneGraph {
             return "tag <nodes> missing";
         else {
             if (index != NODES_INDEX)
-                this.onXMLMinorError("tag <nodes> out of order");
+                this.onXMLMinorError("tag <nodes> out of order " + index);
 
             //Parse nodes block
             if ((error = this.parseNodes(nodes[index])) != null)
                 return error;
         }
-        this.log("all parsed");
+        this.log("All parsed");
     }
 
     /**
@@ -236,7 +236,6 @@ class MySceneGraph {
         this.referenceLength = axis_length || 1;
 
         this.log("Parsed initials");
-
         return null;
     }
 
@@ -254,14 +253,24 @@ class MySceneGraph {
             this.onXMLError('Error Parsing Default View');
         }
 
+        var default_camera_found = false;
+
         for(var i = 0; i < children.length; i++){
-            var id = this.reader.getString(children[i], 'id');
             var camera;
+            // Get id of the current camera.
+            var id = this.reader.getString(children[i], 'id');
+            if (id == null)
+                return "no ID defined for camera";
+
+            // Checks for repeated IDs.
+            if (this.cameras[id] != null)
+                return "ID must be unique for each camera (conflict: ID = " + id + ")";
+            
 
             // perspective or ortho
-            if(children[i].nodeName == "perspective"){
-                var near = this.reader.getFloat(children[i], 'near');
-                var far = this.reader.getFloat(children[i], 'far');
+            if (children[i].nodeName == "perspective") {
+                var near  = this.reader.getFloat(children[i], 'near');
+                var far   = this.reader.getFloat(children[i], 'far');
                 var angle = this.reader.getFloat(children[i], 'angle');
 
                 if(isNaN(far)){
@@ -287,31 +296,51 @@ class MySceneGraph {
                 }
 
                 var fromID = nodeNames.indexOf('from');
-                var from = [30, 15, 30 ];
+                var from = [30, 15, 30];
 
-                if(fromID == -1) this.onXMLMinorError("unable to parse 'from' values, using [30, 15, 30]");
-                else{
+                if (fromID == -1)
+                    this.onXMLMinorError("unable to parse 'from' values, using [30, 15, 30]");
+                else {
                     from[0] = this.reader.getFloat(grandChildren[fromID], 'x');
                     from[1] = this.reader.getFloat(grandChildren[fromID], 'y');
                     from[2] = this.reader.getFloat(grandChildren[fromID], 'z');
 
-                    if(isNaN(from[0])) this.onXMLMinorError("enter a valid number for 'from[0]'; using from[0] = 30"); 
-                    if(isNaN(from[1])) this.onXMLMinorError("enter a valid number for 'from[1]'; using from[1] = 15");
-                    if(isNaN(from[2])) this.onXMLMinorError("enter a valid number for 'from[2]'; using from[2] = 30");
+                    if (isNaN(from[0])) {
+                        this.onXMLMinorError("enter a valid number for 'from[0]'; using from[0] = 30");
+                        from[0] = 30;
+                    }
+                    if (isNaN(from[1])) {
+                        this.onXMLMinorError("enter a valid number for 'from[1]'; using from[1] = 15");
+                        from[1] = 15;
+                    }
+                    if (isNaN(from[2])) {
+                        this.onXMLMinorError("enter a valid number for 'from[2]'; using from[2] = 30");
+                        from[2] = 30;
+                    }
                 }
 
                 var toID = nodeNames.indexOf("to");
                 var to = [0, -2, 0];
 
-                if(toID == -1) this.onXMLMinorError("unable to parse 'to' values, using [0, -2, 0]");
-                else{
+                if (toID == -1)
+                    this.onXMLMinorError("unable to parse 'to' values, using [0, -2, 0]");
+                else {
                     to[0] = this.reader.getFloat(grandChildren[toID], 'x');
                     to[1] = this.reader.getFloat(grandChildren[toID], 'y');
                     to[2] = this.reader.getFloat(grandChildren[toID], 'z');
 
-                    if(isNaN(to[0])) this.onXMLMinorError("enter a valid number for 'to[0]'; using to[0] = 0"); 
-                    if(isNaN(to[1])) this.onXMLMinorError("enter a valid number for 'to[1]'; using to[1] = -2");
-                    if(isNaN(to[2])) this.onXMLMinorError("enter a valid number for 'to[2]'; using to[2] = 0");
+                    if (isNaN(to[0])) {
+                        this.onXMLMinorError("enter a valid number for 'to[0]'; using to[0] = 0");
+                        to[0] = 0;
+                    }
+                    if (isNaN(to[1])) {
+                        this.onXMLMinorError("enter a valid number for 'to[1]'; using to[1] = -2");
+                        to[1] = -2;
+                    }
+                    if (isNaN(to[2])) {
+                        this.onXMLMinorError("enter a valid number for 'to[2]'; using to[2] = 0");
+                        to[2] = 0;
+                    }
                 }
 
                 var fromVector = vec3.fromValues(from[0], from[1], from[2]);
@@ -321,12 +350,12 @@ class MySceneGraph {
 
                 this.log("Parsed Perspective Camera");
             }
-            else if(children[i].nodeName == "ortho"){
-                var near = this.reader.getFloat(children[i], 'near');
-                var far = this.reader.getFloat(children[i], 'far');
-                var left = this.reader.getFloat(children[i], 'left');
-                var right = this.reader.getFloat(children[i], 'right');
-                var top = this.reader.getFloat(children[i], 'top');
+            else if (children[i].nodeName == "ortho") {
+                var near   = this.reader.getFloat(children[i], 'near');
+                var far    = this.reader.getFloat(children[i], 'far');
+                var left   = this.reader.getFloat(children[i], 'left');
+                var right  = this.reader.getFloat(children[i], 'right');
+                var top    = this.reader.getFloat(children[i], 'top');
                 var bottom = this.reader.getFloat(children[i], 'bottom');
 
                 if(isNaN(far)){
@@ -364,61 +393,102 @@ class MySceneGraph {
                 var fromID = nodeNames.indexOf('from');
                 var from = [5, 0, 10];
 
-                if(fromID == -1) this.onXMLMinorError("unable to parse 'from' values, using [5, 0, 10]");
-                else{
+                if (fromID == -1)
+                    this.onXMLMinorError("unable to parse 'from' values, using [5, 0, 10]");
+                else {
                     from[0] = this.reader.getFloat(grandChildren[fromID], 'x');
                     from[1] = this.reader.getFloat(grandChildren[fromID], 'y');
                     from[2] = this.reader.getFloat(grandChildren[fromID], 'z');
 
-                    if(isNaN(from[0])) this.onXMLMinorError("enter a valid number for 'from[0]'; using from[0] = 5"); 
-                    if(isNaN(from[1])) this.onXMLMinorError("enter a valid number for 'from[1]'; using from[1] = 0");
-                    if(isNaN(from[2])) this.onXMLMinorError("enter a valid number for 'from[2]'; using from[2] = 10");
+                    if(isNaN(from[0])) {
+                        this.onXMLMinorError("enter a valid number for 'from[0]'; using from[0] = 5");
+                        from[0] = 5;
+                    }
+                    if(isNaN(from[1])) {
+                        this.onXMLMinorError("enter a valid number for 'from[1]'; using from[1] = 0");
+                        from[1] = 0;
+                    }
+                    if(isNaN(from[2])) {
+                        this.onXMLMinorError("enter a valid number for 'from[2]'; using from[2] = 10");
+                        from[2] = 10;
+                    }
                 }
 
                 var toID = nodeNames.indexOf("to");
                 var to = [5, 0, 0];
 
-                if(toID == -1) this.onXMLMinorError("unable to parse 'to' values, using [5, 0, 0]");
+                if (toID == -1) {
+                    this.onXMLMinorError("unable to parse 'to' values, using [5, 0, 0]");
+                }
                 else{
                     to[0] = this.reader.getFloat(grandChildren[toID], 'x');
                     to[1] = this.reader.getFloat(grandChildren[toID], 'y');
                     to[2] = this.reader.getFloat(grandChildren[toID], 'z');
 
-                    if(isNaN(to[0])) this.onXMLMinorError("enter a valid number for 'to[0]'; using to[0] = 5"); 
-                    if(isNaN(to[1])) this.onXMLMinorError("enter a valid number for 'to[1]'; using to[1] = 0");
-                    if(isNaN(to[2])) this.onXMLMinorError("enter a valid number for 'to[2]'; using to[2] = 0");
+                    if(isNaN(to[0])) {
+                        this.onXMLMinorError("enter a valid number for 'to[0]'; using to[0] = 5");
+                        to[0] = 5;
+                    }
+                    if(isNaN(to[1])) {
+                        this.onXMLMinorError("enter a valid number for 'to[1]'; using to[1] = 0");
+                        to[1] = 0;
+                    }
+                    if(isNaN(to[2])) {
+                        this.onXMLMinorError("enter a valid number for 'to[2]'; using to[2] = 0");
+                        to[2] = 0;
+                    }
                 }
 
                 var upID = nodeNames.indexOf("up");
                 var up = [0, 1, 0];
 
-                if(upID == -1) this.onXMLMinorError("unable to parse 'to' values, using [0, 1, 0]");
-                else{
+                if (upID == -1)
+                    this.onXMLMinorError("unable to parse 'to' values, using [0, 1, 0]");
+                else {
                     up[0] = this.reader.getFloat(grandChildren[upID], 'x');
                     up[1] = this.reader.getFloat(grandChildren[upID], 'y');
                     up[2] = this.reader.getFloat(grandChildren[upID], 'z');
 
-                    if(isNaN(up[0])) this.onXMLMinorError("enter a valid number for 'up[0]'; using up[0] = 0"); 
-                    if(isNaN(up[1])) this.onXMLMinorError("enter a valid number for 'up[1]'; using up[1] = 1");
-                    if(isNaN(up[2])) this.onXMLMinorError("enter a valid number for 'up[2]'; using up[2] = 0");
+                    if (isNaN(up[0])) {
+                        this.onXMLMinorError("enter a valid number for 'up[0]'; using up[0] = 0");
+                        up[0] = 0;
+                    }
+                    if (isNaN(up[1])) {
+                        this.onXMLMinorError("enter a valid number for 'up[1]'; using up[1] = 1");
+                        up[1] = 1;
+                    }
+                    if (isNaN(up[2])) {
+                        this.onXMLMinorError("enter a valid number for 'up[2]'; using up[2] = 0");
+                        up[2] = 0;
+                    }
                 }
 
                 var fromVector = vec3.fromValues(from[0], from[1], from[2]);
-                var toVector = vec3.fromValues(to[0], to[1], to[2]);
-                var upVector = vec3.fromValues(up[0], up[1], up[2]);
+                var toVector   = vec3.fromValues(  to[0],   to[1],   to[2]);
+                var upVector   = vec3.fromValues(  up[0],   up[1],   up[2]);
 
                 camera = new CGFcamera(left, right, bottom, top, near, far, fromVector, toVector, upVector);
 
                 this.log("Parsed Ortho Camera");
             }
+            else
+                return "Camera type " + children[i].nodeName + " is not accepted";
+        
+
+            this.cameras[id] = camera;
+
+            if (id == this.default) {
+                this.scene.camera = camera;
+                this.scene.interface.setActiveCamera(camera);
+                default_camera_found = true;
+            }
         }
 
-        this.cameras[id] = camera;
+        if (!default_camera_found)
+            return "Default View ID does not match a camera ID";
 
-        if (id == this.default) {
-            this.scene.camera = camera;
-            this.scene.interface.setActiveCamera(camera);
-        }
+        this.log("Parsed views");
+        return null;
     }
 
     /**
@@ -453,7 +523,6 @@ class MySceneGraph {
             this.background = color;
 
         this.log("Parsed Illumination.");
-
         return null;
     }
 
@@ -588,7 +657,7 @@ class MySceneGraph {
 
             // Checks for repeated IDs.
             if (this.materials[materialID] != null)
-                return "ID must be unique for each light (conflict: ID = " + materialID + ")";
+                return "ID must be unique for each material (conflict: ID = " + materialID + ")";
 
             //Continue here
             var materialInfo = children[i].children;
