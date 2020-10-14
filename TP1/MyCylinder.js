@@ -67,13 +67,15 @@ class MyCylinder extends CGFobject {
                 this.normals.push(x/currentRadius, y/currentRadius, 0);
     
                 //--- Texture Coordinates
-                this.texCoords.push(slice/this.circleDivs , stack/this.heightDivs); //TODO
+                this.texCoords.push(slice/this.circleDivs , stack/this.heightDivs);
 
                 angle += angleInc;
             }
             currentHeight += heightInc;
             currentRadius += radiusInc;
         }
+
+        //  s = (x + raio) / (2 * raio) e t = (y + raio) / (2 * raio)
 
         // Circle : Z = height
         for (let line = 0; line <= 1; line++) {
@@ -97,7 +99,7 @@ class MyCylinder extends CGFobject {
                 this.normals.push(0, 0, -1);
 
                 //--- Texture Coordinates
-                this.texCoords.push(slice/this.circleDivs , line); //TODO
+                this.texCoords.push((x + this.topRadius)/(2 * this.topRadius) , (y + this.topRadius)/(2 * this.topRadius));
 
                 angle += angleInc;
             }
@@ -124,7 +126,7 @@ class MyCylinder extends CGFobject {
                 this.normals.push(0, 0, 1);
 
                 //--- Texture Coordinates
-                this.texCoords.push(slice/this.circleDivs , line); //TODO
+                this.texCoords.push((x + this.bottomRadius)/(2 * this.bottomRadius) , (y + this.bottomRadius)/(2 * this.bottomRadius));
 
                 angle += angleInc;
             }
@@ -135,15 +137,7 @@ class MyCylinder extends CGFobject {
     }
     updateTexCoords(afs, aft) {
 		this.texCoords = [
-			0, 1/aft,
-			1/afs, 1/aft,
-			0, 0,
-			1/afs, 0,
-
-			0, 1/aft,
-			1/afs, 1/aft,
-			0, 0,
-			1/afs, 0
+			
 		];
 		this.updateTexCoordsGLBuffers();
 	}

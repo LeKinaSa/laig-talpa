@@ -90,12 +90,14 @@
 
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
+                <rotation axis="y" angle="90" />
             </transformations>
 
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
             <descendants>
-                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5" />
+                 <!-- <leaf type="triangle" x1="-10" y1="0" x2="10" y2="0" x3="0" y3="10" /> -->
+                 <leaf type="cylinder" height="2" topRadius="0.5" bottomRadius="0.5" stacks="32" slices="32"/>
                 <!-- x y z coordinates of each vertex -->
             </descendants>
         </node>
