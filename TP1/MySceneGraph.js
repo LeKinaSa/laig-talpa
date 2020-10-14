@@ -672,7 +672,6 @@ class MySceneGraph {
             if (this.materials[materialID] != null)
                 return "ID must be unique for each material (conflict: ID = " + materialID + ")";
 
-            //Continue here
             var materialInfo = children[i].children;
 
             for(var j = 0; j < materialInfo.length; j++){
@@ -692,106 +691,26 @@ class MySceneGraph {
                 
             // ------------------------------------- Ambient
             if (ambientIndex == -1) return "No value for ambient in material: " + materialID;
-            var ambient_component = [];
-
-            // --- Ambient: Red
-            var ambient_r = this.reader.getFloat(materialInfo[ambientIndex], 'r');
-            if (isNaN(ambient_r) || ambient_r < 0 || ambient_r > 1) return "Not a valid value for ambient_red in material: " + materialID;
-            ambient_component.push(ambient_r);
-
-            // --- Ambient: Green
-            var ambient_g = this.reader.getFloat(materialInfo[ambientIndex], 'g');
-            if (isNaN(ambient_g) || ambient_g < 0 || ambient_g > 1) return "Not a valid value for ambient_green in material: " + materialID;
-            ambient_component.push(ambient_g);
-
-            // --- Ambient: Blue
-            var ambient_b = this.reader.getFloat(materialInfo[ambientIndex], 'b');
-            if (isNaN(ambient_b) || ambient_b < 0 || ambient_b > 1) return "Not a valid value for ambient_blue in material: " + materialID;
-            ambient_component.push(ambient_b);
-
-            // --- Ambient: A
-            var ambient_a = this.reader.getFloat(materialInfo[ambientIndex], 'a');
-            if (isNaN(ambient_a) || ambient_a < 0 || ambient_a > 1) return "Not a valid value for ambient_alpha in material: " + materialID;
-            ambient_component.push(ambient_a);
+            var ambient_component = this.parseColor(materialInfo[ambientIndex], 'ambient of the material: ' + materialID);
 
             // ------------------------------------- Diffuse
             if (diffuseIndex == -1) return " No value for diffuse in material: " + materialID;
-            var diffuse_component = [];
-
-            // --- Diffuse: Red
-            var diffuse_r = this.reader.getFloat(materialInfo[diffuseIndex], 'r');
-            if (isNaN(diffuse_r) || diffuse_r < 0 || diffuse_r > 1) return "Not a valid value for diffuse_red in material: " + materialID;
-            diffuse_component.push(diffuse_r);
-
-            // --- Diffuse: Green
-            var diffuse_g = this.reader.getFloat(materialInfo[diffuseIndex], 'g');
-            if (isNaN(diffuse_g) || diffuse_g < 0 || diffuse_g > 1) return "Not a valid value for diffuse_green in material: " + materialID;
-            diffuse_component.push(diffuse_g);
-
-            // --- Diffuse: Blue
-            var diffuse_b = this.reader.getFloat(materialInfo[diffuseIndex], 'b');
-            if (isNaN(diffuse_b) || diffuse_b < 0 || diffuse_b > 1) return "Not a valid value for diffuse_blue in material: " + materialID;
-            diffuse_component.push(diffuse_b);
-
-            // --- Diffuse: A
-            var diffuse_a = this.reader.getFloat(materialInfo[diffuseIndex], 'a');
-            if (isNaN(diffuse_a) || diffuse_a < 0 || diffuse_a > 1) return "Not a valid value for diffuse_alpha in material: " + materialID;
-            diffuse_component.push(diffuse_a);
+            var diffuse_component = this.parseColor(materialInfo[diffuseIndex], 'diffuse of the material: ' + materialID);
 
             // ------------------------------------- Specular
             if (specularIndex == -1) return "No value for specular in material: " + materialID;
-            var specular_component = [];
-
-            // --- specular: Red
-            var specular_r = this.reader.getFloat(materialInfo[specularIndex], 'r');
-            if (isNaN(specular_r) || specular_r < 0 || specular_r > 1) return "Not a valid value for specular_red in material: " + materialID;
-            specular_component.push(specular_r);
-
-            // --- specular: Green
-            var specular_g = this.reader.getFloat(materialInfo[specularIndex], 'g');
-            if (isNaN(specular_g) || specular_g < 0 || specular_g > 1) return "Not a valid value for specular_green in material: " + materialID;
-            specular_component.push(specular_g);
-
-            // --- specular: Blue
-            var specular_b = this.reader.getFloat(materialInfo[specularIndex], 'b');
-            if (isNaN(specular_b) || specular_b < 0 || specular_b > 1) return "Not a valid value for specular_blue in material: " + materialID;
-            specular_component.push(specular_b);
-
-            // --- specular: A
-            var specular_a = this.reader.getFloat(materialInfo[specularIndex], 'a');
-            if (isNaN(specular_a) || specular_a < 0 || specular_a > 1) return "Not a valid value for specular_alpha in material: " + materialID;
-            specular_component.push(specular_a);
+            var specular_component = this.parseColor(materialInfo[specularIndex], 'specular of the material: ' + materialID);
 
             // ------------------------------------- Emissive
             if (emissiveIndex == -1) return "No value for emissive in material: " + materialID;
-            var emissive_component = [];
-
-            // --- Emissive: Red
-            var emissive_r = this.reader.getFloat(materialInfo[emissiveIndex], 'r');
-            if (isNaN(emissive_r) || emissive_r < 0 || emissive_r > 1) return "Not a valid value for emissive_red in material: " + materialID;
-            emissive_component.push(emissive_r);
-
-            // --- Emissive: Green
-            var emissive_g = this.reader.getFloat(materialInfo[emissiveIndex], 'g');
-            if (isNaN(emissive_g) || emissive_g < 0 || emissive_g > 1) return "Not a valid value for emissive_green in material: " + materialID;
-            emissive_component.push(emissive_g);
-
-            // --- Emissive: Blue
-            var emissive_b = this.reader.getFloat(materialInfo[emissiveIndex], 'b');
-            if (isNaN(emissive_b) || emissive_b < 0 || emissive_b > 1) return "Not a valid value for emissive_blue in material: " + materialID;
-            emissive_component.push(emissive_b);
-
-            // --- Emissive: A
-            var emissive_a = this.reader.getFloat(materialInfo[emissiveIndex], 'a');
-            if (isNaN(emissive_a) || emissive_a < 0 || emissive_a > 1) return "Not a valid value for emissive_alpha in material: " + materialID;
-            emissive_component.push(emissive_a);
+            var emissive_component = this.parseColor(materialInfo[emissiveIndex], 'emissive of the material: ' + materialID);
 
             var newMaterial = new CGFappearance(this.scene);
             newMaterial.setShininess(shininess);
-            newMaterial.setAmbient ( ambient_component[0],  ambient_component[1],  ambient_component[2],  ambient_component[3]);
-            newMaterial.setDiffuse ( diffuse_component[0],  diffuse_component[1],  diffuse_component[2],  diffuse_component[3]);
-            newMaterial.setSpecular(specular_component[0], specular_component[1], specular_component[2], specular_component[3]);
-            newMaterial.setEmission(emissive_component[0], emissive_component[1], emissive_component[2], emissive_component[3]);
+            newMaterial.setAmbient (...ambient_component);
+            newMaterial.setDiffuse (...diffuse_component);
+            newMaterial.setSpecular(...specular_component);
+            newMaterial.setEmission(...emissive_component);
             
             this.materials[materialID] = newMaterial;            
             
@@ -841,7 +760,6 @@ class MySceneGraph {
             }
 
             // -------------------- Transformations -------------------- 
-            //                          DONE
 
             var transformationsIndex = nodeNames.indexOf("transformations");
             if (transformationsIndex == -1) {
@@ -920,7 +838,6 @@ class MySceneGraph {
             this.nodes[nodeID].material = materialID;
 
             // -------------------- Texture -------------------- 
-            //          TODO: NOT COMPLETED, MISSING AMPLIFICATIONS
             
 
             var textureIndex = nodeNames.indexOf("texture");
@@ -1076,7 +993,6 @@ class MySceneGraph {
         this.displaySceneRecursive(this.idRoot, this.nodes[this.idRoot].texture, this.nodes[this.idRoot].material, this.nodes[this.idRoot].afs, this.nodes[this.idRoot].aft);
     }
 
-    // TODO: NOT COMPLETED, TEXTURES DONT WORK, MISSING AMPLIFICATIONS
     displaySceneRecursive(nodeID, textureFather, materialFather){
         var currentNode = this.nodes[nodeID];
         var idTexture = textureFather;
