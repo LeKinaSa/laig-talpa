@@ -70,10 +70,8 @@ class XMLscene extends CGFscene {
             if (i >= 8)
                 break;              // Only eight lights allowed by WebCGF on default shaders.
             
-            console.log(this.graph.lights.hasOwnProperty(key));
             if (this.graph.lights.hasOwnProperty(key)) {
                 var graphLight = this.graph.lights[key];
-                console.log(key, graphLight);
                 
                 this.lights[i].key = key;
 
@@ -93,9 +91,6 @@ class XMLscene extends CGFscene {
                 }
 
                 this.lights[i].update();
-
-                console.log(this.lights[i].key, this.lights[i].enabled);
-
                 i++;
             }
         }
@@ -110,18 +105,13 @@ class XMLscene extends CGFscene {
             if (i >= 8)
                 break;              // Only eight lights allowed by WebCGF on default shaders.
 
-            console.log(this.graph.lights.hasOwnProperty(key));
             if (this.graph.lights.hasOwnProperty(key)) {
-                var graphLight = this.graph.lights[key];
-                console.log(key, graphLight);
-                
                 if (this.lights[i].enabled)
                     this.lights[i].enable();
                 else
                     this.lights[i].disable();
 
                 this.lights[i].update();
-
                 i++;
             }
         }

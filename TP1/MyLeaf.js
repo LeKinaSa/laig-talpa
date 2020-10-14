@@ -89,7 +89,7 @@ class MyLeaf {
                 this.primitive = new MyTorus(this.graph.scene, this.inner, this.outer, this.slices, this.loops);
                 break;
             default:
-                console.log("Not implemented yet");
+                console.log("Not implemented");
                 this.primitive = null;
                 break;
         }
