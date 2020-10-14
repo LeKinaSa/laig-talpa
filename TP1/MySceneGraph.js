@@ -468,7 +468,7 @@ class MySceneGraph {
                 var toVector   = vec3.fromValues(  to[0],   to[1],   to[2]);
                 var upVector   = vec3.fromValues(  up[0],   up[1],   up[2]);
 
-                camera = new CGFcamera(left, right, bottom, top, near, far, fromVector, toVector, upVector);
+                camera = new CGFcameraOrtho(left, right, bottom, top, near, far, fromVector, toVector, upVector);
 
                 this.log("Parsed Ortho Camera");
             }
