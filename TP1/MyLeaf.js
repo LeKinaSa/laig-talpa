@@ -4,9 +4,11 @@
 **/
 class MyLeaf {
 
-    constructor(graph, element) {
+    constructor(graph, element, afs, aft) {
         this.graph = graph;
         this.primitive = null;
+        this.afs = afs;
+        this.aft = aft;
 
         // gets the type of the primitive from the xml file
         var type = this.graph.reader.getItem(element, 'type', ['rectangle', 'torus', 'triangle', 'sphere', 'cylinder']);

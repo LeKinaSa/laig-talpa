@@ -934,9 +934,7 @@ class MySceneGraph {
             var aft = this.reader.getFloat(amplifications[0], 'aft', false);
             
             
-            this.nodes[nodeID].texture = textureID;
-            this.nodes[nodeID].afs = afs;
-            this.nodes[nodeID].aft = aft;            
+            this.nodes[nodeID].texture = textureID;          
 
             // -------------------- Descendants -------------------- 
 
@@ -959,7 +957,7 @@ class MySceneGraph {
                         this.nodes[nodeID].addChild(currentNodeID);
                 }
                 else if (descendants[j].nodeName == "leaf") {
-                    this.nodes[nodeID].addLeaf(new MyLeaf(this, descendants[j]));
+                    this.nodes[nodeID].addLeaf(new MyLeaf(this, descendants[j], afs, aft));
                 }
                 else {
                     this.onXMLMinorError("unknown tag <" + descendants[j].nodeName + ">");
@@ -1079,12 +1077,10 @@ class MySceneGraph {
     }
 
     // TODO: NOT COMPLETED, TEXTURES DONT WORK, MISSING AMPLIFICATIONS
-    displaySceneRecursive(nodeID, textureFather, materialFather, afs, aft){
+    displaySceneRecursive(nodeID, textureFather, materialFather){
         var currentNode = this.nodes[nodeID];
         var idTexture = textureFather;
         var idMaterial = materialFather;
-        var new_afs = afs;
-        var new_aft = aft;
 
         this.scene.multMatrix(currentNode.matrix);
 
@@ -1095,13 +1091,9 @@ class MySceneGraph {
         if(this.textures[currentNode.texture] != null){
             if(currentNode.textureID == 'clear'){
                 idTexture = null;
-                new_afs = 0;
-                new_aft = 0;
             }
             else{
                 idTexture = currentNode.texture;
-                new_afs = currentNode.afs;
-                new_aft = currentNode.aft;
             }                
         }
 
@@ -1115,7 +1107,7 @@ class MySceneGraph {
                     currentMaterial.apply();
                 }
                 if(currentTexture != null){
-                    currentNode.leaves[i].primitive.updateTexCoords(new_afs, new_aft);
+                    currentNode.leaves[i].primitive.updateTexCoords(currentNode.leaves[i].afs, currentNode.leaves[i].aft);
                     currentTexture.bind();
                 }
                 currentNode.leaves[i].primitive.display();
@@ -1124,7 +1116,7 @@ class MySceneGraph {
 
         for(var i = 0; i < currentNode.children.length; i++){
             this.scene.pushMatrix();
-            this.displaySceneRecursive(currentNode.children[i],idTexture, idMaterial, new_afs, new_aft);
+            this.displaySceneRecursive(currentNode.children[i],idTexture, idMaterial);
             this.scene.popMatrix();
         }        
     }

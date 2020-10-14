@@ -77,5 +77,18 @@ class MyTorus extends CGFobject {
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
-    updateTexCoords(afs, aft) {}
+    updateTexCoords(afs, aft) {
+		this.texCoords = [
+			0, 1/aft,
+			1/afs, 1/aft,
+			0, 0,
+			1/afs, 0,
+
+			0, 1/aft,
+			1/afs, 1/aft,
+			0, 0,
+			1/afs, 0
+		];
+		this.updateTexCoordsGLBuffers();
+	}
 }
