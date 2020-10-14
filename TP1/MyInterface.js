@@ -27,7 +27,25 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displayAxis').name("Display Axis");
         this.gui.add(this.scene, 'scaleFactor', 0.1, 10.0).name('Scale');
 
+        this.first_update = true;
+
         return true;
+    }
+
+    update() {
+        if ((this.scene.sceneInited) && (this.first_update)) {
+            this.first_update = false;
+
+            this.gui.add(this.scene, 'selectedCamera', this.scene.cameraIDs).name('Selected Camera').onChange(this.scene.updateCamera.bind(this.scene));
+
+            for (let i = 0; i < this.scene.lights.length; i++) {
+                if (this.scene.lights[i].key != null) {
+                    console.log(this.scene.lights[i].key, this.scene.lights[i].enabled);
+
+                    this.gui.add(this.scene.lights[i], 'enabled').name("Enable " + this.scene.lights[i].key);
+                }
+            }
+        }
     }
 
     /**

@@ -49,6 +49,15 @@ class XMLscene extends CGFscene {
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
+
+    /**
+     * Updates the scene camera
+     */
+    updateCamera() {
+        this.camera = this.graph.cameras[this.selectedCamera];
+        this.interface.setActiveCamera(this.camera);
+    }
+
     /**
      * Initializes the scene lights with the values read from the XML file.
      */
@@ -60,9 +69,13 @@ class XMLscene extends CGFscene {
         for (var key in this.graph.lights) {
             if (i >= 8)
                 break;              // Only eight lights allowed by WebCGF on default shaders.
-
+            
+            console.log(this.graph.lights.hasOwnProperty(key));
             if (this.graph.lights.hasOwnProperty(key)) {
                 var graphLight = this.graph.lights[key];
+                console.log(key, graphLight);
+                
+                this.lights[i].key = key;
 
                 this.lights[i].setPosition(...graphLight[1]);
                 this.lights[i].setAmbient(...graphLight[2]);
@@ -70,7 +83,39 @@ class XMLscene extends CGFscene {
                 this.lights[i].setSpecular(...graphLight[4]);
 
                 this.lights[i].setVisible(true);
-                if (graphLight[0])
+                if (graphLight[0]) {
+                    this.lights[i].enable();
+                    this.lights[i].enabled = true;
+                }
+                else {
+                    this.lights[i].disable();
+                    this.lights[i].enabled = false;
+                }
+
+                this.lights[i].update();
+
+                console.log(this.lights[i].key, this.lights[i].enabled);
+
+                i++;
+            }
+        }
+    }
+
+    /**
+     * Update scene lights
+     */
+    updateLights() {
+        var i = 0;
+        for (var key in this.graph.lights) {
+            if (i >= 8)
+                break;              // Only eight lights allowed by WebCGF on default shaders.
+
+            console.log(this.graph.lights.hasOwnProperty(key));
+            if (this.graph.lights.hasOwnProperty(key)) {
+                var graphLight = this.graph.lights[key];
+                console.log(key, graphLight);
+                
+                if (this.lights[i].enabled)
                     this.lights[i].enable();
                 else
                     this.lights[i].disable();
@@ -120,7 +165,7 @@ class XMLscene extends CGFscene {
 
         for (var i = 0; i < this.lights.length; i++) {
             this.lights[i].setVisible(true);
-            this.lights[i].enable();
+            //this.lights[i].enable(); //TODO : check
         }
 
         if (this.sceneInited) {

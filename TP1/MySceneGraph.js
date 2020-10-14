@@ -246,7 +246,8 @@ class MySceneGraph {
     parseViews(viewsNode) {        
         var children = viewsNode.children;
 
-        this.cameras = {};
+        this.cameras = [];
+        this.scene.cameraIDs = [];
         
         this.default = this.reader.getString(viewsNode, 'default');
         if (this.default == null) {
@@ -478,10 +479,12 @@ class MySceneGraph {
         
 
             this.cameras[id] = camera;
+            this.scene.cameraIDs.push(id);
 
             if (id == this.default) {
                 this.scene.camera = camera;
                 this.scene.interface.setActiveCamera(camera);
+                this.scene.selectedCamera = id;
                 default_camera_found = true;
             }
         }
@@ -541,6 +544,7 @@ class MySceneGraph {
         var children = lightsNode.children;
 
         this.lights = [];
+        this.scene.lightIDs = [];
         var numLights = 0;
 
         var grandChildren = [];
@@ -600,7 +604,9 @@ class MySceneGraph {
                 else
                     return "light " + attributeNames[i] + " undefined for ID = " + lightId;
             }
+
             this.lights[lightId] = global;
+            this.scene.lightIDs.push(lightId);
             numLights++;
         }
 
@@ -1065,7 +1071,7 @@ class MySceneGraph {
      */
     displayScene() {
         
-        //To do: Create display loop for transversing the scene graph, calling the root node's display function
+        //TODO: Create display loop for transversing the scene graph, calling the root node's display function
         
         //this.nodes[this.idRoot].display()
 
