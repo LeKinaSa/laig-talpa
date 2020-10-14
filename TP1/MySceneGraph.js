@@ -993,7 +993,7 @@ class MySceneGraph {
         this.displaySceneRecursive(this.idRoot, this.nodes[this.idRoot].texture, this.nodes[this.idRoot].material, this.nodes[this.idRoot].afs, this.nodes[this.idRoot].aft);
     }
 
-    displaySceneRecursive(nodeID, textureFather, materialFather){
+    displaySceneRecursive(nodeID, textureFather, materialFather) {
         var currentNode = this.nodes[nodeID];
         var idTexture = textureFather;
         var idMaterial = materialFather;

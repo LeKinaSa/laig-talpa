@@ -6,7 +6,8 @@
         <!-- identifier of root node of the scene graph; this node -->
         <!-- must be defined in one of the following NODE declarations -->
     </initials>
-    <views default="Tent View">
+
+    <views default="Camping Scene">
         <!-- at least one of the following type of cameras must be declared -->
         <perspective id="Camping Scene" near="0.1" far="500" angle="20">
             <from x="30" y="35" z="30" />
@@ -24,9 +25,9 @@
             <to x="0" y="0" z="0" />
         </perspective>
 
-        <ortho id="Tent View" near="-1" far="10" left="-1" right="1" top="1" bottom="-1">
-            <from x="3" y="0.5" z="4" />
-            <to x="3" y="0" z="5" />
+        <ortho id="Tent View" near="0" far="5" left="-0.5" right="0.5" top="0.5" bottom="-0.5">
+            <from x="2.6" y="1.0" z="3.5" />
+            <to x="3.9" y="0.2" z="0.0" />
             <up x="0" y="1" z="0" />    <!-- optional, default 0, 1, 0 -->
         </ortho>
     </views>
@@ -130,7 +131,7 @@
                 <noderef id="tent"/>
                 <noderef id="trees"/>
 
-                <noderef id="ground" /> <!-- TODO: -->
+                <noderef id="ground" />
 
             </descendants>
 
@@ -412,7 +413,7 @@
 
             <transformations>
 
-                <translation x="3.5" y="0" z="4"/>
+                <translation x="3.5" y="0.0001" z="4"/>
                 <rotation axis="y" angle="-20" />
 
             </transformations>
