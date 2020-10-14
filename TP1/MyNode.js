@@ -12,8 +12,6 @@ class MyNode {
 
         this.material = null;
         this.texture = null;
-        this.afs = 0;
-        this.aft = 0;
 
         this.matrix = mat4.create();
         mat4.identity(this.matrix);
