@@ -14,7 +14,7 @@ class MyLeaf {
         var type = this.graph.reader.getItem(element, 'type', ['rectangle', 'torus', 'triangle', 'sphere', 'cylinder']);
         
         // switch to decide what primitive is going to be shown in the screen
-        switch(type){
+        switch(type) {
             case 'rectangle':
                 this.x1 = this.graph.reader.getFloat(element, 'x1');
                 if (this.varError('rectangle', 'x1', this.x1)) break;   

@@ -1004,11 +1004,11 @@ class MySceneGraph {
             idMaterial = currentNode.material;
         }
 
-        if(this.textures[currentNode.texture] != null){
-            if(currentNode.textureID == 'clear'){
+        if (this.textures[currentNode.texture] != null) {
+            if (currentNode.textureID == 'clear') {
                 idTexture = null;
             }
-            else{
+            else {
                 idTexture = currentNode.texture;
             }                
         }
@@ -1016,13 +1016,13 @@ class MySceneGraph {
         var currentMaterial = this.materials[idMaterial];
         var currentTexture = this.textures[idTexture];        
 
-        for(var i = 0; i < currentNode.leaves.length; i++){
+        for (var i = 0; i < currentNode.leaves.length; i++) {
             
-            if(currentNode.leaves[i].primitive != null){
-                if(currentMaterial != null){
+            if (currentNode.leaves[i].primitive != null) {
+                if (currentMaterial != null) {
                     currentMaterial.apply();
                 }
-                if(currentTexture != null){
+                if (currentTexture != null) {
                     currentNode.leaves[i].primitive.updateTexCoords(currentNode.leaves[i].afs, currentNode.leaves[i].aft);
                     currentTexture.bind();
                 }
@@ -1030,7 +1030,7 @@ class MySceneGraph {
             }                
         }
 
-        for(var i = 0; i < currentNode.children.length; i++){
+        for (var i = 0; i < currentNode.children.length; i++) {
             this.scene.pushMatrix();
             this.displaySceneRecursive(currentNode.children[i],idTexture, idMaterial);
             this.scene.popMatrix();

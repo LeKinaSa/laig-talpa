@@ -106,5 +106,5 @@ class MyTriangle extends CGFobject {
 			0.5/afs, -0.707/aft
 		];
 		this.updateTexCoordsGLBuffers();
-	}
+    }
 }
