@@ -42,7 +42,7 @@ class MyInterface extends CGFinterface {
                 if (this.scene.lights[i].key != null) {
                     console.log(this.scene.lights[i].key, this.scene.lights[i].enabled);
 
-                    this.gui.add(this.scene.lights[i], 'enabled').name("Enable " + this.scene.lights[i].key);
+                    this.gui.add(this.scene.lights[i], 'enabled').name("Enable " + this.scene.lights[i].key).onChange(this.scene.updateLights.bind(this.scene));
                 }
             }
         }
