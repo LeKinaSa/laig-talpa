@@ -62,13 +62,12 @@ class XMLscene extends CGFscene {
      * Initializes the scene lights with the values read from the XML file.
      */
     initLights() {
-        var i = 0;
-        // Lights index.
+        var i = 0;          // Lights index.
 
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
             if (i >= 8)
-                break;              // Only eight lights allowed by WebCGF on default shaders.
+                break;      // Only eight lights allowed by WebCGF on default shaders.
             
             if (this.graph.lights.hasOwnProperty(key)) {
                 var graphLight = this.graph.lights[key];
@@ -82,12 +81,12 @@ class XMLscene extends CGFscene {
 
                 this.lights[i].setVisible(true);
                 if (graphLight[0]) {
-                    this.lights[i].enable();
                     this.lights[i].enabled = true;
+                    this.lights[i].enable();
                 }
                 else {
-                    this.lights[i].disable();
                     this.lights[i].enabled = false;
+                    this.lights[i].disable();
                 }
 
                 this.lights[i].update();
@@ -100,19 +99,9 @@ class XMLscene extends CGFscene {
      * Update scene lights
      */
     updateLights() {
-        var i = 0;
-        for (var key in this.graph.lights) {
-            if (i >= 8)
-                break;              // Only eight lights allowed by WebCGF on default shaders.
-
-            if (this.graph.lights.hasOwnProperty(key)) {
-                if (this.lights[i].enabled)
-                    this.lights[i].enable();
-                else
-                    this.lights[i].disable();
-
+        for (let i = 0; i < this.lights.length; i++) {
+            if (this.lights[i].key != null) {
                 this.lights[i].update();
-                i++;
             }
         }
     }
@@ -155,7 +144,6 @@ class XMLscene extends CGFscene {
 
         for (var i = 0; i < this.lights.length; i++) {
             this.lights[i].setVisible(true);
-            //this.lights[i].enable(); //TODO : check
         }
 
         if (this.sceneInited) {
