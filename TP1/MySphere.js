@@ -75,17 +75,14 @@ class MySphere extends CGFobject {
         this.initGLBuffers();
     }
     updateTexCoords(afs, aft) {
-		this.texCoords = [
-			0, 1/aft,
-			1/afs, 1/aft,
-			0, 0,
-			1/afs, 0,
-
-			0, 1/aft,
-			1/afs, 1/aft,
-			0, 0,
-			1/afs, 0
-		];
-		this.updateTexCoordsGLBuffers();
+		var tmp = this.texCoords;
+        var auxCoords = [];
+        for(let i = 0; i < this.texCoords.length; i++){
+            if(i % 2 == 0) auxCoords.push(this.texCoords[i]/afs);
+            else auxCoords.push(this.texCoords[i]/aft);
+        }
+        this.texCoords = auxCoords;
+        this.updateTexCoordsGLBuffers();
+        this.texCoords = tmp;
 	}
 }

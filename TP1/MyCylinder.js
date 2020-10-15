@@ -136,10 +136,15 @@ class MyCylinder extends CGFobject {
         this.initGLBuffers();
     }
     updateTexCoords(afs, aft) {
-		this.texCoords = [
-			
-		];
-		this.updateTexCoordsGLBuffers();
+        var tmp = this.texCoords;
+        var auxCoords = [];
+        for(let i = 0; i < this.texCoords.length; i++){
+            if(i % 2 == 0) auxCoords.push(this.texCoords[i]/afs);
+            else auxCoords.push(this.texCoords[i]/aft);
+        }
+        this.texCoords = auxCoords;
+        this.updateTexCoordsGLBuffers();
+        this.texCoords = tmp;
 	}
     
 }
