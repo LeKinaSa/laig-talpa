@@ -1119,7 +1119,70 @@
 
             </descendants>
 
-        </node>   
+        </node>
+
+        <node id="leaf">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+
+                <noderef id="bigleaf"/>
+                <noderef id="smallleaf" />
+
+            </descendants>
+
+        </node>
+
+        <node id="bigleaf">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+            </transformations>
+
+            <descendants>
+
+                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" />
+
+            </descendants>
+
+        </node>
+
+        <node id="smallleaf">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+                <rotation axis="y" angle="-15" />
+            </transformations>
+
+            <descendants>
+
+                <leaf type="triangle" x1="-0.4" y1="0.3" x2="0" y2="0.99" x3="0.4" y3="0.3" />
+
+            </descendants>
+
+        </node>
         
         <node id="leaf1">
 
@@ -1137,7 +1200,7 @@
 
             <descendants>
 
-                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+                <noderef id="leaf"/>
 
             </descendants>
 
@@ -1160,7 +1223,7 @@
 
             <descendants>
 
-                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+                <noderef id="leaf"/>
 
             </descendants>
 
@@ -1183,7 +1246,7 @@
 
             <descendants>
 
-                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+                <noderef id="leaf"/>
 
             </descendants>
 
@@ -1206,7 +1269,7 @@
 
             <descendants>
 
-                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+                <noderef id="leaf"/>
 
             </descendants>
 
@@ -1229,7 +1292,7 @@
 
             <descendants>
 
-                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+                <noderef id="leaf"/>
 
             </descendants>
 
@@ -1252,7 +1315,7 @@
 
             <descendants>
 
-                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+                <noderef id="leaf"/>
 
             </descendants>
 
