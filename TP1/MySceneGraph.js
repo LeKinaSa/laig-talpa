@@ -297,57 +297,12 @@ class MySceneGraph {
                 }
 
                 var fromID = nodeNames.indexOf('from');
-                var from = [30, 15, 30];
-
-                if (fromID == -1)
-                    this.onXMLMinorError("unable to parse 'from' values, using [30, 15, 30]");
-                else {
-                    from[0] = this.reader.getFloat(grandChildren[fromID], 'x');
-                    from[1] = this.reader.getFloat(grandChildren[fromID], 'y');
-                    from[2] = this.reader.getFloat(grandChildren[fromID], 'z');
-
-                    if (isNaN(from[0])) {
-                        this.onXMLMinorError("enter a valid number for 'from[0]'; using from[0] = 30");
-                        from[0] = 30;
-                    }
-                    if (isNaN(from[1])) {
-                        this.onXMLMinorError("enter a valid number for 'from[1]'; using from[1] = 15");
-                        from[1] = 15;
-                    }
-                    if (isNaN(from[2])) {
-                        this.onXMLMinorError("enter a valid number for 'from[2]'; using from[2] = 30");
-                        from[2] = 30;
-                    }
-                }
+                var from = this.parseCoordinates3D(grandChildren[fromID],' "from" from the camera: ' + id);
 
                 var toID = nodeNames.indexOf("to");
-                var to = [0, -2, 0];
+                var to = this.parseCoordinates3D(grandChildren[toID],' "to" from the camera: ' + id);
 
-                if (toID == -1)
-                    this.onXMLMinorError("unable to parse 'to' values, using [0, -2, 0]");
-                else {
-                    to[0] = this.reader.getFloat(grandChildren[toID], 'x');
-                    to[1] = this.reader.getFloat(grandChildren[toID], 'y');
-                    to[2] = this.reader.getFloat(grandChildren[toID], 'z');
-
-                    if (isNaN(to[0])) {
-                        this.onXMLMinorError("enter a valid number for 'to[0]'; using to[0] = 0");
-                        to[0] = 0;
-                    }
-                    if (isNaN(to[1])) {
-                        this.onXMLMinorError("enter a valid number for 'to[1]'; using to[1] = -2");
-                        to[1] = -2;
-                    }
-                    if (isNaN(to[2])) {
-                        this.onXMLMinorError("enter a valid number for 'to[2]'; using to[2] = 0");
-                        to[2] = 0;
-                    }
-                }
-
-                var fromVector = vec3.fromValues(from[0], from[1], from[2]);
-                let toVector = vec3.fromValues(to[0], to[1], to[2]);
-
-                camera = new CGFcamera(angle, near, far, fromVector, toVector);
+                camera = new CGFcamera(angle, near, far, from, to);
 
                 this.log("Parsed Perspective Camera");
             }
@@ -392,83 +347,15 @@ class MySceneGraph {
                 }
 
                 var fromID = nodeNames.indexOf('from');
-                var from = [5, 0, 10];
-
-                if (fromID == -1)
-                    this.onXMLMinorError("unable to parse 'from' values, using [5, 0, 10]");
-                else {
-                    from[0] = this.reader.getFloat(grandChildren[fromID], 'x');
-                    from[1] = this.reader.getFloat(grandChildren[fromID], 'y');
-                    from[2] = this.reader.getFloat(grandChildren[fromID], 'z');
-
-                    if(isNaN(from[0])) {
-                        this.onXMLMinorError("enter a valid number for 'from[0]'; using from[0] = 5");
-                        from[0] = 5;
-                    }
-                    if(isNaN(from[1])) {
-                        this.onXMLMinorError("enter a valid number for 'from[1]'; using from[1] = 0");
-                        from[1] = 0;
-                    }
-                    if(isNaN(from[2])) {
-                        this.onXMLMinorError("enter a valid number for 'from[2]'; using from[2] = 10");
-                        from[2] = 10;
-                    }
-                }
+                var from = this.parseCoordinates3D(grandChildren[fromID],' "from" from the camera: ' + id);
 
                 var toID = nodeNames.indexOf("to");
-                var to = [5, 0, 0];
-
-                if (toID == -1) {
-                    this.onXMLMinorError("unable to parse 'to' values, using [5, 0, 0]");
-                }
-                else{
-                    to[0] = this.reader.getFloat(grandChildren[toID], 'x');
-                    to[1] = this.reader.getFloat(grandChildren[toID], 'y');
-                    to[2] = this.reader.getFloat(grandChildren[toID], 'z');
-
-                    if(isNaN(to[0])) {
-                        this.onXMLMinorError("enter a valid number for 'to[0]'; using to[0] = 5");
-                        to[0] = 5;
-                    }
-                    if(isNaN(to[1])) {
-                        this.onXMLMinorError("enter a valid number for 'to[1]'; using to[1] = 0");
-                        to[1] = 0;
-                    }
-                    if(isNaN(to[2])) {
-                        this.onXMLMinorError("enter a valid number for 'to[2]'; using to[2] = 0");
-                        to[2] = 0;
-                    }
-                }
+                var to = this.parseCoordinates3D(grandChildren[toID],' "to" from the camera: ' + id);
 
                 var upID = nodeNames.indexOf("up");
-                var up = [0, 1, 0];
+                var up = this.parseCoordinates3D(grandChildren[upID],' "up" from the camera: ' + id);
 
-                if (upID == -1)
-                    this.onXMLMinorError("unable to parse 'to' values, using [0, 1, 0]");
-                else {
-                    up[0] = this.reader.getFloat(grandChildren[upID], 'x');
-                    up[1] = this.reader.getFloat(grandChildren[upID], 'y');
-                    up[2] = this.reader.getFloat(grandChildren[upID], 'z');
-
-                    if (isNaN(up[0])) {
-                        this.onXMLMinorError("enter a valid number for 'up[0]'; using up[0] = 0");
-                        up[0] = 0;
-                    }
-                    if (isNaN(up[1])) {
-                        this.onXMLMinorError("enter a valid number for 'up[1]'; using up[1] = 1");
-                        up[1] = 1;
-                    }
-                    if (isNaN(up[2])) {
-                        this.onXMLMinorError("enter a valid number for 'up[2]'; using up[2] = 0");
-                        up[2] = 0;
-                    }
-                }
-
-                var fromVector = vec3.fromValues(from[0], from[1], from[2]);
-                var toVector   = vec3.fromValues(  to[0],   to[1],   to[2]);
-                var upVector   = vec3.fromValues(  up[0],   up[1],   up[2]);
-
-                camera = new CGFcameraOrtho(left, right, bottom, top, near, far, fromVector, toVector, upVector);
+                camera = new CGFcameraOrtho(left, right, bottom, top, near, far, from, to, up);
 
                 this.log("Parsed Ortho Camera");
             }
@@ -771,22 +658,9 @@ class MySceneGraph {
             for(var j = 0; j < transformations.length; j++){
                 switch(transformations[j].nodeName){
                     case "translation":
-                        var x = this.reader.getFloat(transformations[j], 'x');
-                        var y = this.reader.getFloat(transformations[j], 'y');
-                        var z = this.reader.getFloat(transformations[j], 'z');
-                        if (isNaN(x)) {
-                            this.onXMLMinorError("enter a valid number for 'translation x'; using x = 0");
-                            x = 0;
-                        }
-                        if (isNaN(y)) {
-                            this.onXMLMinorError("enter a valid number for 'translation y'; using y = 0");
-                            y = 0;
-                        }
-                        if (isNaN(z)) {
-                            this.onXMLMinorError("enter a valid number for 'translation z'; using z = 0");
-                            z = 0;
-                        }
-                        mat4.translate(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, [x, y, z])
+                        var translation_vector = this.parseCoordinates3D(transformations[j],' "translation" from the node: ' + nodeID);
+                        mat4.translate(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, [...translation_vector]);
+
                         break;
                     case "rotation":
                         var axis = this.reader.getItem(transformations[j], 'axis', ['x', 'y', 'z']);

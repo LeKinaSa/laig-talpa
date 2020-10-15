@@ -10,7 +10,7 @@
     <views default="Camping Scene">
         <!-- at least one of the following type of cameras must be declared -->
         <perspective id="Camping Scene" near="0.1" far="500" angle="20">
-            <from x="30" y="35" z="30" />
+            <from x="60" y="55" z="30" />
             <to x="0" y="-2" z="0" />
         </perspective>
         
@@ -41,7 +41,7 @@
     <lights>
         <!-- NOTE: this block "light" must be repeated as necessary with different "id". At least one light should be present, and a maximum of eight lights is accepted. -->
         <light id="Fire Light">                             <!-- light identifier -->
-            <enable value="1" />                            <!-- enable/disable -->
+            <enable value="0" />                            <!-- enable/disable -->
             <position x="0" y="0" z="0" w="1.0" />          <!-- light position; w=1: point light; w=0: directional light -->
             <ambient  r="0.0" g="0.0" b="0.0" a="1.0" />    <!-- ambient component -->
             <diffuse  r="0.3" g="0.3" b="0.3" a="1.0" />    <!-- diffuse component -->
@@ -65,7 +65,7 @@
         </light>
 
         <light id="Sun">                                    <!-- light identifier -->
-            <enable value="0" />                            <!-- enable/disable -->
+            <enable value="1" />                            <!-- enable/disable -->
             <position x="0" y="10" z="0" w="1.0" />         <!-- light position; w=1: point light; w=0: directional light -->
             <ambient  r="0.0" g="0.0" b="0.0" a="1.0" />    <!-- ambient component -->
             <diffuse  r="0.9" g="0.9" b="0.9" a="1.0" />    <!-- diffuse component -->
@@ -143,7 +143,7 @@
             <material id="null" />
 
             <texture id="forestFloorTexture">
-                <amplification afs="2.0" aft="2.0" />
+                <amplification afs="1" aft="1" />
             </texture>
 
             <transformations>
@@ -152,7 +152,7 @@
 
             <descendants>
 
-                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5" />
+                <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="10" />
 
             </descendants>
 
@@ -781,7 +781,7 @@
 
             <transformations>
 
-                <translation x="-1.5" y="0.35" z="1.5" />
+                <translation x="-2.5" y="0.35" z="1.5" />
                 <rotation axis="y" angle="-30" />
                 <rotation axis="z" angle="90" />
                 <rotation axis="x" angle="90" />
@@ -790,7 +790,7 @@
 
             <descendants>
 
-                <leaf type="cylinder" height="2" topRadius="0.5" bottomRadius="0.5" stacks="32" slices="32"/> <!-- TODO: -->
+                <leaf type="cylinder" height="3" topRadius="0.5" bottomRadius="0.5" stacks="32" slices="32"/> <!-- TODO: -->
 
             </descendants>
 
@@ -952,8 +952,6 @@
 
             <transformations>
 
-                <!-- TODO: -->
-
             </transformations>
 
             <descendants>
@@ -1078,13 +1076,11 @@
 
             <transformations>
 
-                <!-- TODO: -->
-
             </transformations>
 
             <descendants>
 
-                <leaf type="cylinder" height="2" topRadius="0.5" bottomRadius="0.5" stacks="32" slices="32"/>
+                <leaf type="cylinder" height="1.6" topRadius="0.5" bottomRadius="0.5" stacks="32" slices="32"/>
 
             </descendants>
 
@@ -1096,15 +1092,14 @@
             <material id="null" />
 
             <texture id="leavesTexture">
-                <amplification afs="2.0" aft="2.0" />
+                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
 
                 <translation x="0" y="0" z="1.5" />
                 <rotation axis="z" angle="-90" />
-                <rotation axis="x" angle="90" />
-                <scale sx="2.5" sy="2.5" sz="2.5" />
+                <scale sx="2.0" sy="2.0" sz="2.0" />
 
             </transformations>
 
@@ -1113,117 +1108,50 @@
                 <noderef id="leaf1"/>
                 <noderef id="leaf2"/>
                 <noderef id="leaf3"/>
-                <noderef id="leaf4"/>
-                <noderef id="leaf5"/>
-                <noderef id="leaf6"/>
 
             </descendants>
 
         </node>
 
-        <node id="leaf">
-
-            <!-- next two lines are mandatory -->
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-            </transformations>
-
-            <descendants>
-
-                <noderef id="bigleaf"/>
-                <noderef id="smallleaf" />
-
-            </descendants>
-
-        </node>
-
-        <node id="bigleaf">
-
-            <!-- next two lines are mandatory -->
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-
-                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" />
-
-            </descendants>
-
-        </node>
-
-        <node id="smallleaf">
-
-            <!-- next two lines are mandatory -->
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-                <rotation axis="y" angle="-15" />
-            </transformations>
-
-            <descendants>
-
-                <leaf type="triangle" x1="-0.4" y1="0.3" x2="0" y2="0.99" x3="0.4" y3="0.3" />
-
-            </descendants>
-
-        </node>
-        
         <node id="leaf1">
 
             <!-- next two lines are mandatory -->
             <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
+            <texture id="leavesTexture">
+                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
-
 
             </transformations>
 
             <descendants>
 
-                <noderef id="leaf"/>
+                <leaf type="cylinder" height="1.5" topRadius="0" bottomRadius="0.5" stacks="3" slices="3"/>
 
             </descendants>
 
-        </node>    
+        </node>
 
         <node id="leaf2">
 
             <!-- next two lines are mandatory -->
             <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
+            <texture id="leavesTexture">
+                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
 
-                <rotation axis="y" angle="-30" />
+                <rotation axis="z" angle="-40" />
 
             </transformations>
 
             <descendants>
 
-                <noderef id="leaf"/>
+                <leaf type="cylinder" height="1.5" topRadius="0" bottomRadius="0.5" stacks="3" slices="3"/>
 
             </descendants>
 
@@ -1234,92 +1162,24 @@
             <!-- next two lines are mandatory -->
             <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
+            <texture id="leavesTexture">
+                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
 
-                <rotation axis="y" angle="-60" />
+                <rotation axis="z" angle="-80" />
 
             </transformations>
 
             <descendants>
 
-                <noderef id="leaf"/>
+                <leaf type="cylinder" height="1.5" topRadius="0" bottomRadius="0.5" stacks="3" slices="3"/>
 
             </descendants>
 
         </node>
-
-        <node id="leaf4">
-
-            <!-- next two lines are mandatory -->
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <rotation axis="y" angle="-90" />
-
-            </transformations>
-
-            <descendants>
-
-                <noderef id="leaf"/>
-
-            </descendants>
-
-        </node>
-
-        <node id="leaf5">
-
-            <!-- next two lines are mandatory -->
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <rotation axis="y" angle="-120" />
-
-            </transformations>
-
-            <descendants>
-
-                <noderef id="leaf"/>
-
-            </descendants>
-
-        </node>
-
-        <node id="leaf6">
-
-            <!-- next two lines are mandatory -->
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-
-                <rotation axis="y" angle="-150" />
-
-            </transformations>
-
-            <descendants>
-
-                <noderef id="leaf"/>
-
-            </descendants>
-
-        </node>
+        
     </nodes>
 </lsf>
 
