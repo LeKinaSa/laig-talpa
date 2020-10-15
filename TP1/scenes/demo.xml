@@ -175,10 +175,8 @@
 
             <descendants>
 
-                <noderef id="coal1"/>
-                <noderef id="coal2"/>
-
-                <noderef id="flames"/>
+                <noderef id="fire1"/>
+                <noderef id="fire2"/>
 
                 <noderef id="rocks" /> <!-- TODO: -->
 
@@ -208,30 +206,75 @@
 
         </node>
 
-        <node id="coal1">
+        <node id="fire1">
 
             <!-- next two lines are mandatory -->
             <material id="null" />
 
-            <texture id="coalTexture">
+            <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
             <transformations>
 
-                <translation x="-0.5" y="0.1" z="0.1" />
+                <translation x="-0.5" y="0" z="0.1" />
 
             </transformations>
 
             <descendants>
 
-                 <leaf type="sphere" radius="0.3" slices="32" stacks="32"/> <!-- TODO: -->
+                <noderef id="fire"/>
 
             </descendants>
 
         </node>
 
-        <node id="coal2">
+        <node id="fire2">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <translation x="0.2" y="0" z="-0.3" />
+
+            </transformations>
+
+            <descendants>
+
+                <noderef id="fire"/>
+
+            </descendants>
+
+        </node>
+
+        <node id="fire">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+            </transformations>
+
+            <descendants>
+
+                <noderef id="coal"/>
+                <noderef id="flames"/>
+
+            </descendants>
+
+        </node>
+
+        <node id="coal">
 
             <!-- next two lines are mandatory -->
             <material id="null" />
@@ -242,7 +285,7 @@
 
             <transformations>
 
-                <translation x="0.2" y="0.1" z="-0.3" />
+                <translation x="0" y="0.1" z="0" />
 
             </transformations>
 
@@ -275,6 +318,20 @@
                 <noderef id="flame2"/>
                 <noderef id="flame3"/>
                 <noderef id="flame4"/>
+                <noderef id="flame5"/>
+                <noderef id="flame6"/>
+                <noderef id="flame7"/>
+                <noderef id="flame8"/>
+                <noderef id="flame9"/>
+                <noderef id="flame10"/>
+                <noderef id="flame11"/>
+                <noderef id="flame12"/>
+                <noderef id="flame13"/>
+                <noderef id="flame14"/>
+                <noderef id="flame15"/>
+                <noderef id="flame16"/>
+                <noderef id="flame17"/>
+                <noderef id="flame18"/>
 
             </descendants>
 
@@ -293,8 +350,7 @@
             <transformations>
 
                 <!-- TODO: -->
-                <translation x="-0.5" y="0.3" z="0.1" />
-                <rotation axis="y" angle="-90" />
+                <translation x="0" y="0.3" z="0" />
 
             </transformations>
 
@@ -317,7 +373,8 @@
 
             <transformations>
 
-                <translation x="-0.5" y="0.3" z="0.1" />
+                <translation x="0" y="0.3" z="0" />
+                <rotation axis="y" angle="10" />
 
             </transformations>
 
@@ -340,8 +397,8 @@
 
             <transformations>
 
-                <translation x="0.2" y="0.1" z="-0.3" />
-                <rotation axis="y" angle="-90" />
+                <translation x="0" y="0.3" z="0" />
+                <rotation axis="y" angle="20" />
 
             </transformations>
 
@@ -364,7 +421,344 @@
 
             <transformations>
 
-                <translation x="0.2" y="0.1" z="-0.3" />
+                <translation x="0" y="0.3" z="0" />
+                <rotation axis="y" angle="30" />
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame5">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <translation x="0" y="0.3" z="0" />
+                <rotation axis="y" angle="40" />
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame6">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <translation x="0" y="0.3" z="0" />
+                <rotation axis="y" angle="50" />
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame7">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <translation x="0" y="0.3" z="0" />
+                <rotation axis="y" angle="60" />
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame8">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <translation x="0" y="0.3" z="0" />
+                <rotation axis="y" angle="70" />
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame9">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <translation x="0" y="0.3" z="0" />
+                <rotation axis="y" angle="80" />
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame10">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <translation x="0" y="0.3" z="0" />
+                <rotation axis="y" angle="90" />
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame11">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <translation x="0" y="0.3" z="0" />
+                <rotation axis="y" angle="100" />
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame12">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <translation x="0" y="0.3" z="0" />
+                <rotation axis="y" angle="110" />
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame13">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <translation x="0" y="0.3" z="0" />
+                <rotation axis="y" angle="120" />
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame14">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <translation x="0" y="0.3" z="0" />
+                <rotation axis="y" angle="130" />
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame15">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <translation x="0" y="0.3" z="0" />
+                <rotation axis="y" angle="140" />
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame16">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <translation x="0" y="0.3" z="0" />
+                <rotation axis="y" angle="150" />
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame17">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <translation x="0" y="0.3" z="0" />
+                <rotation axis="y" angle="160" />
+
+            </transformations>
+
+            <descendants>
+
+                 <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="flame18">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <translation x="0" y="0.3" z="0" />
+                <rotation axis="y" angle="170" />
 
             </transformations>
 
@@ -718,6 +1112,10 @@
 
                 <noderef id="leaf1"/>
                 <noderef id="leaf2"/>
+                <noderef id="leaf3"/>
+                <noderef id="leaf4"/>
+                <noderef id="leaf5"/>
+                <noderef id="leaf6"/>
 
             </descendants>
 
@@ -734,7 +1132,6 @@
 
             <transformations>
 
-                <rotation axis="y" angle="-90" />
 
             </transformations>
 
@@ -757,7 +1154,7 @@
 
             <transformations>
 
-                <!-- TODO: -->
+                <rotation axis="y" angle="-30" />
 
             </transformations>
 
@@ -767,8 +1164,99 @@
 
             </descendants>
 
-        </node>  
+        </node>
 
+        <node id="leaf3">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <rotation axis="y" angle="-60" />
+
+            </transformations>
+
+            <descendants>
+
+                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="leaf4">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <rotation axis="y" angle="-90" />
+
+            </transformations>
+
+            <descendants>
+
+                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="leaf5">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <rotation axis="y" angle="-120" />
+
+            </transformations>
+
+            <descendants>
+
+                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
+
+        <node id="leaf6">
+
+            <!-- next two lines are mandatory -->
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+
+                <rotation axis="y" angle="-150" />
+
+            </transformations>
+
+            <descendants>
+
+                <leaf type="triangle" x1="-0.5" y1="0" x2="0" y2="1.118" x3="0.5" y3="0" /> <!-- TODO: -->
+
+            </descendants>
+
+        </node>
     </nodes>
 </lsf>
 
