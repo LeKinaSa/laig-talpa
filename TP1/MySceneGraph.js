@@ -10,12 +10,12 @@ var MATERIALS_INDEX = 5;
 var NODES_INDEX = 6;
 
 /**
- * MySceneGraph class, representing the scene graph.
+ * MySceneGraph class: representing the scene graph
  */
 class MySceneGraph {
     /**
-     * Constructor for MySceneGraph class.
-     * Initializes necessary variables and starts the XML file reading process.
+     * MySceneGraph
+     * @constructor - Initializes necessary variables and starts the XML file reading process.
      * @param {string} filename - File that defines the 3D scene
      * @param {XMLScene} scene
      */
@@ -46,7 +46,7 @@ class MySceneGraph {
         this.reader.open('scenes/' + filename, this);
     }
 
-    /*
+    /**
      * Callback to be executed after successful reading
      */
     onXMLReady() {
@@ -67,7 +67,7 @@ class MySceneGraph {
         this.scene.onGraphLoaded();
     }
 
-    /*
+    /**
      * Callback to be executed on any read error, showing an error on the console.
      * @param {string} message
      */
@@ -243,7 +243,7 @@ class MySceneGraph {
      * Parses the <views> block.
      * @param {view block element} viewsNode
      */
-    parseViews(viewsNode) {        
+    parseViews(viewsNode) {
         var children = viewsNode.children;
 
         this.cameras = [];
@@ -274,15 +274,15 @@ class MySceneGraph {
                 var far   = this.reader.getFloat(children[i], 'far');
                 var angle = this.reader.getFloat(children[i], 'angle');
 
-                if(isNaN(far)){
+                if (isNaN(far)) {
                     this.onXMLMinorError("enter a valid number for 'far'; using far = 500"); 
                     far = 500;
                 } 
-                if(isNaN(near)){
+                if (isNaN(near)) {
                     this.onXMLMinorError("enter a valid number for 'near'; using near = 0.1");
                     near = 0.1;
                 } 
-                if(isNaN(angle)){
+                if (isNaN(angle)) {
                     this.onXMLMinorError("enter a valid number for 'angle'; using angle = 45");
                     angle = 45;
                 } 
@@ -314,27 +314,27 @@ class MySceneGraph {
                 var top    = this.reader.getFloat(children[i], 'top');
                 var bottom = this.reader.getFloat(children[i], 'bottom');
 
-                if(isNaN(far)){
+                if (isNaN(far)) {
                     this.onXMLMinorError("enter a valid number for 'far'; using far = 100"); 
                     far = 100;
                 } 
-                if(isNaN(near)){
+                if (isNaN(near)) {
                     this.onXMLMinorError("enter a valid number for 'near'; using near = 0.2");
                     near = 0.2;
                 } 
-                if(isNaN(left)){
+                if (isNaN(left)) {
                     this.onXMLMinorError("enter a valid number for 'left'; using left = -0.2");
                     left = -0.2;
                 } 
-                if(isNaN(right)){
+                if (isNaN(right)) {
                     this.onXMLMinorError("enter a valid number for 'right'; using right = 0.2");
                     right = 0.2;
                 } 
-                if(isNaN(top)){
+                if (isNaN(top)) {
                     this.onXMLMinorError("enter a valid number for 'top'; using top = 0.2");
                     top = 0.2;
                 } 
-                if(isNaN(bottom)){
+                if (isNaN(bottom)) {
                     this.onXMLMinorError("enter a valid number for 'bottom'; using bottom = -0.2");
                     bottom = -0.2;;
                 } 
@@ -365,9 +365,11 @@ class MySceneGraph {
             }
         
 
+            // Add the camera to the scene cameras
             this.cameras[id] = camera;
             this.scene.cameraIDs.push(id);
 
+            // Set the initial camera
             if (id == this.default) {
                 this.scene.camera = camera;
                 this.scene.interface.setActiveCamera(camera);
@@ -376,6 +378,7 @@ class MySceneGraph {
             }
         }
 
+        // Default Camera Not Found
         if (!default_camera_found)
             return "Default View ID does not match a camera ID";
 
@@ -407,12 +410,14 @@ class MySceneGraph {
         if (backgroundIndex == -1)
             return "No value for background in illumination";
 
+        // ambient illumination
         var color = this.parseColor(children[ambientIndex], "ambient");
         if (!Array.isArray(color))
             return color;
         else
             this.ambient = color;
 
+        // background illumination
         color = this.parseColor(children[backgroundIndex], "background");
         if (!Array.isArray(color))
             return color;
@@ -465,13 +470,13 @@ class MySceneGraph {
                 return "ID must be unique for each light (conflict: ID = " + lightId + ")";
 
             grandChildren = children[i].children;
-            // Specifications for the current light.
 
             nodeNames = [];
             for (var j = 0; j < grandChildren.length; j++) {
                 nodeNames.push(grandChildren[j].nodeName);
             }
 
+            // Specifications for the current light.
             for (var j = 0; j < attributeNames.length; j++) {
                 var attributeIndex = nodeNames.indexOf(attributeNames[j]);
 
@@ -511,10 +516,8 @@ class MySceneGraph {
      * @param {textures block element} texturesNode
      */
     parseTextures(texturesNode) {
-
         //For each texture in textures block, check ID and file URL
         this.textures = [];
-
         for (var i = 0; i < texturesNode.children.length; i++) {
             if (texturesNode.children[i].nodeName == "texture") {
                 var textureID = this.reader.getString(texturesNode.children[i], 'id');
@@ -526,7 +529,6 @@ class MySceneGraph {
             var texture = new CGFtexture(this.scene, path);
             this.textures[textureID] = texture;
         }
-
 
         this.log("Parsed textures");
     }
@@ -565,6 +567,7 @@ class MySceneGraph {
                 nodeNames.push(materialInfo[j].nodeName);
             }
 
+            // Specifications for the current material
             var shininessIndex = nodeNames.indexOf("shininess");
             var ambientIndex   = nodeNames.indexOf("ambient");
             var diffuseIndex   = nodeNames.indexOf("diffuse");
@@ -599,14 +602,13 @@ class MySceneGraph {
             newMaterial.setSpecular(...specular_component);
             newMaterial.setEmission(...emissive_component);
             
-            this.materials[materialID] = newMaterial;            
-            
+            this.materials[materialID] = newMaterial;
         }
 
         this.log("Parsed materials");
     }
 
-        /**
+    /**
      * Parses the <nodes> block.
      * @param {nodes block element} nodesNode
      */
@@ -754,21 +756,25 @@ class MySceneGraph {
                     this.onXMLMinorError("unknown tag <" + descendants[j].nodeName + ">");
                 }
             }
-
         }
     }
 
-
-    parseBoolean(node, name, messageError){
+    /**
+     * Parse a boolean value from a node with ID = id
+     * @param {block element} node 
+     * @param {attribute} name - atribute for which we need a boolean value
+     * @param {message to be displayed in case of error} messageError 
+     */
+    parseBoolean(node, name, messageError) {
         var boolVal = true;
         boolVal = this.reader.getBoolean(node, name);
         if (!(boolVal != null && !isNaN(boolVal) && (boolVal == true || boolVal == false))) {
             this.onXMLMinorError("unable to parse value component " + messageError + "; assuming 'value = 1'");
             boolVal = true;
         }
-
         return boolVal;
     }
+
     /**
      * Parse the coordinates from a node with ID = id
      * @param {block element} node
@@ -823,29 +829,29 @@ class MySceneGraph {
     }
 
     /**
-     * Parse the color components from a node
+     * Parse the color components from a node with ID = id
      * @param {block element} node
      * @param {message to be displayed in case of error} messageError
      */
     parseColor(node, messageError) {
         var color = [];
 
-        // R
+        // Red (R)
         var r = this.reader.getFloat(node, 'r');
         if (!(r != null && !isNaN(r) && r >= 0 && r <= 1))
             return "unable to parse R component of the " + messageError;
 
-        // G
+        // Green (G)
         var g = this.reader.getFloat(node, 'g');
         if (!(g != null && !isNaN(g) && g >= 0 && g <= 1))
             return "unable to parse G component of the " + messageError;
 
-        // B
+        // Blue (B)
         var b = this.reader.getFloat(node, 'b');
         if (!(b != null && !isNaN(b) && b >= 0 && b <= 1))
             return "unable to parse B component of the " + messageError;
 
-        // A
+        // Alpha (A)
         var a = this.reader.getFloat(node, 'a');
         if (!(a != null && !isNaN(a) && a >= 0 && a <= 1))
             return "unable to parse A component of the " + messageError;
@@ -859,21 +865,24 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        
-        //TODO: Create display loop for transversing the scene graph, calling the root node's display function
-        
-        //this.nodes[this.idRoot].display()
-
         this.displaySceneRecursive(this.idRoot, this.nodes[this.idRoot].texture, this.nodes[this.idRoot].material, this.nodes[this.idRoot].afs, this.nodes[this.idRoot].aft);
     }
 
+    /**
+     * Displays the scene, processing each node recursively.
+     * @param {node block element} nodeID 
+     * @param {texture} textureFather 
+     * @param {material} materialFather 
+     */
     displaySceneRecursive(nodeID, textureFather, materialFather) {
         var currentNode = this.nodes[nodeID];
         var idTexture = textureFather;
         var idMaterial = materialFather;
 
+        // Apply the Transformation
         this.scene.multMatrix(currentNode.matrix);
 
+        // Obtain material and texture
         if (this.materials[currentNode.material] != null) {
             idMaterial = currentNode.material;
         }
@@ -888,11 +897,11 @@ class MySceneGraph {
         }
 
         var currentMaterial = this.materials[idMaterial];
-        var currentTexture = this.textures[idTexture];        
+        var currentTexture  = this.textures[idTexture];        
 
         for (var i = 0; i < currentNode.leaves.length; i++) {
-            
             if (currentNode.leaves[i].primitive != null) {
+                // Apply material and texture
                 if (currentMaterial != null) {
                     currentMaterial.apply();
                 }
@@ -900,11 +909,14 @@ class MySceneGraph {
                     currentNode.leaves[i].primitive.updateTexCoords(currentNode.leaves[i].afs, currentNode.leaves[i].aft);
                     currentTexture.bind();
                 }
+
+                // Display the leaf
                 currentNode.leaves[i].primitive.display();
-            }                
+            }
         }
 
         for (var i = 0; i < currentNode.children.length; i++) {
+            // Display the node recursively
             this.scene.pushMatrix();
             this.displaySceneRecursive(currentNode.children[i],idTexture, idMaterial);
             this.scene.popMatrix();

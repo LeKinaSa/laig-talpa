@@ -1,9 +1,13 @@
 /**
  * MyNode class: represents a node from the graph
- * @constructor
 **/
 class MyNode {
-
+    /**
+     * MyNode
+     * @constructor
+     * @param {MySceneGraph} graph 
+     * @param {node element id} nodeID 
+     */
     constructor(graph, nodeID) {
         this.graph = graph;
         this.nodeID = nodeID;
@@ -16,16 +20,22 @@ class MyNode {
         this.matrix = mat4.create();
         mat4.identity(this.matrix);
     }
-    // add a child identified by leaf
-    addLeaf(leaf){
+
+    /**
+     * Add a child identified by leaf
+     * @param {leaf element} leaf 
+     */
+    addLeaf(leaf) {
         this.leaves.push(leaf);
     }
 
-    // add a child identified by nodeID
+    /**
+     * Add a child identified by nodeID
+     * @param {node element} nodeID 
+     */
     addChild(nodeID) {
         this.children.push(nodeID);
     }
-
 }
 
     

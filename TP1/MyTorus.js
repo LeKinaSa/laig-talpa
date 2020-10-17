@@ -1,15 +1,17 @@
 /**
  * MyTorus
- * 
- * @constructor
- * @param scene - Reference to MyScene object
- * @param inner - inner circunference
- * @param outer - outer circunference
- * @param slices - inner circunference slices
- * @param loops - outer circunference slices
+ * Torus Primitive centered on the origin and around the Z axis
  */
-
 class MyTorus extends CGFobject {
+    /**
+     * MyTorus
+     * @constructor
+     * @param {CGFScene} scene - Reference to MyScene object
+     * @param {float} inner - inner circunference
+     * @param {float} outer - outer circunference
+     * @param {float} slices - inner circunference slices
+     * @param {float} loops - outer circunference slices
+     */
     constructor(scene, inner, outer, slices, loops) {
         super(scene);
         this.innerRadius = inner;
@@ -20,6 +22,9 @@ class MyTorus extends CGFobject {
         this.initBuffers();
     }
 
+    /**
+     * Init torus buffers.
+     */
     initBuffers() {
         this.vertices = [];
         this.indices = [];
@@ -77,6 +82,12 @@ class MyTorus extends CGFobject {
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
+
+    /**
+     * Updates the Texture Coordinates based on the Amplification
+     * @param {float} afs - Amplification Factor on S 
+     * @param {float} aft - Amplification Factor on T
+     */
     updateTexCoords(afs, aft) {
 		var tmp = this.texCoords;
         var auxCoords = [];

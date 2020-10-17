@@ -1,15 +1,17 @@
 /**
  * MySphere
+ * Sphere Primitive centered on the origin and with its axis parallel to the Z axis
  * CODE ADAPTED FROM THE CLASS MySphere FROM CGRA
- * 
- * @constructor
- * @param scene - Reference to MyScene object
- * @param radius - sphere radius
- * @param slices - number of slices around Y axis
- * @param stacks - number of stacks along Y axis, from the center to the poles (half of sphere)
  */
-
 class MySphere extends CGFobject {
+    /**
+     * MySphere
+     * @constructor
+     * @param {CGFScene} scene - Reference to MyScene object
+     * @param {float} radius - sphere radius
+     * @param {float} slices - number of slices around Y axis
+     * @param {float} stacks - number of stacks along Y axis, from the center to the poles (half of sphere)
+     */
     constructor(scene, radius, slices, stacks) {
         super(scene);
         this.radius = radius;
@@ -19,6 +21,9 @@ class MySphere extends CGFobject {
         this.initBuffers();
     }
     
+    /**
+     * Init sphere buffers.
+     */
     initBuffers() {
         this.vertices = [];
         this.indices = [];
@@ -74,6 +79,12 @@ class MySphere extends CGFobject {
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
+
+    /**
+     * Updates the Texture Coordinates based on the Amplification
+     * @param {float} afs - Amplification Factor on S 
+     * @param {float} aft - Amplification Factor on T
+     */
     updateTexCoords(afs, aft) {
 		var tmp = this.texCoords;
         var auxCoords = [];

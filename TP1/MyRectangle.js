@@ -1,13 +1,17 @@
 /**
  * MyRectangle
- * @constructor
- * @param scene - Reference to MyScene object
- * @param x1 - x coordinate corner 1
- * @param y1 - y coordinate corner 1
- * @param x2 - x coordinate corner 2
- * @param y2 - y coordinate corner 2
+ * Rectangle Primitive in the XY plane
  */
 class MyRectangle extends CGFobject {
+    /**
+     * MyRectangle
+     * @constructor
+     * @param {CGFScene} scene - Reference to MyScene object
+     * @param {float} x1 - x coordinate corner 1
+     * @param {float} y1 - y coordinate corner 1
+     * @param {float} x2 - x coordinate corner 2
+     * @param {float} y2 - y coordinate corner 2
+     */
 	constructor(scene, x1, y1, x2, y2) {
 		super(scene);
 		this.x1 = x1;
@@ -17,7 +21,10 @@ class MyRectangle extends CGFobject {
 
 		this.initBuffers();
 	}
-	
+    
+    /**
+     * Init rectangle buffers.
+     */
 	initBuffers() {
 		this.vertices = [
 			this.x1, this.y1, 0,	//0
@@ -77,6 +84,11 @@ class MyRectangle extends CGFobject {
 		this.initGLBuffers();
 	}
 
+    /**
+     * Updates the Texture Coordinates based on the Amplification
+     * @param {float} afs - Amplification Factor on S 
+     * @param {float} aft - Amplification Factor on T
+     */
 	updateTexCoords(afs, aft) {
 		var tmp = this.texCoords;
         var auxCoords = [];
