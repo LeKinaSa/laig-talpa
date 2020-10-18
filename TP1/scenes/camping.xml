@@ -48,27 +48,27 @@
         
         <!-- Simulates the light provided by a fire -->
         <light id="Fire Light">                             <!-- light identifier -->
-            <enable value="1" />                            <!-- enable/disable -->
+            <enable value="0" />                            <!-- enable/disable -->
             <position x="0" y="0" z="0" w="1.0" />          <!-- light position; w=1: point light; w=0: directional light -->
-            <ambient  r="0.0" g="0.0" b="0.0" a="1.0" />    <!-- ambient component -->
-            <diffuse  r="0.3" g="0.3" b="0.3" a="1.0" />    <!-- diffuse component -->
-            <specular r="0.3" g="0.3" b="0.3" a="1.0" />    <!-- specular component -->
+            <ambient  r="0.7" g="0.6" b="0.3" a="0.0" />    <!-- ambient component -->
+            <diffuse  r="0.7" g="0.6" b="0.3" a="1.0" />    <!-- diffuse component -->
+            <specular r="0.7" g="0.6" b="0.3" a="1.0" />    <!-- specular component -->
         </light>
 
         <!-- Simulates a full moon -->
         <light id="Full Moon">                              <!-- light identifier -->
-            <enable value="1" />                            <!-- enable/disable -->
-            <position x="3" y="10" z="3" w="1.0" />         <!-- light position; w=1: point light; w=0: directional light -->
-            <ambient  r="0.0" g="0.0" b="0.0" a="1.0" />    <!-- ambient component -->
+            <enable value="0" />                            <!-- enable/disable -->
+            <position x="3" y="6.9" z="3" w="0.0" />         <!-- light position; w=1: point light; w=0: directional light -->
+            <ambient  r="0.5" g="0.5" b="0.5" a="1.0" />    <!-- ambient component -->
             <diffuse  r="0.6" g="0.6" b="0.6" a="1.0" />    <!-- diffuse component -->
             <specular r="0.6" g="0.6" b="0.6" a="1.0" />    <!-- specular component -->
         </light>
 
         <!-- Simulates a new moon -->
         <light id="New Moon">                               <!-- light identifier -->
-            <enable value="1" />                            <!-- enable/disable -->
-            <position x="-3" y="10" z="-3" w="1.0" />       <!-- light position; w=1: point light; w=0: directional light -->
-            <ambient  r="0.0" g="0.0" b="0.0" a="1.0" />    <!-- ambient component -->
+            <enable value="0" />                            <!-- enable/disable -->
+            <position x="0" y="6.9" z="0" w="0.0" />       <!-- light position; w=1: point light; w=0: directional light -->
+            <ambient  r="0.5" g="0.5" b="0.5" a="1.0" />    <!-- ambient component -->
             <diffuse  r="0.2" g="0.2" b="0.2" a="1.0" />    <!-- diffuse component -->
             <specular r="0.2" g="0.2" b="0.2" a="1.0" />    <!-- specular component -->
         </light>
@@ -76,8 +76,8 @@
         <!-- Simulates the sun -->
         <light id="Sun">                                    <!-- light identifier -->
             <enable value="1" />                            <!-- enable/disable -->
-            <position x="0" y="10" z="0" w="1.0" />         <!-- light position; w=1: point light; w=0: directional light -->
-            <ambient  r="0.0" g="0.0" b="0.0" a="1.0" />    <!-- ambient component -->
+            <position x="0.0" y="6.9" z="0.0" w="0.0" />    <!-- light position; w=1: point light; w=0: directional light -->
+            <ambient  r="0.9" g="0.9" b="0.9" a="1.0" />    <!-- ambient component -->
             <diffuse  r="0.9" g="0.9" b="0.9" a="1.0" />    <!-- diffuse component -->
             <specular r="0.9" g="0.9" b="0.9" a="1.0" />    <!-- specular component -->
         </light>
@@ -85,12 +85,17 @@
 
     <textures>
         <texture id="logTexture"         path="./scenes/images/log.jpg" />
-        <texture id="forestFloorTexture" path="./scenes/images/moss.jpg" />
+        <texture id="forestFloorTexture" path="./scenes/images/bottom.png" />
         <texture id="rocksTexture"       path="./scenes/images/rocks.jpg" />
         <texture id="coalTexture"        path="./scenes/images/coal.jpg" />
         <texture id="leavesTexture"      path="./scenes/images/leaves.jpg" />
         <texture id="dirtTexture"        path="./scenes/images/dirt.jpg" />
         <texture id="tireTexture"        path="./scenes/images/tire.png" />
+        <texture id="backTexture"        path="./scenes/images/back.png" />
+        <texture id="frontTexture"        path="./scenes/images/front.png" />
+        <texture id="leftTexture"        path="./scenes/images/left.png" />
+        <texture id="rightTexture"        path="./scenes/images/right.png" />
+        <texture id="topTexture"        path="./scenes/images/top.png" />
     </textures>
 
     <materials>
@@ -152,12 +157,13 @@
             </transformations>
 
             <descendants>
+            
+                <noderef id="side_log"/>
+                <noderef id="trees"/>
                 <noderef id="skybox" />
                 <noderef id="ground" />                
                 <noderef id="tire"/>
                 <noderef id="bonfire" />
-                <noderef id="side_log"/>
-                <noderef id="trees"/>
                 <noderef id="tents"/>
             </descendants>
 
@@ -188,7 +194,7 @@
             
             <material id="null" />
             
-            <texture id="clear">
+            <texture id="frontTexture">
                 <amplification afs="1" aft="1" />
             </texture>
 
@@ -197,7 +203,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="skybox" x1="-10" y1="-10" x2="10" y2="0" />
+                <leaf type="skybox" x1="-10" y1="-10" x2="10" y2="7" />
             </descendants>
 
         </node>
@@ -206,7 +212,7 @@
             
             <material id="null" />
             
-            <texture id="clear">
+            <texture id="rightTexture">
                 <amplification afs="1" aft="1" />
             </texture>
 
@@ -216,7 +222,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="skybox" x1="-10" y1="-10" x2="10" y2="0" />
+                <leaf type="skybox" x1="-10" y1="-10" x2="10" y2="7" />
             </descendants>
 
         </node>
@@ -225,7 +231,7 @@
             
             <material id="null" />
             
-            <texture id="clear">
+            <texture id="leftTexture">
                 <amplification afs="1" aft="1" />
             </texture>
 
@@ -235,7 +241,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="skybox" x1="-10" y1="-10" x2="10" y2="0" />
+                <leaf type="skybox" x1="-10" y1="-10" x2="10" y2="7" />
             </descendants>
 
         </node>
@@ -244,16 +250,17 @@
             
             <material id="null" />
             
-            <texture id="clear">
+            <texture id="backTexture">
                 <amplification afs="1" aft="1" />
             </texture>
 
             <transformations>
                 <translation x="0" y="10" z="10" />
+                <rotation axis="y" angle="180" />
             </transformations>
 
             <descendants>
-                <leaf type="skybox" x1="-10" y1="-10" x2="10" y2="0" />
+                <leaf type="skybox" x1="-10" y1="-10" x2="10" y2="7" />
             </descendants>
 
         </node>
@@ -262,15 +269,19 @@
             
             <material id="null" />
             
-            <texture id="clear">
+            <texture id="topTexture">
                 <amplification afs="1" aft="1" />
             </texture>
 
             <transformations>
+            
+                <rotation axis="y" angle="180" />
+                <translation x="0" y="17" z="0" />
+                <rotation axis="x" angle="90" />
             </transformations>
 
             <descendants>
-                <leaf type="skybox" x1="-10" y1="-10" x2="10" y2="0" />
+                <leaf type="skybox" x1="-10" y1="-10" x2="10" y2="10" />
             </descendants>
 
         </node>
@@ -307,6 +318,8 @@
             </texture>
 
             <transformations>
+            
+                <rotation axis="z" angle="180" />
             </transformations>
 
             <descendants>
@@ -951,7 +964,7 @@
             </texture>
 
             <transformations>
-                
+                <scale sx="1.4" sy="1.4" sz="1.4" />
             </transformations>
 
             <descendants>
@@ -970,9 +983,8 @@
             </texture>
 
             <transformations>
-                <translation x="5" y="0.0001" z="3"/>
+                <translation x="4" y="0.0001" z="2"/>
                 <rotation axis="y" angle="-50" />
-                <scale sx="1.4" sy="1.4" sz="1.4" />
             </transformations>
 
             <descendants>
@@ -994,9 +1006,8 @@
             </texture>
 
             <transformations>
-                <translation x="9.5" y="0.0001" z="7.5"/>
+                <translation x="7" y="0.0001" z="5"/>
                 <rotation axis="y" angle="50" />
-                <scale sx="1.4" sy="1.4" sz="1.4" />
             </transformations>
 
             <descendants>
@@ -1111,6 +1122,7 @@
             </texture>
 
             <transformations>
+            
             </transformations>
 
             <descendants>
