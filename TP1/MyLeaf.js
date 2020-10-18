@@ -17,7 +17,7 @@ class MyLeaf {
         this.aft = aft;
 
         // gets the type of the primitive from the xml file
-        var type = this.graph.reader.getItem(element, 'type', ['rectangle', 'torus', 'triangle', 'sphere', 'cylinder']);
+        var type = this.graph.reader.getItem(element, 'type', ['rectangle', 'torus', 'triangle', 'sphere', 'cylinder', 'skybox']);
         
         // switch to decide what primitive is going to be shown in the screen
         switch(type) {
@@ -93,6 +93,22 @@ class MyLeaf {
                 this.slices = this.graph.reader.getFloat(element, 'slices');
                 this.loops  = this.graph.reader.getFloat(element, 'loops');
                 this.primitive = new MyTorus(this.graph.scene, this.inner, this.outer, this.slices, this.loops);
+                break;
+
+            case 'skybox':
+                this.x1 = this.graph.reader.getFloat(element, 'x1');
+                if (this.varError('skybox', 'x1', this.x1)) break;   
+
+                this.y1 = this.graph.reader.getFloat(element, 'y1');
+                if (this.varError('skybox', 'y1', this.y1)) break; 
+
+                this.x2 = this.graph.reader.getFloat(element, 'x2');
+                if (this.varError('skybox', 'x2', this.x2)) break; 
+
+                this.y2 = this.graph.reader.getFloat(element, 'y2');
+                if (this.varError('skybox', 'y2', this.y2)) break;  
+
+                this.primitive = new MySkybox(this.graph.scene, this.x1, this.y1, this.x2, this.y2);
                 break;
             default:
                 // Error with the spelling of the primitive's type
