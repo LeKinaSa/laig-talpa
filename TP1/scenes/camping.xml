@@ -57,7 +57,7 @@
 
         <!-- Simulates a full moon -->
         <light id="Full Moon">                              <!-- light identifier -->
-            <enable value="0" />                            <!-- enable/disable -->
+            <enable value="1" />                            <!-- enable/disable -->
             <position x="3" y="10" z="3" w="1.0" />         <!-- light position; w=1: point light; w=0: directional light -->
             <ambient  r="0.0" g="0.0" b="0.0" a="1.0" />    <!-- ambient component -->
             <diffuse  r="0.6" g="0.6" b="0.6" a="1.0" />    <!-- diffuse component -->
@@ -66,7 +66,7 @@
 
         <!-- Simulates a new moon -->
         <light id="New Moon">                               <!-- light identifier -->
-            <enable value="0" />                            <!-- enable/disable -->
+            <enable value="1" />                            <!-- enable/disable -->
             <position x="-3" y="10" z="-3" w="1.0" />       <!-- light position; w=1: point light; w=0: directional light -->
             <ambient  r="0.0" g="0.0" b="0.0" a="1.0" />    <!-- ambient component -->
             <diffuse  r="0.2" g="0.2" b="0.2" a="1.0" />    <!-- diffuse component -->
@@ -75,7 +75,7 @@
 
         <!-- Simulates the sun -->
         <light id="Sun">                                    <!-- light identifier -->
-            <enable value="0" />                            <!-- enable/disable -->
+            <enable value="1" />                            <!-- enable/disable -->
             <position x="0" y="10" z="0" w="1.0" />         <!-- light position; w=1: point light; w=0: directional light -->
             <ambient  r="0.0" g="0.0" b="0.0" a="1.0" />    <!-- ambient component -->
             <diffuse  r="0.9" g="0.9" b="0.9" a="1.0" />    <!-- diffuse component -->
@@ -90,22 +90,44 @@
         <texture id="coalTexture"        path="./scenes/images/coal.jpg" />
         <texture id="leavesTexture"      path="./scenes/images/leaves.jpg" />
         <texture id="dirtTexture"        path="./scenes/images/dirt.jpg" />
+        <texture id="tireTexture"        path="./scenes/images/tire.png" />
     </textures>
 
     <materials>
         <!-- At least one material should be present. -->
-        <material id="flamesMaterial">
+        <material id="flamesMaterial1">
             <shininess value="30" />
             <ambient  r="1.0" g="0.0" b="0.0" a="1.0" />
             <diffuse  r="0.7" g="0.4" b="0.0" a="1.0" />
             <specular r="0.7" g="0.7" b="0.0" a="1.0" />
+            <emissive r="0.4" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="flamesMaterial2">
+            <shininess value="30" />
+            <ambient  r="1.0" g="0" b="0.0" a="1.0" />
+            <diffuse  r="0.7" g="0.4" b="0.0" a="1.0" />
+            <specular r="0.7" g="0.7" b="0.0" a="1.0" />
+            <emissive r="0.3" g="0.1" b="0.0" a="1.0" />
+        </material>
+        <material id="flamesMaterial3">
+            <shininess value="30" />
+            <ambient  r="1.0" g="0.3" b="0.0" a="1.0" />
+            <diffuse  r="0.7" g="0.4" b="0.0" a="1.0" />
+            <specular r="0.7" g="0.7" b="0.0" a="1.0" />
             <emissive r="0.3" g="0.3" b="0.0" a="1.0" />
         </material>
-        <material id="tentMaterial">
-            <shininess value="10" />
-            <ambient  r="0.6" g="0.3" b="0.0" a="1.0" />
-            <diffuse  r="1.0" g="0.8" b="0.6" a="1.0" />
-            <specular r="1.0" g="0.8" b="0.6" a="1.0" />
+        <material id="tentMaterial1">
+            <shininess value="30" />
+            <ambient  r="0.0" g="0.0" b="0.2" a="1.0" />
+            <diffuse  r="0.0" g="0.0" b="0.2" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.2" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="tentMaterial2">
+            <shininess value="30" />
+            <ambient  r="1.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse  r="0.2" g="0.0" b="0.2" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.2" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
         <material id="rocksMaterial">
@@ -120,7 +142,7 @@
     <nodes>
         <node id="root">
 
-            <material id="tentMaterial" />
+            <material id="null" />
             
             <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
@@ -130,11 +152,12 @@
             </transformations>
 
             <descendants>
-                <noderef id="ground" />
+                <noderef id="ground" />                
+                <noderef id="tire"/>
                 <noderef id="bonfire" />
                 <noderef id="side_log"/>
-                <noderef id="tent"/>
                 <noderef id="trees"/>
+                <noderef id="tents"/>
             </descendants>
 
         </node>
@@ -290,6 +313,7 @@
             <descendants>
                 <noderef id="fire1"/>
                 <noderef id="fire2"/>
+                <noderef id="fire3"/>
                 <noderef id="rocks" />
             </descendants>
 
@@ -316,14 +340,15 @@
 
         <node id="fire1">
 
-            <material id="null" />
+            <material id="flamesMaterial1" />
 
             <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
             <transformations>
-                <translation x="-0.5" y="0" z="0.1" />
+                <translation x="-0.5" y="0" z="0" />
+                <scale sx="0.9" sy="0.9" sz="0.9" />
             </transformations>
 
             <descendants>
@@ -334,7 +359,7 @@
 
         <node id="fire2">
 
-            <material id="null" />
+            <material id="flamesMaterial2" />
 
             <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
@@ -342,6 +367,25 @@
 
             <transformations>
                 <translation x="0.2" y="0" z="-0.3" />
+            </transformations>
+
+            <descendants>
+                <noderef id="fire"/>
+            </descendants>
+
+        </node>
+
+        <node id="fire3">
+
+            <material id="flamesMaterial3" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0.2" y="0" z="0.4" />
+                <scale sx="1.3" sy="1.3" sz="1.3" />
             </transformations>
 
             <descendants>
@@ -391,7 +435,7 @@
 
         <node id="flames">
 
-            <material id="flamesMaterial" />
+            <material id="null" />
 
             <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
@@ -785,17 +829,61 @@
 
         </node>
 
-        <node id="tent">
+        <node id="tents">
 
-            <material id="tentMaterial" />
+            <material id="null" />
 
             <texture id="clear">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
             <transformations>
-                <translation x="3.5" y="0.0001" z="4"/>
-                <rotation axis="y" angle="-20" />
+                
+            </transformations>
+
+            <descendants>
+                <noderef id="tent1" />
+                <noderef id="tent2" />
+            </descendants>
+
+        </node>
+
+        <node id="tent1">
+
+            <material id="tentMaterial1" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+                <translation x="5" y="0.0001" z="3"/>
+                <rotation axis="y" angle="-50" />
+                <scale sx="1.4" sy="1.4" sz="1.4" />
+            </transformations>
+
+            <descendants>
+                <noderef id="frontTent"/>
+                <noderef id="backTent"/>
+                <noderef id="leftTent"/>
+                <noderef id="rightTent"/>
+                <noderef id="bottomTent"/>
+            </descendants>
+
+        </node>
+
+        <node id="tent2">
+
+            <material id="tentMaterial2" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+                <translation x="9.5" y="0.0001" z="7.5"/>
+                <rotation axis="y" angle="50" />
+                <scale sx="1.4" sy="1.4" sz="1.4" />
             </transformations>
 
             <descendants>
@@ -917,6 +1005,7 @@
                 <noderef id="tree2"/>
                 <noderef id="tree3"/>
                 <noderef id="tree4"/>
+                <noderef id="tree5"/>
             </descendants>
 
         </node>
@@ -930,7 +1019,7 @@
             </texture>
 
             <transformations>
-                <translation x="3" y="0" z="-3" />
+                <translation x="8" y="0" z="-8" />
                 <rotation axis="x" angle="-90" />
             </transformations>
 
@@ -991,6 +1080,26 @@
 
             <transformations>
                 <translation x="-2" y="0" z="-3" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <noderef id="log"/>
+                <noderef id="leaves"/>
+            </descendants>
+
+        </node>
+
+        <node id="tree5">
+
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+                <translation x="5" y="0" z="-7.3" />
                 <rotation axis="x" angle="-90" />
             </transformations>
 
@@ -1089,6 +1198,25 @@
 
             <descendants>
                 <leaf type="cylinder" height="1.5" topRadius="0" bottomRadius="0.5" stacks="3" slices="3"/>
+            </descendants>
+
+        </node>
+
+        <node id="tire">
+
+            <material id="null" />
+
+            <texture id="tireTexture">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-3.4" y="0.2" z="-1" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="torus" inner="0.4" outer="0.9" slices="32" loops="32" />
             </descendants>
 
         </node>
