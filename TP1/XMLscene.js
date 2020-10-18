@@ -1,5 +1,5 @@
 /**
- * XMLscene class, representing the scene that is to be rendered.
+ * XMLscene class: representing the scene that is to be rendered
  */
 class XMLscene extends CGFscene {
     /**
@@ -74,6 +74,7 @@ class XMLscene extends CGFscene {
                 
                 this.lights[i].key = key;
 
+                // Specifications for the light
                 this.lights[i].setPosition(...graphLight[1]);
                 this.lights[i].setAmbient(...graphLight[2]);
                 this.lights[i].setDiffuse(...graphLight[3]);
@@ -106,7 +107,8 @@ class XMLscene extends CGFscene {
         }
     }
 
-    /** Handler called when the graph is finally loaded. 
+    /** 
+     * Handler called when the graph is finally loaded. 
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
@@ -156,8 +158,7 @@ class XMLscene extends CGFscene {
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
         }
-        else
-        {
+        else {
             // Show some "loading" visuals
             this.defaultAppearance.apply();
 

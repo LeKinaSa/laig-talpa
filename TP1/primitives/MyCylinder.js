@@ -1,14 +1,18 @@
 /**
- * MyCylinder 
- * @constructor
- * @param  scene - MyScene object
- * @param  height - cylinder's height
- * @param  topRadius - top radius
- * @param  bottomRadius - bottom radius
- * @param  stacks - number of height divisions
- * @param  slices - number of slices around Y axis
-*/
+ * My Cilinder
+ * Cylinder Primitive parallel to the Z axis and the base on the XY plane
+ */
 class MyCylinder extends CGFobject {
+    /**
+     * MyCylinder 
+     * @constructor
+     * @param {CGFScene} scene - MyScene object
+     * @param {float} height - cylinder's height
+     * @param {float} topRadius - top radius
+     * @param {float} bottomRadius - bottom radius
+     * @param {float} stacks - number of height divisions
+     * @param {float} slices - number of slices around Y axis
+    */
     constructor(scene, height, bottomRadius, topRadius, stacks, slices) {
         super(scene);
         this.height = height;
@@ -20,6 +24,9 @@ class MyCylinder extends CGFobject {
         this.initBuffers();
     }
 
+    /**
+     * Init cylinder buffers.
+     */
     initBuffers() {
         this.vertices = [];
         this.indices = [];
@@ -75,7 +82,9 @@ class MyCylinder extends CGFobject {
             currentRadius += radiusInc;
         }
 
-        //  s = (x + raio) / (2 * raio) e t = (y + raio) / (2 * raio)
+        // Texture Coordinates on a Circle
+        // s = (x + radius) / (2 * radius)
+        // t = (y + radius) / (2 * radius)
 
         // Circle : Z = height
         for (let line = 0; line <= 1; line++) {
@@ -135,6 +144,12 @@ class MyCylinder extends CGFobject {
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
+
+    /**
+     * Updates the Texture Coordinates based on the Amplification
+     * @param {float} afs - Amplification Factor on S
+     * @param {float} aft - Amplification Factor on T
+    */
     updateTexCoords(afs, aft) {
         var tmp = this.texCoords;
         var auxCoords = [];

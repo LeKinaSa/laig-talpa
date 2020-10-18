@@ -1,17 +1,20 @@
 /**
  * MyTriangle
+ * Triangle Primitive in the XY plane
  * CODE ADAPTED FROM THE CLASS MyTriangle FROM CGRA
- * 
- * @constructor
- * @param scene - Reference to MyScene object
- * @param x1 - x coordinate corner 1
- * @param y1 - y coordinate corner 1
- * @param x2 - x coordinate corner 2
- * @param y2 - y coordinate corner 2
- * @param x3 - x coordinate corner 3
- * @param y3 - y coordinate corner 3
  */
 class MyTriangle extends CGFobject {
+    /**
+     * MyTriangle
+     * @constructor
+     * @param {CGFScene} scene - Reference to MyScene object
+     * @param {float} x1 - x coordinate corner 1
+     * @param {float} y1 - y coordinate corner 1
+     * @param {float} x2 - x coordinate corner 2
+     * @param {float} y2 - y coordinate corner 2
+     * @param {float} x3 - x coordinate corner 3
+     * @param {float} y3 - y coordinate corner 3
+     */
 	constructor(scene, x1, y1, x2, y2, x3, y3) {
 		super(scene);
 		this.x1 = x1;
@@ -29,7 +32,11 @@ class MyTriangle extends CGFobject {
 		this.sinalfa = 0;
 
 		this.initBuffers();
-	}
+    }
+    
+    /**
+     * Init triangle buffers.
+     */
 	initBuffers() {
 
 		this.a = Math.sqrt(Math.pow(this.x2-this.x1,2)+Math.pow(this.y2-this.y1,2));
@@ -94,6 +101,11 @@ class MyTriangle extends CGFobject {
 		this.initGLBuffers();
 	}
 
+    /**
+     * Updates the Texture Coordinates based on the Amplification
+     * @param {float} afs - Amplification Factor on S 
+     * @param {float} aft - Amplification Factor on T
+     */
 	updateTexCoords(afs, aft) {
 		var tmp = this.texCoords;
         var auxCoords = [];

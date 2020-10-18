@@ -1,9 +1,9 @@
 /**
-* MyInterface class, creating a GUI interface.
+* MyInterface class: creating a GUI interface
 */
 class MyInterface extends CGFinterface {
     /**
-     * @constructor
+     * @constructor - Initializes the Interface
      */
     constructor() {
         super();
@@ -32,6 +32,10 @@ class MyInterface extends CGFinterface {
         return true;
     }
 
+    /**
+     * Updates the GUI Interface
+     * Once the scene has been initialized, it introduces the GUI interface for all the scene components.
+     */
     update() {
         if ((this.scene.sceneInited) && (this.first_update)) {
             this.first_update = false;
@@ -47,7 +51,7 @@ class MyInterface extends CGFinterface {
     }
 
     /**
-     * initKeys
+     * Starts the Key Functions in the Interface.
      */
     initKeys() {
         this.scene.gui=this;

@@ -1,9 +1,15 @@
 /**
  * MyLeaf class: represents the possible primitives (leaves)
- * @constructor
 **/
 class MyLeaf {
-
+    /**
+     * MyLeaf
+     * @constructor
+     * @param {MySceneGraph} graph - Scene Graph
+     * @param {leaf element} element - Leaf Element on the XML File
+     * @param {float} afs - Amplification Factor on S
+     * @param {float} aft - Amplification Factor on T
+     */
     constructor(graph, element, afs, aft) {
         this.graph = graph;
         this.primitive = null;
@@ -89,19 +95,25 @@ class MyLeaf {
                 this.primitive = new MyTorus(this.graph.scene, this.inner, this.outer, this.slices, this.loops);
                 break;
             default:
+                // Error with the spelling of the primitive's type
+                // Not implemented
                 console.log("Not implemented");
                 this.primitive = null;
                 break;
         }
-
     }
 
-    // function used to know is the variable read is a number or not
-    varError(leaf, variableName, variable){
-        if(isNaN(variable)){
+    /**
+     * function used to know is the variable read is a number or not
+     * @param {leaf element} leaf 
+     * @param {string} variableName 
+     * @param {value} variable
+     */
+    varError(leaf, variableName, variable) {
+        if (isNaN(variable)) {
             this.graph.onXMLMinorError(leaf + ": " + variableName + ": not a number");
             return true;
-        }        
+        }
         return false;
     }
 }
