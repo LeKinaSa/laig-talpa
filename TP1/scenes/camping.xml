@@ -58,7 +58,7 @@
         <!-- Simulates a full moon -->
         <light id="Full Moon">                              <!-- light identifier -->
             <enable value="0" />                            <!-- enable/disable -->
-            <position x="3" y="10" z="3" w="1.0" />         <!-- light position; w=1: point light; w=0: directional light -->
+            <position x="5" y="10" z="5" w="1.0" />         <!-- light position; w=1: point light; w=0: directional light -->
             <ambient  r="0.5" g="0.5" b="0.5" a="1.0" />    <!-- ambient component -->
             <diffuse  r="0.6" g="0.6" b="0.6" a="1.0" />    <!-- diffuse component -->
             <specular r="0.6" g="0.6" b="0.6" a="1.0" />    <!-- specular component -->
@@ -67,7 +67,7 @@
         <!-- Simulates a new moon -->
         <light id="New Moon">                               <!-- light identifier -->
             <enable value="0" />                            <!-- enable/disable -->
-            <position x="-3" y="10" z="-3" w="1.0" />       <!-- light position; w=1: point light; w=0: directional light -->
+            <position x="-5" y="10" z="-5" w="1.0" />       <!-- light position; w=1: point light; w=0: directional light -->
             <ambient  r="0.5" g="0.5" b="0.5" a="1.0" />    <!-- ambient component -->
             <diffuse  r="0.2" g="0.2" b="0.2" a="1.0" />    <!-- diffuse component -->
             <specular r="0.2" g="0.2" b="0.2" a="1.0" />    <!-- specular component -->
