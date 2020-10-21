@@ -97,14 +97,13 @@
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
                 <rotation axis="y" angle="90" />
-                <scale sx="2.0" sy="2.0" sz="2.0" />
             </transformations>
 
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
             <descendants>
                 <!-- <leaf type="rectangle" x1="0" y1="0" x2="4" y2="2" /> -->
-                <leaf type="triangle" x1="-6" y1="0" x2="10" y2="3" x3="-1" y3="15" />
+                <leaf type="triangle" x1="-2" y1="0" x2="5" y2="3" x3="-1" y3="15" />
                 <!-- <leaf type="cylinder" height="10" topRadius="5" bottomRadius="5" stacks="32" slices="32"/> -->
                 <!-- <leaf type="torus" inner="1,6" outer="2" slices="32" loops="32" /> -->
                 <!-- <leaf type="sphere" radius="5" slices="32" stacks="32"/> -->

@@ -45,7 +45,7 @@ class MyTriangle extends CGFobject {
 		
 		this.cosalfa = (Math.pow(this.a,2)-Math.pow(this.b,2)+Math.pow(this.c,2))/(2*this.a*this.c);
 		this.sinalfa = Math.sqrt(1 - Math.pow(this.cosalfa, 2));
-
+		
 		this.vertices = [
 			this.x1, this.y1, 0,	//0
 			this.x2, this.y2, 0,	//1
@@ -85,12 +85,12 @@ class MyTriangle extends CGFobject {
 	   this.texCoords = [
  
 		0, 0,
-		this.a, 0,
-		this.c * this.cosalfa, this.c * this.sinalfa,
+		0, 1,
+		this.c * this.sinalfa/this.a, (this.c * this.cosalfa)/this.a, 
 		
 		0, 0,
-		this.a, 0,
-		this.c * this.cosalfa, this.c * this.sinalfa,		
+		0, 1,
+		this.c * this.sinalfa/this.a, (this.c * this.cosalfa)/this.a, 		
 		
 	]
 
