@@ -157,10 +157,9 @@ class XMLscene extends CGFscene {
  
             this.defaultAppearance.apply();
 
-            // TODO
             // Update Lights
             this.updateLights();
-
+            
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
         }
