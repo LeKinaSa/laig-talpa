@@ -7,7 +7,7 @@
         <!-- this node must be defined in one of the following NODE declarations -->
     </initials>
 
-    <views default="Camping Scene">
+    <views default="Picnic Scene">
         <!-- At least one camera must be present. -->
         <!-- camera types : perspective and ortho -->
         
@@ -31,9 +31,9 @@
         </perspective>
 
         <!-- detailed view of a picnic -->
-        <ortho id="Picnic Scene" near="-10" far="10" left="-1" right="1" top="1" bottom="-1">
-            <from x="4.7" y="6" z="-5.1" />
-            <to x="-0.5" y="1" z="-6" />
+        <ortho id="Picnic Scene" near="-10" far="100" left="-1" right="1" top="1" bottom="-1">
+            <from x="-6.7" y="7" z="-7.1" />
+            <to x="-0.5" y="0" z="-6" />
             <up x="0" y="1" z="0" />    <!-- optional, default 0, 1, 0 -->
         </ortho>
     </views>
