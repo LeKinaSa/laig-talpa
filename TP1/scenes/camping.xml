@@ -1263,7 +1263,7 @@
             <material id="null" />
 
             <texture id="logTexture">
-                <amplification afs="2.0" aft="2.0" />
+                <amplification afs="0.5" aft="0.5" />
             </texture>
 
             <transformations>
