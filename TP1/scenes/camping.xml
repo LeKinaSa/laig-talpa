@@ -19,7 +19,7 @@
         
         <!-- detailed view of a tree -->
         <ortho id="Tree View" near="-1" far="60" left="-3" right="3" top="4" bottom="-3">
-            <from x="-3" y="2.5" z="4" />
+            <from x="-2" y="3" z="4" />
             <to x="-4" y="1.5" z="5" />
             <up x="0" y="1" z="0" />    <!-- optional, default 0, 1, 0 -->
         </ortho>
@@ -31,9 +31,9 @@
         </perspective>
 
         <!-- detailed view of a picnic -->
-        <ortho id="Picnic Scene" near="-10" far="100" left="-1" right="1" top="1" bottom="-1">
-            <from x="-6.7" y="7" z="-7.1" />
-            <to x="-0.5" y="0" z="-6" />
+        <ortho id="Picnic Scene" near="2" far="10" left="-1.5" right="1.5" top="1.5" bottom="-1.5">
+            <from x="5" y="3" z="-5" />
+            <to x="-1" y="0.5" z="-6" />
             <up x="0" y="1" z="0" />    <!-- optional, default 0, 1, 0 -->
         </ortho>
     </views>
