@@ -30,6 +30,12 @@
             <to x="0" y="0" z="0" />
         </perspective>
 
+        <!-- detailed view of the tents -->
+        <perspective id="Tent View" near="0.1" far="50" angle="50">
+            <from x="-1" y="10" z="3" />
+            <to x="5" y="0" z="5" />
+        </perspective>
+
         <!-- detailed view of a picnic -->
         <ortho id="Picnic Scene" near="2" far="10" left="-1.5" right="1.5" top="1.5" bottom="-1.5">
             <from x="5" y="3" z="-5" />
