@@ -11,12 +11,16 @@
 
 ## Projects
 
-### [TP1 - Scene Graph](TP1)
+### [TP1 - Scene Graph] (TP1)
 
-- (items briefly describing main strong points)
+- Scene Strong Points
+  - Bonfire in the center, projecting light into everything that surronds it ![Bonfire](TP1/img/bonfire.png?raw=true)
+  - 2 colorful tents ![Tents](TP1/img/tents.png?raw=true)
+  - Some trees in a forest ![Tree](TP1/img/tree.png?raw=true)
+  - Picnip with a towel, a basket and 2 plates ![Picnic](TP1/img/picnic.png?raw=true)
 - Scene
-  - The scene consists of a camp in a forest, in which tents, logs, and a bonfire are present.
-  - (relative link to the scene)
+  - The scene consists of a camp in a forest, in which tents, logs, and a bonfire are present. There is also a log and a tire serving as seats near the fire and a picnic. ![Camping](TP1/img/camping.png?raw=true)
+  - [scene_link]
 
 -----
 
