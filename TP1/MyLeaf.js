@@ -37,7 +37,7 @@ class MyLeaf {
                 this.primitive = new MyRectangle(this.graph.scene, this.x1, this.y1, this.x2, this.y2);
                 break;
             case 'triangle':
-                this.x1 = this.graph.reader.getFloat(element, 'x1');
+                this.x1 = this.graph.reader.getFloat(element, 'x1',);
                 if (this.varError('triangle', 'x1', this.x1)) break;
 
                 this.y1 = this.graph.reader.getFloat(element, 'y1');
