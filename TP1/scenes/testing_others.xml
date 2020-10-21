@@ -40,7 +40,7 @@
 
     <textures>
         <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
-        <texture id="demoTexture" path="./scenes/images/log.jpg" />
+        <texture id="demoTexture" path="./scenes/images/texture.jpg" />
 
     </textures>
     <materials>
@@ -68,7 +68,7 @@
             <material id="null" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
 
             <texture id="demoTexture"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
-                <amplification afs="1.0" aft="1.0" /><!-- for primitives = dx/afs, dy/aft -->
+                <amplification afs="1" aft="1" /><!-- for primitives = dx/afs, dy/aft -->
             </texture>
 
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
@@ -91,7 +91,7 @@
             <material id="demoMaterial2" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
 
             <texture id="demoTexture"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
-                <amplification afs="0.5" aft="0.5" /><!-- for primitives = dx/afs, dy/aft -->
+                <amplification afs="1" aft="1" /><!-- for primitives = dx/afs, dy/aft -->
             </texture>
 
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
@@ -104,9 +104,9 @@
              descendants may be mixed, nodes and leafs -->
             <descendants>
                 <!-- <leaf type="rectangle" x1="0" y1="0" x2="4" y2="2" /> -->
-                <!-- <leaf type="triangle" x1="-6" y1="0" x2="10" y2="3" x3="-1" y3="15" /> -->
-                <leaf type="cylinder" height="10" topRadius="5" bottomRadius="5" stacks="32" slices="32"/>
-                <!-- <leaf type="torus" inner="1,6" outer="2" slices="32" loops="32" /> 
+                <leaf type="triangle" x1="-6" y1="0" x2="10" y2="3" x3="-1" y3="15" />
+                <!-- <leaf type="cylinder" height="10" topRadius="5" bottomRadius="5" stacks="32" slices="32"/> -->
+                <!-- <leaf type="torus" inner="1,6" outer="2" slices="32" loops="32" /> -->
                 <!-- <leaf type="sphere" radius="5" slices="32" stacks="32"/> -->
                 <!-- x y z coordinates of each vertex -->
             </descendants>

@@ -109,8 +109,8 @@ class MyTriangle extends CGFobject {
 	updateTexCoords(afs, aft) {
 		var tmp = this.texCoords;
         var auxCoords = [];
-        for(let i = 0; i < this.texCoords.length; i++){
-            if(i % 2 == 0) auxCoords.push(this.texCoords[i]/afs);
+        for (let i = 0; i < this.texCoords.length; i++) {
+            if (i % 2 == 0) auxCoords.push(this.texCoords[i]/afs);
             else auxCoords.push(this.texCoords[i]/aft);
         }
         this.texCoords = auxCoords;
