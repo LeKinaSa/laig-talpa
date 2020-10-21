@@ -58,7 +58,7 @@
         <!-- Simulates a full moon -->
         <light id="Full Moon">                              <!-- light identifier -->
             <enable value="0" />                            <!-- enable/disable -->
-            <position x="3" y="16" z="3" w="0.0" />         <!-- light position; w=1: point light; w=0: directional light -->
+            <position x="3" y="10" z="3" w="1.0" />         <!-- light position; w=1: point light; w=0: directional light -->
             <ambient  r="0.5" g="0.5" b="0.5" a="1.0" />    <!-- ambient component -->
             <diffuse  r="0.6" g="0.6" b="0.6" a="1.0" />    <!-- diffuse component -->
             <specular r="0.6" g="0.6" b="0.6" a="1.0" />    <!-- specular component -->
@@ -67,7 +67,7 @@
         <!-- Simulates a new moon -->
         <light id="New Moon">                               <!-- light identifier -->
             <enable value="0" />                            <!-- enable/disable -->
-            <position x="-3" y="16" z="-3" w="0.0" />       <!-- light position; w=1: point light; w=0: directional light -->
+            <position x="-3" y="10" z="-3" w="1.0" />       <!-- light position; w=1: point light; w=0: directional light -->
             <ambient  r="0.5" g="0.5" b="0.5" a="1.0" />    <!-- ambient component -->
             <diffuse  r="0.2" g="0.2" b="0.2" a="1.0" />    <!-- diffuse component -->
             <specular r="0.2" g="0.2" b="0.2" a="1.0" />    <!-- specular component -->
@@ -76,7 +76,7 @@
         <!-- Simulates the sun -->
         <light id="Sun">                                    <!-- light identifier -->
             <enable value="0" />                            <!-- enable/disable -->
-            <position x="0.0" y="16" z="0.0" w="0.0" />    <!-- light position; w=1: point light; w=0: directional light -->
+            <position x="0.0" y="10" z="0.0" w="1.0" />     <!-- light position; w=1: point light; w=0: directional light -->
             <ambient  r="1.0" g="1.0" b="1.0" a="1.0" />    <!-- ambient component -->
             <diffuse  r="1.0" g="1.0" b="1.0" a="1.0" />    <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />    <!-- specular component -->
@@ -105,10 +105,10 @@
         <!-- At least one material should be present. -->
         <material id="basicMaterial">
             <shininess value="1" />
-            <ambient  r="0.1" g="0.1" b="0.1" a="1" />
-            <diffuse  r="0.7" g="0.7" b="0.7" a="1" />
-            <specular r="0.5" g="0.5" b="0.5" a="1" />
-            <emissive r="0" g="0" b="0" a="1" />
+            <ambient  r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse  r="0.8" g="0.8" b="0.8" a="1.0" />
+            <specular r="0.6" g="0.6" b="0.6" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
         <material id="flamesMaterial1">
             <shininess value="30" />
@@ -119,7 +119,7 @@
         </material>
         <material id="flamesMaterial2">
             <shininess value="30" />
-            <ambient  r="1.0" g="0" b="0.0" a="1.0" />
+            <ambient  r="1.0" g="0.0" b="0.0" a="1.0" />
             <diffuse  r="0.7" g="0.4" b="0.0" a="1.0" />
             <specular r="0.7" g="0.7" b="0.0" a="1.0" />
             <emissive r="0.3" g="0.1" b="0.0" a="1.0" />
@@ -134,15 +134,15 @@
         <material id="tentMaterial1">
             <shininess value="30" />
             <ambient  r="0.0" g="0.0" b="0.1" a="1.0" />
-            <diffuse  r="0.0" g="0.0" b="0.2" a="1.0" />
-            <specular r="0.0" g="0.0" b="0.2" a="1.0" />
+            <diffuse  r="0.0" g="0.0" b="0.4" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.5" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
         <material id="tentMaterial2">
             <shininess value="30" />
             <ambient  r="0.1" g="0.0" b="0.0" a="1.0" />
-            <diffuse  r="0.2" g="0.0" b="0" a="1.0" />
-            <specular r="0.2" g="0.0" b="0" a="1.0" />
+            <diffuse  r="0.4" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.5" g="0.0" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
         <material id="rocksMaterial">
@@ -154,10 +154,10 @@
         </material>
         <material id="plateMaterial">
             <shininess value="1" />
-            <ambient  r="0.1" g="0.1" b="0.1" a="1" />
-            <diffuse  r="0.5" g="0.5" b="0.5" a="1" />
-            <specular r="0.5" g="0.5" b="0.5" a="1" />
-            <emissive r="0" g="0" b="0" a="1" />
+            <ambient  r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse  r="0.3" g="0.3" b="0.3" a="1.0" />
+            <specular r="0.5" g="0.5" b="0.5" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
     </materials>
 
