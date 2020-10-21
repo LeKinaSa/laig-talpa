@@ -15,20 +15,15 @@ class MyInterface extends CGFinterface {
      */
     init(application) {
         super.init(application);
-        // init GUI. For more information on the methods, check:
-        //  http://workshop.chromeexperiments.com/examples/gui
-
         this.gui = new dat.GUI();
 
-        // add a group of controls (and open/expand by defult)
-
-        this.initKeys();
-
+        // Adding some GUI Controls
         this.gui.add(this.scene, 'displayAxis').name("Display Axis");
         this.gui.add(this.scene, 'scaleFactor', 0.1, 10.0).name('Scale');
 
         this.first_update = true;
-
+        this.initKeys();
+        
         return true;
     }
 
@@ -39,13 +34,25 @@ class MyInterface extends CGFinterface {
     update() {
         if ((this.scene.sceneInited) && (this.first_update)) {
             this.first_update = false;
+            this.addCameras();
+            this.addLights();
+        }
+    }
 
-            this.gui.add(this.scene, 'selectedCamera', this.scene.cameraIDs).name('Selected Camera').onChange(this.scene.updateCamera.bind(this.scene));
+    /**
+     * Add a GUI interface for the cameras.
+     */
+    addCameras() {
+        this.gui.add(this.scene, 'selectedCamera', this.scene.cameraIDs).name('Selected Camera').onChange(this.scene.updateCamera.bind(this.scene));
+    }
 
-            for (let i = 0; i < this.scene.lights.length; i++) {
-                if (this.scene.lights[i].key != null) {
-                    this.gui.add(this.scene.lights[i], 'enabled').name(this.scene.lights[i].key).onChange(this.scene.updateLights.bind(this.scene));
-                }
+    /**
+     * Add a GUI interface for the lights.
+     */
+    addLights() {
+        for (let i = 0; i < this.scene.lights.length; i++) {
+            if (this.scene.lights[i].key != null) {
+                this.gui.add(this.scene.lights[i], 'enabled').name(this.scene.lights[i].key).onChange(this.scene.updateLights.bind(this.scene));
             }
         }
     }
