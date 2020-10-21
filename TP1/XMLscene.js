@@ -80,13 +80,14 @@ class XMLscene extends CGFscene {
                 this.lights[i].setDiffuse(...graphLight[3]);
                 this.lights[i].setSpecular(...graphLight[4]);
 
-                this.lights[i].setVisible(true);
                 if (graphLight[0]) {
                     this.lights[i].enabled = true;
+                    this.lights[i].setVisible(true);
                     this.lights[i].enable();
                 }
                 else {
                     this.lights[i].enabled = false;
+                    this.lights[i].setVisible(false);
                     this.lights[i].disable();
                 }
 
@@ -102,6 +103,7 @@ class XMLscene extends CGFscene {
     updateLights() {
         for (let i = 0; i < this.lights.length; i++) {
             if (this.lights[i].key != null) {
+                this.lights[i].setVisible(this.lights[i].enabled);
                 this.lights[i].update();
             }
         }
@@ -157,7 +159,7 @@ class XMLscene extends CGFscene {
 
             // TODO
             // Update Lights
-            this.updateLights();
+            //this.updateLights();
 
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
