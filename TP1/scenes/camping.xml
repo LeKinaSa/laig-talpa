@@ -12,9 +12,9 @@
         <!-- camera types : perspective and ortho -->
         
         <!-- view over all the scene -->
-        <perspective id="Camping Scene" near="0.1" far="500" angle="20">
-            <from x="60" y="55" z="30" />
-            <to x="0" y="-2" z="0" />
+        <perspective id="Camping Scene" near="0.1" far="500" angle="17">
+            <from x="30" y="50" z="80" />
+            <to x="0" y="7" z="0" />
         </perspective>
         
         <!-- detailed view of a tree -->
@@ -75,7 +75,7 @@
 
         <!-- Simulates the sun -->
         <light id="Sun">                                    <!-- light identifier -->
-            <enable value="0" />                            <!-- enable/disable -->
+            <enable value="1" />                            <!-- enable/disable -->
             <position x="0.1" y="6.9" z="0.0" w="1.0" />    <!-- light position; w=1: point light; w=0: directional light -->
             <ambient  r="1.0" g="1.0" b="1.0" a="1.0" />    <!-- ambient component -->
             <diffuse  r="1.0" g="1.0" b="1.0" a="1.0" />    <!-- diffuse component -->
