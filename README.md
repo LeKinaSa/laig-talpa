@@ -20,15 +20,15 @@
   - Picnip with a towel, a basket and 2 plates
 - Scene
   - The scene consists of a camp in a forest, in which tents, logs, and a bonfire are present. There is also a log and a tire serving as seats near the fire and a picnic.
-  - [scene_link]
+  - [Link to the Scene](https://git.fe.up.pt/laig/laig-2020-2021/t06/laig-t06-g02/-/tree/master/TP1)
 
 -----
 
-### [TP2 - ...](TP2)
+### [TP2 - ...] (TP2)
 - (items briefly describing main strong points)
 
 ----
 
-### [TP3 - ...](TP3)
+### [TP3 - ...] (TP3)
 - (items briefly describing main strong points)
 
