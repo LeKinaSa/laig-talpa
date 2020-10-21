@@ -12,9 +12,9 @@
         <!-- camera types : perspective and ortho -->
         
         <!-- view over all the scene -->
-        <perspective id="Camping Scene" near="0.1" far="500" angle="20">
-            <from x="60" y="55" z="30" />
-            <to x="0" y="-2" z="0" />
+        <perspective id="Camping Scene" near="0.1" far="500" angle="17">
+            <from x="30" y="50" z="80" />
+            <to x="0" y="7" z="0" />
         </perspective>
         
         <!-- detailed view of a tree -->
@@ -103,6 +103,13 @@
 
     <materials>
         <!-- At least one material should be present. -->
+        <material id="basicMaterial">
+            <shininess value="1" />
+            <ambient  r="0.1" g="0.1" b="0.1" a="1" />
+            <diffuse  r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.5" g="0.5" b="0.5" a="1" />
+            <emissive r="0" g="0" b="0" a="1" />
+        </material>
         <material id="flamesMaterial1">
             <shininess value="30" />
             <ambient  r="1.0" g="0.0" b="0.0" a="1.0" />
@@ -157,7 +164,7 @@
     <nodes>
         <node id="root">
 
-            <material id="null" />
+            <material id="basicMaterial" />
             
             <texture id="null">
                 <amplification afs="2.0" aft="2.0" />
@@ -171,10 +178,10 @@
                 <noderef id="trees" />
                 <noderef id="skybox" />
                 <noderef id="ground" />                
-                <noderef id="tire" />
-                <noderef id="picnic" />    
+                <noderef id="tire"/>  
                 <noderef id="bonfire" />   
-                <noderef id="tents" />
+                <noderef id="tents"/> 
+                <noderef id="picnic" />  
             </descendants>
 
         </node>
