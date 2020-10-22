@@ -73,6 +73,10 @@ class MyTriangle extends CGFobject {
 		];
 
 		/*
+
+				V3
+			c		b
+		V1		a		V2
 		Texture coords (s,t)
 		+----------> s
         |
@@ -84,13 +88,14 @@ class MyTriangle extends CGFobject {
 
 	   this.texCoords = [
  
-		0, 0,
-		0, 1,
-		this.c * this.sinalfa/this.a, (this.c * this.cosalfa)/this.a, 
 		
+		this.c * this.cosalfa, this.c * this.sinalfa,
+		this.a, 1,
 		0, 0,
-		0, 1,
-		this.c * this.sinalfa/this.a, (this.c * this.cosalfa)/this.a, 		
+
+		this.c * this.cosalfa, this.c * this.sinalfa,
+		this.a, 1,
+		0, 0,
 		
 	]
 
