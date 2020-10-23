@@ -35,7 +35,7 @@ class MyTorus extends CGFobject {
         var theta = 0;
         var phiInc = (2 * Math.PI) / this.slices;
         var thetaInc = (2 * Math.PI) / this.loops;
-        var loopVertices = this.loops + 1;
+        var loopVertices = this.slices + 1;
     
         // build an all-around stack at a time
         for (let outerSlice = 0; outerSlice <= this.loops; outerSlice++) {
