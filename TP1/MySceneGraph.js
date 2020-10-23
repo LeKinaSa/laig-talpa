@@ -577,7 +577,7 @@ class MySceneGraph {
             // ------------------------------------- Shininess
             if (shininessIndex == -1) return " No value for shininess in material: " + materialID;
             var shininess = this.reader.getFloat(materialInfo[shininessIndex], 'value');
-            if (isNaN(shininess) || shininess <= 0) return "Not a valid value for shininess in material: " + materialID;
+            if (isNaN(shininess) || shininess < 0) return "Not a valid value for shininess in material: " + materialID;
                 
             // ------------------------------------- Ambient
             if (ambientIndex == -1) return "No value for ambient in material: " + materialID;
@@ -723,9 +723,25 @@ class MySceneGraph {
 
             var amplifications = grandChildren[textureIndex].children;
 
-            var afs = this.reader.getFloat(amplifications[0], 'afs', false);
-            var aft = this.reader.getFloat(amplifications[0], 'aft', false);
-            
+            var afs, aft;
+
+            if(amplifications.length == 0){
+                this.onXMLMinorError("invalid values for afs and aft in node " + nodeID + ". Using afs = 1.0, aft = 1.0");
+                afs = 1.0;
+                aft = 1.0;
+            }
+            else{
+                afs = this.reader.getFloat(amplifications[0], 'afs');
+                aft = this.reader.getFloat(amplifications[0], 'aft');
+                if(isNaN(afs)){
+                    this.onXMLMinorError("invalid values for afs in node " + nodeID + ". Using afs = 1.0");
+                    afs = 1.0;
+                } 
+                if(isNaN(aft)){
+                    this.onXMLMinorError("invalid values for aft in node " + nodeID + ". Using aft = 1.0");
+                    aft = 1.0;
+                } 
+            }
             
             this.nodes[nodeID].texture = textureID;          
 
