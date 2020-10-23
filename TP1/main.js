@@ -32,7 +32,6 @@ main=function()
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
 	// or use "camping.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
 	
-    //var filename=getUrlVars()['file'] || "camping.xml";
     var filename=getUrlVars()['file'] || "testing_others.xml";
 
 	// create and load graph, and associate it to scene. 
