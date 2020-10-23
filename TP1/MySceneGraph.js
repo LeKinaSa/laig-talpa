@@ -538,6 +538,7 @@ class MySceneGraph {
      * @param {materials block element} materialsNode
      */
     parseMaterials(materialsNode) {
+        var materialsN = 0;
         var children = materialsNode.children;
 
         this.materials = [];
@@ -603,8 +604,10 @@ class MySceneGraph {
             newMaterial.setEmission(...emissive_component);
             
             this.materials[materialID] = newMaterial;
+            materialsN++;
         }
 
+        if(materialsN == 0) this.onXMLError("at least one material must be defined");
         this.log("Parsed materials");
     }
 
@@ -652,54 +655,57 @@ class MySceneGraph {
 
             var transformationsIndex = nodeNames.indexOf("transformations");
             if (transformationsIndex == -1) {
-                return "Error parsing transformations for node: " + nodeID;
+               this.onXMLMinorError("Error parsing transformations for node: " + nodeID + ". Using a clear matrix with no transformations.");
             }
+            else{
+                var transformations = grandChildren[transformationsIndex].children;
 
-            var transformations = grandChildren[transformationsIndex].children;
-
-            for(var j = 0; j < transformations.length; j++){
-                switch(transformations[j].nodeName){
-                    case "translation":
-                        var translation_vector = this.parseCoordinates3D(transformations[j],' "translation" from the node: ' + nodeID);
-                        mat4.translate(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, [...translation_vector]);
-
-                        break;
-                    case "rotation":
-                        var axis = this.reader.getItem(transformations[j], 'axis', ['x', 'y', 'z']);
-                        var angle = this.reader.getFloat(transformations[j], 'angle');
-                        if (axis == null) {
-                            this.onXMLMinorError("enter a valid number for 'rotation axis'; using axis = 'x'");
-                            axis = 'x';
-                        }
-                        if (angle == null) {
-                            this.onXMLMinorError("enter a valid number for 'rotation angle'; using angle = 0");
-                            angle = 0;
-                        }
-                        mat4.rotate(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, angle * DEGREE_TO_RAD, this.axisCoords[axis]);
-                        break;
-                    case "scale":
-                        var sx = this.reader.getFloat(transformations[j], 'sx');
-                        var sy = this.reader.getFloat(transformations[j], 'sy');
-                        var sz = this.reader.getFloat(transformations[j], 'sz');
-                        if (sx == null) {
-                            this.onXMLMinorError("enter a valid number for 'scale sx'; using sx = 1");
-                            sx = 1;
-                        }
-                        if (sy == null) {
-                            this.onXMLMinorError("enter a valid number for 'scale sy'; using sy = 1");
-                            sy = 1;
-                        }
-                        if (sz == null) {
-                            this.onXMLMinorError("enter a valid number for 'scale sz'; using sz = 1");
-                            sz = 1;
-                        }
-                        mat4.scale(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, [sx, sy, sz]);
-                        break;
-                    default:
-                        this.onXMLMinorError("unknown transformation: " + transformations[j].nodeName);
-                        break;
+                for(var j = 0; j < transformations.length; j++){
+                    switch(transformations[j].nodeName){
+                        case "translation":
+                            var translation_vector = this.parseCoordinates3D(transformations[j],' "translation" from the node: ' + nodeID);
+                            mat4.translate(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, [...translation_vector]);
+    
+                            break;
+                        case "rotation":
+                            var axis = this.reader.getItem(transformations[j], 'axis', ['x', 'y', 'z']);
+                            var angle = this.reader.getFloat(transformations[j], 'angle');
+                            if (axis == null) {
+                                this.onXMLMinorError("enter a valid number for 'rotation axis'; using axis = 'x'");
+                                axis = 'x';
+                            }
+                            if (angle == null) {
+                                this.onXMLMinorError("enter a valid number for 'rotation angle'; using angle = 0");
+                                angle = 0;
+                            }
+                            mat4.rotate(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, angle * DEGREE_TO_RAD, this.axisCoords[axis]);
+                            break;
+                        case "scale":
+                            var sx = this.reader.getFloat(transformations[j], 'sx');
+                            var sy = this.reader.getFloat(transformations[j], 'sy');
+                            var sz = this.reader.getFloat(transformations[j], 'sz');
+                            if (sx == null) {
+                                this.onXMLMinorError("enter a valid number for 'scale sx'; using sx = 1");
+                                sx = 1;
+                            }
+                            if (sy == null) {
+                                this.onXMLMinorError("enter a valid number for 'scale sy'; using sy = 1");
+                                sy = 1;
+                            }
+                            if (sz == null) {
+                                this.onXMLMinorError("enter a valid number for 'scale sz'; using sz = 1");
+                                sz = 1;
+                            }
+                            mat4.scale(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, [sx, sy, sz]);
+                            break;
+                        default:
+                            this.onXMLMinorError("unknown transformation: " + transformations[j].nodeName);
+                            break;
+                    }
                 }
             }
+
+            
 
             // -------------------- Material -------------------- 
             
