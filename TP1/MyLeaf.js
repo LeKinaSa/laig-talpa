@@ -89,9 +89,13 @@ class MyLeaf {
                 break;
             case 'torus':
                 this.inner  = this.graph.reader.getFloat(element, 'inner');
+                if (this.varError('torus', 'inner', this.inner)) break;
                 this.outer  = this.graph.reader.getFloat(element, 'outer');
+                if (this.varError('torus', 'outer', this.outer)) break;
                 this.slices = this.graph.reader.getFloat(element, 'slices');
+                if (this.varError('torus', 'slices', this.slices)) break;
                 this.loops  = this.graph.reader.getFloat(element, 'loops');
+                if (this.varError('torus', 'loops', this.loops)) break;
                 this.primitive = new MyTorus(this.graph.scene, this.inner, this.outer, this.slices, this.loops);
                 break;
 
