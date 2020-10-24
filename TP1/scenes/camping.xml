@@ -54,20 +54,20 @@
         
         <!-- Simulates the light provided by a fire -->
         <light id="Fire Light">                             <!-- light identifier -->
-            <enable value="0" />                            <!-- enable/disable -->
-            <position x="0" y="0" z="0" w="1.0" />          <!-- light position; w=1: point light; w=0: directional light -->
-            <ambient  r="0.7" g="0.6" b="0.3" a="0.0" />    <!-- ambient component -->
-            <diffuse  r="0.7" g="0.6" b="0.3" a="1.0" />    <!-- diffuse component -->
-            <specular r="0.7" g="0.6" b="0.3" a="1.0" />    <!-- specular component -->
+            <enable value="1" />                            <!-- enable/disable -->
+            <position x="0" y="1" z="0" w="1.0" />          <!-- light position; w=1: point light; w=0: directional light -->
+            <ambient  r="0.3" g="0.2" b="0.0" a="0.0" />    <!-- ambient component -->
+            <diffuse  r="0.1" g="0.1" b="0.0" a="0.0" />    <!-- diffuse component -->
+            <specular r="0.4" g="0.3" b="0.0" a="0.0" />    <!-- specular component -->
         </light>
 
         <!-- Simulates a full moon -->
         <light id="Full Moon">                              <!-- light identifier -->
             <enable value="0" />                            <!-- enable/disable -->
             <position x="5" y="10" z="5" w="1.0" />         <!-- light position; w=1: point light; w=0: directional light -->
-            <ambient  r="0.5" g="0.5" b="0.5" a="1.0" />    <!-- ambient component -->
-            <diffuse  r="0.6" g="0.6" b="0.6" a="1.0" />    <!-- diffuse component -->
-            <specular r="0.6" g="0.6" b="0.6" a="1.0" />    <!-- specular component -->
+            <ambient  r="0.2" g="0.2" b="0.2" a="1.0" />    <!-- ambient component -->
+            <diffuse  r="0.4" g="0.4" b="0.4" a="1.0" />    <!-- diffuse component -->
+            <specular r="0.4" g="0.4" b="0.4" a="1.0" />    <!-- specular component -->
         </light>
 
         <!-- Simulates a new moon -->
@@ -81,7 +81,7 @@
 
         <!-- Simulates the sun -->
         <light id="Sun">                                    <!-- light identifier -->
-            <enable value="1" />                            <!-- enable/disable -->
+            <enable value="0" />                            <!-- enable/disable -->
             <position x="0.0" y="10" z="0.0" w="1.0" />     <!-- light position; w=1: point light; w=0: directional light -->
             <ambient  r="1.0" g="1.0" b="1.0" a="1.0" />    <!-- ambient component -->
             <diffuse  r="1.0" g="1.0" b="1.0" a="1.0" />    <!-- diffuse component -->
@@ -94,16 +94,15 @@
         <texture id="logTexture"         path="./scenes/images/log.jpg" />
         <texture id="forestFloorTexture" path="./scenes/images/bottom.png" />
         <texture id="rocksTexture"       path="./scenes/images/rocks.jpg" />
-        <texture id="coalTexture"        path="./scenes/images/coal.jpg" />
         <texture id="leavesTexture"      path="./scenes/images/leaves.jpg" />
         <texture id="dirtTexture"        path="./scenes/images/dirt.jpg" />
         <texture id="tireTexture"        path="./scenes/images/tire.png" />
         <texture id="backTexture"        path="./scenes/images/back.png" />
-        <texture id="frontTexture"        path="./scenes/images/front.png" />
+        <texture id="frontTexture"       path="./scenes/images/front.png" />
         <texture id="leftTexture"        path="./scenes/images/left.png" />
-        <texture id="rightTexture"        path="./scenes/images/right.png" />
-        <texture id="topTexture"        path="./scenes/images/top.png" />
-        <texture id="towelTexture"      path="./scenes/images/towel.jpg" />
+        <texture id="rightTexture"       path="./scenes/images/right.png" />
+        <texture id="topTexture"         path="./scenes/images/top.png" />
+        <texture id="towelTexture"       path="./scenes/images/towel.jpg" />
         <texture id="basketTexture"      path="./scenes/images/basket.jpg" />
     </textures>
 
@@ -118,24 +117,24 @@
         </material>
         <material id="flamesMaterial1">
             <shininess value="30" />
-            <ambient  r="1.0" g="0.0" b="0.0" a="1.0" />
+            <ambient  r="0.5" g="0.0" b="0.0" a="1.0" />
             <diffuse  r="0.7" g="0.4" b="0.0" a="1.0" />
             <specular r="0.7" g="0.7" b="0.0" a="1.0" />
-            <emissive r="0.4" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
         <material id="flamesMaterial2">
             <shininess value="30" />
-            <ambient  r="1.0" g="0.0" b="0.0" a="1.0" />
+            <ambient  r="0.5" g="0.0" b="0.0" a="1.0" />
             <diffuse  r="0.7" g="0.4" b="0.0" a="1.0" />
             <specular r="0.7" g="0.7" b="0.0" a="1.0" />
-            <emissive r="0.3" g="0.1" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
         <material id="flamesMaterial3">
             <shininess value="30" />
-            <ambient  r="1.0" g="0.3" b="0.0" a="1.0" />
+            <ambient  r="0.5" g="0.3" b="0.0" a="1.0" />
             <diffuse  r="0.7" g="0.4" b="0.0" a="1.0" />
             <specular r="0.7" g="0.7" b="0.0" a="1.0" />
-            <emissive r="0.3" g="0.3" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
         <material id="tentMaterial1">
             <shininess value="30" />
@@ -151,18 +150,18 @@
             <specular r="0.5" g="0.0" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
-        <material id="rocksMaterial">
-            <shininess value="1" />
-            <ambient  r="0.6" g="0.6" b="0.6" a="1.0" />
-            <diffuse  r="0.8" g="0.8" b="0.8" a="1.0" />
-            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
-            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
-        </material>
         <material id="plateMaterial">
             <shininess value="1" />
             <ambient  r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse  r="0.3" g="0.3" b="0.3" a="1.0" />
             <specular r="0.5" g="0.5" b="0.5" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="coalMaterial">
+            <shininess value="30" />
+            <ambient  r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse  r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
     </materials>
@@ -172,21 +171,21 @@
 
             <material id="basicMaterial" />
             
-            <texture id="null">
-                <amplification afs="2.0" aft="2.0" />
+            <texture id="clear">
+                <amplification afs="1" aft="1" />
             </texture>
 
             <transformations>
             </transformations>
 
             <descendants>
-                <noderef id="side_log" />
-                <noderef id="trees" />
                 <noderef id="skybox" />
-                <noderef id="ground" />                
-                <noderef id="tire"/>  
-                <noderef id="bonfire" />   
+                <noderef id="ground" />
+                <noderef id="bonfire" />
+                <noderef id="side_log" />   
                 <noderef id="tents"/> 
+                <noderef id="trees" />                
+                <noderef id="tire"/> 
                 <noderef id="picnic" />  
             </descendants>
 
@@ -337,11 +336,10 @@
             <material id="null" />
 
             <texture id="forestFloorTexture">
-                <amplification afs="1" aft="1" />
+                <amplification afs="20" aft="20" />
             </texture>
 
             <transformations>
-            
                 <rotation axis="z" angle="180" />
             </transformations>
 
@@ -468,25 +466,6 @@
 
         </node>
 
-        <node id="rocks">
-
-            <material id="rocksMaterial" />
-
-            <texture id="rocksTexture">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-                <translation x="0" y="0.1" z="0" />
-                <rotation axis="x" angle="-90" />
-            </transformations>
-
-            <descendants>
-                <leaf type="torus" inner="0.2" outer="0.8" slices="32" loops="32" />
-            </descendants>
-
-        </node>
-
         <node id="fire1">
 
             <material id="flamesMaterial1" />
@@ -556,28 +535,27 @@
             </transformations>
 
             <descendants>
-                <noderef id="coal" />
                 <noderef id="flames" />
+                <noderef id="coal" />
             </descendants>
 
         </node>
 
-        <node id="coal">
+         <node id="rocks">
 
             <material id="null" />
 
-            <texture id="coalTexture">
+            <texture id="rocksTexture">
                 <amplification afs="2.0" aft="2.0" />
             </texture>
 
             <transformations>
-
                 <translation x="0" y="0.1" z="0" />
-
+                <rotation axis="x" angle="-90" />
             </transformations>
 
             <descendants>
-                 <leaf type="sphere" radius="0.3" slices="32" stacks="32" />
+                <leaf type="torus" inner="0.2" outer="0.8" slices="32" loops="32" />
             </descendants>
 
         </node>
@@ -956,6 +934,24 @@
             </descendants>
 
         </node>
+
+        <node id="coal">
+
+            <material id="coalMaterial" />
+
+            <texture id="clear">
+                <amplification afs="2.0" aft="2.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0.1" z="0" />
+            </transformations>
+
+            <descendants>
+                 <leaf type="sphere" radius="0.3" slices="32" stacks="32" />
+            </descendants>
+
+        </node>        
 
         <node id="side_log">
 
@@ -1373,7 +1369,7 @@
 
             <material id="null" />
 
-            <texture id="leavesTexture">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -1390,7 +1386,7 @@
 
             <material id="null" />
 
-            <texture id="leavesTexture">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -1408,7 +1404,7 @@
 
             <material id="null" />
 
-            <texture id="leavesTexture">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -1445,7 +1441,7 @@
             
             <material id="null" />
             
-            <texture id="null">
+            <texture id="clear">
                 <amplification afs="1" aft="1" />
             </texture>
 
@@ -1503,7 +1499,7 @@
             
             <material id="null" />
             
-            <texture id="clear">
+            <texture id="null">
                 <amplification afs="1" aft="1" />
             </texture>
 
@@ -1521,7 +1517,7 @@
             
             <material id="null" />
             
-            <texture id="clear">
+            <texture id="null">
                 <amplification afs="1" aft="1" />
             </texture>
 
@@ -1541,7 +1537,7 @@
             
             <material id="null" />
             
-            <texture id="null">
+            <texture id="clear">
                 <amplification afs="1" aft="1" />
             </texture>
 
