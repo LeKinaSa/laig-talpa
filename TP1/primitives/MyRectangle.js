@@ -31,19 +31,19 @@ class MyRectangle extends CGFobject {
 			this.x2, this.y1, 0,	//1
 			this.x1, this.y2, 0,	//2
             this.x2, this.y2, 0,	//3
-            // Back Face
+            /*// Back Face
             this.x1, this.y1, 0,	//4
 			this.x2, this.y1, 0,	//5
 			this.x1, this.y2, 0,	//6
-			this.x2, this.y2, 0		//7
+			this.x2, this.y2, 0		//7*/
 		];
 
 		//Counter-clockwise reference of vertices
 		this.indices = [
 			0, 1, 2,
 			1, 3, 2,
-			4, 6, 5, 
-			5, 6, 7,
+			/*4, 6, 5, 
+			5, 6, 7,*/
 		];
 
 		//Facing Z positive
@@ -52,11 +52,11 @@ class MyRectangle extends CGFobject {
 			0, 0, 1,
 			0, 0, 1,
             0, 0, 1,
-            // Backwards
+            /*// Backwards
             0, 0, -1,
 			0, 0, -1,
 			0, 0, -1,
-			0, 0, -1
+			0, 0, -1*/
 		];
 		
 		/*
@@ -74,11 +74,12 @@ class MyRectangle extends CGFobject {
 			(this.x2 - this.x1), (this.y2 - this.y1),
 			0, 0,
             (this.x2 - this.x1), 0,
-            // Back Face
+			
+			/*// Back Face
             0, (this.y2 - this.y1),
 			(this.x2 - this.x1), (this.y2 - this.y1),
 			0, 0,
-            (this.x2 - this.x1), 0
+            (this.x2 - this.x1), 0*/
 		]
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
