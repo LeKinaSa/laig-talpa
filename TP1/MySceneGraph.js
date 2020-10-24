@@ -887,7 +887,7 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        this.displaySceneRecursive(this.idRoot, this.nodes[this.idRoot].texture, this.nodes[this.idRoot].material, this.nodes[this.idRoot].afs, this.nodes[this.idRoot].aft);
+        this.displaySceneRecursive(this.idRoot, this.nodes[this.idRoot].texture, this.nodes[this.idRoot].material);
     }
 
     /**
@@ -905,13 +905,13 @@ class MySceneGraph {
         this.scene.multMatrix(currentNode.matrix);
 
         // Obtain material and texture
-        if (this.materials[currentNode.material] != null) {
+        if (currentNode.material != "null") {
             idMaterial = currentNode.material;
         }
 
-        if (this.textures[currentNode.texture] != null) {
+        if (currentNode.texture != "null") {
             if (currentNode.textureID == 'clear') {
-                idTexture = null;
+                idTexture = "null";
             }
             else {
                 idTexture = currentNode.texture;
@@ -925,11 +925,14 @@ class MySceneGraph {
             if (currentNode.leaves[i].primitive != null) {
                 // Apply material and texture
                 if (currentMaterial != null) {
+                    currentMaterial.setTextureWrap('REPEAT', 'REPEAT');
                     currentMaterial.apply();
                 }
                 if (currentTexture != null) {
                     currentNode.leaves[i].primitive.updateTexCoords(currentNode.leaves[i].afs, currentNode.leaves[i].aft);
-                    currentTexture.bind();
+                    currentMaterial.setTexture(currentTexture);
+                    currentMaterial.setTextureWrap('REPEAT', 'REPEAT');
+                    currentMaterial.apply();
                 }
 
                 // Display the leaf
