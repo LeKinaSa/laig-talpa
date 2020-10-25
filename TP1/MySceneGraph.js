@@ -573,8 +573,6 @@ class MySceneGraph {
                 nodeNames.push(materialInfo[j].nodeName);
             }
 
-            console.log(nodeNames);
-
             // Specifications for the current material
             var shininessIndex = nodeNames.indexOf("shininess");
             var ambientIndex   = nodeNames.indexOf("ambient");
@@ -760,15 +758,23 @@ class MySceneGraph {
             var textureID = this.reader.getString(grandChildren[textureIndex], 'id');
 
             var amplifications = grandChildren[textureIndex].children;
-
             var afs, aft;
 
-            if(amplifications.length == 0){
+            if(amplifications[0].nodeName != "amplification"){
+                this.onXMLMinorError("Can't find <amplification> node for node " + nodeID + ". Using afs = 1.0, aft = 1.0");
+                afs = 1.0;
+                aft = 1.0;
+            }          
+            else if(amplifications.length == 0){
                 this.onXMLMinorError("invalid values for afs and aft in node " + nodeID + ". Using afs = 1.0, aft = 1.0");
                 afs = 1.0;
                 aft = 1.0;
             }
             else{
+                if(amplifications.length > 1){
+                    this.onXMLMinorError("More than 1 amplification for node " + nodeID + ". Using the first one");
+                }
+                
                 afs = this.reader.getFloat(amplifications[0], 'afs');
                 aft = this.reader.getFloat(amplifications[0], 'aft');
                 if(isNaN(afs)){
