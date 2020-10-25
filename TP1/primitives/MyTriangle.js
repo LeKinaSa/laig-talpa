@@ -59,7 +59,7 @@ class MyTriangle extends CGFobject {
 		//Counter-clockwise reference of vertices
 		this.indices = [
 			0, 1, 2,
-			3, 5, 4
+			2, 1, 0
         ];
 
 		//Facing Z positive
@@ -89,9 +89,6 @@ class MyTriangle extends CGFobject {
 	   this.texCoords = [
  
 		
-		0, 1,
-		this.a, 1,
-		this.c * this.cosalfa, 1 - this.c * this.sinalfa,
 		0, 1,
 		this.a, 1,
 		this.c * this.cosalfa, 1 - this.c * this.sinalfa
