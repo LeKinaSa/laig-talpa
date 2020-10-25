@@ -521,7 +521,9 @@ class MySceneGraph {
         for (var i = 0; i < texturesNode.children.length; i++) {
             if (texturesNode.children[i].nodeName == "texture") {
                 var textureID = this.reader.getString(texturesNode.children[i], 'id');
+                if(!isNaN(textureID)) {this.onXMLMinorError("Unable to get texture number "+ (i+1) + ". Ignoring it"); continue;}
                 var path = this.reader.getString(texturesNode.children[i], 'path');
+                if(!isNaN(path)) {this.onXMLMinorError("Unable to get path for texture "+ textureID + ". Ignoring it"); continue;}
             }
             else
                 this.onXMLMinorError("unknown tag name <" + name + ">");
