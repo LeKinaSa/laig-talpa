@@ -482,11 +482,11 @@ class MySceneGraph {
 
                 if (attributeIndex != -1) {
                     if (attributeTypes[j] == "boolean")
-                        var aux = this.parseBoolean(grandChildren[attributeIndex], "value", "enabled attribute for light of ID" + lightId);
+                        var aux = this.parseBoolean(grandChildren[attributeIndex], "value", "enabled attribute for light of ID = " + lightId);
                     else if (attributeTypes[j] == "position")
-                        var aux = this.parseCoordinates4D(grandChildren[attributeIndex], "light position for ID" + lightId);
+                        var aux = this.parseCoordinates4D(grandChildren[attributeIndex], "light position for ID = " + lightId);
                     else
-                        var aux = this.parseColor(grandChildren[attributeIndex], attributeNames[j] + " illumination for ID" + lightId);
+                        var aux = this.parseColor(grandChildren[attributeIndex], attributeNames[j] + " illumination for ID = " + lightId);
 
                     if (typeof aux === 'string')
                         return aux;
@@ -861,22 +861,22 @@ class MySceneGraph {
         // Red (R)
         var r = this.reader.getFloat(node, 'r');
         if (!(r != null && !isNaN(r) && r >= 0 && r <= 1))
-            return "unable to parse R component of the " + messageError;
+            return "unable to parse red (R) component of the " + messageError;
 
         // Green (G)
         var g = this.reader.getFloat(node, 'g');
         if (!(g != null && !isNaN(g) && g >= 0 && g <= 1))
-            return "unable to parse G component of the " + messageError;
+            return "unable to parse green (G) component of the " + messageError;
 
         // Blue (B)
         var b = this.reader.getFloat(node, 'b');
         if (!(b != null && !isNaN(b) && b >= 0 && b <= 1))
-            return "unable to parse B component of the " + messageError;
+            return "unable to parse blue (B) component of the " + messageError;
 
         // Alpha (A)
         var a = this.reader.getFloat(node, 'a');
         if (!(a != null && !isNaN(a) && a >= 0 && a <= 1))
-            return "unable to parse A component of the " + messageError;
+            return "unable to parse alpha (A) component of the " + messageError;
 
         color.push(...[r, g, b, a]);
 
