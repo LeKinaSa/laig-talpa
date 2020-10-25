@@ -36,6 +36,7 @@ class MyLeaf {
 
                 this.primitive = new MyRectangle(this.graph.scene, this.x1, this.y1, this.x2, this.y2);
                 break;
+
             case 'triangle':
                 this.x1 = this.graph.reader.getFloat(element, 'x1',);
                 if (this.varError('triangle', 'x1', this.x1)) break;
@@ -57,6 +58,7 @@ class MyLeaf {
 
                 this.primitive = new MyTriangle(this.graph.scene, this.x1, this.y1, this.x2, this.y2, this.x3, this.y3);
                 break;
+
             case 'sphere':
                 this.radius = this.graph.reader.getFloat(element, 'radius');
                 if (this.varError('sphere', 'radius', this.radius)) break;
@@ -69,6 +71,7 @@ class MyLeaf {
 
                 this.primitive = new MySphere(this.graph.scene, this.radius, this.slices, this.stacks);
                 break;
+
             case 'cylinder':
                 this.height = this.graph.reader.getFloat(element, 'height');
                 if (this.varError('cylinder', 'height', this.height)) break;
@@ -87,15 +90,20 @@ class MyLeaf {
                 
                 this.primitive = new MyCylinder(this.graph.scene, this.height, this.topRadius, this.bottomRadius, this.stacks, this.slices);
                 break;
+
             case 'torus':
                 this.inner  = this.graph.reader.getFloat(element, 'inner');
                 if (this.varError('torus', 'inner', this.inner)) break;
+
                 this.outer  = this.graph.reader.getFloat(element, 'outer');
                 if (this.varError('torus', 'outer', this.outer)) break;
+
                 this.slices = this.graph.reader.getFloat(element, 'slices');
                 if (this.varError('torus', 'slices', this.slices)) break;
+
                 this.loops  = this.graph.reader.getFloat(element, 'loops');
                 if (this.varError('torus', 'loops', this.loops)) break;
+                
                 this.primitive = new MyTorus(this.graph.scene, this.inner, this.outer, this.slices, this.loops);
                 break;
 
