@@ -110,7 +110,7 @@ class MyLeaf {
             default:
                 // Error with the spelling of the primitive's type
                 // Not implemented
-                console.log("Not implemented");
+                this.graph.onXMLMinorError("This primitive is not implemented");
                 this.primitive = null;
                 break;
         }

@@ -521,12 +521,15 @@ class MySceneGraph {
         for (var i = 0; i < texturesNode.children.length; i++) {
             if (texturesNode.children[i].nodeName == "texture") {
                 var textureID = this.reader.getString(texturesNode.children[i], 'id');
+                if(!isNaN(textureID)) {this.onXMLMinorError("Unable to get texture number "+ (i+1) + ". Ignoring it"); continue;}
                 var path = this.reader.getString(texturesNode.children[i], 'path');
+                if(!isNaN(path)) {this.onXMLMinorError("Unable to get path for texture "+ textureID + ". Ignoring it"); continue;}
             }
             else
                 this.onXMLMinorError("unknown tag name <" + name + ">");
 
             var texture = new CGFtexture(this.scene, path);
+            if(this.textures[textureID] != null){this.onXMLMinorError("There are more than 1 textures named " + textureID + ". Rename one of them."); continue;}
             this.textures[textureID] = texture;
         }
 
@@ -547,6 +550,8 @@ class MySceneGraph {
 
         // Any number of materials.
         for (var i = 0; i < children.length; i++) {
+
+            nodeNames = [];
 
             if (children[i].nodeName != "material") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
@@ -575,27 +580,52 @@ class MySceneGraph {
             var specularIndex  = nodeNames.indexOf("specular");
             var emissiveIndex  = nodeNames.indexOf("emissive");
 
+            var shininess, ambient_component, diffuse_component, specular_component, emissive_component;
+
             // ------------------------------------- Shininess
-            if (shininessIndex == -1) return " No value for shininess in material: " + materialID;
-            var shininess = this.reader.getFloat(materialInfo[shininessIndex], 'value');
-            if (isNaN(shininess) || shininess < 0) return "Not a valid value for shininess in material: " + materialID;
-                
+            if (shininessIndex == -1){
+                this.onXMLMinorError(" No value for shininess in material: " + materialID + ". Using default values.");
+                shininess = 10;
+            } 
+            else{
+                shininess = this.reader.getFloat(materialInfo[shininessIndex], 'value');
+                if (isNaN(shininess) || shininess < 0){
+                    this.onXMLMinorError(" No value for shininess in material: " + materialID + ". Using default values.");
+                    shininess = 10;
+                }                     
+            }
             // ------------------------------------- Ambient
-            if (ambientIndex == -1) return "No value for ambient in material: " + materialID;
-            var ambient_component = this.parseColor(materialInfo[ambientIndex], 'ambient of the material: ' + materialID);
-
+            if (ambientIndex == -1){
+                this.onXMLMinorError("No value for ambient in material: " + materialID + ". Using default values.");
+                ambient_component = [0.5, 0.5, 0.5, 1.0];
+            }
+            else{
+                ambient_component = this.parseColor(materialInfo[ambientIndex], 'ambient of the material: ' + materialID);
+            }
             // ------------------------------------- Diffuse
-            if (diffuseIndex == -1) return " No value for diffuse in material: " + materialID;
-            var diffuse_component = this.parseColor(materialInfo[diffuseIndex], 'diffuse of the material: ' + materialID);
-
+            if (diffuseIndex == -1){
+                this.onXMLMinorError("No value for diffuse in material: " + materialID + ". Using default values.");
+                diffuse_component = [0.5, 0.5, 0.5, 1.0];
+            }
+            else{
+                diffuse_component = this.parseColor(materialInfo[diffuseIndex], 'diffuse of the material: ' + materialID);
+            }
             // ------------------------------------- Specular
-            if (specularIndex == -1) return "No value for specular in material: " + materialID;
-            var specular_component = this.parseColor(materialInfo[specularIndex], 'specular of the material: ' + materialID);
-
+            if (specularIndex == -1){
+                this.onXMLMinorError("No value for specular in material: " + materialID + ". Using default values.");
+                specular_component = [0.5, 0.5, 0.5, 1.0];
+            } 
+            else{
+                specular_component = this.parseColor(materialInfo[specularIndex], 'specular of the material: ' + materialID);
+            }
             // ------------------------------------- Emissive
-            if (emissiveIndex == -1) return "No value for emissive in material: " + materialID;
-            var emissive_component = this.parseColor(materialInfo[emissiveIndex], 'emissive of the material: ' + materialID);
-
+            if (emissiveIndex == -1){
+                this.onXMLMinorError("No value for emissive in material: " + materialID + ". Using default values.");
+                emissive_component = [0.0, 0.0, 0.0, 1.0];
+            }
+            else{
+                emissive_component = this.parseColor(materialInfo[emissiveIndex], 'emissive of the material: ' + materialID);
+            }
             var newMaterial = new CGFappearance(this.scene);
             newMaterial.setShininess(shininess);
             newMaterial.setAmbient (...ambient_component);
@@ -728,15 +758,23 @@ class MySceneGraph {
             var textureID = this.reader.getString(grandChildren[textureIndex], 'id');
 
             var amplifications = grandChildren[textureIndex].children;
-
             var afs, aft;
 
-            if(amplifications.length == 0){
+            if(amplifications[0].nodeName != "amplification"){
+                this.onXMLMinorError("Can't find <amplification> node for node " + nodeID + ". Using afs = 1.0, aft = 1.0");
+                afs = 1.0;
+                aft = 1.0;
+            }          
+            else if(amplifications.length == 0){
                 this.onXMLMinorError("invalid values for afs and aft in node " + nodeID + ". Using afs = 1.0, aft = 1.0");
                 afs = 1.0;
                 aft = 1.0;
             }
             else{
+                if(amplifications.length > 1){
+                    this.onXMLMinorError("More than 1 amplification for node " + nodeID + ". Using the first one");
+                }
+                
                 afs = this.reader.getFloat(amplifications[0], 'afs');
                 aft = this.reader.getFloat(amplifications[0], 'aft');
                 if(isNaN(afs)){
