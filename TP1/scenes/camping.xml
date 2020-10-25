@@ -108,6 +108,7 @@
 
     <materials>
         <!-- At least one material should be present. -->
+        
         <material id="basicMaterial">
             <shininess value="1" />
             <ambient  r="0.1" g="0.1" b="0.1" a="1.0" />
@@ -115,6 +116,7 @@
             <specular r="0.6" g="0.6" b="0.6" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
+
         <material id="flamesMaterial1">
             <shininess value="30" />
             <ambient  r="0.5" g="0.0" b="0.0" a="1.0" />
@@ -122,6 +124,7 @@
             <specular r="0.7" g="0.7" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
+
         <material id="flamesMaterial2">
             <shininess value="30" />
             <ambient  r="0.5" g="0.0" b="0.0" a="1.0" />
@@ -129,6 +132,7 @@
             <specular r="0.7" g="0.7" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
+
         <material id="flamesMaterial3">
             <shininess value="30" />
             <ambient  r="0.5" g="0.3" b="0.0" a="1.0" />
@@ -136,6 +140,7 @@
             <specular r="0.7" g="0.7" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
+
         <material id="tentMaterial1">
             <shininess value="30" />
             <ambient  r="0.0" g="0.0" b="0.1" a="1.0" />
@@ -143,6 +148,7 @@
             <specular r="0.0" g="0.0" b="0.5" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
+        
         <material id="tentMaterial2">
             <shininess value="30" />
             <ambient  r="0.1" g="0.0" b="0.0" a="1.0" />
@@ -150,6 +156,7 @@
             <specular r="0.5" g="0.0" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
+
         <material id="plateMaterial">
             <shininess value="1" />
             <ambient  r="0.1" g="0.1" b="0.1" a="1.0" />
@@ -157,6 +164,7 @@
             <specular r="0.5" g="0.5" b="0.5" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
+
         <material id="coalMaterial">
             <shininess value="30" />
             <ambient  r="0.1" g="0.1" b="0.1" a="1.0" />
@@ -164,6 +172,7 @@
             <specular r="0.0" g="0.0" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
+
     </materials>
 
     <nodes>
@@ -183,9 +192,9 @@
                 <noderef id="ground" />
                 <noderef id="bonfire" />
                 <noderef id="side_log" />   
-                <noderef id="tents"/> 
+                <noderef id="tents" /> 
                 <noderef id="trees" />                
-                <noderef id="tire"/> 
+                <noderef id="tire" /> 
                 <noderef id="picnic" />  
             </descendants>
 
@@ -545,7 +554,7 @@
 
         </node>
 
-         <node id="rocks">
+        <node id="rocks">
 
             <material id="null" />
 

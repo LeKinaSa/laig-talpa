@@ -607,7 +607,7 @@ class MySceneGraph {
             materialsN++;
         }
 
-        if(materialsN == 0) this.onXMLError("at least one material must be defined");
+        if (materialsN == 0) this.onXMLError("at least one material must be defined");
         this.log("Parsed materials");
     }
 
