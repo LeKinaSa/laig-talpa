@@ -651,15 +651,13 @@ class MySceneGraph {
         this.nodes = [];
 
         var grandChildren = [];
-        var grandgrandChildren = [];
         var nodeNames = [];
 
         // Any number of nodes.
         for (var i = 0; i < children.length; i++) {
 
             if (children[i].nodeName != "node") {
-                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
-                continue;
+                return "unknown tag <" + children[i].nodeName + ">";
             }
 
             // Get id of the current node.
