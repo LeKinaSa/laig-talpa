@@ -529,6 +529,7 @@ class MySceneGraph {
                 this.onXMLMinorError("unknown tag name <" + name + ">");
 
             var texture = new CGFtexture(this.scene, path);
+            if(this.textures[textureID] != null){this.onXMLMinorError("There are more than 1 textures named " + textureID + ". Rename one of them."); continue;}
             this.textures[textureID] = texture;
         }
 
