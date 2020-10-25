@@ -758,17 +758,17 @@ class MySceneGraph {
             var amplifications = grandChildren[textureIndex].children;
             var afs, aft;
 
-            if(amplifications[0].nodeName != "amplification"){
-                this.onXMLMinorError("Can't find <amplification> node for node " + nodeID + ". Using afs = 1.0, aft = 1.0");
-                afs = 1.0;
-                aft = 1.0;
-            }          
-            else if(amplifications.length == 0){
+            if(amplifications.length == 0){
                 this.onXMLMinorError("invalid values for afs and aft in node " + nodeID + ". Using afs = 1.0, aft = 1.0");
                 afs = 1.0;
                 aft = 1.0;
             }
             else{
+                if(amplifications[0].nodeName != "amplification"){
+                    this.onXMLMinorError("missing <amplification> node for node " + nodeID + ". Using afs = 1.0, aft = 1.0");
+                    afs = 1.0;
+                    aft = 1.0;
+                }
                 if(amplifications.length > 1){
                     this.onXMLMinorError("More than 1 amplification for node " + nodeID + ". Using the first one");
                 }
