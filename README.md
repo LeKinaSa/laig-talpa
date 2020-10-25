@@ -11,20 +11,24 @@
 
 ## Projects
 
-### [TP1 - Scene Graph](TP1)
+### [TP1 - Scene Graph] (TP1)
 
-- (items briefly describing main strong points)
+- Scene Strong Points
+  - Bonfire in the center, projecting light into everything that surronds it
+  - 2 colorful tents
+  - Some trees in a forest
+  - Picnip with a towel, a basket and 2 plates
 - Scene
-  - The scene consists of a camp in a forest, in which tents, logs, and a bonfire are present.
-  - (relative link to the scene)
+  - The scene consists of a camp in a forest, in which tents, logs, and a bonfire are present. There is also a log and a tire serving as seats near the fire and a picnic.
+  - [Link to the Scene](https://git.fe.up.pt/laig/laig-2020-2021/t06/laig-t06-g02/-/tree/master/TP1)
 
 -----
 
-### [TP2 - ...](TP2)
+### [TP2 - ...] (TP2)
 - (items briefly describing main strong points)
 
 ----
 
-### [TP3 - ...](TP3)
+### [TP3 - ...] (TP3)
 - (items briefly describing main strong points)
 
