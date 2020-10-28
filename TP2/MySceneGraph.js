@@ -7,7 +7,8 @@ var ILLUMINATION_INDEX = 2;
 var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
-var NODES_INDEX = 6;
+var ANIMATIONS_INDEX = 6;
+var NODES_INDEX = 7;
 
 /**
  * MySceneGraph class: representing the scene graph
@@ -27,6 +28,7 @@ class MySceneGraph {
         scene.graph = this;
 
         this.nodes = [];
+        this.animations = [];
 
         this.idRoot = null; // The id of the root element.
 
@@ -110,6 +112,7 @@ class MySceneGraph {
         }
 
         var error;
+        var animations = false;
 
         // Processes each node, verifying errors.
 
@@ -185,16 +188,38 @@ class MySceneGraph {
                 return error;
         }
 
+        if ((index = nodeNames.indexOf("animations")) != -1)
+        {
+            animations = true;
+            if (index != ANIMATIONS_INDEX)
+                this.onXMLMinorError("tag <animations> out of order " + index);
+
+            //Parse materials block
+            if ((error = this.parseAnimations(nodes[index])) != null)
+                return error;
+        }
+
         // <nodes>
         if ((index = nodeNames.indexOf("nodes")) == -1)
             return "tag <nodes> missing";
         else {
-            if (index != NODES_INDEX)
+            if(animations){
+                if (index != NODES_INDEX)
                 this.onXMLMinorError("tag <nodes> out of order " + index);
 
             //Parse nodes block
-            if ((error = this.parseNodes(nodes[index])) != null)
-                return error;
+                if ((error = this.parseNodes(nodes[index])) != null)
+                    return error;
+            }
+            else{
+                if (index != NODES_INDEX-1)
+                this.onXMLMinorError("tag <nodes> out of order " + index);
+
+            //Parse nodes block
+                if ((error = this.parseNodes(nodes[index])) != null)
+                    return error;
+            }
+            
         }
         this.log("All parsed");
     }
@@ -639,6 +664,108 @@ class MySceneGraph {
 
         if (materialsN == 0) this.onXMLError("at least one material must be defined");
         this.log("Parsed materials");
+    }
+
+    parseAnimations(animationsNode){
+        // TODO:
+        var children = animationsNode.children;
+
+        this.animations = [];
+
+        var grandChildren = [];
+        var nodeNames = [];
+        var keyframeInfo = [];
+
+        for(var i = 0; i < children.length; i++){
+            if(children[i].nodeName != "animation"){
+                return "unknown tag <" + children[i].nodeName + ">";
+            }
+
+            var animationID = this.reader.getString(children[i], 'id');
+            if(animationID == null)
+                return "no ID defined for animationID";
+            
+            if (this.animations[animationID] != null)
+            return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
+
+            // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+            // CRIAR A ANIMAÇÃO
+            // this.animations[animationdID] = new MyAnimation(.........);
+            // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+            grandChildren = children[i].children;
+
+            nodeNames = [];
+            for (var j = 0; j < grandChildren.length; j++) {
+                nodeNames.push(grandChildren[j].nodeName);
+            }
+
+            // keyframe
+            var keyframeIndex = nodeNames.indexOf("keyframe");
+            if (keyframeIndex == -1) {
+               this.onXMLMinorError("Error parsing keyframe for animation: " + animationID + ".");
+            }
+
+            var keyframeInstant = this.reader.getFloat(grandChildren[keyframeIndex], 'instant');
+            if(keyframeInstant  == null || keyframeInstant  < 0 || isNaN(keyframeInstant))
+                return "Not a valid insant for animation: " + animationID;
+
+            keyframeInfo = grandChildren[i].children;
+
+            for(var j = 0; j < keyframeInfo.length; j++){
+                switch(keyframeInfo[j].nodeName){
+                    case "translation":
+                            var translation_vector = this.parseCoordinates3D(keyframeInfo[j],' "translation" from the animation: ' + animationID);
+                            
+                            // mat4.translate(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, [...translation_vector]);
+    
+                            break;
+                        case "rotation":
+                            var axis = this.reader.getItem(keyframeInfo[j], 'axis', ['x', 'y', 'z']);
+                            var angle = this.reader.getFloat(keyframeInfo[j], 'angle');
+                            if (axis == null) {
+                                this.onXMLMinorError("enter a valid number for 'rotation axis'; using axis = 'x'");
+                                axis = 'x';
+                            }
+                            if (angle == null) {
+                                this.onXMLMinorError("enter a valid number for 'rotation angle'; using angle = 0");
+                                angle = 0;
+                            }
+                            
+                            //mat4.rotate(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, angle * DEGREE_TO_RAD, this.axisCoords[axis]);
+                            
+                            break;
+                        case "scale":
+                            var sx = this.reader.getFloat(keyframeInfo[j], 'sx');
+                            var sy = this.reader.getFloat(keyframeInfo[j], 'sy');
+                            var sz = this.reader.getFloat(keyframeInfo[j], 'sz');
+                            if (sx == null) {
+                                this.onXMLMinorError("enter a valid number for 'scale sx'; using sx = 1");
+                                sx = 1;
+                            }
+                            if (sy == null) {
+                                this.onXMLMinorError("enter a valid number for 'scale sy'; using sy = 1");
+                                sy = 1;
+                            }
+                            if (sz == null) {
+                                this.onXMLMinorError("enter a valid number for 'scale sz'; using sz = 1");
+                                sz = 1;
+                            }
+                            
+                            //mat4.scale(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, [sx, sy, sz]);
+                            
+                            break;
+                    default:
+                        this.onXMLMinorError("unknow transformatio: " + keyframeInf[j].nodeName);
+                        break;
+                }
+            }
+
+        }
+
+
+
+        return null;
     }
 
     /**
