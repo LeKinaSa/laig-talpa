@@ -9,11 +9,14 @@ class MyKeyframeAnimation extends MyAnimation {
     constructor(keyframes) {
         this.keyframes = keyframes;
         this.current_t = 0;
+        this.last_t = -1;
     }
 
     updateAnimation(t) {
-        var initial_t; // TODO -> possibly from MyAnimation
-        var delta_t = t - initial_t;
+        // If Last Time isn't Set, Set it and Leave
+        if (this.last_t == -1) { this.last_t = t; return; }
+
+        var delta_t = t - this.last_t;
         this.current_t = this.current_t + delta_t;
 
         var current_keyframe; // TODO
@@ -32,6 +35,9 @@ class MyKeyframeAnimation extends MyAnimation {
 
         // Build new Animation Matrix
         this.matrix; // TODO
+
+        // Set Last Time
+        this.last_t = t;
     }
 
 }
