@@ -940,6 +940,9 @@ class MySceneGraph {
         // Apply the Transformation
         this.scene.multMatrix(currentNode.matrix);
 
+        // Animation Transformation
+        // TODO
+
         // Obtain material and texture
         if (currentNode.material != "null") {
             idMaterial = currentNode.material;

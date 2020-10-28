@@ -136,6 +136,7 @@ class XMLscene extends CGFscene {
         // Update animations based on current time
         // see all nodes (and possibly lights)
         // updateAnimation(t);
+        // TODO
     }
 
     /**
