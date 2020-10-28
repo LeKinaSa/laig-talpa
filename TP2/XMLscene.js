@@ -122,7 +122,20 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
+        this.setUpdatePeriod(100);
+
         this.sceneInited = true;
+    }
+
+    /**
+     * Update the scene
+     * Updates all the animations in the scene based on the current time
+     * @param {time} t 
+     */
+    update(t) {
+        // Update animations based on current time
+        // see all nodes (and possibly lights)
+        // updateAnimation(t);
     }
 
     /**
