@@ -4,26 +4,53 @@
 class MyKeyframeAnimation extends MyAnimation {
     /**
      * @constructor
-     * @param {list of key frames} keyframes - list of all the key frames in this animation
      */
-    constructor(keyframes) {
-        this.keyframes = keyframes;
-        this.current_t = 0;
-        this.last_t = -1;
+    constructor(scene, update) {
+        super(scene, update);
+        this.keyframes = []; // list with all the keyframes from the animation
+        this.matrix = mat4.create();
+    }
+
+    // Adds a keyframe to the keyframes list
+    addKeyframe(instant, translation, rotation, scale){
+        // Keyframe class - aux class to create the Keyframes
+        this.keyframes.push(new Keyframe(instant, translation, rotation, scale));
     }
 
     updateAnimation(t) {
-        // If Last Time isn't Set, Set it and Leave
-        if (this.last_t == -1) { this.last_t = t; return; }
+        // Build new Animation Matrix
+        this.matrix = mat4.create();
+        var T = [0,0,0]; // translation
+        var R = [0,0,0]; // rotation
+        var S = [1,1,1]; // scale
 
-        var delta_t = t - this.last_t;
-        this.current_t = this.current_t + delta_t;
-
-        var current_keyframe; // TODO
-        var next_keyframe; // TODO
-
-        var partial_time = this.current_t - current_keyframe.instant;
-
+        for(let i in this.keyframes){
+            // if the current time is after the instant from the keyframe that we are analysing
+            if(t > this.keyframes[i].instant){
+                // Get translation vector from the keyframe
+                T[0] = this.keyframes[i].translation[0];
+                T[1] = this.keyframes[i].translation[1];
+                T[2] = this.keyframes[i].translation[2];
+                // Get rotation vector from the keyframe
+                R[0] = this.keyframes[i].rotation[0];
+                R[1] = this.keyframes[i].rotation[1];
+                R[2] = this.keyframes[i].rotation[2];
+                // Get scale vector from the keyframe
+                S[0] = this.keyframes[i].scale[0];
+                S[1] = this.keyframes[i].scale[1];
+                S[2] = this.keyframes[i].scale[2];
+            }
+            else{
+                var partial_time = this.keyframes[i].instant;
+                // for iterations exccept the 1st one... (1st one is always 0 because it's the
+                // beginning of the animation)
+                if(i != 0){
+                    partial_time -= this.keyframes[i-1].instant;
+                    t -= this.keyframes[i-1].instant;
+                }
+            }
+        }
+        
         // Interpolate Translation
         // TODO
 
@@ -32,12 +59,6 @@ class MyKeyframeAnimation extends MyAnimation {
 
         // Interpolate Scale
         // TODO
-
-        // Build new Animation Matrix
-        this.matrix; // TODO
-
-        // Set Last Time
-        this.last_t = t;
     }
 
 }

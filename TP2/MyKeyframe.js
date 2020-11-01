@@ -4,12 +4,16 @@
 class MyKeyframe {
     /**
      * @constructor
-     * @param {time} instant - time instant correspondent to this key frame
-     * @param {transformation} transformation - transformation correspont to this key frame 
+     * @param {integer} instant
+     * @param {vec3} translation
+     * @param {vec3} rotation
+     * @param {vec3} transformation
      */
-    constructor(instant, transformation) {
+    constructor(instant, translation, rotation, scale) {
         this.instant = instant;
-        this.transformation = transformation;
+        this.translation = translation;
+        this.rotation = rotation;
+        this.scale = scale;
     }
 
 }

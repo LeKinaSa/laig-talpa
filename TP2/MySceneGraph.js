@@ -28,7 +28,6 @@ class MySceneGraph {
         scene.graph = this;
 
         this.nodes = [];
-        this.animations = [];
 
         this.idRoot = null; // The id of the root element.
 
@@ -671,6 +670,7 @@ class MySceneGraph {
         var children = animationsNode.children;
 
         this.animations = [];
+        this.animationsIDs = [];
 
         var grandChildren = [];
         var nodeNames = [];
@@ -762,8 +762,6 @@ class MySceneGraph {
             }
 
         }
-
-
 
         return null;
     }
@@ -1046,6 +1044,11 @@ class MySceneGraph {
         return color;
     }
 
+    updateAnimations(t){
+        for(let i in this.animationsIDs){
+            this.animations[this.animationsIDs[i]].update(t);
+        }
+    }
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
