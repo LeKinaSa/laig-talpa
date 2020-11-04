@@ -27,8 +27,6 @@ class MySpriteSheet {
     activateCellP(p) {
         let column = p % this.columns;
         let line   = (p - column) / this.columns;
-
-        // Activate Shader
         this.activateCellMN(column, line);
     }
 

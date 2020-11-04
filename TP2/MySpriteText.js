@@ -45,6 +45,7 @@ class MySpriteText extends MySpriteSheet {
         // 97 < charCode < 122 - a z
         charCode = charCode - 48;
         if (charCode > 9) charCode = charCode - 7;
+        if (charCode > 35) charCode = charCode - 6;
         return charCode;
     }
 }
