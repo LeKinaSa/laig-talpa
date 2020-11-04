@@ -141,7 +141,7 @@ class XMLscene extends CGFscene {
         // updateAnimation(t);
         // TODO
 
-        if(this.initialT == null) this.initialT = t;
+        if (this.initialT == null) this.initialT = t;
         
         var instant = (t - this.initialT) / 1000;
 

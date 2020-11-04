@@ -18,4 +18,11 @@ class MySpriteAnim {
         this.startCell = startCell;
         this.endCell = endCell;
     }
+
+    update(t) {
+        var instant = t % this.duration;
+        var timePerCell = this.duration / (this.endCell - this.startCell + 1);
+        // TODO
+
+    }
 }
