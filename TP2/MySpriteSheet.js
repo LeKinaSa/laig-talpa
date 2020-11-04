@@ -22,6 +22,7 @@ class MySpriteSheet {
 
     activateShader() {
         this.setActiveShader(this.shader);
+        this.texture.apply();
     }
 
     activateCellP(p) {
