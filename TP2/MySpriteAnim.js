@@ -12,7 +12,7 @@ class MySpriteAnim {
      * @param {int} endCell   - index of the last sprite
      */
     constructor(scene, spriteSheet, duration, startCell, endCell) {
-        super(scene);
+        this.scene = scene;
         this.spriteSheet = spriteSheet;
         this.duration = duration;
         this.startCell = startCell;
