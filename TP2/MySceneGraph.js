@@ -6,9 +6,10 @@ var VIEWS_INDEX = 1;
 var ILLUMINATION_INDEX = 2;
 var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
-var MATERIALS_INDEX = 5;
-var ANIMATIONS_INDEX = 6;
-var NODES_INDEX = 7;
+var SPRITESHEETS_INDEX = 5;
+var MATERIALS_INDEX = 6;
+var ANIMATIONS_INDEX = 7;
+var NODES_INDEX = 8;
 
 /**
  * MySceneGraph class: representing the scene graph
@@ -112,6 +113,7 @@ class MySceneGraph {
 
         var error;
         var animations = false;
+        var spritesheets = false;
 
         // Processes each node, verifying errors.
 
@@ -175,12 +177,30 @@ class MySceneGraph {
                 return error;
         }
 
+        // <spritesheets>
+        if ((index = nodeNames.indexOf("spritesheets")) != -1)
+        {
+            spritesheets = true;
+            if (index != SPRITESHEETS_INDEX)
+                this.onXMLMinorError("tag <spritesheets> out of order " + index);
+
+            //Parse textures block
+            if ((error = this.parseSpritesheets(nodes[index])) != null)
+                return error;
+        }
+
         // <materials>
         if ((index = nodeNames.indexOf("materials")) == -1)
             return "tag <materials> missing";
         else {
-            if (index != MATERIALS_INDEX)
+            if(spritesheets){
+                if (index != MATERIALS_INDEX)
                 this.onXMLMinorError("tag <materials> out of order " + index);
+            }
+            else{
+                if (index != MATERIALS_INDEX-1)
+                this.onXMLMinorError("tag <materials> out of order " + index);
+            }          
 
             //Parse materials block
             if ((error = this.parseMaterials(nodes[index])) != null)
@@ -190,8 +210,14 @@ class MySceneGraph {
         if ((index = nodeNames.indexOf("animations")) != -1)
         {
             animations = true;
-            if (index != ANIMATIONS_INDEX)
+            if(spritesheets){
+                if (index != ANIMATIONS_INDEX)
                 this.onXMLMinorError("tag <animations> out of order " + index);
+            }
+            else{
+                if (index != ANIMATIONS_INDEX-1)
+                this.onXMLMinorError("tag <animations> out of order " + index);
+            }            
 
             //Parse materials block
             if ((error = this.parseAnimations(nodes[index])) != null)
@@ -202,22 +228,32 @@ class MySceneGraph {
         if ((index = nodeNames.indexOf("nodes")) == -1)
             return "tag <nodes> missing";
         else {
-            if(animations){
-                if (index != NODES_INDEX)
-                this.onXMLMinorError("tag <nodes> out of order " + index);
-
-            //Parse nodes block
-                if ((error = this.parseNodes(nodes[index])) != null)
-                    return error;
+            if(spritesheets){
+                if(animations){
+                    if (index != NODES_INDEX)
+                    this.onXMLMinorError("tag <nodes> out of order " + index);
+    
+                }
+                else{
+                    if (index != NODES_INDEX-1)
+                    this.onXMLMinorError("tag <nodes> out of order " + index);
+                }
             }
             else{
-                if (index != NODES_INDEX-1)
-                this.onXMLMinorError("tag <nodes> out of order " + index);
-
+                if(animations){
+                    if (index != NODES_INDEX-1)
+                    this.onXMLMinorError("tag <nodes> out of order " + index);
+    
+                }
+                else{
+                    if (index != NODES_INDEX-2)
+                    this.onXMLMinorError("tag <nodes> out of order " + index);
+                }
+            }            
+            
             //Parse nodes block
-                if ((error = this.parseNodes(nodes[index])) != null)
-                    return error;
-            }
+            if ((error = this.parseNodes(nodes[index])) != null)
+            return error;
             
         }
         this.log("All parsed");
@@ -561,6 +597,14 @@ class MySceneGraph {
     }
 
     /**
+     * Parses the <spritesheets> block. 
+     * @param {spritesheets block element} texturesNode
+     */
+    parseSpritesheets(spritesheetsNode) {
+        return null;
+    }
+
+    /**
      * Parses the <materials> node.
      * @param {materials block element} materialsNode
      */
@@ -667,7 +711,7 @@ class MySceneGraph {
 
     parseAnimations(animationsNode){
         // TODO:
-        var children = animationsNode.children;
+        /*var children = animationsNode.children;
 
         this.animations = [];
         this.animationsIDs = [];
@@ -773,7 +817,7 @@ class MySceneGraph {
 
         }
 
-        this.log("Parsed Animations");
+        this.log("Parsed Animations");*/
         return null;
     }
 
@@ -925,7 +969,7 @@ class MySceneGraph {
 
             // -------------------- Animations -------------------- 
 
-            var animationsIndex = nodeNames.indexOf("animationref");
+            /*var animationsIndex = nodeNames.indexOf("animationref");
             var animationID = null;
             // Not necessary
             if(animationsIndex != -1){
@@ -938,7 +982,7 @@ class MySceneGraph {
 
             this.nodes[nodeID].animationID = animationID;
 
-            console.log(this.nodes[nodeID]);
+            console.log(this.nodes[nodeID]);*/
 
             // -------------------- Descendants -------------------- 
 
