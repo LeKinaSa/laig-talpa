@@ -601,6 +601,33 @@ class MySceneGraph {
      * @param {spritesheets block element} texturesNode
      */
     parseSpritesheets(spritesheetsNode) {
+        this.spritesheets = [];
+        for (var i = 0; i < spritesheetsNode.children.length; i++) {
+            if (spritesheetsNode.children[i].nodeName == "spritesheet") {
+                var spritesheetID = this.reader.getString(spritesheetsNode.children[i], 'id');
+                if(!isNaN(spritesheetID)) {this.onXMLMinorError("Unable to get spritesheet number "+ (i+1) + ". Ignoring it"); continue;}
+                var path = this.reader.getString(spritesheetsNode.children[i], 'path');
+                if(!isNaN(path)) {this.onXMLMinorError("Unable to get path for spritesheet "+ spritesheetID + ". Ignoring it"); continue;}
+                var sizeM = this.reader.getFloat(spritesheetsNode.children[i], 'sizeM');
+                if (isNaN(sizeM)) {this.onXMLMinorError("Unable to get sizeM for spritesheet "+ spritesheetID + ". Using sizeM = 1"); sizeM = 1; continue;}
+                var sizeN = this.reader.getFloat(spritesheetsNode.children[i], 'sizeN');
+                if (isNaN(sizeN)) {this.onXMLMinorError("Unable to get sizeM for spritesheet "+ spritesheetID + ". Using sizeN = 1"); sizeN = 1; continue;}
+            }
+            else
+                this.onXMLMinorError("unknown tag name <" + name + ">");
+
+            /* CREATE SPRITESHEET */
+            // TODO
+            var spritesheet = null;
+            // spritesheet = new MySpritesheet ??????
+
+            console.log(spritesheetID, path, sizeM, sizeN); // Correct
+
+            if(this.spritesheets[spritesheetID] != null){this.onXMLMinorError("There are more than 1 spritesheets named " + spritesheetID + ". Rename one of them."); continue;}
+            this.spritesheets[spritesheetID] = spritesheet;
+        }
+
+        this.log("Parsed Spritesheets");
         return null;
     }
 
