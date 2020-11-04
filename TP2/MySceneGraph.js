@@ -207,14 +207,13 @@ class MySceneGraph {
                 return error;
         }
 
-        if ((index = nodeNames.indexOf("animations")) != -1)
-        {
+        if ((index = nodeNames.indexOf("animations")) != -1) {
             animations = true;
-            if(spritesheets){
+            if (spritesheets) {
                 if (index != ANIMATIONS_INDEX)
                 this.onXMLMinorError("tag <animations> out of order " + index);
             }
-            else{
+            else {
                 if (index != ANIMATIONS_INDEX-1)
                 this.onXMLMinorError("tag <animations> out of order " + index);
             }            
@@ -228,33 +227,30 @@ class MySceneGraph {
         if ((index = nodeNames.indexOf("nodes")) == -1)
             return "tag <nodes> missing";
         else {
-            if(spritesheets){
-                if(animations){
+            if (spritesheets) {
+                if (animations) {
                     if (index != NODES_INDEX)
-                    this.onXMLMinorError("tag <nodes> out of order " + index);
-    
+                        this.onXMLMinorError("tag <nodes> out of order " + index);
                 }
-                else{
+                else {
                     if (index != NODES_INDEX-1)
-                    this.onXMLMinorError("tag <nodes> out of order " + index);
+                        this.onXMLMinorError("tag <nodes> out of order " + index);
                 }
             }
-            else{
-                if(animations){
+            else {
+                if (animations) {
                     if (index != NODES_INDEX-1)
-                    this.onXMLMinorError("tag <nodes> out of order " + index);
-    
+                        this.onXMLMinorError("tag <nodes> out of order " + index);
                 }
-                else{
+                else {
                     if (index != NODES_INDEX-2)
-                    this.onXMLMinorError("tag <nodes> out of order " + index);
+                        this.onXMLMinorError("tag <nodes> out of order " + index);
                 }
             }            
             
             //Parse nodes block
             if ((error = this.parseNodes(nodes[index])) != null)
-            return error;
-            
+                return error;
         }
         this.log("All parsed");
     }
