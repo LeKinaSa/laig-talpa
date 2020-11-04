@@ -17,6 +17,8 @@ class MyNode {
         this.material = null;
         this.texture = null;
 
+        this.animationID = null;
+
         this.matrix = mat4.create();
         mat4.identity(this.matrix);
     }

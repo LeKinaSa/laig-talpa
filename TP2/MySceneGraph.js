@@ -690,7 +690,7 @@ class MySceneGraph {
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // CRIAR A ANIMAÇÃO
-            // this.animations[animationdID] = new MyAnimation(.........);
+            var animation = new MyKeyframeAnimation(this.scene, this.scene.updatePeriod);
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
             grandChildren = children[i].children;
@@ -711,14 +711,17 @@ class MySceneGraph {
                 return "Not a valid insant for animation: " + animationID;
 
             keyframeInfo = grandChildren[i].children;
+            var rotation_vector = [0,0,0];
+            var translation_vector = [0,0,0];
+            var scale_vector = [1,1,1];
 
             for(var j = 0; j < keyframeInfo.length; j++){
                 switch(keyframeInfo[j].nodeName){
                     case "translation":
-                            var translation_vector = this.parseCoordinates3D(keyframeInfo[j],' "translation" from the animation: ' + animationID);
-                            
-                            // mat4.translate(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, [...translation_vector]);
-    
+                            var t_aux = this.parseCoordinates3D(keyframeInfo[j],' "translation" from the animation: ' + animationID);
+                            translation_vector[0] += t_aux[0];
+                            translation_vector[1] += t_aux[0];
+                            translation_vector[2] += t_aux[0];    
                             break;
                         case "rotation":
                             var axis = this.reader.getItem(keyframeInfo[j], 'axis', ['x', 'y', 'z']);
@@ -731,8 +734,9 @@ class MySceneGraph {
                                 this.onXMLMinorError("enter a valid number for 'rotation angle'; using angle = 0");
                                 angle = 0;
                             }
-                            
-                            //mat4.rotate(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, angle * DEGREE_TO_RAD, this.axisCoords[axis]);
+                            if     (axis == 'x') rotation_vector[0]+=angle;
+                            else if(axis == 'y') rotation_vector[1]+=angle;
+                            else if(axis == 'z') rotation_vector[2]+=angle;
                             
                             break;
                         case "scale":
@@ -751,8 +755,9 @@ class MySceneGraph {
                                 this.onXMLMinorError("enter a valid number for 'scale sz'; using sz = 1");
                                 sz = 1;
                             }
-                            
-                            //mat4.scale(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, [sx, sy, sz]);
+                            scale_vector[0] *= sx;
+                            scale_vector[1] *= sy;
+                            scale_vector[2] *= sz;
                             
                             break;
                     default:
@@ -761,8 +766,14 @@ class MySceneGraph {
                 }
             }
 
+            animation.addKeyframe(keyframeInstant, translation_vector, rotation_vector, scale_vector);
+
+            this.animations[animationID] = animation;
+            this.animationsIDs.push(animationID);
+
         }
 
+        this.log("Parsed Animations");
         return null;
     }
 
@@ -912,6 +923,23 @@ class MySceneGraph {
             
             this.nodes[nodeID].texture = textureID;          
 
+            // -------------------- Animations -------------------- 
+
+            var animationsIndex = nodeNames.indexOf("animationref");
+            var animationID = null;
+            // Not necessary
+            if(animationsIndex != -1){
+                animationID = this.reader.getString(grandChildren[animationsIndex], "id");
+                if(animationID != null && !this.animations[animationID]){
+                    this.onXMLMinorError("animation not deifined for animationd ID " +  animationID + " in node " + nodeID);
+                    animationID = null;
+                }
+            }
+
+            this.nodes[nodeID].animationID = animationID;
+
+            console.log(this.nodes[nodeID]);
+
             // -------------------- Descendants -------------------- 
 
             var descendantsIndex = nodeNames.indexOf("descendants");
@@ -939,6 +967,7 @@ class MySceneGraph {
                     this.onXMLMinorError("unknown tag <" + descendants[j].nodeName + ">");
                 }
             }
+
         }
     }
 
@@ -1072,6 +1101,9 @@ class MySceneGraph {
 
         // Animation Transformation
         // TODO
+        /*if(currentNode.animationID != null){
+            this.scene.multMatrix(currentNode.this.animations[currentNode.animationID].matrix);
+        }*/
 
         // Obtain material and texture
         if (currentNode.material != "null") {

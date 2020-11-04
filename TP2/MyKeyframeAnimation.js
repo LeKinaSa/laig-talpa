@@ -14,7 +14,7 @@ class MyKeyframeAnimation extends MyAnimation {
     // Adds a keyframe to the keyframes list
     addKeyframe(instant, translation, rotation, scale){
         // Keyframe class - aux class to create the Keyframes
-        this.keyframes.push(new Keyframe(instant, translation, rotation, scale));
+        this.keyframes.push(new MyKeyframe(instant, translation, rotation, scale));
     }
 
     updateAnimation(t) {

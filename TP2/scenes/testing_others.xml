@@ -132,6 +132,11 @@
                 <translation x="-10" y="0" z="7" />
             </transformations>
 
+            <!-- o elemento "animationref" e' opcional; deve -->
+            <!-- declarar-se imediatamente após as transformacoes -->
+            <!-- geométricas do componente -->
+            <animationref id="testing_animations" />
+
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
             <descendants>
