@@ -17,7 +17,8 @@ class MyLeaf {
         this.aft = aft;
 
         // gets the type of the primitive from the xml file
-        var type = this.graph.reader.getItem(element, 'type', ['rectangle', 'torus', 'triangle', 'sphere', 'cylinder', 'skybox']);
+        var type = this.graph.reader.getItem(element, 'type', ['rectangle', 'torus', 'triangle',
+         'sphere', 'cylinder', 'spritetext', 'spriteanim', 'plane', 'patch', 'defbarrel']);
         
         // switch to decide what primitive is going to be shown in the screen
         switch(type) {
@@ -105,6 +106,86 @@ class MyLeaf {
                 if (this.varError('torus', 'loops', this.loops)) break;
                 
                 this.primitive = new MyTorus(this.graph.scene, this.inner, this.outer, this.slices, this.loops);
+                break;
+
+            case 'spritetext':
+                // Texto baseado em spritesheet
+                this.text = this.graph.reader.getString(element, 'text');
+                if(this.text == null){ this.graph.onXMLMinorError("Error in text in leaf spritetext"); break;}
+                
+                // this.primitive = new MySpriteText(this.graph.scene, this.text);
+                break;
+            
+            case 'spriteanim':
+                // Animação baseada em spritesheet
+                this.ssid = this.graph.reader.getString(element, 'ssid');
+                this.startCell = this.graph.reader.getFloat(element, 'startCell');
+                this.endCell = this.graph.reader.getFloat(element, 'endCell');
+                this.duration = this.graph.reader.getFloat(element, 'duration');
+                if(this.ssid == null){this.graph.onXMLMinorError("Error in ssid in leaf spriteanim"); break;}
+                if(this.varError('spriteanim', 'startCell', this.startCell)) break;
+                if(this.varError('spriteanim', 'endtCell', this.endCell)) break;
+                if(this.varError('spriteanim', 'duration', this.duration)) break;
+
+                // this.primitive = new MySpriteAnim(this.graph.scene, this.ssid, this.startCell, this.endCell, this.duration);
+
+                break;
+            
+            case 'plane':
+                // Plano, gerado por NURBS
+                this.npartsU = this.graph.reader.getFloat(element, 'npartsU');
+                this.npartsV = this.graph.reader.getFloat(element, 'npartsV');
+                if(this.varError('plane', 'npartsU', this.npartsU)) break;
+                if(this.varError('plane', 'npartsV', this.npartsV)) break;
+
+                // this.primitive = new MyPlane(this.graph.scene, this.npartsU, this.npartsV);
+
+                break;
+            
+            case 'patch':
+                // Patch, gerado por NURBS
+                this.npointsU = this.graph.reader.getFloat(element, 'npointsU');
+                this.npointsV = this.graph.reader.getFloat(element, 'npointsV');
+                this.npartsU = this.graph.reader.getFloat(element, 'npartsU');
+                this.npartsV = this.graph.reader.getFloat(element, 'npartsV');
+                if(this.varError('patch', 'npointsU ', this.npointsU)) break;
+                if(this.varError('patch', 'npointsV ', this.npointsV)) break;
+                if(this.varError('patch', 'npartsU', this.npartsU)) break;
+                if(this.varError('patch', 'npartsV', this.npartsV)) break;
+
+                this.controlpoints = [];
+                var aux = element.children;
+
+                console.log(aux);
+                for(let i = 0; i < this.npointsU * this.npointsV -1; i++){
+                    // Percorrer children da leaf
+                    // Adicionar ao vetor de controlpoints
+
+                    // TODO
+                }
+
+                // Criar primtiva
+                // TODO
+
+                break;
+            
+            case 'defbarrel':
+                // Forma de barril baseado em NURBS
+                this.base = this.graph.reader.getFloat(element, 'base');
+                this.middle = this.graph.reader.getFloat(element, 'middle');
+                this.height = this.graph.reader.getFloat(element, 'height');
+                this.stacks = this.graph.reader.getFloat(element, 'stacks');
+                this.slices = this.graph.reader.getFloat(element, 'slices');
+
+                if (this.varError('defbarrel', 'base', this.base)) break;                
+                if (this.varError('defbarrel', 'middle', this.middle)) break;
+                if (this.varError('defbarrel', 'height', this.height)) break;
+                if (this.varError('defbarrel', 'stacks', this.stacks)) break;
+                if (this.varError('defbarrel', 'slices', this.slices)) break;
+
+                // Criar Primitiva
+                // TODO
+                
                 break;
 
             default:
