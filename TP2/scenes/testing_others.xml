@@ -155,6 +155,10 @@
                 <!-- <leaf type="cylinder" height="10" topRadius="5" bottomRadius="5" stacks="32" slices="32"/> -->
                 <!-- <leaf type="torus" inner="1,6" outer="2" slices="32" loops="32" /> -->
                 <!-- <leaf type="sphere" radius="5" slices="32" stacks="32"/> -->
+                <leaf type="patch" npointsU="2" npointsV="1" npartsU="1" npartsV="1" >
+                    <controlpoint xx="1" yy="1" zz="1" />
+                    <controlpoint xx="1" yy="1" zz="1" />
+                </leaf>
                 <!-- x y z coordinates of each vertex -->
             </descendants>
         </node>
