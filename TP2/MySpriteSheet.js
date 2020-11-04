@@ -25,11 +25,9 @@ class MySpriteSheet {
     }
 
     activateCellP(p) {
-        // Get Character Sprite Position
-        // TODO : no idea
-        let column = 0;
-        let line   = 0;
-        
+        let column = p % this.columns;
+        let line   = (p - column) / this.columns;
+
         // Activate Shader
         this.activateCellMN(column, line);
     }

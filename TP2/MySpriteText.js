@@ -16,13 +16,19 @@ class MySpriteText extends MySpriteSheet {
     }
 
     display() {
+        var p;
+        var charCode;
         this.scene.pushMatrix();
 
         this.activateShader();
         this.texture.apply();
         for (let index = 0; index < this.text.length; index ++) {
+            // Get Character Sprite Position
+            charCode = this.text.charCodeAt(index);
+            p = this.getCharacterPosition(charCode);
+
             // Activate Sprite
-            this.activateCellP(text.charAt(index));
+            this.activateCellP(p);
 
             // Display Base Geometry
             if (i > 0) this.scene.translate(1, 0, 0);
@@ -31,5 +37,14 @@ class MySpriteText extends MySpriteSheet {
         this.deactivateShader();
         
         this.scene.popMatrix();
+    }
+
+    getCharacterPosition(charCode) {
+        // 48 < charCode < 57  - 0 9
+        // 65 < charCode < 90  - A Z
+        // 97 < charCode < 122 - a z
+        charCode = charCode - 48;
+        if (charCode > 9) charCode = charCode - 7;
+        return charCode;
     }
 }
