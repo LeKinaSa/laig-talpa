@@ -2,7 +2,7 @@
  * MySpriteAnim
  * Uses MySpriteSheet to Represent Animation
  */
-class MySpriteAnim {
+class MySpriteAnim extends MyAnimation {
     /**
      * 
      * @param {CGFscene} scene - Reference to Scene object
@@ -19,7 +19,7 @@ class MySpriteAnim {
         this.endCell = endCell;
     }
 
-    update(t) {
+    updateAnimation(t) {
         var instant = t % this.duration;
         var timePerCell = this.duration / (this.endCell - this.startCell + 1);
         // TODO
