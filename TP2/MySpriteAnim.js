@@ -17,12 +17,21 @@ class MySpriteAnim extends MyAnimation {
         this.duration = duration;
         this.startCell = startCell;
         this.endCell = endCell;
+        this.currentCell = startCell;
     }
 
     updateAnimation(t) {
         var instant = t % this.duration;
         var timePerCell = this.duration / (this.endCell - this.startCell + 1);
-        // TODO
+        var cellOffset = instant / timePerCell;
+        var cell = this.startCell + floor(cellOffset);
+        this.currentCell = cell;
+    }
 
+    display() {
+        this.spriteSheet.activateShader();
+        this.spriteSheet.activateCellP(this.currentCell);
+        // this.plane.display();
+        this.spriteSheet.deactivateShader();
     }
 }

@@ -50,7 +50,7 @@
     <spritesheets>
             <!-- Semelhante à declaração de textura,  -->
             <!-- mas inclui a definição do nº de colunas e linhas -->
-            <spritesheet id="test_spritesheet" path="./scenes/images/texture.jpg" sizeM="1" sizeN="1" />
+            <spritesheet id="test_spritesheet" path="./scenes/images/texture.jpg" sizeM="10" sizeN="10" />
     </spritesheets>
 
     <materials>
