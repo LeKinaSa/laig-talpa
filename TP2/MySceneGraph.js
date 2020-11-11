@@ -666,14 +666,12 @@ class MySceneGraph {
     }
 
     parseAnimations(animationsNode){
-        // TODO:
         var children = animationsNode.children;
 
         this.animations = [];
         this.animationsIDs = [];
 
         var grandChildren = [];
-        var nodeNames = [];
 
         for(var i = 0; i < children.length; i++){
             if(children[i].nodeName != "animation"){
@@ -723,7 +721,6 @@ class MySceneGraph {
                                 translation_vector[0] += t_aux[0];
                                 translation_vector[1] += t_aux[1];
                                 translation_vector[2] += t_aux[2];    
-                                console.log(translation_vector);
                                 break;
                         case "rotation":
                             var axis = this.reader.getItem(keyframeInfo[k], 'axis', ['x', 'y', 'z']);
@@ -738,8 +735,7 @@ class MySceneGraph {
                             }
                             if     (axis == 'x') rotation_vector[0]+=angle;
                             else if(axis == 'y') rotation_vector[1]+=angle;
-                            else if(axis == 'z') rotation_vector[2]+=angle;
-                            console.log(rotation_vector);                            
+                            else if(axis == 'z') rotation_vector[2]+=angle;     
                             break;
                         case "scale":
                             var sx = this.reader.getFloat(keyframeInfo[k], 'sx');
@@ -760,8 +756,6 @@ class MySceneGraph {
                             scale_vector[0] *= sx;
                             scale_vector[1] *= sy;
                             scale_vector[2] *= sz;
-
-                            console.log(scale_vector);
                             
                             break;
                         default:
@@ -945,6 +939,9 @@ class MySceneGraph {
 
             this.nodes[nodeID].animationID = animationID;
 
+            console.log(this.nodes[nodeID]);
+            console.log(this.animations[animationID]);
+
             // -------------------- Descendants -------------------- 
 
             var descendantsIndex = nodeNames.indexOf("descendants");
@@ -1106,8 +1103,7 @@ class MySceneGraph {
 
         // Animation Transformation
         if(currentNode.animationID != null){
-            var animation = this.animations[currentNode.animationID];
-            animation.apply();
+            this.animations[currentNode.animationID].apply();
         }        
 
         // Obtain material and texture
