@@ -9,7 +9,8 @@ class MyKeyframe {
      * @param {vec3} rotation
      * @param {vec3} transformation
      */
-    constructor(instant, translation, rotation, scale) {
+    constructor(scene, instant, translation, rotation, scale) {
+        this.scene = scene;
         this.instant = instant;
         this.translation = translation;
         this.rotation = rotation;

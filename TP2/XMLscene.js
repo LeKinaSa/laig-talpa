@@ -42,8 +42,6 @@ class XMLscene extends CGFscene {
         this.updatePeriod = 100;
         this.initialT = null;
 
-        this.setUpdatePeriod(this.updatePeriod);
-
     }
 
     /**
@@ -136,16 +134,13 @@ class XMLscene extends CGFscene {
      * @param {time} t 
      */
     update(t) {
-        // Update animations based on current time
-        // see all nodes (and possibly lights)
-        // updateAnimation(t);
-        // TODO
-
         if(this.initialT == null) this.initialT = t;
-        
+
         var instant = (t - this.initialT) / 1000;
 
-        // this.graph.updateAnimations(instant);
+        for(let i in this.graph.animations){
+            this.graph.animations[i].update(instant);
+        }
     }
 
     /**
