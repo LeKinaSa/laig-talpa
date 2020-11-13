@@ -13,7 +13,7 @@ class MySpriteText {
         this.scene = scene;
         this.text = text;
         this.spriteSheet = new MySpriteSheet(this.scene, new CGFtexture("./scenes/images/font.png"), 10, 10);
-        this.plane = new MyRectangle(scene, 0, 0, 1, 1);
+        this.plane = new MyRectangle(this.scene, 0, 0, 1, 1);
     }
 
     display() {

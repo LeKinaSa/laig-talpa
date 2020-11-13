@@ -12,16 +12,23 @@ class MySpriteAnim extends MyAnimation {
      * @param {int} endCell   - index of the last sprite
      */
     constructor(scene, spriteSheet, duration, startCell, endCell) {
-        this.scene = scene;
+        super(scene);
         this.spriteSheet = spriteSheet;
         this.duration = duration;
         this.startCell = startCell;
         this.endCell = endCell;
         this.currentCell = startCell;
+        this.plane = new MyRectangle(scene, 0, 0, 1, 1);
+        this.initTime = 0;
     }
 
     updateAnimation(t) {
-        var instant = t % this.duration;
+        t = t / 1000;
+
+        if (this.initTime == 0) { this.initTime = t; }
+        
+        var delta_time = t - this.initTime;
+        var instant = int(delta_time) % this.duration;
         var timePerCell = this.duration / (this.endCell - this.startCell + 1);
         var cellOffset = instant / timePerCell;
         var cell = this.startCell + floor(cellOffset);
@@ -31,7 +38,7 @@ class MySpriteAnim extends MyAnimation {
     display() {
         this.spriteSheet.activateShader();
         this.spriteSheet.activateCellP(this.currentCell);
-        // this.plane.display();
+        this.plane.display();
         this.spriteSheet.deactivateShader();
     }
 }
