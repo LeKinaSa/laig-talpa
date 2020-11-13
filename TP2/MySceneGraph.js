@@ -7,7 +7,8 @@ var ILLUMINATION_INDEX = 2;
 var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
-var NODES_INDEX = 6;
+var ANIMATIONS_INDEX = 6;
+var NODES_INDEX = 7;
 
 /**
  * MySceneGraph class: representing the scene graph
@@ -110,6 +111,7 @@ class MySceneGraph {
         }
 
         var error;
+        var animations = false;
 
         // Processes each node, verifying errors.
 
@@ -185,16 +187,38 @@ class MySceneGraph {
                 return error;
         }
 
+        if ((index = nodeNames.indexOf("animations")) != -1)
+        {
+            animations = true;
+            if (index != ANIMATIONS_INDEX)
+                this.onXMLMinorError("tag <animations> out of order " + index);
+
+            //Parse materials block
+            if ((error = this.parseAnimations(nodes[index])) != null)
+                return error;
+        }
+
         // <nodes>
         if ((index = nodeNames.indexOf("nodes")) == -1)
             return "tag <nodes> missing";
         else {
-            if (index != NODES_INDEX)
+            if(animations){
+                if (index != NODES_INDEX)
                 this.onXMLMinorError("tag <nodes> out of order " + index);
 
             //Parse nodes block
-            if ((error = this.parseNodes(nodes[index])) != null)
-                return error;
+                if ((error = this.parseNodes(nodes[index])) != null)
+                    return error;
+            }
+            else{
+                if (index != NODES_INDEX-1)
+                this.onXMLMinorError("tag <nodes> out of order " + index);
+
+            //Parse nodes block
+                if ((error = this.parseNodes(nodes[index])) != null)
+                    return error;
+            }
+            
         }
         this.log("All parsed");
     }
@@ -521,15 +545,15 @@ class MySceneGraph {
         for (var i = 0; i < texturesNode.children.length; i++) {
             if (texturesNode.children[i].nodeName == "texture") {
                 var textureID = this.reader.getString(texturesNode.children[i], 'id');
-                if(!isNaN(textureID)) {this.onXMLMinorError("Unable to get texture number "+ (i+1) + ". Ignoring it"); continue;}
+                if (!isNaN(textureID)) { this.onXMLMinorError("Unable to get texture number "+ (i+1) + ". Ignoring it"); continue; }
                 var path = this.reader.getString(texturesNode.children[i], 'path');
-                if(!isNaN(path)) {this.onXMLMinorError("Unable to get path for texture "+ textureID + ". Ignoring it"); continue;}
+                if (!isNaN(path)) { this.onXMLMinorError("Unable to get path for texture "+ textureID + ". Ignoring it"); continue; }
             }
             else
                 this.onXMLMinorError("unknown tag name <" + name + ">");
 
             var texture = new CGFtexture(this.scene, path);
-            if(this.textures[textureID] != null){this.onXMLMinorError("There are more than 1 textures named " + textureID + ". Rename one of them."); continue;}
+            if (this.textures[textureID] != null) { this.onXMLMinorError("There are more than 1 textures named " + textureID + ". Rename one of them."); continue; }
             this.textures[textureID] = texture;
         }
 
@@ -583,47 +607,47 @@ class MySceneGraph {
             var shininess, ambient_component, diffuse_component, specular_component, emissive_component;
 
             // ------------------------------------- Shininess
-            if (shininessIndex == -1){
+            if (shininessIndex == -1) {
                 this.onXMLMinorError(" No value for shininess in material: " + materialID + ". Using default values.");
                 shininess = 10;
             } 
-            else{
+            else {
                 shininess = this.reader.getFloat(materialInfo[shininessIndex], 'value');
-                if (isNaN(shininess) || shininess < 0){
+                if (isNaN(shininess) || shininess < 0) {
                     this.onXMLMinorError(" No value for shininess in material: " + materialID + ". Using default values.");
                     shininess = 10;
                 }                     
             }
             // ------------------------------------- Ambient
-            if (ambientIndex == -1){
+            if (ambientIndex == -1) {
                 this.onXMLMinorError("No value for ambient in material: " + materialID + ". Using default values.");
                 ambient_component = [0.5, 0.5, 0.5, 1.0];
             }
-            else{
+            else {
                 ambient_component = this.parseColor(materialInfo[ambientIndex], 'ambient of the material: ' + materialID);
             }
             // ------------------------------------- Diffuse
-            if (diffuseIndex == -1){
+            if (diffuseIndex == -1) {
                 this.onXMLMinorError("No value for diffuse in material: " + materialID + ". Using default values.");
                 diffuse_component = [0.5, 0.5, 0.5, 1.0];
             }
-            else{
+            else {
                 diffuse_component = this.parseColor(materialInfo[diffuseIndex], 'diffuse of the material: ' + materialID);
             }
             // ------------------------------------- Specular
-            if (specularIndex == -1){
+            if (specularIndex == -1) {
                 this.onXMLMinorError("No value for specular in material: " + materialID + ". Using default values.");
                 specular_component = [0.5, 0.5, 0.5, 1.0];
             } 
-            else{
+            else {
                 specular_component = this.parseColor(materialInfo[specularIndex], 'specular of the material: ' + materialID);
             }
             // ------------------------------------- Emissive
-            if (emissiveIndex == -1){
+            if (emissiveIndex == -1) {
                 this.onXMLMinorError("No value for emissive in material: " + materialID + ". Using default values.");
                 emissive_component = [0.0, 0.0, 0.0, 1.0];
             }
-            else{
+            else {
                 emissive_component = this.parseColor(materialInfo[emissiveIndex], 'emissive of the material: ' + materialID);
             }
             var newMaterial = new CGFappearance(this.scene);
@@ -639,6 +663,122 @@ class MySceneGraph {
 
         if (materialsN == 0) this.onXMLError("at least one material must be defined");
         this.log("Parsed materials");
+    }
+
+    parseAnimations(animationsNode){
+        var children = animationsNode.children;
+
+        this.animations = [];
+        this.animationsIDs = [];
+
+        var grandChildren = [];
+
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].nodeName != "animation") {
+                return "unknown tag <" + children[i].nodeName + ">";
+            }
+
+            var animationID = this.reader.getString(children[i], 'id');
+            if (animationID == null) {
+                return "no ID defined for animationID";
+            }
+            
+            if (this.animations[animationID] != null) {
+                return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
+            }
+
+            // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+            // Create Animation
+            var animation = new MyKeyframeAnimation(this.scene);
+            // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+            // Keyframes
+            
+            grandChildren = children[i].children;
+
+            for (var j = 0; j < grandChildren.length; ++ j) {
+                var keyframeIndex = grandChildren[j].nodeName.indexOf("keyframe");
+                if (keyframeIndex == -1) {
+                    this.onXMLMinorError("Error parsing keyframe for animation: " + animationID + ".");
+                }
+                var keyframeInstant = this.reader.getFloat(grandChildren[j], 'instant');
+                if (keyframeInstant  == null || keyframeInstant  < 0 || isNaN(keyframeInstant)) {
+                    return "Not a valid insant for animation: " + animationID;
+                }
+
+                var keyframeInfo = grandChildren[j].children;
+                var nodeNamesggc = [];
+
+                for (var k = 0; k < keyframeInfo.length; ++ k) {
+                    nodeNamesggc.push(keyframeInfo[k].nodeName);
+                }
+
+                var translation_vector = [0, 0, 0];
+                var rotation_vector    = [0, 0, 0];
+                var scale_vector       = [1, 1, 1];
+
+                for (var k = 0; k < keyframeInfo.length; ++ k) {
+                    switch (keyframeInfo[k].nodeName) {
+                        case "translation":
+                                var t_aux = this.parseCoordinates3D(keyframeInfo[k],' "translation" from the animation: ' + animationID);
+                                translation_vector[0] += t_aux[0];
+                                translation_vector[1] += t_aux[1];
+                                translation_vector[2] += t_aux[2];    
+                                break;
+                        case "rotation":
+                            var axis = this.reader.getItem(keyframeInfo[k], 'axis', ['x', 'y', 'z']);
+                            var angle = this.reader.getFloat(keyframeInfo[k], 'angle');
+                            if (axis == null) {
+                                this.onXMLMinorError("enter a valid number for 'rotation axis'; using axis = 'x'");
+                                axis = 'x';
+                            }
+                            if (angle == null) {
+                                this.onXMLMinorError("enter a valid number for 'rotation angle'; using angle = 0");
+                                angle = 0;
+                            }
+                            if      (axis == 'x') rotation_vector[0] += angle;
+                            else if (axis == 'y') rotation_vector[1] += angle;
+                            else if (axis == 'z') rotation_vector[2] += angle;     
+                            break;
+                        case "scale":
+                            var sx = this.reader.getFloat(keyframeInfo[k], 'sx');
+                            var sy = this.reader.getFloat(keyframeInfo[k], 'sy');
+                            var sz = this.reader.getFloat(keyframeInfo[k], 'sz');
+                            if (sx == null) {
+                                this.onXMLMinorError("enter a valid number for 'scale sx'; using sx = 1");
+                                sx = 1;
+                            }
+                            if (sy == null) {
+                                this.onXMLMinorError("enter a valid number for 'scale sy'; using sy = 1");
+                                sy = 1;
+                            }
+                            if (sz == null) {
+                                this.onXMLMinorError("enter a valid number for 'scale sz'; using sz = 1");
+                                sz = 1;
+                            }
+                            scale_vector[0] *= sx;
+                            scale_vector[1] *= sy;
+                            scale_vector[2] *= sz;
+                            
+                            break;
+                        default:
+                            this.onXMLMinorError("unknown transformation: " + keyframeInfo[k].nodeName);
+                            break;
+                    }
+
+                }
+            
+                var keyframe = new MyKeyframe(this.scene, keyframeInstant, translation_vector, rotation_vector, scale_vector);
+                animation.addKeyframe(keyframe);
+            }
+
+            this.animations[animationID] = animation;
+            this.animationsIDs.push(animationID);
+
+        }
+
+        this.log("Parsed Animations");
+        return null;
     }
 
     /**
@@ -758,34 +898,49 @@ class MySceneGraph {
             var amplifications = grandChildren[textureIndex].children;
             var afs, aft;
 
-            if(amplifications.length == 0){
+            if (amplifications.length == 0) {
                 this.onXMLMinorError("invalid values for afs and aft in node " + nodeID + ". Using afs = 1.0, aft = 1.0");
                 afs = 1.0;
                 aft = 1.0;
             }
-            else{
-                if(amplifications[0].nodeName != "amplification"){
+            else {
+                if (amplifications[0].nodeName != "amplification") {
                     this.onXMLMinorError("missing <amplification> node for node " + nodeID + ". Using afs = 1.0, aft = 1.0");
                     afs = 1.0;
                     aft = 1.0;
                 }
-                if(amplifications.length > 1){
+                if (amplifications.length > 1) {
                     this.onXMLMinorError("More than 1 amplification for node " + nodeID + ". Using the first one");
                 }
                 
                 afs = this.reader.getFloat(amplifications[0], 'afs');
                 aft = this.reader.getFloat(amplifications[0], 'aft');
-                if(isNaN(afs)){
+                if (isNaN(afs)) {
                     this.onXMLMinorError("invalid values for afs in node " + nodeID + ". Using afs = 1.0");
                     afs = 1.0;
                 } 
-                if(isNaN(aft)){
+                if (isNaN(aft)) {
                     this.onXMLMinorError("invalid values for aft in node " + nodeID + ". Using aft = 1.0");
                     aft = 1.0;
                 } 
             }
             
             this.nodes[nodeID].texture = textureID;          
+
+            // -------------------- Animations -------------------- 
+
+            var animationsIndex = nodeNames.indexOf("animationref");
+            var animationID = null;
+            // Not necessary
+            if (animationsIndex != -1) {
+                animationID = this.reader.getString(grandChildren[animationsIndex], "id");
+                if (animationID != null && !this.animations[animationID]) {
+                    this.onXMLMinorError("animation not defined for animationd ID " +  animationID + " in node " + nodeID);
+                    animationID = null;
+                }
+            }
+
+            this.nodes[nodeID].animationID = animationID;
 
             // -------------------- Descendants -------------------- 
 
@@ -798,14 +953,16 @@ class MySceneGraph {
             var descendants = grandChildren[descendantsIndex].children;
 
             // identify if it's a noderef or a leaf and treat them
-            for(var j = 0; j < descendants.length; j++){
+            for (var j = 0; j < descendants.length; j++) {
                 if (descendants[j].nodeName == "noderef") {
                     var currentNodeID = this.reader.getString(descendants[j], 'id');
 
-                    if (currentNodeID == null)
+                    if (currentNodeID == null) {
                         this.onXMLMinorError("Error: parse descendants - noderef");
-                    else
+                    }
+                    else {
                         this.nodes[nodeID].addChild(currentNodeID);
+                    }
                 }
                 else if (descendants[j].nodeName == "leaf") {
                     this.nodes[nodeID].addLeaf(new MyLeaf(this, descendants[j], afs, aft));
@@ -814,6 +971,7 @@ class MySceneGraph {
                     this.onXMLMinorError("unknown tag <" + descendants[j].nodeName + ">");
                 }
             }
+
         }
     }
 
@@ -919,6 +1077,11 @@ class MySceneGraph {
         return color;
     }
 
+    updateAnimations(t){
+        for(let i in this.animationsIDs){
+            this.animations[this.animationsIDs[i]].update(t);
+        }
+    }
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
@@ -939,6 +1102,11 @@ class MySceneGraph {
 
         // Apply the Transformation
         this.scene.multMatrix(currentNode.matrix);
+
+        // Animation Transformation
+        if(currentNode.animationID != null){
+            this.animations[currentNode.animationID].apply();
+        }        
 
         // Obtain material and texture
         if (currentNode.material != "null") {
