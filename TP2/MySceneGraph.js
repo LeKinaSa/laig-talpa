@@ -545,15 +545,15 @@ class MySceneGraph {
         for (var i = 0; i < texturesNode.children.length; i++) {
             if (texturesNode.children[i].nodeName == "texture") {
                 var textureID = this.reader.getString(texturesNode.children[i], 'id');
-                if(!isNaN(textureID)) {this.onXMLMinorError("Unable to get texture number "+ (i+1) + ". Ignoring it"); continue;}
+                if (!isNaN(textureID)) { this.onXMLMinorError("Unable to get texture number "+ (i+1) + ". Ignoring it"); continue; }
                 var path = this.reader.getString(texturesNode.children[i], 'path');
-                if(!isNaN(path)) {this.onXMLMinorError("Unable to get path for texture "+ textureID + ". Ignoring it"); continue;}
+                if (!isNaN(path)) { this.onXMLMinorError("Unable to get path for texture "+ textureID + ". Ignoring it"); continue; }
             }
             else
                 this.onXMLMinorError("unknown tag name <" + name + ">");
 
             var texture = new CGFtexture(this.scene, path);
-            if(this.textures[textureID] != null){this.onXMLMinorError("There are more than 1 textures named " + textureID + ". Rename one of them."); continue;}
+            if (this.textures[textureID] != null) { this.onXMLMinorError("There are more than 1 textures named " + textureID + ". Rename one of them."); continue; }
             this.textures[textureID] = texture;
         }
 
@@ -607,47 +607,47 @@ class MySceneGraph {
             var shininess, ambient_component, diffuse_component, specular_component, emissive_component;
 
             // ------------------------------------- Shininess
-            if (shininessIndex == -1){
+            if (shininessIndex == -1) {
                 this.onXMLMinorError(" No value for shininess in material: " + materialID + ". Using default values.");
                 shininess = 10;
             } 
-            else{
+            else {
                 shininess = this.reader.getFloat(materialInfo[shininessIndex], 'value');
-                if (isNaN(shininess) || shininess < 0){
+                if (isNaN(shininess) || shininess < 0) {
                     this.onXMLMinorError(" No value for shininess in material: " + materialID + ". Using default values.");
                     shininess = 10;
                 }                     
             }
             // ------------------------------------- Ambient
-            if (ambientIndex == -1){
+            if (ambientIndex == -1) {
                 this.onXMLMinorError("No value for ambient in material: " + materialID + ". Using default values.");
                 ambient_component = [0.5, 0.5, 0.5, 1.0];
             }
-            else{
+            else {
                 ambient_component = this.parseColor(materialInfo[ambientIndex], 'ambient of the material: ' + materialID);
             }
             // ------------------------------------- Diffuse
-            if (diffuseIndex == -1){
+            if (diffuseIndex == -1) {
                 this.onXMLMinorError("No value for diffuse in material: " + materialID + ". Using default values.");
                 diffuse_component = [0.5, 0.5, 0.5, 1.0];
             }
-            else{
+            else {
                 diffuse_component = this.parseColor(materialInfo[diffuseIndex], 'diffuse of the material: ' + materialID);
             }
             // ------------------------------------- Specular
-            if (specularIndex == -1){
+            if (specularIndex == -1) {
                 this.onXMLMinorError("No value for specular in material: " + materialID + ". Using default values.");
                 specular_component = [0.5, 0.5, 0.5, 1.0];
             } 
-            else{
+            else {
                 specular_component = this.parseColor(materialInfo[specularIndex], 'specular of the material: ' + materialID);
             }
             // ------------------------------------- Emissive
-            if (emissiveIndex == -1){
+            if (emissiveIndex == -1) {
                 this.onXMLMinorError("No value for emissive in material: " + materialID + ". Using default values.");
                 emissive_component = [0.0, 0.0, 0.0, 1.0];
             }
-            else{
+            else {
                 emissive_component = this.parseColor(materialInfo[emissiveIndex], 'emissive of the material: ' + materialID);
             }
             var newMaterial = new CGFappearance(this.scene);
@@ -673,20 +673,22 @@ class MySceneGraph {
 
         var grandChildren = [];
 
-        for(var i = 0; i < children.length; i++){
-            if(children[i].nodeName != "animation"){
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].nodeName != "animation") {
                 return "unknown tag <" + children[i].nodeName + ">";
             }
 
             var animationID = this.reader.getString(children[i], 'id');
-            if(animationID == null)
+            if (animationID == null) {
                 return "no ID defined for animationID";
+            }
             
-            if (this.animations[animationID] != null)
-            return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
+            if (this.animations[animationID] != null) {
+                return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
+            }
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-            // CRIAR A ANIMAÇÃO
+            // Create Animation
             var animation = new MyKeyframeAnimation(this.scene);
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -694,28 +696,29 @@ class MySceneGraph {
             
             grandChildren = children[i].children;
 
-            for(var j = 0; j < grandChildren.length; j++){
+            for (var j = 0; j < grandChildren.length; ++ j) {
                 var keyframeIndex = grandChildren[j].nodeName.indexOf("keyframe");
                 if (keyframeIndex == -1) {
-                this.onXMLMinorError("Error parsing keyframe for animation: " + animationID + ".");
+                    this.onXMLMinorError("Error parsing keyframe for animation: " + animationID + ".");
                 }
                 var keyframeInstant = this.reader.getFloat(grandChildren[j], 'instant');
-                if(keyframeInstant  == null || keyframeInstant  < 0 || isNaN(keyframeInstant))
+                if (keyframeInstant  == null || keyframeInstant  < 0 || isNaN(keyframeInstant)) {
                     return "Not a valid insant for animation: " + animationID;
+                }
 
                 var keyframeInfo = grandChildren[j].children;
                 var nodeNamesggc = [];
 
-                for(var k = 0; k < keyframeInfo.length; k++){
+                for (var k = 0; k < keyframeInfo.length; ++ k) {
                     nodeNamesggc.push(keyframeInfo[k].nodeName);
                 }
 
-                var rotation_vector = [0,0,0];
-                var translation_vector = [0,0,0];
-                var scale_vector = [1,1,1];
+                var translation_vector = [0, 0, 0];
+                var rotation_vector    = [0, 0, 0];
+                var scale_vector       = [1, 1, 1];
 
-                for(var k = 0; k < keyframeInfo.length; k++){
-                    switch(keyframeInfo[k].nodeName){
+                for (var k = 0; k < keyframeInfo.length; ++ k) {
+                    switch (keyframeInfo[k].nodeName) {
                         case "translation":
                                 var t_aux = this.parseCoordinates3D(keyframeInfo[k],' "translation" from the animation: ' + animationID);
                                 translation_vector[0] += t_aux[0];
@@ -733,9 +736,9 @@ class MySceneGraph {
                                 this.onXMLMinorError("enter a valid number for 'rotation angle'; using angle = 0");
                                 angle = 0;
                             }
-                            if     (axis == 'x') rotation_vector[0]+=angle;
-                            else if(axis == 'y') rotation_vector[1]+=angle;
-                            else if(axis == 'z') rotation_vector[2]+=angle;     
+                            if      (axis == 'x') rotation_vector[0] += angle;
+                            else if (axis == 'y') rotation_vector[1] += angle;
+                            else if (axis == 'z') rotation_vector[2] += angle;     
                             break;
                         case "scale":
                             var sx = this.reader.getFloat(keyframeInfo[k], 'sx');
@@ -895,28 +898,28 @@ class MySceneGraph {
             var amplifications = grandChildren[textureIndex].children;
             var afs, aft;
 
-            if(amplifications.length == 0){
+            if (amplifications.length == 0) {
                 this.onXMLMinorError("invalid values for afs and aft in node " + nodeID + ". Using afs = 1.0, aft = 1.0");
                 afs = 1.0;
                 aft = 1.0;
             }
-            else{
-                if(amplifications[0].nodeName != "amplification"){
+            else {
+                if (amplifications[0].nodeName != "amplification") {
                     this.onXMLMinorError("missing <amplification> node for node " + nodeID + ". Using afs = 1.0, aft = 1.0");
                     afs = 1.0;
                     aft = 1.0;
                 }
-                if(amplifications.length > 1){
+                if (amplifications.length > 1) {
                     this.onXMLMinorError("More than 1 amplification for node " + nodeID + ". Using the first one");
                 }
                 
                 afs = this.reader.getFloat(amplifications[0], 'afs');
                 aft = this.reader.getFloat(amplifications[0], 'aft');
-                if(isNaN(afs)){
+                if (isNaN(afs)) {
                     this.onXMLMinorError("invalid values for afs in node " + nodeID + ". Using afs = 1.0");
                     afs = 1.0;
                 } 
-                if(isNaN(aft)){
+                if (isNaN(aft)) {
                     this.onXMLMinorError("invalid values for aft in node " + nodeID + ". Using aft = 1.0");
                     aft = 1.0;
                 } 
@@ -929,18 +932,15 @@ class MySceneGraph {
             var animationsIndex = nodeNames.indexOf("animationref");
             var animationID = null;
             // Not necessary
-            if(animationsIndex != -1){
+            if (animationsIndex != -1) {
                 animationID = this.reader.getString(grandChildren[animationsIndex], "id");
-                if(animationID != null && !this.animations[animationID]){
-                    this.onXMLMinorError("animation not deifined for animationd ID " +  animationID + " in node " + nodeID);
+                if (animationID != null && !this.animations[animationID]) {
+                    this.onXMLMinorError("animation not defined for animationd ID " +  animationID + " in node " + nodeID);
                     animationID = null;
                 }
             }
 
             this.nodes[nodeID].animationID = animationID;
-
-            console.log(this.nodes[nodeID]);
-            console.log(this.animations[animationID]);
 
             // -------------------- Descendants -------------------- 
 
@@ -953,14 +953,16 @@ class MySceneGraph {
             var descendants = grandChildren[descendantsIndex].children;
 
             // identify if it's a noderef or a leaf and treat them
-            for(var j = 0; j < descendants.length; j++){
+            for (var j = 0; j < descendants.length; j++) {
                 if (descendants[j].nodeName == "noderef") {
                     var currentNodeID = this.reader.getString(descendants[j], 'id');
 
-                    if (currentNodeID == null)
+                    if (currentNodeID == null) {
                         this.onXMLMinorError("Error: parse descendants - noderef");
-                    else
+                    }
+                    else {
                         this.nodes[nodeID].addChild(currentNodeID);
+                    }
                 }
                 else if (descendants[j].nodeName == "leaf") {
                     this.nodes[nodeID].addLeaf(new MyLeaf(this, descendants[j], afs, aft));
