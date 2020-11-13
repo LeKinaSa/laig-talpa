@@ -40,7 +40,6 @@ class XMLscene extends CGFscene {
         this.displayAxis = false;
         this.scaleFactor = 1;
         this.updatePeriod = 100;
-        this.initialT = null;
 
     }
 
@@ -134,12 +133,8 @@ class XMLscene extends CGFscene {
      * @param {time} t 
      */
     update(t) {
-        if(this.initialT == null) this.initialT = t;
-
-        var instant = (t - this.initialT) / 1000;
-
-        for(let i in this.graph.animations){
-            this.graph.animations[i].update(instant);
+        for (let i in this.graph.animations) {
+            this.graph.animations[i].update(t);
         }
     }
 

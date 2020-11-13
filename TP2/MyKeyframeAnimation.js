@@ -16,7 +16,7 @@ class MyKeyframeAnimation extends MyAnimation {
     }
 
     // Adds a keyframe to the keyframes list
-    addKeyframe(keyframe){
+    addKeyframe(keyframe) {
         // Keyframe class - aux class to create the Keyframes
         this.keyframes.push(keyframe);
         this.keyframes.sort((a, b) => (a.instant > b.instant) ? 1 : -1);
@@ -26,8 +26,9 @@ class MyKeyframeAnimation extends MyAnimation {
 
     
     update(t) {
+        t = t / 1000;
         // verify if it's the first call -> if it's the first, change init to current time
-        if(this.init == 0){
+        if (this.init == 0) {
             this.init = t;
             this.previous = t;
         }
@@ -44,8 +45,8 @@ class MyKeyframeAnimation extends MyAnimation {
         *  keyframe
         */        
         var aux = -1;
-        for(var i = 0; i < this.keyframes.length; i++){
-            if(this.keyframes[i].instant > delta_time){
+        for (var i = 0; i < this.keyframes.length; ++ i) {
+            if (this.keyframes[i].instant > delta_time) {
                 aux = i;
                 break;
             }
@@ -58,17 +59,17 @@ class MyKeyframeAnimation extends MyAnimation {
         if (aux == -1) return;
 
         // else -> iterpolations
-        var kf1 = this.keyframes[aux-1];
+        var kf1 = this.keyframes[aux - 1];
         var kf2 = this.keyframes[aux];
 
         /*
         *                               INTERPOLATION
-        *                     X = Xi + XTtotal * Telapsed/TTotal
+        *                     X = Xi + XTtotal * Telapsed/Ttotal
         * X:        current value
         * Xi:       initial value
         * XTotal:   value between initial/end time
         * Telapsed: time from start until now
-        * TTotal:   total animation time
+        * Ttotal:   total animation time
         */
         var T = [0,0,0];
         var R = [0,0,0];
@@ -93,7 +94,7 @@ class MyKeyframeAnimation extends MyAnimation {
         this.previous = t;
     }
 
-    apply(){
+    apply() {
         this.scene.multMatrix(this.currentState);
     }
 

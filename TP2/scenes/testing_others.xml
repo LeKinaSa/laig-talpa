@@ -73,7 +73,7 @@
             <!-- sendo que o objeto em causa deve permanecer -->
             <!-- invisível até esse momento -->
             <!-- Deve existir pelo menos 1 elemento keyframe. -->
-            <!-- instant e’ o tempo expresso em segundos -->
+            <!-- instant é o tempo expresso em segundos -->
             <!-- desde o inicio da animação. -->
             <!-- Os keyframes devem ser declarados por -->
             <!-- ordem crescente do tempo. -->
@@ -92,7 +92,7 @@
                 <scale sx="0" sy="0" sz="0" />
             </keyframe>
 
-            <keyframe instant="10">
+            <keyframe instant="90">
                 <!-- translate, rotate e scale representam as -->
                 <!-- quantidades das transformações -->
                 <!-- correspondentes, medidas em relação à -->
