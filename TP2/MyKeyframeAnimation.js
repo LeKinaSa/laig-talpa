@@ -1,3 +1,5 @@
+const DEGREE_TO_RADIANS = Math.PI / 180;
+
 /**
  * MyKeyframeAnimation class: represents all the keyframes from an animation
 **/
@@ -8,9 +10,9 @@ class MyKeyframeAnimation extends MyAnimation {
     constructor(scene) {
         super(scene);
         this.keyframes = []; // list with all the keyframes from the animation
-        this.addKeyframe(new MyKeyframe(scene, 0, [0,0,0], [0,0,0], [1,1,1]));
+        this.addKeyframe(new MyKeyframe(scene, 0, [0, 0, 0], [0, 0, 0], [1, 1, 1]));
         this.currentState = mat4.create();
-        this.init = 0;
+        this.initTime = 0;
     }
 
     // Adds a keyframe to the keyframes list
@@ -19,13 +21,13 @@ class MyKeyframeAnimation extends MyAnimation {
         this.keyframes.push(keyframe);
         this.keyframes.sort((a, b) => (a.instant > b.instant) ? 1 : -1);
     }
-
     
     update(t) {
         t = t / 1000;
         // verify if it's the first call -> if it's the first, change init to current time
-        if (this.init == 0) {
-            this.init = t;
+        
+        if (this.initTime == 0) {
+            this.initTime = t;
         }
 
         /**
@@ -33,14 +35,14 @@ class MyKeyframeAnimation extends MyAnimation {
          * elapsed time = actual time - init time
          * for example: first call -> deltaTime = 0
          */
-        var delta_time = t - this.init;
+        var delta_time = t - this.initTime;
 
         
         /**
          * the delta_time needs to be between the initial and the final instants of the animation
          */
         if ((delta_time < this.keyframes[0].instant)
-        || (delta_time > this.keyframes[this.keyframes.length-1].instant)) {
+         || (delta_time > this.keyframes[this.keyframes.length - 1].instant)) {
            return;
         }
 
@@ -69,8 +71,8 @@ class MyKeyframeAnimation extends MyAnimation {
         if (kf_index != -1) {
             var kf = this.keyframes[kf_index];
             T = kf.translation;
-            R = kf.rotation * DEGREE_TO_RAD;
             S = kf.scale;
+            vec3.scale(R, kf.rotation, DEGREE_TO_RADIANS);
         }
         else {
             // Interpolations
@@ -94,17 +96,25 @@ class MyKeyframeAnimation extends MyAnimation {
             T = vec3.lerp(T, kf1.translation, kf2.translation, elapsedTime/totalTime);
         
             // Rotation
-            R = vec3.lerp(R, kf1.rotation * DEGREE_TO_RAD, kf2.rotation * DEGREE_TO_RAD, elapsedTime/totalTime);
+            var R1 = [0, 0, 0]; vec3.scale(R1, kf1.rotation, DEGREE_TO_RADIANS);
+            var R2 = [0, 0, 0]; vec3.scale(R2, kf2.rotation, DEGREE_TO_RADIANS);
+            R = vec3.lerp(R, R1, R2, elapsedTime/totalTime);
 
             // Scale
             S = vec3.lerp(S, kf1.scale, kf2.scale, elapsedTime/totalTime);    
         }
 
+        
         // Update current state
+        var axis = [[1, 0, 0],
+                    [0, 1, 0],
+                    [0, 0, 1]];
         this.currentState = mat4.create();
-        mat4.translate(this.currentState, this.currentState, ...T);
-        mat4.rotate   (this.currentState, this.currentState, ...R);
-        mat4.scale    (this.currentState, this.currentState, ...S);
+        mat4.translate(this.currentState, this.currentState, T);
+        mat4.rotate   (this.currentState, this.currentState, R[0], axis[0]);
+        mat4.rotate   (this.currentState, this.currentState, R[1], axis[1]);
+        mat4.rotate   (this.currentState, this.currentState, R[2], axis[2]);
+        mat4.scale    (this.currentState, this.currentState, S);
     }
 
     apply() {
