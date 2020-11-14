@@ -577,15 +577,15 @@ class MySceneGraph {
         for (var i = 0; i < texturesNode.children.length; i++) {
             if (texturesNode.children[i].nodeName == "texture") {
                 var textureID = this.reader.getString(texturesNode.children[i], 'id');
-                if(!isNaN(textureID)) {this.onXMLMinorError("Unable to get texture number "+ (i+1) + ". Ignoring it"); continue;}
+                if (!isNaN(textureID)) { this.onXMLMinorError("Unable to get texture number "+ (i+1) + ". Ignoring it"); continue; }
                 var path = this.reader.getString(texturesNode.children[i], 'path');
-                if(!isNaN(path)) {this.onXMLMinorError("Unable to get path for texture "+ textureID + ". Ignoring it"); continue;}
+                if (!isNaN(path)) { this.onXMLMinorError("Unable to get path for texture "+ textureID + ". Ignoring it"); continue; }
             }
             else
                 this.onXMLMinorError("unknown tag name <" + name + ">");
 
             var texture = new CGFtexture(this.scene, path);
-            if(this.textures[textureID] != null){this.onXMLMinorError("There are more than 1 textures named " + textureID + ". Rename one of them."); continue;}
+            if (this.textures[textureID] != null) { this.onXMLMinorError("There are more than 1 textures named " + textureID + ". Rename one of them."); continue; }
             this.textures[textureID] = texture;
         }
 
@@ -960,28 +960,28 @@ class MySceneGraph {
             var amplifications = grandChildren[textureIndex].children;
             var afs, aft;
 
-            if(amplifications.length == 0){
+            if (amplifications.length == 0) {
                 this.onXMLMinorError("invalid values for afs and aft in node " + nodeID + ". Using afs = 1.0, aft = 1.0");
                 afs = 1.0;
                 aft = 1.0;
             }
-            else{
-                if(amplifications[0].nodeName != "amplification"){
+            else {
+                if (amplifications[0].nodeName != "amplification") {
                     this.onXMLMinorError("missing <amplification> node for node " + nodeID + ". Using afs = 1.0, aft = 1.0");
                     afs = 1.0;
                     aft = 1.0;
                 }
-                if(amplifications.length > 1){
+                if (amplifications.length > 1) {
                     this.onXMLMinorError("More than 1 amplification for node " + nodeID + ". Using the first one");
                 }
                 
                 afs = this.reader.getFloat(amplifications[0], 'afs');
                 aft = this.reader.getFloat(amplifications[0], 'aft');
-                if(isNaN(afs)){
+                if (isNaN(afs)) {
                     this.onXMLMinorError("invalid values for afs in node " + nodeID + ". Using afs = 1.0");
                     afs = 1.0;
                 } 
-                if(isNaN(aft)){
+                if (isNaN(aft)) {
                     this.onXMLMinorError("invalid values for aft in node " + nodeID + ". Using aft = 1.0");
                     aft = 1.0;
                 } 

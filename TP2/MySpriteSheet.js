@@ -14,6 +14,9 @@ class MySpriteSheet {
     constructor(scene, texture, sizeM, sizeN) {
         this.scene = scene;
         this.texture = texture;
+        this.material = new CGFappearance(this.scene);
+        this.material.setTexture(this.texture);
+        this.material.setTextureWrap('REPEAT', 'REPEAT');
         this.columns = sizeM;
         this.lines   = sizeN;
         this.shader  = new CGFshader(this.scene.gl, "shaders/spritesheet.vert", "shaders/spritesheet.frag");
@@ -21,13 +24,13 @@ class MySpriteSheet {
     }
 
     activateShader() {
-        this.setActiveShader(this.shader);
-        this.texture.apply();
+        this.scene.setActiveShader(this.shader);
+        //this.material.apply(); // TODO
     }
 
     activateCellP(p) {
-        let column = p % this.columns;
-        let line   = (p - column) / this.columns;
+        var column = p % this.columns;
+        var line   = (p - column) / this.columns;
         this.activateCellMN(column, line);
     }
 
@@ -36,7 +39,7 @@ class MySpriteSheet {
     }
 
     deactivateShader() {
-        this.setActiveShader(this.scene.defaultShader);
+        this.scene.setActiveShader(this.scene.defaultShader);
     }
 
 }

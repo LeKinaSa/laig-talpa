@@ -22,7 +22,7 @@ class MySpriteText {
         this.spriteSheet.activateShader();
         this.scene.translate(- this.text.length / 2, -0.5, 0);
         var p;
-        for (let index = 0; index < this.text.length; index ++) {
+        for (var index = 0; index < this.text.length; index ++) {
             // Get Character Sprite Position
             p = this.getCharacterPosition(index);
 
@@ -30,7 +30,7 @@ class MySpriteText {
             this.spriteSheet.activateCellP(p);
 
             // Display Base Geometry
-            if (i > 0) this.scene.translate(1, 0, 0);
+            if (index > 0) this.scene.translate(1, 0, 0);
             this.plane.display();
         }
         this.spriteSheet.deactivateShader();
@@ -38,7 +38,7 @@ class MySpriteText {
         this.scene.popMatrix();
     }
 
-    getCharacterPosition(charCode) {
+    getCharacterPosition(index) {
         // Get Char Code
         var charCode = this.text.charCodeAt(index);
         
@@ -48,4 +48,6 @@ class MySpriteText {
         }
         return 0;
     }
+
+    updateTexCoords() {}
 }
