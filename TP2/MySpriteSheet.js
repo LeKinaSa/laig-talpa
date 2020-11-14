@@ -16,7 +16,7 @@ class MySpriteSheet {
         this.texture = texture;
         this.columns = sizeM;
         this.lines   = sizeN;
-        this.shader  = new CGFshader(this.scene.gl, "spritesheet.vert", "spritesheet.frag");
+        this.shader  = new CGFshader(this.scene.gl, "shaders/spritesheet.vert", "shaders/spritesheet.frag");
         this.shader.setUniformsValues({ dimensions: [this.columns, this.lines] });
     }
 

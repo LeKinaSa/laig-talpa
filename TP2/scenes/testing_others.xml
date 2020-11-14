@@ -50,7 +50,7 @@
     <spritesheets>
             <!-- Semelhante à declaração de textura,  -->
             <!-- mas inclui a definição do nº de colunas e linhas -->
-            <spritesheet id="test_spritesheet" path="./scenes/images/texture.jpg" sizeM="10" sizeN="10" />
+            <spritesheet id="test_spritesheet" path="./scenes/images/font.png" sizeM="10" sizeN="10" />
     </spritesheets>
 
     <materials>
@@ -145,20 +145,17 @@
             <!-- o elemento "animationref" e' opcional; deve -->
             <!-- declarar-se imediatamente após as transformacoes -->
             <!-- geométricas do componente -->
-            <animationref id="testing_animations" />
+            <!--<animationref id="testing_animations" />-->
 
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="10" y2="10" />
+                <!-- <leaf type="rectangle" x1="0" y1="0" x2="10" y2="10" /> -->
                 <!-- <leaf type="triangle" x1="-3" y1="0" x2="5" y2="3" x3="-1" y3="15" /> -->
                 <!-- <leaf type="cylinder" height="10" topRadius="5" bottomRadius="5" stacks="32" slices="32"/> -->
                 <!-- <leaf type="torus" inner="1,6" outer="2" slices="32" loops="32" /> -->
                 <!-- <leaf type="sphere" radius="5" slices="32" stacks="32"/> -->
-                <leaf type="patch" npointsU="2" npointsV="1" npartsU="1" npartsV="1" >
-                    <controlpoint xx="1" yy="1" zz="1" />
-                    <controlpoint xx="1" yy="1" zz="1" />
-                </leaf>
+                <leaf type="spritetext" text="ola"/>
                 <!-- x y z coordinates of each vertex -->
             </descendants>
         </node>

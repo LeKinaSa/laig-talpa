@@ -112,8 +112,7 @@ class MyLeaf {
                 // Texto baseado em spritesheet
                 this.text = this.graph.reader.getString(element, 'text');
                 if(this.text == null){ this.graph.onXMLMinorError("Error in text in leaf spritetext"); break;}
-                
-                // this.primitive = new MySpriteText(this.graph.scene, this.text);
+                this.primitive = new MySpriteText(this.graph.scene, this.text);
                 break;
             
             case 'spriteanim':
@@ -126,9 +125,7 @@ class MyLeaf {
                 if(this.varError('spriteanim', 'startCell', this.startCell)) break;
                 if(this.varError('spriteanim', 'endtCell', this.endCell)) break;
                 if(this.varError('spriteanim', 'duration', this.duration)) break;
-
-                // this.primitive = new MySpriteAnim(this.graph.scene, this.ssid, this.startCell, this.endCell, this.duration);
-
+                this.primitive = new MySpriteAnim(this.graph.scene, this.ssid, this.duration, this.startCell, this.endCell);
                 break;
             
             case 'plane':

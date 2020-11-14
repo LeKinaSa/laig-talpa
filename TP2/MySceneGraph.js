@@ -613,9 +613,8 @@ class MySceneGraph {
                 this.onXMLMinorError("unknown tag name <" + name + ">");
 
             /* CREATE SPRITESHEET */
-            // TODO
-            var spritesheet = null;
-            // spritesheet = new MySpritesheet ??????
+            var texture = new CGFtexture(this.scene, path);
+            var spritesheet = new MySpriteSheet(this.scene, texture, sizeM, sizeN);
 
             console.log(spritesheetID, path, sizeM, sizeN); // Correct
 
