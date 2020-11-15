@@ -25,7 +25,7 @@ class MySpriteSheet {
 
     activateShader() {
         this.scene.setActiveShader(this.shader);
-        //this.material.apply(); // TODO
+        this.material.apply();
     }
 
     activateCellP(p) {
