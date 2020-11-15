@@ -138,6 +138,7 @@
              descendants may be mixed, nodes and leafs -->
             <descendants>
                 <noderef id="demoChild" />
+                <noderef id="animation" />
                 <!-- "ss" is the identifier of a node or of leaf; -->
                 <!-- may be repeated as necessary. It can refer an -->
                 <!-- identifier of another node, before or later defined in the file. -->
@@ -172,8 +173,40 @@
                 <!-- <leaf type="cylinder" height="10" topRadius="5" bottomRadius="5" stacks="32" slices="32"/> -->
                 <!-- <leaf type="torus" inner="1,6" outer="2" slices="32" loops="32" /> -->
                 <!-- <leaf type="sphere" radius="5" slices="32" stacks="32"/> -->
-                <!-- <leaf type="spritetext" text="ola"/> -->
-                <leaf type="spriteanim" ssid="explosion" startCell="5" endCell="10" duration="10" />
+                <leaf type="spritetext" text="ola"/>
+                <!-- <leaf type="spriteanim" ssid="explosion" startCell="5" endCell="10" duration="10" /> -->
+                <!-- x y z coordinates of each vertex -->
+            </descendants>
+        </node>
+        <node id="animation">            <!-- defines one intermediate node; may be repeated as necessary -->
+            <!-- next two lines are mandatory -->
+            <material id="demoMaterial2" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+
+            <texture id="demoTexture"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
+                <amplification afs="10" aft="10" /><!-- for primitives = dx/afs, dy/aft -->
+            </texture>
+
+            <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
+            <transformations>
+                <rotation axis="y" angle="90" />
+                <translation x="-10" y="0" z="7" />
+            </transformations>
+
+            <!-- o elemento "animationref" e' opcional; deve -->
+            <!-- declarar-se imediatamente após as transformacoes -->
+            <!-- geométricas do componente -->
+            <animationref id="testing_animations" />
+
+            <!-- declaring descendants, at least one node or one leaf must be present
+             descendants may be mixed, nodes and leafs -->
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="10" y2="10" />
+                <!-- <leaf type="triangle" x1="-3" y1="0" x2="5" y2="3" x3="-1" y3="15" /> -->
+                <!-- <leaf type="cylinder" height="10" topRadius="5" bottomRadius="5" stacks="32" slices="32"/> -->
+                <!-- <leaf type="torus" inner="1,6" outer="2" slices="32" loops="32" /> -->
+                <!-- <leaf type="sphere" radius="5" slices="32" stacks="32"/> -->
+
+                <!-- <leaf type="spriteanim" ssid="explosion" startCell="5" endCell="10" duration="10" /> -->
                 <!-- x y z coordinates of each vertex -->
             </descendants>
         </node>
