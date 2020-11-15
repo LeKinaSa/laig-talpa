@@ -51,6 +51,8 @@
             <!-- Semelhante à declaração de textura,  -->
             <!-- mas inclui a definição do nº de colunas e linhas -->
             <spritesheet id="test_spritesheet" path="./scenes/images/font.png" sizeM="10" sizeN="10" />
+            <spritesheet id="explosion" path="./scenes/images/explosion.png" sizeM="10" sizeN="10" />
+
     </spritesheets>
 
     <materials>
@@ -132,7 +134,7 @@
             <!-- next two lines are mandatory -->
             <material id="demoMaterial2" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
 
-            <texture id="demoTexture"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
+            <texture id="null"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
                 <amplification afs="10" aft="10" /><!-- for primitives = dx/afs, dy/aft -->
             </texture>
 
@@ -155,7 +157,8 @@
                 <!-- <leaf type="cylinder" height="10" topRadius="5" bottomRadius="5" stacks="32" slices="32"/> -->
                 <!-- <leaf type="torus" inner="1,6" outer="2" slices="32" loops="32" /> -->
                 <!-- <leaf type="sphere" radius="5" slices="32" stacks="32"/> -->
-                <leaf type="spritetext" text="ola"/>
+                <!-- <leaf type="spritetext" text="ola"/> -->
+                <leaf type="spriteanim" ssid="explosion" startCell="5" endCell="10" duration="10" />
                 <!-- x y z coordinates of each vertex -->
             </descendants>
         </node>
