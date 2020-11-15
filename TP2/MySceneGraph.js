@@ -841,7 +841,7 @@ class MySceneGraph {
 
         }
 
-        this.log("Parsed Animations");*/
+        this.log("Parsed Animations");
         return null;
     }
 
@@ -993,7 +993,7 @@ class MySceneGraph {
 
             // -------------------- Animations -------------------- 
 
-            /*var animationsIndex = nodeNames.indexOf("animationref");
+            var animationsIndex = nodeNames.indexOf("animationref");
             var animationID = null;
             // Not necessary
             if (animationsIndex != -1) {
@@ -1146,6 +1146,7 @@ class MySceneGraph {
             this.animations[this.animationsIDs[i]].update(t);
         }
     }
+
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
