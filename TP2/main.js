@@ -11,9 +11,10 @@ function getUrlVars() {
     return vars;
 }	 
 //Include additional files here
-serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'primitives/MyRectangle.js',
-'MyNode.js', 'MyLeaf.js', 'primitives/MyTriangle.js', 'primitives/MySphere.js', 'primitives/MyCylinder.js', 
-'primitives/MyTorus.js', 'MyAnimation.js', 'MyKeyframe.js', 'MyKeyframeAnimation.js',
+serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'MyNode.js', 'MyLeaf.js',
+'primitives/MyRectangle.js', 'primitives/MyTriangle.js', 'primitives/MySphere.js', 'primitives/MyCylinder.js', 'primitives/MyTorus.js',
+'MyAnimation.js', 'MyKeyframe.js', 'MyKeyframeAnimation.js',
+'MySpriteSheet.js', 'MySpriteText.js', 'MySpriteAnim.js',
 
 main=function()
 {
@@ -34,8 +35,8 @@ main=function()
 	
     //var filename=getUrlVars()['file'] || "LAIG_TP1_XML_T6G02.xml";
     var filename=getUrlVars()['file'] || "testing_others.xml";
-    
-    // create and load graph, and associate it to scene. 
+
+	// create and load graph, and associate it to scene. 
 	// Check console for loading errors
 	var myGraph = new MySceneGraph(filename, myScene);
 	

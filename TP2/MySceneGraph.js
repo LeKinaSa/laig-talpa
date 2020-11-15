@@ -6,9 +6,10 @@ var VIEWS_INDEX = 1;
 var ILLUMINATION_INDEX = 2;
 var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
-var MATERIALS_INDEX = 5;
-var ANIMATIONS_INDEX = 6;
-var NODES_INDEX = 7;
+var SPRITESHEETS_INDEX = 5;
+var MATERIALS_INDEX = 6;
+var ANIMATIONS_INDEX = 7;
+var NODES_INDEX = 8;
 
 /**
  * MySceneGraph class: representing the scene graph
@@ -112,6 +113,7 @@ class MySceneGraph {
 
         var error;
         var animations = false;
+        var spritesheets = false;
 
         // Processes each node, verifying errors.
 
@@ -175,23 +177,45 @@ class MySceneGraph {
                 return error;
         }
 
+        // <spritesheets>
+        if ((index = nodeNames.indexOf("spritesheets")) != -1) {
+            spritesheets = true;
+            if (index != SPRITESHEETS_INDEX)
+                this.onXMLMinorError("tag <spritesheets> out of order " + index);
+
+            //Parse textures block
+            if ((error = this.parseSpritesheets(nodes[index])) != null)
+                return error;
+        }
+
         // <materials>
         if ((index = nodeNames.indexOf("materials")) == -1)
             return "tag <materials> missing";
         else {
-            if (index != MATERIALS_INDEX)
-                this.onXMLMinorError("tag <materials> out of order " + index);
+            if (spritesheets) {
+                if (index != MATERIALS_INDEX)
+                    this.onXMLMinorError("tag <materials> out of order " + index);
+            }
+            else {
+                if (index != MATERIALS_INDEX-1)
+                    this.onXMLMinorError("tag <materials> out of order " + index);
+            }          
 
             //Parse materials block
             if ((error = this.parseMaterials(nodes[index])) != null)
                 return error;
         }
 
-        if ((index = nodeNames.indexOf("animations")) != -1)
-        {
+        if ((index = nodeNames.indexOf("animations")) != -1) {
             animations = true;
-            if (index != ANIMATIONS_INDEX)
+            if (spritesheets) {
+                if (index != ANIMATIONS_INDEX)
                 this.onXMLMinorError("tag <animations> out of order " + index);
+            }
+            else {
+                if (index != ANIMATIONS_INDEX-1)
+                this.onXMLMinorError("tag <animations> out of order " + index);
+            }            
 
             //Parse materials block
             if ((error = this.parseAnimations(nodes[index])) != null)
@@ -202,23 +226,30 @@ class MySceneGraph {
         if ((index = nodeNames.indexOf("nodes")) == -1)
             return "tag <nodes> missing";
         else {
-            if(animations){
-                if (index != NODES_INDEX)
-                this.onXMLMinorError("tag <nodes> out of order " + index);
-
-            //Parse nodes block
-                if ((error = this.parseNodes(nodes[index])) != null)
-                    return error;
+            if (spritesheets) {
+                if (animations) {
+                    if (index != NODES_INDEX)
+                        this.onXMLMinorError("tag <nodes> out of order " + index);
+                }
+                else {
+                    if (index != NODES_INDEX-1)
+                        this.onXMLMinorError("tag <nodes> out of order " + index);
+                }
             }
-            else{
-                if (index != NODES_INDEX-1)
-                this.onXMLMinorError("tag <nodes> out of order " + index);
-
-            //Parse nodes block
-                if ((error = this.parseNodes(nodes[index])) != null)
-                    return error;
-            }
+            else {
+                if (animations) {
+                    if (index != NODES_INDEX-1)
+                        this.onXMLMinorError("tag <nodes> out of order " + index);
+                }
+                else {
+                    if (index != NODES_INDEX-2)
+                        this.onXMLMinorError("tag <nodes> out of order " + index);
+                }
+            }            
             
+            //Parse nodes block
+            if ((error = this.parseNodes(nodes[index])) != null)
+                return error;
         }
         this.log("All parsed");
     }
@@ -280,7 +311,7 @@ class MySceneGraph {
 
         var default_camera_found = false;
 
-        for(var i = 0; i < children.length; i++){
+        for(var i = 0; i < children.length; ++ i) {
             var camera;
             // Get id of the current camera.
             var id = this.reader.getString(children[i], 'id');
@@ -316,7 +347,7 @@ class MySceneGraph {
                 var grandChildren = children[i].children;
                 var nodeNames = [];
 
-                for (var j = 0; j < grandChildren.length; j++) {
+                for (var j = 0; j < grandChildren.length; ++ j) {
                     nodeNames.push(grandChildren[j].nodeName);
                 }
 
@@ -561,6 +592,40 @@ class MySceneGraph {
     }
 
     /**
+     * Parses the <spritesheets> block. 
+     * @param {spritesheets block element} texturesNode
+     */
+    parseSpritesheets(spritesheetsNode) {
+        this.spritesheets = [];
+        for (var i = 0; i < spritesheetsNode.children.length; ++ i) {
+            if (spritesheetsNode.children[i].nodeName == "spritesheet") {
+                var spritesheetID = this.reader.getString(spritesheetsNode.children[i], 'id');
+                if (!isNaN(spritesheetID)) { this.onXMLMinorError("Unable to get spritesheet number "+ (i+1) + ". Ignoring it"); continue; }
+                var path = this.reader.getString(spritesheetsNode.children[i], 'path');
+                if (!isNaN(path)) { this.onXMLMinorError("Unable to get path for spritesheet "+ spritesheetID + ". Ignoring it"); continue; }
+                var sizeM = this.reader.getFloat(spritesheetsNode.children[i], 'sizeM');
+                if (isNaN(sizeM)) { this.onXMLMinorError("Unable to get sizeM for spritesheet "+ spritesheetID + ". Using sizeM = 1"); sizeM = 1; continue; }
+                var sizeN = this.reader.getFloat(spritesheetsNode.children[i], 'sizeN');
+                if (isNaN(sizeN)) { this.onXMLMinorError("Unable to get sizeM for spritesheet "+ spritesheetID + ". Using sizeN = 1"); sizeN = 1; continue; }
+            }
+            else
+                this.onXMLMinorError("unknown tag name <" + name + ">");
+
+            /* CREATE SPRITESHEET */
+            var texture = new CGFtexture(this.scene, path);
+            var spritesheet = new MySpriteSheet(this.scene, texture, sizeM, sizeN);
+
+            console.log(spritesheetID, path, sizeM, sizeN); // Correct
+
+            if (this.spritesheets[spritesheetID] != null) { this.onXMLMinorError("There are more than 1 spritesheets named " + spritesheetID + ". Rename one of them."); continue; }
+            this.spritesheets[spritesheetID] = spritesheet;
+        }
+
+        this.log("Parsed Spritesheets");
+        return null;
+    }
+
+    /**
      * Parses the <materials> node.
      * @param {materials block element} materialsNode
      */
@@ -593,7 +658,7 @@ class MySceneGraph {
 
             var materialInfo = children[i].children;
 
-            for(var j = 0; j < materialInfo.length; j++){
+            for (var j = 0; j < materialInfo.length; ++ j) {
                 nodeNames.push(materialInfo[j].nodeName);
             }
 
@@ -665,9 +730,8 @@ class MySceneGraph {
         this.log("Parsed materials");
     }
 
-    parseAnimations(animationsNode){
+    parseAnimations(animationsNode) {
         var children = animationsNode.children;
-
         this.animations = [];
         this.animationsIDs = [];
 
@@ -828,8 +892,8 @@ class MySceneGraph {
             else{
                 var transformations = grandChildren[transformationsIndex].children;
 
-                for(var j = 0; j < transformations.length; j++){
-                    switch(transformations[j].nodeName){
+                for (var j = 0; j < transformations.length; ++ j) {
+                    switch (transformations[j].nodeName) {
                         case "translation":
                             var translation_vector = this.parseCoordinates3D(transformations[j],' "translation" from the node: ' + nodeID);
                             mat4.translate(this.nodes[nodeID].matrix, this.nodes[nodeID].matrix, [...translation_vector]);
@@ -1077,11 +1141,12 @@ class MySceneGraph {
         return color;
     }
 
-    updateAnimations(t){
-        for(let i in this.animationsIDs){
+    updateAnimations(t) {
+        for (let i in this.animationsIDs) {
             this.animations[this.animationsIDs[i]].update(t);
         }
     }
+
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
@@ -1104,7 +1169,7 @@ class MySceneGraph {
         this.scene.multMatrix(currentNode.matrix);
 
         // Animation Transformation
-        if(currentNode.animationID != null){
+        if (currentNode.animationID != null) {
             this.animations[currentNode.animationID].apply();
         }        
 
