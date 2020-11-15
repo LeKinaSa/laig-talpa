@@ -131,11 +131,9 @@ class MyLeaf {
                 if (this.varError('spriteanim', 'endtCell', this.endCell)) break;
                 
                 this.duration = this.graph.reader.getFloat(element, 'duration');
-                if(this.ssid == null){this.graph.onXMLMinorError("Error in ssid in leaf spriteanim"); break;}
-                if(this.varError('spriteanim', 'startCell', this.startCell)) break;
-                if(this.varError('spriteanim', 'endtCell', this.endCell)) break;
-                if(this.varError('spriteanim', 'duration', this.duration)) break;
-                this.primitive = new MySpriteAnim(this.graph.scene, this.ssid, this.duration, this.startCell, this.endCell);
+                if (this.varError('spriteanim', 'duration', this.duration)) break;
+
+                this.primitive = new MySpriteAnim(this.graph.scene, this.spritesheet, this.duration, this.startCell, this.endCell);
                 break;
             
             case 'plane':
@@ -191,7 +189,10 @@ class MyLeaf {
                 this.height = this.graph.reader.getFloat(element, 'height');
                 if (this.varError('defbarrel', 'height', this.height)) break;
                 
+                this.stacks = this.graph.reader.getFloat(element, 'stacks');
                 if (this.varError('defbarrel', 'stacks', this.stacks)) break;
+
+                this.slices = this.graph.reader.getFloat(element, 'slices');
                 if (this.varError('defbarrel', 'slices', this.slices)) break;
 
                 // Criar Primitiva
