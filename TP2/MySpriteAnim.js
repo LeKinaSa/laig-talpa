@@ -41,4 +41,6 @@ class MySpriteAnim extends MyAnimation {
         this.plane.display();
         this.spriteSheet.deactivateShader();
     }
+
+    updateTexCoords() {}
 }
