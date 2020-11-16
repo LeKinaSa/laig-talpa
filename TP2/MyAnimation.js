@@ -5,6 +5,7 @@ class MyAnimation {
     /**
      * @constructor
      * @abstract
+     * @param {CGFscene} scene
      */
     constructor(scene) {
         this.scene        = scene;
