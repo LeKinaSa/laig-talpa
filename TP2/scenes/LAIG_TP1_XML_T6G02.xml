@@ -104,6 +104,7 @@
         <texture id="topTexture"         path="./scenes/images/top.png" />
         <texture id="towelTexture"       path="./scenes/images/towel.jpg" />
         <texture id="basketTexture"      path="./scenes/images/basket.jpg" />
+        <texture id="metalTexture"       path="./scenes/images/metal.jpg" />
     </textures>
 
     <materials>
@@ -175,6 +176,185 @@
 
     </materials>
 
+    <animations>
+        <animation id="flame1">
+            <keyframe instant="5">
+                <translation x="0.6" y="0" z="0.6"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1.5" sz="1"/>
+            </keyframe>
+            <keyframe instant="10">
+                <translation x="0.6" y="0" z="-0.6"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="-360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="15">
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>    
+            <keyframe instant="20">
+                <translation x="0.6" y="0" z="0.6"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1.5" sz="1"/>
+            </keyframe>
+            <keyframe instant="25">
+                <translation x="0.6" y="0" z="-0.6"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="-360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="30">
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+        </animation>
+        <animation id="flame2">
+            <keyframe instant="5">
+                <translation x="-0.6" y="0" z="0.6"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="0.5" sz="1"/>
+            </keyframe>
+            <keyframe instant="10">
+                <translation x="0.3" y="0" z="0.6"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="-360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="15">
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="20">
+                <translation x="-0.6" y="0" z="0.6"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="0.5" sz="1"/>
+            </keyframe>
+            <keyframe instant="25">
+                <translation x="0.3" y="0" z="0.6"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="-360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="30">
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+        </animation>
+        <animation id="flame3">
+            <keyframe instant="5">
+                <translation x="-0.1" y="0" z="-0.6"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="0.5" sz="1"/>
+            </keyframe>
+            <keyframe instant="10">
+                <translation x="-0.4" y="0" z="-0.4"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="-360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="15">
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>               
+            </keyframe>
+            <keyframe instant="20">
+                <translation x="-0.1" y="0" z="-0.6"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="0.5" sz="1"/>
+            </keyframe>
+            <keyframe instant="25">
+                <translation x="-0.4" y="0" z="-0.4"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="-360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="30">
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="360"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+        </animation>
+        <animation id="trees">
+            <keyframe instant="5">
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="20"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="10">
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="-20"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="15">
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="20"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="20">
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="-20"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="25">
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="20"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="30">
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="-20"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+        </animation>
+    </animations>
+
     <nodes>
         <node id="Camping">
 
@@ -196,6 +376,7 @@
                 <noderef id="trees" />                
                 <noderef id="tire" /> 
                 <noderef id="picnic" />  
+                <noderef id="welcome" />
             </descendants>
 
         </node>
@@ -492,6 +673,8 @@
                 <scale sx="0.9" sy="0.9" sz="0.9" />
             </transformations>
 
+            <animationref id="flame1"/>
+
             <descendants>
                 <noderef id="fire" />
             </descendants>
@@ -509,6 +692,8 @@
             <transformations>
                 <translation x="0.2" y="0" z="-0.3" />
             </transformations>
+            
+            <animationref id="flame2"/>
 
             <descendants>
                 <noderef id="fire" />
@@ -528,6 +713,8 @@
                 <translation x="0.2" y="0" z="0.4" />
                 <scale sx="1.3" sy="1.3" sz="1.3" />
             </transformations>
+
+            <animationref id="flame3"/>
 
             <descendants>
                 <noderef id="fire" />
@@ -1373,6 +1560,8 @@
                 <scale sx="2.0" sy="2.0" sz="2.0" />
             </transformations>
 
+            <animationref id="trees"/>
+
             <descendants>
                 <noderef id="leaf1" />
                 <noderef id="leaf2" />
@@ -1599,6 +1788,82 @@
 
             <descendants>
                 <leaf type="cylinder" height="0.05" topRadius="0.4" bottomRadius="0.3" stacks="32" slices="32" />
+            </descendants>
+
+        </node>
+
+        <node id="welcome">
+            
+            <material id="null" />
+            
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>   
+                <translation x="-0.5" y="5" z="-7"/>  
+            </transformations>
+
+            <descendants>
+                <noderef id="flag" />                
+                <noderef id="pole1" />                
+                <noderef id="pole2" />
+            </descendants>
+
+        </node>
+
+        <node id="flag">
+            
+            <material id="null" />
+            
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>   
+                <scale sx="0.7" sy="0.7" sz="0.7" /> 
+            </transformations>
+
+            <descendants>
+                <leaf type="spritetext" text="welcome!" />
+            </descendants>
+
+        </node>
+
+        <node id="pole1">
+            
+            <material id="null" />
+            
+            <texture id="metalTexture">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations> 
+                <rotation axis="x" angle="90" />   
+                <translation x="-2.7" y="0" z="0.2"/>  
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="5" topRadius="0.1" bottomRadius="0.1" stacks="32" slices="32" />
+            </descendants>
+
+        </node>
+
+        <node id="pole2">
+            
+            <material id="null" />
+            
+            <texture id="metalTexture">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>  
+                <rotation axis="x" angle="90" /> 
+                <translation x="2.7" y="0" z="0.2"/>     
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="5" topRadius="0.1" bottomRadius="0.1" stacks="32" slices="32" />
             </descendants>
 
         </node>
