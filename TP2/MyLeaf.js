@@ -144,7 +144,7 @@ class MyLeaf {
                 this.npartsV = this.graph.reader.getFloat(element, 'npartsV');
                 if (this.varError('plane', 'npartsV', this.npartsV)) break;
 
-                // this.primitive = new MyPlane(this.graph.scene, this.npartsU, this.npartsV);
+                this.primitive = new MyPlane(this.graph.scene, this.npartsU, this.npartsV);
 
                 break;
             
