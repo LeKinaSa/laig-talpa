@@ -165,16 +165,17 @@ class MyLeaf {
                 this.controlpoints = [];
                 var aux = element.children;
 
-                console.log(aux);
-                for(let i = 0; i < this.npointsU * this.npointsV -1; i++){
-                    // Percorrer children da leaf
-                    // Adicionar ao vetor de controlpoints
-
-                    // TODO
+                for(let i = 0; i < aux.length; i++){
+                    var cp = [];
+                    var xx = this.graph.reader.getFloat(aux[i], 'xx');
+                    var yy = this.graph.reader.getFloat(aux[i], 'yy');
+                    var zz = this.graph.reader.getFloat(aux[i], 'zz');
+                    cp = [xx, yy, zz];
+                    this.controlpoints.push(cp);
                 }
 
                 // Criar primtiva
-                // TODO
+                this.primtiive = new MyPatch(this.graph.scene, this.npointsU, this.npointsV, this.npartsU, this.npartsV, this.controlpoints);
 
                 break;
             

@@ -151,7 +151,11 @@
                 <!-- <leaf type="torus" inner="1,6" outer="2" slices="32" loops="32" /> -->
                 <!-- <leaf type="sphere" radius="5" slices="32" stacks="32"/> -->
                 <!-- <leaf type="spritetext" text="ola"/> -->
-                <leaf type="plane" npartsU="20" npartsV="20" />
+                <!-- <leaf type="plane" npartsU="20" npartsV="20" /> -->
+                <leaf type="patch" npointsU="1" npointsV="2" npartsU="20" npartsV="20" >
+                    <controlpoint xx="1" yy="2" zz="1" />
+                    <controlpoint xx="1" yy="4" zz="1" />
+                </leaf>
                 <!-- <leaf type="spriteanim" ssid="explosion" startCell="5" endCell="10" duration="10" /> -->
                 <!-- x y z coordinates of each vertex -->
             </descendants>
