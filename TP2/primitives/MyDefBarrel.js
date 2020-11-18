@@ -11,37 +11,38 @@ class MyDefBarrel extends CGFobject{
 	}
 	initBuffers() {
         var r = this.base;
+        var h = 4/3 * r;
         var R = this.middle;
         var H = 4/3 * (R - r);
         var L = this.height;
         var alpha = Math.PI / 6; // 30graus
         var controlvertexes = [
             [
-                [    r, 0.0, 0],
-                [r + H, 0.0, H / Math.tan(alpha)],
-                [r + H, 0.0, L - H / Math.tan(alpha)],
-                [    r, 0.0, L]
+                [   -r   , 0,             0          , 1],
+                [-(r + H), 0,     H / Math.tan(alpha), 1],
+                [-(r + H), 0, L - H / Math.tan(alpha), 1],
+                [   -r   , 0,             L          , 1]
             ],
             [
-                [r    , 0.5, 0],
-                [r + H, 0.5, H / Math.tan(alpha)],
-                [r + H, 0.5, L - H / Math.tan(alpha)],
-                [r    , 0.5, L]
+                [   -r   , h,             0          , 1],
+                [-(r + H), h,     H / Math.tan(alpha), 1],
+                [-(r + H), h, L - H / Math.tan(alpha), 1],
+                [   -r   , h,             L          , 1]
             ],
             [
-                [    r, 1.0, 0],
-                [r + H, 1.0, H / Math.tan(alpha)],
-                [r + H, 1.0, L - H / Math.tan(alpha)],
-                [    r, 1.0, L]
+                [    r   , h,             0          , 1],
+                [  r + H , h,     H / Math.tan(alpha), 1],
+                [  r + H , h, L - H / Math.tan(alpha), 1],
+                [    r   , h,             L          , 1]
             ],
             [
-                [    r, 1.5, 0],
-                [r + H, 1.5, H / Math.tan(alpha)],
-                [r + H, 1.5, L - H / Math.tan(alpha)],
-                [    r, 1.5, L]
+                [    r   , 0,             0          , 1],
+                [  r + H , 0,     H / Math.tan(alpha), 1],
+                [  r + H , 0, L - H / Math.tan(alpha), 1],
+                [    r   , 0,             L          , 1]
             ]
         ];
-        var nurbsSurface = new CGFnurbsSurface(this.slices - 1, this.stacks - 1, controlvertexes);
+        var nurbsSurface = new CGFnurbsSurface(3, 3, controlvertexes);
         this.obj = new CGFnurbsObject(this.scene, this.slices, this.stacks, nurbsSurface);
     }
 
