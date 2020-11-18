@@ -18,16 +18,10 @@ class MyDefBarrel extends CGFobject{
         var alpha = Math.PI / 6; // 30graus
         var controlvertexes = [
             [
-                [   -r   , 0,             0          , 1],
-                [-(r + H), 0,     H / Math.tan(alpha), 1],
-                [-(r + H), 0, L - H / Math.tan(alpha), 1],
-                [   -r   , 0,             L          , 1]
-            ],
-            [
-                [   -r   , h,             0          , 1],
-                [-(r + H), h,     H / Math.tan(alpha), 1],
-                [-(r + H), h, L - H / Math.tan(alpha), 1],
-                [   -r   , h,             L          , 1]
+                [    r   , 0,             0          , 1],
+                [  r + H , 0,     H / Math.tan(alpha), 1],
+                [  r + H , 0, L - H / Math.tan(alpha), 1],
+                [    r   , 0,             L          , 1]
             ],
             [
                 [    r   , h,             0          , 1],
@@ -36,10 +30,16 @@ class MyDefBarrel extends CGFobject{
                 [    r   , h,             L          , 1]
             ],
             [
-                [    r   , 0,             0          , 1],
-                [  r + H , 0,     H / Math.tan(alpha), 1],
-                [  r + H , 0, L - H / Math.tan(alpha), 1],
-                [    r   , 0,             L          , 1]
+                [   -r   , h,             0          , 1],
+                [-(r + H), h,     H / Math.tan(alpha), 1],
+                [-(r + H), h, L - H / Math.tan(alpha), 1],
+                [   -r   , h,             L          , 1]
+            ],
+            [
+                [   -r   , 0,             0          , 1],
+                [-(r + H), 0,     H / Math.tan(alpha), 1],
+                [-(r + H), 0, L - H / Math.tan(alpha), 1],
+                [   -r   , 0,             L          , 1]
             ]
         ];
         var nurbsSurface = new CGFnurbsSurface(3, 3, controlvertexes);
