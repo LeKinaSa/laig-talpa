@@ -152,11 +152,13 @@
                 <!-- <leaf type="sphere" radius="5" slices="32" stacks="32"/> -->
                 <!-- <leaf type="spritetext" text="ola"/> -->
                 <!-- <leaf type="plane" npartsU="20" npartsV="20" /> -->
-                <leaf type="patch" npointsU="2" npointsV="2" npartsU="3" npartsV="20" >
-                    <controlpoint xx="1" yy="1" zz="1" />
-                    <controlpoint xx="1" yy="2" zz="1" />
-                    <controlpoint xx="1" yy="-1" zz="1" />
-                    <controlpoint xx="1" yy="-2" zz="1" />
+                <leaf type="patch" npointsU="3" npointsV="2" npartsU="20" npartsV="20" >
+                    <controlpoint xx="-1.5" yy="-1.5" zz="0" />
+                    <controlpoint xx="-1.5" yy="1.5" zz="0" />
+                    <controlpoint xx="0" yy="-1.5" zz="3" />
+                    <controlpoint xx="0" yy="1.5" zz="3" />
+                    <controlpoint xx="1.5" yy="-1.5" zz="0" />
+                    <controlpoint xx="1.5" yy="1.5" zz="0" />
                 </leaf>
                 <!-- <leaf type="spriteanim" ssid="explosion" startCell="5" endCell="10" duration="10" /> -->
                 <!-- x y z coordinates of each vertex -->

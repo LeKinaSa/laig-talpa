@@ -8,15 +8,12 @@ class MyPatch extends CGFobject{
         this.vparts = npartsV;
         this.controlVertexes = controlpoints;
         this.cps = [[]];
-        this.initBuffers();
         // -------- Prints
         console.log("upoints: " + this.upoints);
         console.log("vpoints: " + this.vpoints);
         console.log("uparts: " + this.uparts);
         console.log("vparts: " + this.vparts);
-        for(var i = 0; i < this.controlVertexes.length; i++){
-            console.log("cp " + i + ": " + this.controlVertexes[i]);
-        }
+        this.initBuffers();
 	}
 	initBuffers() {
         var aux = 0; // goes through controlVertexes
@@ -25,6 +22,7 @@ class MyPatch extends CGFobject{
             for(var j = 0; j < this.vpoints; j++) {
                 this.cps[i][j] = this.controlVertexes[aux]; // x y z
                 this.cps[i][j].push(1); // w
+                console.log(this.cps[i][j]);
                 aux++;
             }
         }
