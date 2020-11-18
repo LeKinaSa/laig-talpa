@@ -197,7 +197,7 @@ class MyLeaf {
                 if (this.varError('defbarrel', 'stacks', this.stacks)) break;
                 
                 // Criar Primitiva
-                // TODO
+                this.primitive = new MyDefBarrel(this.graph.scene, this.base, this.middle, this.height, this.slices, this.stacks);
                 
                 break;
 
