@@ -174,6 +174,14 @@
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
 
+        <material id="appleMaterial">
+            <shininess value="30" />
+            <ambient  r="0.3" g="0.0" b="0.0" a="1.0" />
+            <diffuse  r="0.2" g="0.0" b="0.0" a="1.0" />
+            <specular r="1.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+
     </materials>
 
     <animations>
@@ -1659,6 +1667,7 @@
                 <noderef id="towel" />
                 <noderef id="basket" />
                 <noderef id="plates" />
+                <noderef id="apple" />
             </descendants>
 
         </node>
@@ -1790,6 +1799,113 @@
                 <leaf type="cylinder" height="0.05" topRadius="0.4" bottomRadius="0.3" stacks="32" slices="32" />
             </descendants>
 
+        </node>
+
+        <node id="apple">
+            
+            <material id="null" />
+            
+            <texture id="clear">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>   
+                <translation x="0.2" y="-0.5" z="0.05"/>
+                <scale sx="0.1" sy="0.1" sz="0.1"/>      
+            </transformations>
+
+            <descendants>
+                <noderef id="appleBody" />
+                <noderef id="appleTop" />
+                <noderef id="appleStem" />
+                <noderef id="appleLeaf" />
+            </descendants>
+
+        </node>
+
+        <node id="appleBody">
+            
+            <material id="appleMaterial" />
+            
+            <texture id="clear">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>         
+            </transformations>
+
+            <descendants>
+                <leaf type="defbarrel" base="1" middle="1.3" height="2" slices="50" stacks="50" />
+            </descendants>
+
+        </node>
+
+        <node id="appleTop">
+            
+            <material id="appleMaterial" />
+            
+            <texture id="clear">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations> 
+                <translation x="0" y="0" z="1.2"/>        
+            </transformations>
+
+            <descendants>
+                <leaf type="sphere" radius="1.3" slices="32" stacks="32" />
+            </descendants>
+
+        </node>
+
+        <node id="appleStem">            
+            <material id="null" />
+            
+            <texture id="leavesTexture">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>   
+                <translation x="-0.3" y="0" z="2"/>        
+                <rotation axis ="y" angle="30"/>       
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="1.5" topRadius="0.05" bottomRadius="0.1" stacks="32" slices="32" />
+            </descendants>
+        </node>
+
+        <node id="appleLeaf">            
+            <material id="null" />
+            
+            <texture id="leavesTexture">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>   
+                <translation x="-0.2" y="0.2" z="3.2"/>
+                <scale sx="0.2" sy="0.2" sz="0.2"/>
+                <rotation axis="x" angle="90"/>  
+                
+                <rotation axis="z" angle="90"/>       
+            </transformations>
+
+            <descendants>
+                <leaf type="patch" npointsU="3" npointsV="4" npartsU="20" npartsV="20" >
+                    <controlpoint xx="-2.0" yy="-2.0" zz="1.0" />
+                    <controlpoint xx="-2.0" yy="-1.0" zz="2.0" />
+                    <controlpoint xx="-2.0" yy="1.0" zz="5.0" />
+                    <controlpoint xx="-2.0" yy="2.0" zz="1.0" />
+                    <controlpoint xx="0" yy="-2.0" zz="0" />
+                    <controlpoint xx="0" yy="-1.0" zz="-1" />
+                    <controlpoint xx="0" yy="1.0" zz="1.5" />
+                    <controlpoint xx="0" yy="2.0" zz="0" />
+                    <controlpoint xx="2.0" yy="-2.0" zz="-1.0" />
+                    <controlpoint xx="2.0" yy="-1.0" zz="2.0" />
+                    <controlpoint xx="2.0" yy="1.0" zz="-5.0" />
+                    <controlpoint xx="2.0" yy="2.0" zz="1.0" />
+                </leaf>
+            </descendants>
         </node>
 
         <node id="welcome">
