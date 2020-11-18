@@ -162,7 +162,7 @@
                     <controlpoint xx="1.5"  yy="1.5"  zz="0" />
                 </leaf>
                 -->
-                <leaf type="defbarrel" base="2" middle="3" height="2" slices="4" stacks="4" />
+                <leaf type="defbarrel" base="2" middle="3" height="10" slices="20" stacks="20" />
                 <!-- <leaf type="spriteanim" ssid="explosion" startCell="5" endCell="10" duration="10" /> -->
                 <!-- x y z coordinates of each vertex -->
             </descendants>

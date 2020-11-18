@@ -164,15 +164,20 @@ class MyLeaf {
 
                 this.controlpoints = [];
                 var aux = element.children;
+                var error = false;
 
                 for(let i = 0; i < aux.length; i++){
                     var cp = [];
                     var xx = this.graph.reader.getFloat(aux[i], 'xx');
+                    if (this.varError('patch', 'xx', xx)){error = true; break;}
                     var yy = this.graph.reader.getFloat(aux[i], 'yy');
+                    if (this.varError('patch', 'yy', yy)){error = true; break;}
                     var zz = this.graph.reader.getFloat(aux[i], 'zz');
+                    if (this.varError('patch', 'zz', zz)){error = true; break;}
                     cp = [xx, yy, zz];
                     this.controlpoints.push(cp);
                 }
+                if(error) break;
 
                 // Criar primtiva
                 this.primitive = new MyPatch(this.graph.scene, this.npointsU, this.npointsV, this.npartsU, this.npartsV, this.controlpoints);
