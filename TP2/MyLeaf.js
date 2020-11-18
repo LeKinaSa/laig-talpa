@@ -190,12 +190,12 @@ class MyLeaf {
                 this.height = this.graph.reader.getFloat(element, 'height');
                 if (this.varError('defbarrel', 'height', this.height)) break;
                 
-                this.stacks = this.graph.reader.getFloat(element, 'stacks');
-                if (this.varError('defbarrel', 'stacks', this.stacks)) break;
-
                 this.slices = this.graph.reader.getFloat(element, 'slices');
                 if (this.varError('defbarrel', 'slices', this.slices)) break;
-
+                
+                this.stacks = this.graph.reader.getFloat(element, 'stacks');
+                if (this.varError('defbarrel', 'stacks', this.stacks)) break;
+                
                 // Criar Primitiva
                 // TODO
                 
