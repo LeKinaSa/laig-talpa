@@ -47,7 +47,11 @@ class MyDefBarrel extends CGFobject{
     }
 
     display() {
+        this.scene.pushMatrix();
         this.obj.display();
+        this.scene.rotate(Math.PI, 0, 0, 1);
+        this.obj.display();
+        this.scene.popMatrix();
     }
 
     /**
