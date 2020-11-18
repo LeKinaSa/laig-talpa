@@ -42,7 +42,7 @@ class MyDefBarrel extends CGFobject{
             ]
         ];
         var nurbsSurface = new CGFnurbsSurface(this.slices - 1, this.stacks - 1, controlvertexes);
-        this.obj = new CGFnurbsObject(this.scene, this.slices, this.stacks, nurbsSurface)
+        this.obj = new CGFnurbsObject(this.scene, this.slices, this.stacks, nurbsSurface);
     }
 
     display() {
