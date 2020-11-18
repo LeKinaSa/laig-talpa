@@ -175,7 +175,7 @@ class MyLeaf {
                 }
 
                 // Criar primtiva
-                this.primtiive = new MyPatch(this.graph.scene, this.npointsU, this.npointsV, this.npartsU, this.npartsV, this.controlpoints);
+                this.primitive = new MyPatch(this.graph.scene, this.npointsU, this.npointsV, this.npartsU, this.npartsV, this.controlpoints);
 
                 break;
             

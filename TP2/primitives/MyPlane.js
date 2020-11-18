@@ -9,21 +9,18 @@ class MyPlane extends CGFobject{
 	initBuffers() {
         this.cps = 
         [
-            // U = 0
-            [   // V = 0..1;
+            [
                 [-0.5, 0.0, 0.5, 1 ],
                 [-0.5, 0.0, -0.5, 1 ]
-               
             ],
-           // U = 1
-           [    // V = 0..1;
+            [
                 [ 0.5, 0.0, 0.5, 1 ],
                 [ 0.5, 0.0, -0.5, 1 ]							 
-           ]
+            ]
         ];
 
         var nurbsSurface = new CGFnurbsSurface(1, 1, this.cps);
-        this.obj = new CGFnurbsObject(this.scene, this.u, this.v, nurbsSurface );
+        this.obj = new CGFnurbsObject(this.scene, this.u, this.v, nurbsSurface);
     }
     
     display(){
