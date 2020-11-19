@@ -615,8 +615,6 @@ class MySceneGraph {
             var texture = new CGFtexture(this.scene, path);
             var spritesheet = new MySpriteSheet(this.scene, texture, sizeM, sizeN);
 
-            console.log(spritesheetID, path, sizeM, sizeN); // Correct
-
             if (this.spritesheets[spritesheetID] != null) { this.onXMLMinorError("There are more than 1 spritesheets named " + spritesheetID + ". Rename one of them."); continue; }
             this.spritesheets[spritesheetID] = spritesheet;
         }
@@ -853,6 +851,7 @@ class MySceneGraph {
         var children = nodesNode.children;
 
         this.nodes = [];
+        this.animatedSprites = [];
 
         var grandChildren = [];
         var nodeNames = [];

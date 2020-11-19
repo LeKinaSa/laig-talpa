@@ -134,6 +134,7 @@ class MyLeaf {
                 if (this.varError('spriteanim', 'duration', this.duration)) break;
 
                 this.primitive = new MySpriteAnim(this.graph.scene, this.spritesheet, this.duration, this.startCell, this.endCell);
+                this.graph.animatedSprites.push(this.primitive);
                 break;
             
             case 'plane':
@@ -145,7 +146,6 @@ class MyLeaf {
                 if (this.varError('plane', 'npartsV', this.npartsV)) break;
 
                 this.primitive = new MyPlane(this.graph.scene, this.npartsU, this.npartsV);
-
                 break;
             
             case 'patch':
@@ -181,7 +181,6 @@ class MyLeaf {
 
                 // Criar primtiva
                 this.primitive = new MyPatch(this.graph.scene, this.npointsU, this.npointsV, this.npartsU, this.npartsV, this.controlpoints);
-
                 break;
             
             case 'defbarrel':
@@ -203,7 +202,6 @@ class MyLeaf {
                 
                 // Criar Primitiva
                 this.primitive = new MyDefBarrel(this.graph.scene, this.base, this.middle, this.height, this.slices, this.stacks);
-                
                 break;
 
             default:

@@ -22,16 +22,16 @@ class MySpriteAnim extends MyAnimation {
         this.initTime = 0;
     }
 
-    updateAnimation(t) {
+    update(t) {
         t = t / 1000;
 
         if (this.initTime == 0) { this.initTime = t; }
         
         var delta_time = t - this.initTime;
-        var instant = int(delta_time) % this.duration;
+        var instant = delta_time % this.duration;
         var timePerCell = this.duration / (this.endCell - this.startCell + 1);
         var cellOffset = instant / timePerCell;
-        var cell = this.startCell + floor(cellOffset);
+        var cell = this.startCell + Math.floor(cellOffset);
         this.currentCell = cell;
     }
 
