@@ -107,6 +107,16 @@
         <texture id="metalTexture"       path="./scenes/images/metal.jpg" />
     </textures>
 
+    <spritesheets>
+            <!-- the "spritesheets" block is optional -->
+            <!-- if it exists, it should be declared after the "textures" block -->
+            <!-- this block can be empty -->
+
+            <spritesheet id="test" path="./scenes/images/texture.jpg" sizeM="10" sizeN="10" />
+            <spritesheet id="explosion" path="./scenes/images/explosion.png" sizeM="10" sizeN="10" />
+
+    </spritesheets>
+
     <materials>
         <!-- At least one material should be present. -->
         
@@ -185,8 +195,20 @@
     </materials>
 
     <animations>
+        <!-- the "animations" block is optional -->
+        <!-- if it exists, it should be declared before the "nodes" block -->
+        <!-- this block can be empty -->
+
         <animation id="flame1">
+            <!-- The animation starts at the first keyframe -->
+            <!-- The object is invisible until the first keyframe -->
+            <!-- At least 1 keyframe must exist -->
+
             <keyframe instant="5">
+                <!-- translaction, rotation and scale are representative of the transformations in the keyframe -->
+                <!-- this transformations are relative to the initial situation (instant 0) -->
+                <!-- this elements are mandatory and in this order -->
+
                 <translation x="0.6" y="0" z="0.6"/>
                 <rotation axis="x" angle="0"/>
                 <rotation axis="y" angle="360"/>
@@ -374,6 +396,9 @@
 
             <transformations>
             </transformations>
+
+            <!-- the "animationref" element is optional -->
+            <!-- if it exists, it should be declared after the "transformations" block inside the node -->
 
             <descendants>
                 <noderef id="skybox" />

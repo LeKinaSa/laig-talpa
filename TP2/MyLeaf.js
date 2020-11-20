@@ -35,6 +35,7 @@ class MyLeaf {
                 this.y2 = this.graph.reader.getFloat(element, 'y2');
                 if (this.varError('rectangle', 'y2', this.y2)) break;  
 
+                // Create Primitive
                 this.primitive = new MyRectangle(this.graph.scene, this.x1, this.y1, this.x2, this.y2);
                 break;
 
@@ -57,6 +58,7 @@ class MyLeaf {
                 this.y3 = this.graph.reader.getFloat(element, 'y3');
                 if (this.varError('triangle', 'y3', this.y3)) break;
 
+                // Create Primitive
                 this.primitive = new MyTriangle(this.graph.scene, this.x1, this.y1, this.x2, this.y2, this.x3, this.y3);
                 break;
 
@@ -70,6 +72,7 @@ class MyLeaf {
                 this.stacks = this.graph.reader.getFloat(element, 'stacks');
                 if (this.varError('sphere', 'stacks', this.stacks)) break;
 
+                // Create Primitive
                 this.primitive = new MySphere(this.graph.scene, this.radius, this.slices, this.stacks);
                 break;
 
@@ -89,6 +92,7 @@ class MyLeaf {
                 this.slices = this.graph.reader.getFloat(element, 'slices');
                 if (this.varError('cylinder', 'slices', this.slices)) break;
                 
+                // Create Primitive
                 this.primitive = new MyCylinder(this.graph.scene, this.height, this.topRadius, this.bottomRadius, this.stacks, this.slices);
                 break;
 
@@ -105,6 +109,7 @@ class MyLeaf {
                 this.loops  = this.graph.reader.getFloat(element, 'loops');
                 if (this.varError('torus', 'loops', this.loops)) break;
                 
+                // Create Primitive
                 this.primitive = new MyTorus(this.graph.scene, this.inner, this.outer, this.slices, this.loops);
                 break;
 
@@ -113,6 +118,7 @@ class MyLeaf {
                 this.text = this.graph.reader.getString(element, 'text');
                 if (this.text == null) { this.graph.onXMLMinorError("Error in text in leaf spritetext"); break; }
 
+                // Create Primitive
                 this.primitive = new MySpriteText(this.graph.scene, this.text);
                 break;
             
@@ -133,23 +139,26 @@ class MyLeaf {
                 this.duration = this.graph.reader.getFloat(element, 'duration');
                 if (this.varError('spriteanim', 'duration', this.duration)) break;
 
+                // Create Primitive
                 this.primitive = new MySpriteAnim(this.graph.scene, this.spritesheet, this.duration, this.startCell, this.endCell);
+                // Add to graph animations so that they can be updated later
                 this.graph.animatedSprites.push(this.primitive);
                 break;
             
             case 'plane':
-                // Plano, gerado por NURBS
+                // Plane, generated with NURBS
                 this.npartsU = this.graph.reader.getFloat(element, 'npartsU');
                 if (this.varError('plane', 'npartsU', this.npartsU)) break;
                 
                 this.npartsV = this.graph.reader.getFloat(element, 'npartsV');
                 if (this.varError('plane', 'npartsV', this.npartsV)) break;
 
+                // Create Primitive
                 this.primitive = new MyPlane(this.graph.scene, this.npartsU, this.npartsV);
                 break;
             
             case 'patch':
-                // Patch, gerado por NURBS
+                // Patch, generated with NURBS
                 this.npointsU = this.graph.reader.getFloat(element, 'npointsU');
                 if (this.varError('patch', 'npointsU', this.npointsU)) break;
                 
@@ -166,7 +175,7 @@ class MyLeaf {
                 var aux = element.children;
                 var error = false;
 
-                for(let i = 0; i < aux.length; i++){
+                for (let i = 0; i < aux.length; ++ i) {
                     var cp = [];
                     var xx = this.graph.reader.getFloat(aux[i], 'xx');
                     if (this.varError('patch', 'xx', xx)){error = true; break;}
@@ -177,14 +186,14 @@ class MyLeaf {
                     cp = [xx, yy, zz];
                     this.controlpoints.push(cp);
                 }
-                if(error) break;
+                if (error) break;
 
-                // Criar primtiva
+                // Create Primitive
                 this.primitive = new MyPatch(this.graph.scene, this.npointsU, this.npointsV, this.npartsU, this.npartsV, this.controlpoints);
                 break;
             
             case 'defbarrel':
-                // Forma de barril baseado em NURBS
+                // Barrel Form, generated with NURBS
                 this.base = this.graph.reader.getFloat(element, 'base');
                 if (this.varError('defbarrel',   'base', this.base  )) break;                
                 
@@ -200,7 +209,7 @@ class MyLeaf {
                 this.stacks = this.graph.reader.getFloat(element, 'stacks');
                 if (this.varError('defbarrel', 'stacks', this.stacks)) break;
                 
-                // Criar Primitiva
+                // Create Primitive
                 this.primitive = new MyDefBarrel(this.graph.scene, this.base, this.middle, this.height, this.slices, this.stacks);
                 break;
 

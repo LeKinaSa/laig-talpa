@@ -104,4 +104,3 @@ class MyRectangle extends CGFobject {
 		
 	}
 }
-

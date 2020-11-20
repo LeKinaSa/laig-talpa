@@ -4,10 +4,11 @@
 class MyKeyframe {
     /**
      * @constructor
-     * @param {integer} instant
-     * @param {vec3} translation
-     * @param {vec3} rotation
-     * @param {vec3} transformation
+     * @param {CGFscene} scene
+     * @param {integer} instant  - keyframe instant
+     * @param {vec3} translation - translation associated to this instant
+     * @param {vec3} rotation    - rotation associated to this instant
+     * @param {vec3} scale       - scale associated to this instant
      */
     constructor(scene, instant, translation, rotation, scale) {
         this.scene = scene;
