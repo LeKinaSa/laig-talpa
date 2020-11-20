@@ -18,7 +18,6 @@ class MySpriteSheet {
         this.lines   = sizeN;
         this.shader  = new CGFshader(this.scene.gl, "shaders/spritesheet.vert", "shaders/spritesheet.frag");
         this.shader.setUniformsValues({ dimensions: [this.columns, this.lines] });
-        this.shader.setUniformsValues({ charCoords: [6, 7]}); //TODO: remove
     }
 
     activateShader() {
@@ -33,7 +32,7 @@ class MySpriteSheet {
     }
 
     activateCellMN(column, line) {
-        //this.shader.setUniformsValues({ charCoords: [column, line] });
+        this.shader.setUniformsValues({ charCoords: [column, line] });
     }
 
     deactivateShader() {
