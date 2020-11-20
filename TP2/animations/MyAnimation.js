@@ -1,35 +1,43 @@
 /**
- * MyAnimation class: represents an animation
-**/
+ * MyAnimation class
+ * Represents an animation
+ */
 class MyAnimation {
     /**
+     * MyAnimation
      * @constructor
      * @abstract
-     * @param {CGFscene} scene
+     * @param {CGFscene} scene - Reference to MyScene object
      */
     constructor(scene) {
-        this.scene        = scene;
-        this.startTime    = 0;
-        this.endTime      = 0;
-        this.initTransf   = [[0, 0, 0],
-                             [0, 0, 0],
-                             [1, 1, 1]];
-        this.finalTransf  = [[0, 0, 0],
-                             [0, 0, 0],
-                             [1, 1, 1]];
+        this.scene = scene;
+        this.initTime = 0;
     }
 
-    changeInitTransf(translate, rotate, scale) {
-        this.initTransf = [translate, rotate, scale];
+    /**
+     * Obtains Elapsed Time
+     * @param {time} t - current time
+     */
+    getDeltaTime(t) {
+        t = t / 1000;
+
+        /* verify if it's the first call -> if it's the first, change init to current time */
+        if (this.initTime == 0) { this.initTime = t; }
+        
+        /**
+         * delta_time -> animation's elapsed time
+         * elapsed time = actual time - init time
+         * for example: first call -> deltaTime = 0
+         */
+        var deltaTime = t - this.initTime;
+        return deltaTime;
     }
 
-    changeFinalTransf(translate, rotate, scale) {
-        this.finalTransf = [translate, rotate, scale];
-    }
-
-    update(t) {}
-
-    apply() {}
+    /**
+     * Update Animation
+     * @param {time} t - current time
+     */
+    update(t) { }
 }
 
     

@@ -20,7 +20,6 @@ class MySpriteAnim extends MyAnimation {
         this.endCell = endCell;
         this.currentCell = startCell;
         this.plane = new MyRectangle(scene, 0, 0, 1, 1);
-        this.initTime = 0;
     }
 
     /**
@@ -28,11 +27,7 @@ class MySpriteAnim extends MyAnimation {
      * @param {time} t 
      */
     update(t) {
-        t = t / 1000;
-
-        if (this.initTime == 0) { this.initTime = t; }
-        
-        var delta_time = t - this.initTime;
+        var delta_time = this.getDeltaTime(t);
         var instant = delta_time % this.duration;
         var timePerCell = this.duration / (this.endCell - this.startCell + 1);
         var cellOffset = instant / timePerCell;

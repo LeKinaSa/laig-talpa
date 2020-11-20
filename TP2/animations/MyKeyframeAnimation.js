@@ -15,7 +15,6 @@ class MyKeyframeAnimation extends MyAnimation {
         this.keyframes = []; // list with all the keyframes from the animation
         this.addKeyframe(new MyKeyframe(scene, 0, [0, 0, 0], [0, 0, 0], [1, 1, 1]));
         this.currentState = mat4.create();
-        this.initTime = 0;
     }
 
     /**
@@ -33,19 +32,7 @@ class MyKeyframeAnimation extends MyAnimation {
      * @param {time} t 
      */
     update(t) {
-        t = t / 1000;
-        // verify if it's the first call -> if it's the first, change init to current time
-        
-        if (this.initTime == 0) {
-            this.initTime = t;
-        }
-
-        /**
-         * delta_time -> animation's elapsed time
-         * elapsed time = actual time - init time
-         * for example: first call -> deltaTime = 0
-         */
-        var delta_time = t - this.initTime;
+        var delta_time = this.getDeltaTime(t);
 
         /**
          * the delta_time needs to be between the initial and the final instants of the animation
