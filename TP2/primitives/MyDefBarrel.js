@@ -1,5 +1,19 @@
-class MyDefBarrel extends CGFobject{
-	constructor(scene, base, middle, height, slices, stacks) {
+/**
+ * My Def Barrel
+ * Barrel Primitive parallel to the Z axis and the base on the XY plane
+ */
+class MyDefBarrel extends CGFobject {
+   /**
+    * MyDefBarrel
+    * @constructor
+    * @param {CGFScene} scene - MyScene object
+    * @param {float} base   - base radius
+    * @param {float} middle - middle radius
+    * @param {float} height - barrel height
+    * @param {float} slices - number of divisions around Z axis
+    * @param {float} stacks - number of height divisions
+    */
+    constructor(scene, base, middle, height, slices, stacks) {
         super(scene);
         this.base   = base;
         this.middle = middle;
@@ -8,7 +22,11 @@ class MyDefBarrel extends CGFobject{
         this.stacks = stacks;
 
 		this.initBuffers();
-	}
+    }
+    
+    /**
+     * Init def barrel buffers.
+     */
 	initBuffers() {
         var r = this.base;
         var h = 4/3 * r;
@@ -46,6 +64,15 @@ class MyDefBarrel extends CGFobject{
         this.obj = new CGFnurbsObject(this.scene, this.slices, this.stacks, nurbsSurface);
     }
 
+    /**
+     * Updates the Texture Coordinates based on the Amplification
+     * Only here because of inheritance
+     */
+    updateTexCoords(afs, aft) { }
+
+    /**
+     * Display Barrel Primitive
+     */
     display() {
         this.scene.pushMatrix();
         this.obj.display();
@@ -53,11 +80,4 @@ class MyDefBarrel extends CGFobject{
         this.obj.display();
         this.scene.popMatrix();
     }
-
-    /**
-     * Updates the Texture Coordinates based on the Amplification
-     * @param {float} afs - Amplification Factor on S 
-     * @param {float} aft - Amplification Factor on T
-     */
-    updateTexCoords(afs, aft) { }
 }

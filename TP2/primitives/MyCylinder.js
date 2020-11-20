@@ -6,12 +6,12 @@ class MyCylinder extends CGFobject {
     /**
      * MyCylinder 
      * @constructor
-     * @param {CGFScene} scene - MyScene object
+     * @param {CGFScene} scene - Reference to MyScene object
      * @param {float} height - cylinder's height
      * @param {float} topRadius - top radius
      * @param {float} bottomRadius - bottom radius
      * @param {float} stacks - number of height divisions
-     * @param {float} slices - number of slices around Y axis
+     * @param {float} slices - number of slices around Z axis
     */
     constructor(scene, height, bottomRadius, topRadius, stacks, slices) {
         super(scene);
@@ -161,5 +161,4 @@ class MyCylinder extends CGFobject {
         this.updateTexCoordsGLBuffers();
         this.texCoords = tmp;
 	}
-    
 }
