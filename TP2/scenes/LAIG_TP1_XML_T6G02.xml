@@ -112,8 +112,12 @@
             <!-- if it exists, it should be declared after the "textures" block -->
             <!-- this block can be empty -->
 
-            <spritesheet id="test" path="./scenes/images/texture.jpg" sizeM="10" sizeN="10" />
-            <spritesheet id="explosion" path="./scenes/images/explosion.png" sizeM="10" sizeN="10" />
+            <spritesheet id="nx" path="./scenes/images/nx.png" sizeM="4" sizeN="2" />
+            <spritesheet id="ny" path="./scenes/images/ny.png" sizeM="4" sizeN="2" />
+            <spritesheet id="nz" path="./scenes/images/nz.png" sizeM="4" sizeN="2" />
+            <spritesheet id="px" path="./scenes/images/px.png" sizeM="4" sizeN="2" />
+            <spritesheet id="py" path="./scenes/images/py.png" sizeM="4" sizeN="2" />
+            <spritesheet id="pz" path="./scenes/images/pz.png" sizeM="4" sizeN="2" />
 
     </spritesheets>
 
@@ -444,11 +448,13 @@
             </texture>
 
             <transformations>
-                <translation x="0" y="10" z="-10" />
+                <translation x="-10" y="0" z="-10" />
+                <scale sx="20" sy="20" sz="20"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="7" />
+                <!-- <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="7" /> -->
+                <leaf type="spriteanim" ssid="nx" startCell="1" endCell="6" duration="20" />
             </descendants>
 
         </node>
@@ -462,12 +468,14 @@
             </texture>
 
             <transformations>
-                <translation x="-10" y="10" z="0" />
+                <translation x="-10" y="0" z="10" />
                 <rotation axis="y" angle="90" />
+                <scale sx="20" sy="20" sz="20"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="7" />
+                <!-- <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="7" /> -->
+                <leaf type="spriteanim" ssid="nz" startCell="1" endCell="6" duration="20" />
             </descendants>
 
         </node>
@@ -481,12 +489,14 @@
             </texture>
 
             <transformations>
-                <translation x="10" y="10" z="0" />
-                <rotation axis="y" angle="-90" />                
+                <translation x="10" y="0" z="-10" />
+                <rotation axis="y" angle="-90" />   
+                <scale sx="20" sy="20" sz="20"/>             
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="7" />
+                <!-- <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="7" /> -->
+                <leaf type="spriteanim" ssid="pz" startCell="1" endCell="6" duration="20" />
             </descendants>
 
         </node>
@@ -500,12 +510,14 @@
             </texture>
 
             <transformations>
-                <translation x="0" y="10" z="10" />
-                <rotation axis="y" angle="180" />
+                <translation x="10" y="0" z="10" />
+                <rotation axis="y" angle="180" />  
+                <scale sx="20" sy="20" sz="20"/> 
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="7" />
+                <!-- <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="7" /> -->
+                <leaf type="spriteanim" ssid="px" startCell="1" endCell="6" duration="20" />
             </descendants>
 
         </node>
@@ -521,12 +533,15 @@
             <transformations>
             
                 <rotation axis="y" angle="180" />
-                <translation x="0" y="17" z="0" />
+                <translation x="10" y="20" z="-10" />
                 <rotation axis="x" angle="90" />
+                <scale sx="20" sy="20" sz="20"/> 
+                <rotation axis="z" angle="90" />
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="10" />
+                <!-- <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="10" /> -->
+                <leaf type="spriteanim" ssid="py" startCell="1" endCell="6" duration="20" />
             </descendants>
 
         </node>
@@ -563,11 +578,14 @@
             </texture>
 
             <transformations>
-                <rotation axis="z" angle="180" />
+                <translation x="10" y="10" z="0" />
+                <rotation axis="z" angle="180" />                
+                <scale sx="20" sy="20" sz="20"/> 
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="10" />
+                <!-- <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="10" /> -->
+                <leaf type="spriteanim" ssid="ny" startCell="1" endCell="6" duration="20" />
             </descendants>
 
         </node>
