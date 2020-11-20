@@ -53,4 +53,3 @@ class MyPlane extends CGFobject {
         this.scene.popMatrix();
     }
 }
-
