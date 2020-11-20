@@ -1,11 +1,14 @@
 const DEGREE_TO_RADIANS = Math.PI / 180;
 
 /**
- * MyKeyframeAnimation class: represents all the keyframes from an animation
-**/
+ * MyKeyframeAnimation class
+ * Represents all the keyframes from an animation
+ */
 class MyKeyframeAnimation extends MyAnimation {
     /**
+     * MyKeyframeAnimation
      * @constructor
+     * @param {CGFscene} scene - Reference to MyScene object
      */
     constructor(scene) {
         super(scene);
@@ -15,13 +18,20 @@ class MyKeyframeAnimation extends MyAnimation {
         this.initTime = 0;
     }
 
-    // Adds a keyframe to the keyframes list
+    /**
+     * Adds a keyframe to the keyframes list
+     * @param {MyKeyframe} keyframe
+     */
     addKeyframe(keyframe) {
         // Keyframe class - aux class to create the Keyframes
         this.keyframes.push(keyframe);
         this.keyframes.sort((a, b) => (a.instant > b.instant) ? 1 : -1);
     }
     
+    /**
+     * Update Animation
+     * @param {time} t 
+     */
     update(t) {
         t = t / 1000;
         // verify if it's the first call -> if it's the first, change init to current time
@@ -37,7 +47,6 @@ class MyKeyframeAnimation extends MyAnimation {
          */
         var delta_time = t - this.initTime;
 
-        
         /**
          * the delta_time needs to be between the initial and the final instants of the animation
          */
@@ -80,8 +89,8 @@ class MyKeyframeAnimation extends MyAnimation {
             var kf2 = this.keyframes[kf2_index];
             
             /**
-             *                    INTERPOLATION (BETWEEN 2 KEYFRAMES)
-             *                     X = Xi + XTtotal * Telapsed/Ttotal
+             *      INTERPOLATION (BETWEEN 2 KEYFRAMES)
+             *      X = Xi + XTtotal * Telapsed/Ttotal
              * X:        current value
              * Xi:       initial value
              * XTotal:   value between initial/end time
@@ -104,7 +113,6 @@ class MyKeyframeAnimation extends MyAnimation {
             S = vec3.lerp(S, kf1.scale, kf2.scale, elapsedTime/totalTime);    
         }
 
-        
         // Update current state
         var axis = [[1, 0, 0],
                     [0, 1, 0],
@@ -117,8 +125,10 @@ class MyKeyframeAnimation extends MyAnimation {
         mat4.scale    (this.currentState, this.currentState, S);
     }
 
+    /**
+     * Apply the Transformation Associated with the Current Time Instant
+     */
     apply() {
         this.scene.multMatrix(this.currentState);
     }
-
 }

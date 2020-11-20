@@ -20,23 +20,38 @@ class MySpriteSheet {
         this.shader.setUniformsValues({ dimensions: [this.columns, this.lines] });
     }
 
+    /**
+     * Activates Shader
+     * Applies the Desired Texture
+     */
     activateShader() {
         this.scene.setActiveShader(this.shader);
         this.texture.bind(0);
     }
 
+    /**
+     * Activates the Cell P
+     * @param {cell} p - cell to be activated
+     */
     activateCellP(p) {
         var column = p % this.columns;
         var line   = (p - column) / this.columns;
         this.activateCellMN(column, line);
     }
 
+    /**
+     * Activates the Cell in the select Line and Column
+     * @param {int} column - column of the selected cell
+     * @param {int} line - line of the selected cell
+     */
     activateCellMN(column, line) {
         this.shader.setUniformsValues({ charCoords: [column, line] });
     }
 
+    /**
+     * Deactivates Shader
+     */
     deactivateShader() {
         this.scene.setActiveShader(this.scene.defaultShader);
     }
-
 }
