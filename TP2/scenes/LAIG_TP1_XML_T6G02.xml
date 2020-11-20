@@ -118,6 +118,7 @@
             <spritesheet id="px" path="./scenes/images/px.png" sizeM="4" sizeN="2" />
             <spritesheet id="py" path="./scenes/images/py.png" sizeM="4" sizeN="2" />
             <spritesheet id="pz" path="./scenes/images/pz.png" sizeM="4" sizeN="2" />
+            <spritesheet id="water" path="./scenes/images/water.jpg" sizeM="10" sizeN="10"/>
 
     </spritesheets>
 
@@ -1711,6 +1712,7 @@
                 <noderef id="basket" />
                 <noderef id="plates" />
                 <noderef id="apple" />
+                <noderef id="waterBarrel" />
             </descendants>
 
         </node>
@@ -1825,6 +1827,56 @@
             </descendants>
 
         </node>
+
+        <node id="waterBarrel">
+            <material id="null" />
+            
+            <texture id="clear">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>   
+                <translation x="2" y="2" z="0"/>      
+            </transformations>
+
+            <descendants>
+                <noderef id="barrel" /> 
+                <noderef id="water" />              
+            </descendants>
+        </node>
+
+        <node id="barrel">
+            <material id="tentMaterial1" />
+            
+            <texture id="clear">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>      
+            </transformations>
+
+            <descendants>
+                <leaf type="defbarrel" base="0.5" middle="0.6" height="2" slices="50" stacks="50" />
+            </descendants>
+        </node>
+
+        <node id="water">
+            <material id="null" />
+            
+            <texture id="clear">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>  
+                <scale sx="0.7" sy="0.7" sz="0.7"/>  
+                <translation x="-0.5" y="-0.5" z="2.5"/>  
+            </transformations>
+
+            <descendants>
+                <leaf type="spriteanim" ssid="water" startCell="1" endCell="100" duration="20" />
+            </descendants>
+        </node>
+
 
         <node id="plate2">
             
@@ -1967,6 +2019,7 @@
                 <noderef id="flag" />                
                 <noderef id="pole1" />                
                 <noderef id="pole2" />
+                <noderef id="plane" />
             </descendants>
 
         </node>
@@ -2023,6 +2076,25 @@
 
             <descendants>
                 <leaf type="cylinder" height="5" topRadius="0.1" bottomRadius="0.1" stacks="32" slices="32" />
+            </descendants>
+
+        </node>
+
+        <node id="plane">
+            
+            <material id="plateMaterial" />
+            
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>  
+                <rotation axis="x" angle="-90" />     
+                <scale sx="5.5" sy="1" sz="1" />    
+            </transformations>
+
+            <descendants>
+                <leaf type="plane" npartsU="10" npartsV="10" />
             </descendants>
 
         </node>
