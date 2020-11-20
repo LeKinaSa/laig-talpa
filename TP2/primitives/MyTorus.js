@@ -38,10 +38,10 @@ class MyTorus extends CGFobject {
         var loopVertices = this.slices + 1;
     
         // build an all-around stack at a time
-        for (let outerSlice = 0; outerSlice <= this.loops; outerSlice++) {
+        for (let outerSlice = 0; outerSlice <= this.loops; ++ outerSlice) {
             // in each stack, build all the slices around
             theta = 0;
-            for (let innerSlice = 0; innerSlice <= this.slices; innerSlice++) {
+            for (let innerSlice = 0; innerSlice <= this.slices; ++ innerSlice) {
                 //--- Vertices coordinates
                 var x = (this.outerRadius + this.innerRadius * Math.cos(theta)) * Math.cos(phi);
                 var y = (this.outerRadius + this.innerRadius * Math.cos(theta)) * Math.sin(phi);
@@ -91,8 +91,8 @@ class MyTorus extends CGFobject {
     updateTexCoords(afs, aft) {
 		var tmp = this.texCoords;
         var auxCoords = [];
-        for(let i = 0; i < this.texCoords.length; i++){
-            if(i % 2 == 0) auxCoords.push(this.texCoords[i]/afs);
+        for (let i = 0; i < this.texCoords.length; ++ i) {
+            if (i % 2 == 0) auxCoords.push(this.texCoords[i]/afs);
             else auxCoords.push(this.texCoords[i]/aft);
         }
         this.texCoords = auxCoords;

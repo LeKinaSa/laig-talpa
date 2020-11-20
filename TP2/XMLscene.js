@@ -133,8 +133,8 @@ class XMLscene extends CGFscene {
      * @param {time} t 
      */
     update(t) {
-        for (let i in this.graph.animations) {
-            this.graph.animations[i].update(t);
+        if (this.sceneInited)  {
+            this.graph.updateAnimations(t);
         }
     }
 

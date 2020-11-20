@@ -269,7 +269,7 @@ class MySceneGraph {
         var referenceIndex = nodeNames.indexOf("reference");
 
         // Get root of the scene.
-        if(rootIndex == -1)
+        if (rootIndex == -1)
             return "No root id defined for scene.";
 
         var rootNode = children[rootIndex];
@@ -280,7 +280,7 @@ class MySceneGraph {
         this.idRoot = id;
 
         // Get axis length        
-        if(referenceIndex == -1)
+        if (referenceIndex == -1)
             this.onXMLMinorError("no axis_length defined for scene; assuming 'length = 1'");
 
         var refNode = children[referenceIndex];
@@ -311,7 +311,7 @@ class MySceneGraph {
 
         var default_camera_found = false;
 
-        for(var i = 0; i < children.length; ++ i) {
+        for (var i = 0; i < children.length; ++ i) {
             var camera;
             // Get id of the current camera.
             var id = this.reader.getString(children[i], 'id');
@@ -593,7 +593,7 @@ class MySceneGraph {
 
     /**
      * Parses the <spritesheets> block. 
-     * @param {spritesheets block element} texturesNode
+     * @param {spritesheets block element} spritesheetsNode
      */
     parseSpritesheets(spritesheetsNode) {
         this.spritesheets = [];
@@ -614,8 +614,6 @@ class MySceneGraph {
             /* CREATE SPRITESHEET */
             var texture = new CGFtexture(this.scene, path);
             var spritesheet = new MySpriteSheet(this.scene, texture, sizeM, sizeN);
-
-            console.log(spritesheetID, path, sizeM, sizeN); // Correct
 
             if (this.spritesheets[spritesheetID] != null) { this.onXMLMinorError("There are more than 1 spritesheets named " + spritesheetID + ". Rename one of them."); continue; }
             this.spritesheets[spritesheetID] = spritesheet;
@@ -730,6 +728,10 @@ class MySceneGraph {
         this.log("Parsed materials");
     }
 
+    /**
+     * Parses the <animations> block. 
+     * @param {animations block element} animationsNode
+     */
     parseAnimations(animationsNode) {
         var children = animationsNode.children;
         this.animations = [];
@@ -853,12 +855,13 @@ class MySceneGraph {
         var children = nodesNode.children;
 
         this.nodes = [];
+        this.animatedSprites = [];
 
         var grandChildren = [];
         var nodeNames = [];
 
         // Any number of nodes.
-        for (var i = 0; i < children.length; i++) {
+        for (var i = 0; i < children.length; ++ i) {
 
             if (children[i].nodeName != "node") {
                 return "unknown tag <" + children[i].nodeName + ">";
@@ -879,7 +882,7 @@ class MySceneGraph {
             grandChildren = children[i].children;
 
             nodeNames = [];
-            for (var j = 0; j < grandChildren.length; j++) {
+            for (var j = 0; j < grandChildren.length; ++ j) {
                 nodeNames.push(grandChildren[j].nodeName);
             }
 
@@ -889,7 +892,7 @@ class MySceneGraph {
             if (transformationsIndex == -1) {
                this.onXMLMinorError("Error parsing transformations for node: " + nodeID + ". Using a clear matrix with no transformations.");
             }
-            else{
+            else {
                 var transformations = grandChildren[transformationsIndex].children;
 
                 for (var j = 0; j < transformations.length; ++ j) {
@@ -999,7 +1002,7 @@ class MySceneGraph {
             if (animationsIndex != -1) {
                 animationID = this.reader.getString(grandChildren[animationsIndex], "id");
                 if (animationID != null && !this.animations[animationID]) {
-                    this.onXMLMinorError("animation not defined for animationd ID " +  animationID + " in node " + nodeID);
+                    this.onXMLMinorError("animation not defined for animation ID " +  animationID + " in node " + nodeID);
                     animationID = null;
                 }
             }
@@ -1017,7 +1020,7 @@ class MySceneGraph {
             var descendants = grandChildren[descendantsIndex].children;
 
             // identify if it's a noderef or a leaf and treat them
-            for (var j = 0; j < descendants.length; j++) {
+            for (var j = 0; j < descendants.length; ++ j) {
                 if (descendants[j].nodeName == "noderef") {
                     var currentNodeID = this.reader.getString(descendants[j], 'id');
 
@@ -1041,13 +1044,12 @@ class MySceneGraph {
 
     /**
      * Parse a boolean value from a node with ID = id
-     * @param {block element} node 
+     * @param {block element} node - node block
      * @param {attribute} name - atribute for which we need a boolean value
      * @param {message to be displayed in case of error} messageError 
      */
     parseBoolean(node, name, messageError) {
-        var boolVal = true;
-        boolVal = this.reader.getBoolean(node, name);
+        var boolVal = this.reader.getBoolean(node, name);
         if (!(boolVal != null && !isNaN(boolVal) && (boolVal == true || boolVal == false))) {
             this.onXMLMinorError("unable to parse value component " + messageError + "; assuming 'value = 1'");
             boolVal = true;
@@ -1057,7 +1059,7 @@ class MySceneGraph {
 
     /**
      * Parse the coordinates from a node with ID = id
-     * @param {block element} node
+     * @param {block element} node - node block
      * @param {message to be displayed in case of error} messageError
      */
     parseCoordinates3D(node, messageError) {
@@ -1085,7 +1087,7 @@ class MySceneGraph {
 
     /**
      * Parse the coordinates from a node with ID = id
-     * @param {block element} node
+     * @param {block element} node - node block
      * @param {message to be displayed in case of error} messageError
      */
     parseCoordinates4D(node, messageError) {
@@ -1110,7 +1112,7 @@ class MySceneGraph {
 
     /**
      * Parse the color components from a node with ID = id
-     * @param {block element} node
+     * @param {block element} node - node block
      * @param {message to be displayed in case of error} messageError
      */
     parseColor(node, messageError) {
@@ -1141,9 +1143,16 @@ class MySceneGraph {
         return color;
     }
 
+    /**
+     * Update Animations Presents in this Graph
+     * @param {time} t
+     */
     updateAnimations(t) {
-        for (let i in this.animationsIDs) {
-            this.animations[this.animationsIDs[i]].update(t);
+        for (var i in this.animations) {
+            this.animations[i].update(t);
+        }
+        for (var j = 0; j < this.animatedSprites.length; ++ j) {
+            this.animatedSprites[j].update(t);
         }
     }
 
@@ -1157,8 +1166,8 @@ class MySceneGraph {
     /**
      * Displays the scene, processing each node recursively.
      * @param {node block element} nodeID 
-     * @param {texture} textureFather 
-     * @param {material} materialFather 
+     * @param {texture} textureFather
+     * @param {material} materialFather
      */
     displaySceneRecursive(nodeID, textureFather, materialFather) {
         var currentNode = this.nodes[nodeID];
