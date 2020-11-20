@@ -6,7 +6,7 @@ class MyNode {
      * MyNode
      * @constructor
      * @param {MySceneGraph} graph - Scene Graph
-     * @param {node element id} nodeID - ID from the 
+     * @param {node element id} nodeID - ID for the node
      */
     constructor(graph, nodeID) {
         this.graph = graph;
@@ -39,5 +39,3 @@ class MyNode {
         this.children.push(nodeID);
     }
 }
-
-    
