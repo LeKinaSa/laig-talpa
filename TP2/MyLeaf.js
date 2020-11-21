@@ -177,13 +177,13 @@ class MyLeaf {
 
                 for (let i = 0; i < aux.length; ++ i) {
                     var cp = [];
-                    var xx = this.graph.reader.getFloat(aux[i], 'xx');
-                    if (this.varError('patch', 'xx', xx)){error = true; break;}
-                    var yy = this.graph.reader.getFloat(aux[i], 'yy');
-                    if (this.varError('patch', 'yy', yy)){error = true; break;}
-                    var zz = this.graph.reader.getFloat(aux[i], 'zz');
-                    if (this.varError('patch', 'zz', zz)){error = true; break;}
-                    cp = [xx, yy, zz];
+                    var x = this.graph.reader.getFloat(aux[i], 'x');
+                    if (this.varError('patch', 'x', x)){error = true; break;}
+                    var y = this.graph.reader.getFloat(aux[i], 'y');
+                    if (this.varError('patch', 'y', y)){error = true; break;}
+                    var z = this.graph.reader.getFloat(aux[i], 'z');
+                    if (this.varError('patch', 'z', z)){error = true; break;}
+                    cp = [x, y, z];
                     this.controlpoints.push(cp);
                 }
                 if (error) break;
