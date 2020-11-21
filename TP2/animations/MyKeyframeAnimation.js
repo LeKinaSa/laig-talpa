@@ -13,7 +13,6 @@ class MyKeyframeAnimation extends MyAnimation {
     constructor(scene) {
         super(scene);
         this.keyframes = []; // list with all the keyframes from the animation
-        this.addKeyframe(new MyKeyframe(scene, 0, [0, 0, 0], [0, 0, 0], [1, 1, 1]));
         this.currentState = mat4.create();
     }
 

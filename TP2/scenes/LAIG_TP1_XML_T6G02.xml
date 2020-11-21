@@ -208,12 +208,18 @@
             <!-- The animation starts at the first keyframe -->
             <!-- The object is invisible until the first keyframe -->
             <!-- At least 1 keyframe must exist -->
-
-            <keyframe instant="5">
+            <keyframe instant="0">
                 <!-- translation, rotation and scale are representative of the transformations in the keyframe -->
                 <!-- this transformations are relative to the initial situation (instant 0) -->
                 <!-- this elements are mandatory and in this order -->
 
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="5">
                 <translation x="0.6" y="0" z="0.6"/>
                 <rotation axis="x" angle="0"/>
                 <rotation axis="y" angle="360"/>
@@ -256,7 +262,18 @@
                 <scale sx="1" sy="1" sz="1"/>
             </keyframe>
         </animation>
-        <animation id="flame2">
+        <animation id="flame2">            
+            <keyframe instant="0">
+                <!-- translation, rotation and scale are representative of the transformations in the keyframe -->
+                <!-- this transformations are relative to the initial situation (instant 0) -->
+                <!-- this elements are mandatory and in this order -->
+
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
             <keyframe instant="5">
                 <translation x="-0.6" y="0" z="0.6"/>
                 <rotation axis="x" angle="0"/>
@@ -301,6 +318,17 @@
             </keyframe>
         </animation>
         <animation id="flame3">
+                <keyframe instant="0">
+                <!-- translation, rotation and scale are representative of the transformations in the keyframe -->
+                <!-- this transformations are relative to the initial situation (instant 0) -->
+                <!-- this elements are mandatory and in this order -->
+
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
             <keyframe instant="5">
                 <translation x="-0.1" y="0" z="-0.6"/>
                 <rotation axis="x" angle="0"/>
@@ -345,6 +373,17 @@
             </keyframe>
         </animation>
         <animation id="trees">
+            <keyframe instant="0">
+                <!-- translation, rotation and scale are representative of the transformations in the keyframe -->
+                <!-- this transformations are relative to the initial situation (instant 0) -->
+                <!-- this elements are mandatory and in this order -->
+
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
             <keyframe instant="5">
                 <translation x="0" y="0" z="0"/>
                 <rotation axis="x" angle="0"/>
