@@ -13,7 +13,15 @@ class MyKeyframeAnimation extends MyAnimation {
     constructor(scene) {
         super(scene);
         this.keyframes = []; // list with all the keyframes from the animation
+        var axis = [[1, 0, 0],
+                    [0, 1, 0],
+                    [0, 0, 1]];
         this.currentState = mat4.create();
+        mat4.translate(this.currentState, this.currentState, [0, 0, 0]);
+        mat4.rotate   (this.currentState, this.currentState, 0, axis[0]);
+        mat4.rotate   (this.currentState, this.currentState, 0, axis[1]);
+        mat4.rotate   (this.currentState, this.currentState, 0, axis[2]);
+        mat4.scale    (this.currentState, this.currentState, [0, 0, 0]);
     }
 
     /**
@@ -37,9 +45,10 @@ class MyKeyframeAnimation extends MyAnimation {
          * the delta_time needs to be between the initial and the final instants of the animation
          */
         if ((delta_time < this.keyframes[0].instant)
-         || (delta_time > this.keyframes[this.keyframes.length - 1].instant)) {
-           return;
+        || (delta_time > this.keyframes[this.keyframes.length - 1].instant)) {
+            return;
         }
+        
 
         /**
          * identify the indexes from the frames needed to represent the object on the screen
