@@ -210,7 +210,7 @@
             <!-- At least 1 keyframe must exist -->
 
             <keyframe instant="5">
-                <!-- translaction, rotation and scale are representative of the transformations in the keyframe -->
+                <!-- translation, rotation and scale are representative of the transformations in the keyframe -->
                 <!-- this transformations are relative to the initial situation (instant 0) -->
                 <!-- this elements are mandatory and in this order -->
 
@@ -1840,8 +1840,8 @@
             </transformations>
 
             <descendants>
-                <noderef id="barrel" /> 
-                <noderef id="water" />              
+                <noderef id="barrel" />
+                <noderef id="water" />
             </descendants>
         </node>
 
@@ -1861,15 +1861,32 @@
         </node>
 
         <node id="water">
+            <material id="tentMaterial1" />
+            
+            <texture id="clear">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="1.9" />
+            </transformations>
+
+            <descendants>
+                <leaf type="torus" inner="0.1" outer="0.4" slices="32" loops="32" />
+                <noderef id="waterAnimated" />
+            </descendants>
+        </node>
+
+        <node id="waterAnimated">
             <material id="null" />
             
             <texture id="clear">
                 <amplification afs="1" aft="1" />
             </texture>
 
-            <transformations>  
+            <transformations>
                 <scale sx="0.7" sy="0.7" sz="0.7"/>  
-                <translation x="-0.5" y="-0.5" z="2.5"/>  
+                <translation x="-0.5" y="-0.5" z="0"/>  
             </transformations>
 
             <descendants>
