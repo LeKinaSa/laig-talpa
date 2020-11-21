@@ -33,8 +33,9 @@ class MyDefBarrel extends CGFobject {
         var R = this.middle;
         var H = 4/3 * (R - r);
         var L = this.height;
-        var alpha = Math.PI / 6; // 30graus
-        var controlvertexes = [
+        var alpha = Math.PI / 6; // 30 degrees
+        var outControlvertexes = [
+            // Outside Face
             [
                 [    r   , 0,             0          , 1],
                 [  r + H , 0,     H / Math.tan(alpha), 1],
@@ -58,8 +59,11 @@ class MyDefBarrel extends CGFobject {
                 [-(r + H), 0,     H / Math.tan(alpha), 1],
                 [-(r + H), 0, L - H / Math.tan(alpha), 1],
                 [   -r   , 0,             L          , 1]
-            ],
-            // Tentar colocar dupla face
+            ]
+        ];
+        
+        var inControlvertexes = [
+            // Inside Face
             [
                 [   -r   , 0,             0          , 1],
                 [-(r + H), 0,     H / Math.tan(alpha), 1],
@@ -86,9 +90,11 @@ class MyDefBarrel extends CGFobject {
             ]
 
         ];
-        // var nurbsSurface = new CGFnurbsSurface(3, 3, controlvertexes);
-        var nurbsSurface = new CGFnurbsSurface(7, 3, controlvertexes);
-        this.obj = new CGFnurbsObject(this.scene, this.slices, this.stacks, nurbsSurface);
+
+        var outNurbsSurface = new CGFnurbsSurface(3, 3, outControlvertexes);
+        var  inNurbsSurface = new CGFnurbsSurface(3, 3,  inControlvertexes);
+        this.outsideObject = new CGFnurbsObject(this.scene, this.slices, this.stacks, outNurbsSurface);
+        this.insideObject  = new CGFnurbsObject(this.scene, this.slices, this.stacks,  inNurbsSurface);
     }
 
     /**
@@ -102,9 +108,11 @@ class MyDefBarrel extends CGFobject {
      */
     display() {
         this.scene.pushMatrix();
-        this.obj.display();
+        this.outsideObject.display();
+        this.insideObject.display();
         this.scene.rotate(Math.PI, 0, 0, 1);
-        this.obj.display();
+        this.outsideObject.display();
+        this.insideObject.display();
         this.scene.popMatrix();
     }
 }
