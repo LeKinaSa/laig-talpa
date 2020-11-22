@@ -25,7 +25,9 @@
 -----
 
 ### [TP2 - ...] (TP2)
-- (items briefly describing main strong points)
+- Scene Strong Points
+- Scene
+  - [Link to the Scene](https://git.fe.up.pt/laig/laig-2020-2021/t06/laig-t06-g02/-/blob/master/TP2/scenes/LAIG_TP1_XML_T6G02.xml)
 
 ----
 
