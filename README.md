@@ -17,7 +17,7 @@
   - Bonfire in the center, projecting light into everything that surronds it
   - 2 colorful tents
   - Some trees in a forest
-  - Picnip with a towel, a basket and 2 plates
+  - Picnic with a towel, a basket and 2 plates
 - Scene
   - The scene consists of a camp in a forest, in which tents, logs, and a bonfire are present. There is also a log and a tire serving as seats near the fire and a picnic.
   - [Link to the Scene](https://git.fe.up.pt/laig/laig-2020-2021/t06/laig-t06-g02/-/blob/master/TP1/scenes/LAIG_TP1_XML_T6G02.xml)
@@ -26,8 +26,10 @@
 
 ### [TP2 - ...] (TP2)
 - Scene Strong Points
-- Scene
-  - [Link to the Scene](https://git.fe.up.pt/laig/laig-2020-2021/t06/laig-t06-g02/-/blob/master/TP2/scenes/LAIG_TP1_XML_T6G02.xml)
+  - Added a barrel of water and an apple to the picnic
+  - Welcome sign
+  - Tree leaves wave with the wind
+  - Fire burns while moving
 
 ----
 
