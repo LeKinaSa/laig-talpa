@@ -24,7 +24,7 @@
 
 -----
 
-### [TP2 - ...] (TP2)
+### [TP2 - Animations] (TP2)
 - Scene Strong Points
   - Added a barrel of water and an apple to the picnic
   - Welcome sign
