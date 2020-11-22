@@ -10,10 +10,14 @@
 ----
 ## Project information
 
-- (items describing main strong points)
+- Scene Strong Points
+  - Added a barrel of water and an apple to the picnic ![Apple](img/apple.png) ![WaterBarrel](img/water_barrel.png)
+  - Welcome sign ![Welcome](img/welcome.png)
+  - Tree leaves wave with the wind ![Tree1](img/tree1.png) ![Tree2](img/tree2.png)
+  - Fire burns while moving ![Fire1](img/bonfire1.png) ![Fire2](img/bonfire2.png)
 - Scene
-  - (Brief description of the created scene)
-  - (relative link to the scene)
+  - The scene consists of a camp in a forest, in which tents, logs, and a bonfire are present. There is also a log and a tire serving as seats near the fire and a picnic with an apple and water. ![Camping](img/camping.png?raw=true)
+  - [Link to the Scene](https://git.fe.up.pt/laig/laig-2020-2021/t06/laig-t06-g02/-/blob/master/TP1/scenes/LAIG_TP1_XML_T6G02.xml))
 ----
 ## Issues/Problems
 
