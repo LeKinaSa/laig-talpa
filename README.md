@@ -22,13 +22,9 @@
   - The scene consists of a camp in a forest, in which tents, logs, and a bonfire are present. There is also a log and a tire serving as seats near the fire and a picnic.
   - [Link to the Scene](https://git.fe.up.pt/laig/laig-2020-2021/t06/laig-t06-g02/-/blob/master/TP1/scenes/LAIG_TP1_XML_T6G02.xml)
 
------
 
-<<<<<<< Updated upstream
-### [TP2 - Animations] (TP2)
-=======
 ### [TP2 - Animations with Keyframes, Spritesheets and NURBS] (TP2)
->>>>>>> Stashed changes
+
 - Scene Strong Points
   - Added a barrel of water and an apple to the picnic
   - Welcome sign
