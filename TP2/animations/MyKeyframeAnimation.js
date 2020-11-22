@@ -13,14 +13,14 @@ class MyKeyframeAnimation extends MyAnimation {
     constructor(scene) {
         super(scene);
         this.keyframes = []; // list with all the keyframes from the animation
-        var axis = [[1, 0, 0],
-                    [0, 1, 0],
-                    [0, 0, 1]];
+        this.axis = [[1, 0, 0],
+                     [0, 1, 0],
+                     [0, 0, 1]];
         this.currentState = mat4.create();
         mat4.translate(this.currentState, this.currentState, [0, 0, 0]);
-        mat4.rotate   (this.currentState, this.currentState, 0, axis[0]);
-        mat4.rotate   (this.currentState, this.currentState, 0, axis[1]);
-        mat4.rotate   (this.currentState, this.currentState, 0, axis[2]);
+        mat4.rotate   (this.currentState, this.currentState, 0, this.axis[0]);
+        mat4.rotate   (this.currentState, this.currentState, 0, this.axis[1]);
+        mat4.rotate   (this.currentState, this.currentState, 0, this.axis[2]);
         mat4.scale    (this.currentState, this.currentState, [0, 0, 0]);
     }
 
@@ -44,8 +44,27 @@ class MyKeyframeAnimation extends MyAnimation {
         /**
          * the delta_time needs to be between the initial and the final instants of the animation
          */
-        if ((delta_time < this.keyframes[0].instant)
-        || (delta_time > this.keyframes[this.keyframes.length - 1].instant)) {
+        if (delta_time < this.keyframes[0].instant) {
+            // the animation hasn't started
+            return;
+        }
+        if (delta_time > this.keyframes[this.keyframes.length - 1].instant) {
+            // the animation has finished
+            
+            // stay in the same position as the last frame
+            var kf = this.keyframes[this.keyframes.length - 1];
+            var T = kf.translation;
+            var R = [0, 0, 0];
+            vec3.scale(R, kf.rotation, DEGREE_TO_RADIANS);
+            var S = kf.scale;
+
+            // Update current state
+            this.currentState = mat4.create();
+            mat4.translate(this.currentState, this.currentState, T);
+            mat4.rotate   (this.currentState, this.currentState, R[0], this.axis[0]);
+            mat4.rotate   (this.currentState, this.currentState, R[1], this.axis[1]);
+            mat4.rotate   (this.currentState, this.currentState, R[2], this.axis[2]);
+            mat4.scale    (this.currentState, this.currentState, S);
             return;
         }
         
@@ -109,14 +128,11 @@ class MyKeyframeAnimation extends MyAnimation {
         }
 
         // Update current state
-        var axis = [[1, 0, 0],
-                    [0, 1, 0],
-                    [0, 0, 1]];
         this.currentState = mat4.create();
         mat4.translate(this.currentState, this.currentState, T);
-        mat4.rotate   (this.currentState, this.currentState, R[0], axis[0]);
-        mat4.rotate   (this.currentState, this.currentState, R[1], axis[1]);
-        mat4.rotate   (this.currentState, this.currentState, R[2], axis[2]);
+        mat4.rotate   (this.currentState, this.currentState, R[0], this.axis[0]);
+        mat4.rotate   (this.currentState, this.currentState, R[1], this.axis[1]);
+        mat4.rotate   (this.currentState, this.currentState, R[2], this.axis[2]);
         mat4.scale    (this.currentState, this.currentState, S);
     }
 
