@@ -42,6 +42,13 @@
             <to x="-1" y="0.5" z="-6" />
             <up x="0" y="1" z="0" />    <!-- optional, default 0, 1, 0 -->
         </ortho>
+
+        <!-- view from the top -->
+        <perspective id="Top View" near="0.1" far="50" angle="50">
+            <from x="0" y="20" z="0" />
+            <to x="-1" y="1" z="-1" />
+        </perspective>
+        
     </views>
 
     <illumination>
@@ -111,9 +118,7 @@
             <!-- the "spritesheets" block is optional -->
             <!-- if it exists, it should be declared after the "textures" block -->
             <!-- this block can be empty -->
-
-            <spritesheet id="test" path="./scenes/images/texture.jpg" sizeM="10" sizeN="10" />
-            <spritesheet id="explosion" path="./scenes/images/explosion.png" sizeM="10" sizeN="10" />
+            <spritesheet id="water" path="./scenes/images/water.jpg" sizeM="10" sizeN="10"/>
 
     </spritesheets>
 
@@ -184,6 +189,14 @@
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
 
+        <material id="appleMaterial">
+            <shininess value="30" />
+            <ambient  r="0.3" g="0.0" b="0.0" a="1.0" />
+            <diffuse  r="0.2" g="0.0" b="0.0" a="1.0" />
+            <specular r="1.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+
     </materials>
 
     <animations>
@@ -195,12 +208,18 @@
             <!-- The animation starts at the first keyframe -->
             <!-- The object is invisible until the first keyframe -->
             <!-- At least 1 keyframe must exist -->
-
-            <keyframe instant="5">
-                <!-- translaction, rotation and scale are representative of the transformations in the keyframe -->
+            <keyframe instant="0">
+                <!-- translation, rotation and scale are representative of the transformations in the keyframe -->
                 <!-- this transformations are relative to the initial situation (instant 0) -->
                 <!-- this elements are mandatory and in this order -->
 
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="5">
                 <translation x="0.6" y="0" z="0.6"/>
                 <rotation axis="x" angle="0"/>
                 <rotation axis="y" angle="360"/>
@@ -243,7 +262,18 @@
                 <scale sx="1" sy="1" sz="1"/>
             </keyframe>
         </animation>
-        <animation id="flame2">
+        <animation id="flame2">            
+            <keyframe instant="0">
+                <!-- translation, rotation and scale are representative of the transformations in the keyframe -->
+                <!-- this transformations are relative to the initial situation (instant 0) -->
+                <!-- this elements are mandatory and in this order -->
+
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
             <keyframe instant="5">
                 <translation x="-0.6" y="0" z="0.6"/>
                 <rotation axis="x" angle="0"/>
@@ -288,6 +318,17 @@
             </keyframe>
         </animation>
         <animation id="flame3">
+                <keyframe instant="0">
+                <!-- translation, rotation and scale are representative of the transformations in the keyframe -->
+                <!-- this transformations are relative to the initial situation (instant 0) -->
+                <!-- this elements are mandatory and in this order -->
+
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
             <keyframe instant="5">
                 <translation x="-0.1" y="0" z="-0.6"/>
                 <rotation axis="x" angle="0"/>
@@ -332,6 +373,17 @@
             </keyframe>
         </animation>
         <animation id="trees">
+            <keyframe instant="0">
+                <!-- translation, rotation and scale are representative of the transformations in the keyframe -->
+                <!-- this transformations are relative to the initial situation (instant 0) -->
+                <!-- this elements are mandatory and in this order -->
+
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
             <keyframe instant="5">
                 <translation x="0" y="0" z="0"/>
                 <rotation axis="x" angle="0"/>
@@ -474,7 +526,7 @@
 
             <transformations>
                 <translation x="10" y="10" z="0" />
-                <rotation axis="y" angle="-90" />                
+                <rotation axis="y" angle="-90" />          
             </transformations>
 
             <descendants>
@@ -493,7 +545,7 @@
 
             <transformations>
                 <translation x="0" y="10" z="10" />
-                <rotation axis="y" angle="180" />
+                <rotation axis="y" angle="180" />  
             </transformations>
 
             <descendants>
@@ -511,7 +563,6 @@
             </texture>
 
             <transformations>
-            
                 <rotation axis="y" angle="180" />
                 <translation x="0" y="17" z="0" />
                 <rotation axis="x" angle="90" />
@@ -555,7 +606,8 @@
             </texture>
 
             <transformations>
-                <rotation axis="z" angle="180" />
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="180" /> 
             </transformations>
 
             <descendants>
@@ -1684,6 +1736,8 @@
                 <noderef id="towel" />
                 <noderef id="basket" />
                 <noderef id="plates" />
+                <noderef id="apple" />
+                <noderef id="waterBarrel" />
             </descendants>
 
         </node>
@@ -1799,6 +1853,72 @@
 
         </node>
 
+        <node id="waterBarrel">
+            <material id="null" />
+            
+            <texture id="clear">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>   
+                <translation x="2" y="2" z="0"/>      
+            </transformations>
+
+            <descendants>
+                <noderef id="barrel" />
+                <noderef id="water" />
+            </descendants>
+        </node>
+
+        <node id="barrel">
+            <material id="tentMaterial1" />
+            
+            <texture id="clear">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>      
+            </transformations>
+
+            <descendants>
+                <leaf type="defbarrel" base="0.5" middle="0.6" height="2" slices="50" stacks="50" />
+            </descendants>
+        </node>
+
+        <node id="water">
+            <material id="tentMaterial1" />
+            
+            <texture id="clear">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="1.9" />
+            </transformations>
+
+            <descendants>
+                <leaf type="torus" inner="0.1" outer="0.4" slices="32" loops="32" />
+                <noderef id="waterAnimated" />
+            </descendants>
+        </node>
+
+        <node id="waterAnimated">
+            <material id="null" />
+            
+            <texture id="clear">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>
+                <scale sx="0.7" sy="0.7" sz="0.7"/>  
+            </transformations>
+
+            <descendants>
+                <leaf type="spriteanim" ssid="water" startCell="1" endCell="100" duration="20" />
+            </descendants>
+        </node>
+
+
         <node id="plate2">
             
             <material id="plateMaterial" />
@@ -1817,6 +1937,113 @@
 
         </node>
 
+        <node id="apple">
+            
+            <material id="null" />
+            
+            <texture id="clear">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>   
+                <translation x="0.2" y="-0.5" z="0.05"/>
+                <scale sx="0.1" sy="0.1" sz="0.1"/>      
+            </transformations>
+
+            <descendants>
+                <noderef id="appleBody" />
+                <noderef id="appleTop" />
+                <noderef id="appleStem" />
+                <noderef id="appleLeaf" />
+            </descendants>
+
+        </node>
+
+        <node id="appleBody">
+            
+            <material id="appleMaterial" />
+            
+            <texture id="clear">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>         
+            </transformations>
+
+            <descendants>
+                <leaf type="defbarrel" base="1" middle="1.3" height="2" slices="50" stacks="50" />
+            </descendants>
+
+        </node>
+
+        <node id="appleTop">
+            
+            <material id="appleMaterial" />
+            
+            <texture id="clear">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations> 
+                <translation x="0" y="0" z="1.2"/>        
+            </transformations>
+
+            <descendants>
+                <leaf type="sphere" radius="1.3" slices="32" stacks="32" />
+            </descendants>
+
+        </node>
+
+        <node id="appleStem">            
+            <material id="null" />
+            
+            <texture id="leavesTexture">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>   
+                <translation x="-0.3" y="0" z="2"/>        
+                <rotation axis ="y" angle="30"/>       
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="1.5" topRadius="0.05" bottomRadius="0.1" stacks="32" slices="32" />
+            </descendants>
+        </node>
+
+        <node id="appleLeaf">            
+            <material id="null" />
+            
+            <texture id="leavesTexture">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>   
+                <translation x="-0.2" y="0.2" z="3.2"/>
+                <scale sx="0.2" sy="0.2" sz="0.2"/>
+                <rotation axis="x" angle="90"/>  
+                
+                <rotation axis="z" angle="90"/>       
+            </transformations>
+
+            <descendants>
+                <leaf type="patch" npointsU="3" npointsV="4" npartsU="20" npartsV="20" >
+                    <controlpoint x="-2.0" y="-2.0" z="1.0" />
+                    <controlpoint x="-2.0" y="-1.0" z="2.0" />
+                    <controlpoint x="-2.0" y="1.0" z="5.0" />
+                    <controlpoint x="-2.0" y="2.0" z="1.0" />
+                    <controlpoint x="0" y="-2.0" z="0" />
+                    <controlpoint x="0" y="-1.0" z="-1" />
+                    <controlpoint x="0" y="1.0" z="1.5" />
+                    <controlpoint x="0" y="2.0" z="0" />
+                    <controlpoint x="2.0" y="-2.0" z="-1.0" />
+                    <controlpoint x="2.0" y="-1.0" z="2.0" />
+                    <controlpoint x="2.0" y="1.0" z="-5.0" />
+                    <controlpoint x="2.0" y="2.0" z="1.0" />
+                </leaf>
+            </descendants>
+        </node>
+
         <node id="welcome">
             
             <material id="null" />
@@ -1833,6 +2060,7 @@
                 <noderef id="flag" />                
                 <noderef id="pole1" />                
                 <noderef id="pole2" />
+                <noderef id="plane" />
             </descendants>
 
         </node>
@@ -1847,10 +2075,11 @@
 
             <transformations>   
                 <scale sx="0.7" sy="0.7" sz="0.7" /> 
+                <translation x="0.5" y="0.5" z="0"/>
             </transformations>
 
             <descendants>
-                <leaf type="spritetext" text="welcome!" />
+                <leaf type="spritetext" text="WELCOME!" />
             </descendants>
 
         </node>
@@ -1889,6 +2118,25 @@
 
             <descendants>
                 <leaf type="cylinder" height="5" topRadius="0.1" bottomRadius="0.1" stacks="32" slices="32" />
+            </descendants>
+
+        </node>
+
+        <node id="plane">
+            
+            <material id="plateMaterial" />
+            
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+
+            <transformations>  
+                <rotation axis="x" angle="-90" />     
+                <scale sx="5.5" sy="1" sz="1" />    
+            </transformations>
+
+            <descendants>
+                <leaf type="plane" npartsU="10" npartsV="10" />
             </descendants>
 
         </node>

@@ -6,16 +6,19 @@ class MySpriteText {
     /**
      * MySpriteText
      * @constructor
-     * @param {CGFscene} scene - Reference to Scene object
+     * @param {CGFscene} scene - Reference to MyScene object
      * @param {string} text - Text to be represented with the SpriteSheet 
      */
     constructor(scene, text) {
         this.scene = scene;
         this.text = text;
         this.spriteSheet = new MySpriteSheet(this.scene, new CGFtexture(this.scene, "./scenes/images/font.png"), 10, 10);
-        this.plane = new MyRectangle(this.scene, 0, 0, 1, 1);
+        this.plane = new MyRectangle(this.scene, -0.5, -0.5, 0.5, 0.5);
     }
 
+    /**
+     * Display Sprite Text Primitive
+     */
     display() {
         this.scene.pushMatrix();
 
@@ -23,8 +26,11 @@ class MySpriteText {
         this.scene.translate(- this.text.length / 2, -0.5, 0);
         var p;
         for (var index = 0; index < this.text.length; index ++) {
+            // Get Char Code
+            var charCode = this.text.charCodeAt(index);
+        
             // Get Character Sprite Position
-            p = this.getCharacterPosition(index);
+            p = this.getCharacterPosition(charCode);
 
             // Activate Sprite
             this.spriteSheet.activateCellP(p);
@@ -38,10 +44,11 @@ class MySpriteText {
         this.scene.popMatrix();
     }
 
-    getCharacterPosition(index) {
-        // Get Char Code
-        var charCode = this.text.charCodeAt(index);
-        
+    /**
+     * Obtains the Character Position in the SpriteSheet based on the Char Code
+     * @param {int} charCode 
+     */
+    getCharacterPosition(charCode) {
         // Get Position in the SpriteSheet
         if ((charCode >= 32) && (charCode <= 126)) {
             return charCode - 32;
@@ -49,5 +56,9 @@ class MySpriteText {
         return 0;
     }
 
-    updateTexCoords() {}
+    /**
+     * Updates the Texture Coordinates based on the Amplification
+     * Only here because of inheritance
+     */
+    updateTexCoords(afs, aft) { }
 }

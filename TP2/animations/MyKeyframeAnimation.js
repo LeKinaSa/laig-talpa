@@ -1,50 +1,73 @@
 const DEGREE_TO_RADIANS = Math.PI / 180;
 
 /**
- * MyKeyframeAnimation class: represents all the keyframes from an animation
-**/
+ * MyKeyframeAnimation class
+ * Represents all the keyframes from an animation
+ */
 class MyKeyframeAnimation extends MyAnimation {
     /**
+     * MyKeyframeAnimation
      * @constructor
+     * @param {CGFscene} scene - Reference to MyScene object
      */
     constructor(scene) {
         super(scene);
         this.keyframes = []; // list with all the keyframes from the animation
-        this.addKeyframe(new MyKeyframe(scene, 0, [0, 0, 0], [0, 0, 0], [1, 1, 1]));
+        this.axis = [[1, 0, 0],
+                     [0, 1, 0],
+                     [0, 0, 1]];
         this.currentState = mat4.create();
-        this.initTime = 0;
+        mat4.translate(this.currentState, this.currentState, [0, 0, 0]);
+        mat4.rotate   (this.currentState, this.currentState, 0, this.axis[0]);
+        mat4.rotate   (this.currentState, this.currentState, 0, this.axis[1]);
+        mat4.rotate   (this.currentState, this.currentState, 0, this.axis[2]);
+        mat4.scale    (this.currentState, this.currentState, [0, 0, 0]);
     }
 
-    // Adds a keyframe to the keyframes list
+    /**
+     * Adds a keyframe to the keyframes list
+     * @param {MyKeyframe} keyframe
+     */
     addKeyframe(keyframe) {
         // Keyframe class - aux class to create the Keyframes
         this.keyframes.push(keyframe);
         this.keyframes.sort((a, b) => (a.instant > b.instant) ? 1 : -1);
     }
     
+    /**
+     * Update Animation
+     * @param {time} t 
+     */
     update(t) {
-        t = t / 1000;
-        // verify if it's the first call -> if it's the first, change init to current time
-        
-        if (this.initTime == 0) {
-            this.initTime = t;
-        }
+        var delta_time = this.getDeltaTime(t);
 
-        /**
-         * delta_time -> animation's elapsed time
-         * elapsed time = actual time - init time
-         * for example: first call -> deltaTime = 0
-         */
-        var delta_time = t - this.initTime;
-
-        
         /**
          * the delta_time needs to be between the initial and the final instants of the animation
          */
-        if ((delta_time < this.keyframes[0].instant)
-         || (delta_time > this.keyframes[this.keyframes.length - 1].instant)) {
-           return;
+        if (delta_time < this.keyframes[0].instant) {
+            // the animation hasn't started
+            return;
         }
+        if (delta_time > this.keyframes[this.keyframes.length - 1].instant) {
+            // the animation has finished
+            
+            // stay in the same position as the last frame
+            var kf = this.keyframes[this.keyframes.length - 1];
+            var T = kf.translation;
+            var R = [0, 0, 0];
+            vec3.scale(R, kf.rotation, DEGREE_TO_RADIANS);
+            var S = kf.scale;
+
+            // Update current state
+            this.currentState = mat4.create();
+            mat4.translate(this.currentState, this.currentState, T);
+            mat4.rotate   (this.currentState, this.currentState, R[0], this.axis[0]);
+            mat4.rotate   (this.currentState, this.currentState, R[1], this.axis[1]);
+            mat4.rotate   (this.currentState, this.currentState, R[2], this.axis[2]);
+            mat4.scale    (this.currentState, this.currentState, S);
+            return;
+        }
+        
 
         /**
          * identify the indexes from the frames needed to represent the object on the screen
@@ -80,8 +103,8 @@ class MyKeyframeAnimation extends MyAnimation {
             var kf2 = this.keyframes[kf2_index];
             
             /**
-             *                    INTERPOLATION (BETWEEN 2 KEYFRAMES)
-             *                     X = Xi + XTtotal * Telapsed/Ttotal
+             *      INTERPOLATION (BETWEEN 2 KEYFRAMES)
+             *      X = Xi + XTtotal * Telapsed/Ttotal
              * X:        current value
              * Xi:       initial value
              * XTotal:   value between initial/end time
@@ -104,21 +127,19 @@ class MyKeyframeAnimation extends MyAnimation {
             S = vec3.lerp(S, kf1.scale, kf2.scale, elapsedTime/totalTime);    
         }
 
-        
         // Update current state
-        var axis = [[1, 0, 0],
-                    [0, 1, 0],
-                    [0, 0, 1]];
         this.currentState = mat4.create();
         mat4.translate(this.currentState, this.currentState, T);
-        mat4.rotate   (this.currentState, this.currentState, R[0], axis[0]);
-        mat4.rotate   (this.currentState, this.currentState, R[1], axis[1]);
-        mat4.rotate   (this.currentState, this.currentState, R[2], axis[2]);
+        mat4.rotate   (this.currentState, this.currentState, R[0], this.axis[0]);
+        mat4.rotate   (this.currentState, this.currentState, R[1], this.axis[1]);
+        mat4.rotate   (this.currentState, this.currentState, R[2], this.axis[2]);
         mat4.scale    (this.currentState, this.currentState, S);
     }
 
+    /**
+     * Apply the Transformation Associated with the Current Time Instant
+     */
     apply() {
         this.scene.multMatrix(this.currentState);
     }
-
 }

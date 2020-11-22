@@ -1,10 +1,11 @@
 /**
- * MyKeyframe class: represents an keyframe from an animation
-**/
+ * MyKeyframe class
+ * Represents an keyframe from an animation
+ */
 class MyKeyframe {
     /**
      * @constructor
-     * @param {CGFscene} scene
+     * @param {CGFscene} scene   - Reference to MyScene object
      * @param {integer} instant  - keyframe instant
      * @param {vec3} translation - translation associated to this instant
      * @param {vec3} rotation    - rotation associated to this instant
@@ -17,5 +18,4 @@ class MyKeyframe {
         this.rotation = rotation;
         this.scale = scale;
     }
-
 }
