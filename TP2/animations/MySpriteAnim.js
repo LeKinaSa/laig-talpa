@@ -19,7 +19,7 @@ class MySpriteAnim extends MyAnimation {
         this.startCell = startCell;
         this.endCell = endCell;
         this.currentCell = startCell;
-        this.plane = new MyRectangle(scene, 0, 0, 1, 1);
+        this.plane = new MyRectangle(scene, -0.5, -0.5, 0.5, 0.5);
     }
 
     /**
