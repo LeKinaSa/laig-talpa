@@ -7,12 +7,27 @@ class MyPiece {
      * MyPiece
      * @constructor
      * @param {CGFscene} scene - Reference to MyScene object
-     * @param {MyTile} tile - Tile where the Piece is placed
+     * @param {String} color - Color of the Piece : may be 'red' or 'blue'
      */
-    constructor(scene, tile) {
+    constructor(scene, color) {
         this.scene = scene;
         this.piece = new MyCylinder(this.scene, 0.5, 0.5, 0.5, 2, 4);
-        this.tile = tile;
+        this.tile = null;
+        this.color = color;
+
+        this.redMaterial = new CGFappearance(this.scene);
+        this.redMaterial.setShininess(30);
+        this.redMaterial.setAmbient (0.2, 0.0, 0.0, 1.0);
+        this.redMaterial.setDiffuse (0.6, 0.0, 0.0, 1.0);
+        this.redMaterial.setSpecular(0.8, 0.0, 0.0, 1.0);
+        this.redMaterial.setEmission(0.0, 0.0, 0.0, 1.0);
+        
+        this.blueMaterial = new CGFappearance(this.scene);
+        this.blueMaterial.setShininess(30);
+        this.blueMaterial.setAmbient (0.0, 0.0, 0.2, 1.0);
+        this.blueMaterial.setDiffuse (0.0, 0.0, 0.6, 1.0);
+        this.blueMaterial.setSpecular(0.0, 0.0, 0.8, 1.0);
+        this.blueMaterial.setEmission(0.0, 0.0, 0.0, 1.0);
     }
 
     /**
@@ -21,7 +36,21 @@ class MyPiece {
      */
     placeOnTile(tile) {
         this.tile = tile;
-        this.tile.modifyPiece(this);
+    }
+
+    /**
+     * Set Piece Type / Color
+     * @param {String} color 
+     */
+    setType(color) {
+        this.color = color;
+    }
+
+    /**
+     * Get Piece Type / Color
+     */
+    getType() {
+        return this.color;
     }
 
     /**
@@ -29,8 +58,19 @@ class MyPiece {
      */
     display() {
         this.scene.pushMatrix();
+
+        // Display Piece Color
+        if (this.color == 'red') {
+            this.redMaterial.display();
+        }
+        else if (this.color == 'blue') {
+            this.blueMaterial.display();
+        }
+
+        // Display Piece
         this.scene.rotate(Math.PI/4, 0, 0, 1);
         this.piece.display();
+        
         this.scene.popMatrix();
     }
 
