@@ -61,10 +61,10 @@ class MyPiece {
 
         // Display Piece Color
         if (this.color == 'red') {
-            this.redMaterial.display();
+            this.redMaterial.apply();
         }
         else if (this.color == 'blue') {
-            this.blueMaterial.display();
+            this.blueMaterial.apply();
         }
 
         // Display Piece

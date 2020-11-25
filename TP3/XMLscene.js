@@ -174,7 +174,9 @@ class XMLscene extends CGFscene {
             this.updateLights();
             
             // Displays the scene (MySceneGraph function).
-            this.graph.displayScene();
+            //this.graph.displayScene();
+            this.board = new MyGameBoard(this);
+            this.board.display();
         }
         else {
             // Show some "loading" visuals
