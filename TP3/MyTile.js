@@ -14,8 +14,28 @@ class MyTile {
         this.piece = null;
     }
 
-    modifyPiece(piece) {
+    /**
+     * Set the Piece standing on this Tile
+     * @param {MyPiece} piece - Piece Standing on this Tile
+     */
+    setPiece(piece) {
         this.piece = piece;
+        this.piece.placeOnTile(this);
+    }
+
+    /**
+     * Unset the Piece standing on this Tile
+     */
+    unsetPiece() {
+        this.piece = null;
+        this.piece.placeOnTile(null);
+    }
+
+    /**
+     * Get Piece
+     */
+    getPiece() {
+        return this.piece;
     }
 
     /**
@@ -24,7 +44,9 @@ class MyTile {
     display() {
         this.scene.pushMatrix();
         this.tile.display();
-        this.piece.display();
+        if (this.piece != null) {
+            this.piece.display();
+        }
         this.scene.popMatrix();
     }
 
