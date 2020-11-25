@@ -14,6 +14,10 @@ class MyTile {
         this.piece = null;
     }
 
+    /**
+     * Modifies the Piece standing on this Tile
+     * @param {MyPiece} piece - Piece Standing on this Tile
+     */
     modifyPiece(piece) {
         this.piece = piece;
     }

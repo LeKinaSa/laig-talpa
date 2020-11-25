@@ -11,15 +11,27 @@ class MyPiece {
      */
     constructor(scene, tile) {
         this.scene = scene;
-        this.piece = new MyCylinder(this.scene, 0.5, 1, 1, 2, 4);
+        this.piece = new MyCylinder(this.scene, 0.5, 0.5, 0.5, 2, 4);
         this.tile = tile;
+    }
+
+    /**
+     * Places the Piece on a Tile
+     * @param {MyTile} tile - Tile where the Piece is placed
+     */
+    placeOnTile(tile) {
+        this.tile = tile;
+        this.tile.modifyPiece(this);
     }
 
     /**
      * Display Piece Primitive
      */
     display() {
+        this.scene.pushMatrix();
+        this.scene.rotate(Math.PI/4, 0, 0, 1);
         this.piece.display();
+        this.scene.popMatrix();
     }
 
     /**
