@@ -17,30 +17,40 @@ class MyGameBoard {
                 this.tiles.push(new MyTile(this.scene, [column, line]));
             }
         }
+        this.removedPieces = [];
     }
 
-    addPiece(tile) {
-
+    /**
+     * Add Piece to the Removed Pieces List
+     * @param {MyPiece} piece - Piece that got removed from the board 
+     */
+    addRemovedPiece(piece) {
+        this.removedPieces.push(piece);
     }
 
+    /**
+     * Remove the Piece Standing on this Tile
+     * @param {MyTile} tile - Tile where the Piece will be Removed
+     */
     removePiece(tile) {
-
+        tile.unsetPiece(this);
     }
 
     getPiece(tile) {
-        // return piece;
+        tile.getPiece();
     }
 
-    getTile(piece){
-        // return tile;
+    getTile(column, line) {
+        var x = column - 1;
+        var y = 8 - line;
+        var tile = this.tiles[x * 8 + y];
+        console.log(tile);
+        return tile;
     }
 
-    getTile(x, y) {
-        // return tile;
-    }
-
-    movePiece(piece, startingTile, destinationTile) {
-
+    movePiece(startingTile, destinationTile) {
+        var piece = this.getPiece(startingTile);
+        destinationTile.setPiece(this, piece);
     }
 
     display() {

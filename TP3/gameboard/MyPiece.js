@@ -39,14 +39,6 @@ class MyPiece {
     }
 
     /**
-     * Set Piece Type / Color
-     * @param {String} color 
-     */
-    setType(color) {
-        this.color = color;
-    }
-
-    /**
      * Get Piece Type / Color
      */
     getType() {

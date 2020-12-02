@@ -34,8 +34,8 @@ class MyTile {
      * Set the Piece standing on this Tile
      * @param {MyPiece} piece - Piece Standing on this Tile
      */
-    setPiece(piece) {
-        this.unsetPiece();
+    setPiece(gameboard, piece) {
+        this.unsetPiece(gameboard);
         this.piece = piece;
         this.piece.placeOnTile(this);
     }
@@ -43,8 +43,9 @@ class MyTile {
     /**
      * Unset the Piece standing on this Tile
      */
-    unsetPiece() {
+    unsetPiece(gameboard) {
         if (this.piece != null) {
+            gameboard.addRemovedPiece(this.piece);
             this.piece.placeOnTile(null);
             this.piece = null;
         }
