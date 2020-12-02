@@ -14,6 +14,19 @@ class MyTile {
         this.tile = new MyRectangle(this.scene, -0.5, -0.5, 0.5, 0.5);
         this.position = position;
         this.piece = this.startingPiece();
+        
+        this.tileMaterial = new CGFappearance(this.scene);
+        this.tileMaterial.setShininess(30);
+        this.tileMaterial.setAmbient (0.5, 0.5, 0.5, 1.0);
+        this.tileMaterial.setDiffuse (0.8, 0.8, 0.8, 1.0);
+        this.tileMaterial.setSpecular(1.0, 1.0, 1.0, 1.0);
+        this.tileMaterial.setEmission(0.0, 0.0, 0.0, 1.0);
+
+        this.tileTexture = new CGFtexture(this.scene, "./scenes/images/tile.png");
+        
+        this.tileMaterial.setTexture(this.tileTexture);
+        this.tileMaterial.setTextureWrap('REPEAT', 'REPEAT');
+        this.tileMaterial.apply();
     }
 
     startingPiece() {
@@ -69,16 +82,12 @@ class MyTile {
         var  line  = 9 - this.position[1];
         this.scene.translate(column - 3.5, 0, line - 3.5); // TODO : maybe trade line and column
 
+        this.scene.rotate(-Math.PI/2, 1, 0, 0);
+        this.tileMaterial.apply();
         this.tile.display();
         if (this.piece != null) {
             this.piece.display();
         }
         this.scene.popMatrix();
     }
-
-    /**
-     * Updates the Texture Coordinates based on the Amplification
-     * Only here because of inheritance
-     */
-    updateTexCoords(afs, aft) { }
 }

@@ -65,10 +65,4 @@ class MyPiece {
         
         this.scene.popMatrix();
     }
-
-    /**
-     * Updates the Texture Coordinates based on the Amplification
-     * Only here because of inheritance
-     */
-    updateTexCoords(afs, aft) { }
 }
