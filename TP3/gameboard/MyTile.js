@@ -48,9 +48,10 @@ class MyTile {
      * @param {MyPiece} piece - Piece Standing on this Tile
      */
     setPiece(gameboard, piece) {
+        console.log(this.piece);
         this.unsetPiece(gameboard);
         this.piece = piece;
-        this.piece.placeOnTile(this);
+        console.log(this.piece);
     }
 
     /**
@@ -59,7 +60,6 @@ class MyTile {
     unsetPiece(gameboard) {
         if (this.piece != null) {
             gameboard.addRemovedPiece(this.piece);
-            this.piece.placeOnTile(null);
             this.piece = null;
         }
     }

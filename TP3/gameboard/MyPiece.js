@@ -12,7 +12,6 @@ class MyPiece {
     constructor(scene, color) {
         this.scene = scene;
         this.piece = new MyCylinder(this.scene, 0.5, 0.5, 0.5, 2, 4);
-        this.tile = null;
         this.color = color;
 
         this.redMaterial = new CGFappearance(this.scene);
@@ -28,14 +27,6 @@ class MyPiece {
         this.blueMaterial.setDiffuse (0.0, 0.0, 0.6, 1.0);
         this.blueMaterial.setSpecular(0.0, 0.0, 0.8, 1.0);
         this.blueMaterial.setEmission(0.0, 0.0, 0.0, 1.0);
-    }
-
-    /**
-     * Places the Piece on a Tile
-     * @param {MyTile} tile - Tile where the Piece is placed
-     */
-    placeOnTile(tile) {
-        this.tile = tile;
     }
 
     /**
