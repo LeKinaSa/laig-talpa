@@ -35,6 +35,7 @@ class MyTile {
      * @param {MyPiece} piece - Piece Standing on this Tile
      */
     setPiece(piece) {
+        this.unsetPiece();
         this.piece = piece;
         this.piece.placeOnTile(this);
     }
@@ -65,7 +66,7 @@ class MyTile {
         // Translation According to the Position on the Board
         var column = this.position[0];
         var  line  = 9 - this.position[1];
-        this.scene.translate(column-3.5, 0, line-3.5); // TODO : maybe trade line and column
+        this.scene.translate(column - 3.5, 0, line - 3.5); // TODO : maybe trade line and column
 
         this.tile.display();
         if (this.piece != null) {
