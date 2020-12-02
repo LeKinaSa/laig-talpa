@@ -125,6 +125,7 @@ class XMLscene extends CGFscene {
         this.setUpdatePeriod(100);
 
         this.sceneInited = true;
+        this.board = new MyGameBoard(this);
     }
 
     /**
@@ -175,7 +176,6 @@ class XMLscene extends CGFscene {
             
             // Displays the scene (MySceneGraph function).
             //this.graph.displayScene();
-            this.board = new MyGameBoard(this);
             this.board.display();
         }
         else {
