@@ -58,7 +58,6 @@ class MyGameBoard {
         var x = 8 - line;
         var y = column - 1;
         var tile = this.tiles[x * 8 + y];
-        console.log(column, line, tile);
         return tile;
     }
 

@@ -126,6 +126,8 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = true;
         this.board = new MyGameBoard(this);
+
+        this.board.movePieceByPosition(1, 8, 1, 7);
     }
 
     /**
