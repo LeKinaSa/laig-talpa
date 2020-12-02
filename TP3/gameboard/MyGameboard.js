@@ -45,7 +45,7 @@ class MyGameBoard {
      * @param {MyTile} tile - Tile where the Piece is Standing
      */
     getPiece(tile) {
-        tile.getPiece();
+        return tile.getPiece();
     }
 
     /**
@@ -67,7 +67,7 @@ class MyGameBoard {
      */
     movePiece(startingTile, destinationTile) {
         var piece = this.getPiece(startingTile);
-        console.log(startingTile, destinationTile);
+        startingTile.unsetPiece();
         destinationTile.setPiece(this, piece);
     }
     movePieceByPosition(startingColumn, startingLine, destinationColumn, destinationLine) {

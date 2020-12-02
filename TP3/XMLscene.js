@@ -125,11 +125,6 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = true;
         this.board = new MyGameBoard(this);
-        //console.log(this.board);
-        console.log(this.board.getTile(1, 7));
-
-        //this.board.movePieceByPosition(1, 8, 1, 7);
-        //console.log(this.board.removedPieces);
     }
 
     /**
