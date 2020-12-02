@@ -43,8 +43,10 @@ class MyTile {
      * Unset the Piece standing on this Tile
      */
     unsetPiece() {
-        this.piece = null;
-        this.piece.placeOnTile(null);
+        if (this.piece != null) {
+            this.piece.placeOnTile(null);
+            this.piece = null;
+        }
     }
 
     /**
