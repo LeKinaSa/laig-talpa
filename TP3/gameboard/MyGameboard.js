@@ -35,6 +35,10 @@ class MyGameBoard {
     removePiece(tile) {
         tile.unsetPiece(this);
     }
+    removePiece(column, line) {
+        var tile = this.getTile(column, line);
+        this.removePiece(tile);
+    }
 
     /**
      * Get the Piece Standing on this Tile
@@ -50,8 +54,8 @@ class MyGameBoard {
      * @param {int} line
      */
     getTile(column, line) {
-        var x = column - 1;
-        var y = 8 - line;
+        var x = 8 - line;
+        var y = column - 1;
         var tile = this.tiles[x * 8 + y];
         console.log(tile);
         return tile;
@@ -65,6 +69,11 @@ class MyGameBoard {
     movePiece(startingTile, destinationTile) {
         var piece = this.getPiece(startingTile);
         destinationTile.setPiece(this, piece);
+    }
+    movePiece(startingColumn, startingLine, destinationColumn, destinationLine) {
+        var startingTile = this.getTile(startingColumn, startingLine);
+        var destinationTile = this.getTile(destinationColumn, destinationLine);
+        this.movePiece(startingTile, destinationTile);
     }
 
     /**
