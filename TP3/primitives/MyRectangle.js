@@ -99,8 +99,6 @@ class MyRectangle extends CGFobject {
         }
         this.texCoords = auxCoords;
         this.updateTexCoordsGLBuffers();
-		this.texCoords = tmp;
-
-		
+		this.texCoords = tmp;	
 	}
 }

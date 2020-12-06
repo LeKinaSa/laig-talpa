@@ -40,7 +40,6 @@ class XMLscene extends CGFscene {
         this.displayAxis = false;
         this.scaleFactor = 1;
         this.updatePeriod = 100;
-
     }
 
     /**
@@ -125,6 +124,7 @@ class XMLscene extends CGFscene {
         this.setUpdatePeriod(100);
 
         this.sceneInited = true;
+        this.board = new MyGameBoard(this);
     }
 
     /**
@@ -174,7 +174,10 @@ class XMLscene extends CGFscene {
             this.updateLights();
             
             // Displays the scene (MySceneGraph function).
-            this.graph.displayScene();
+            //this.graph.displayScene();
+            
+            // Display the Game Board
+            this.board.display();
         }
         else {
             // Show some "loading" visuals
