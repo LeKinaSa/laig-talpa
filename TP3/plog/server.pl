@@ -127,4 +127,12 @@ parse_input([2, Dimensions, Board, Player, Level], [0, Move]) :- choose_move(Dim
 parse_input(handshake, ola).
 parse_input([quit], goodbye).
 
-	
+/**
+ * Verifies if the Move made by the Player is Valid
+ * 		- Similar to choose_player_move but obtaining the move
+ * 				from the request and not from the console
+ */
+% verify_player_move(+GameState, +Move)
+verify_player_move(GameState, Move) :-
+    valid_moves(GameState, _, ValidMoves),
+    member(Move, ValidMoves).
