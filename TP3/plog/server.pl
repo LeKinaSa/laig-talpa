@@ -17,11 +17,11 @@ port(8081).
 % Server Entry Point
 server :-
 	port(Port),
-	write('Opened Server'),nl,nl,
+	write('Opened Server'), nl, nl,
 	socket_server_open(Port, Socket),
 	server_loop(Socket),
 	socket_server_close(Socket),
-	write('Closed Server'),nl.
+	write('Closed Server'), nl.
 
 % Server Loop 
 % Uncomment writes for more information on incomming connections
@@ -34,7 +34,7 @@ server_loop(Socket) :-
 			read_request(Stream, Request),
 			read_header(Stream)
 		),_Exception,(
-			% write('Error parsing request.'),nl,
+			% write('Error parsing request.'), nl,
 			close_stream(Stream),
 			fail
 		)),
@@ -50,7 +50,7 @@ server_loop(Socket) :-
 		format(Stream, 'Content-Type: text/plain~n~n', []),
 		format(Stream, '~p', [MyReply]),
 	
-		% write('Finnished Connection'),nl,nl,
+		% write('Finnished Connection'), nl, nl,
 		close_stream(Stream),
 	(Request = quit), !.
 	
@@ -87,10 +87,10 @@ read_header(Stream) :-
 	repeat,
 	read_line(Stream, Line),
 	print_header_line(Line),
-	(Line = []; Line = end_of_file),!.
+	(Line = []; Line = end_of_file), !.
 
 check_end_of_header([]) :- !, fail.
-check_end_of_header(end_of_file) :- !,fail.
+check_end_of_header(end_of_file) :- !, fail.
 check_end_of_header(_).
 
 % Function to Output Request Lines (uncomment the line bellow to see more information on received HTTP Requests)
@@ -106,6 +106,25 @@ print_header_line(_).
 
 % add commands
 
+% Add Commands
+%		0 - Start the Game (initial(GameState))
+%		1 - Game Over (game_over(GameState, Winner))
+%		2 - 
+%		3 - 
+%		4 - 
+%		5 - 
+%		6 - 
+%		7 - 
+%		8 - 
+%		9 - 
+
+% parse_input(Input, Output).
+parse_input([0], [0, 8, Board, Player]) :- initial(8-Board-Player).
+parse_input([1, Dimensions, Board, Player], [1, Winner]) :- game_over(Dimensions-Board-Player, Winner).
+parse_input([2, Dimensions, Board, Player, Level], [0, Move]) :- choose_move(Dimensions-Board-Player, _, Level, Move).
+
+
+parse_input(handshake, ola).
 parse_input([quit], goodbye).
 
 	
