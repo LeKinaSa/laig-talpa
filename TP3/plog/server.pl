@@ -102,15 +102,7 @@ print_header_line(_).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Require your Prolog Files here
-:- consult('board.pl').
-:- consult('display.pl').
-:- consult('game.pl').
-:- consult('menu.pl').
-:- consult('moves.pl').
-:- consult('path_finder.pl').
 :- consult('talpa.pl').
-:- consult('utils.pl').
-:- consult('value.pl').
 
 % add commands
 
