@@ -109,20 +109,19 @@ print_header_line(_).
 % Add Commands
 %		0 - Start the Game (initial(GameState))
 %		1 - Game Over (game_over(GameState, Winner))
-%		2 - 
-%		3 - 
-%		4 - 
-%		5 - 
-%		6 - 
-%		7 - 
-%		8 - 
-%		9 - 
+%		2 - AI make a Move (choose_move(GameState, Player, Level, Move))
+%		3 - Player make a Move (verify_player_move(GameState, Move))
 
+% Output:
+%		0 - Ok / Valid Move
+% 		1 - Error / Invalid Move
 % parse_input(Input, Output).
 parse_input([0], [0, 8, Board, Player]) :- initial(8-Board-Player).
-parse_input([1, Dimensions, Board, Player], [1, Winner]) :- game_over(Dimensions-Board-Player, Winner).
-parse_input([2, Dimensions, Board, Player, Level], [0, Move]) :- choose_move(Dimensions-Board-Player, _, Level, Move).
-
+parse_input([1, Dimensions, Board, Player], [0, Winner]) :- game_over(Dimensions-Board-Player, Winner).
+parse_input([2, Dimensions, Board, Player, Level], [0, Move]) :- Level \= 0, choose_move(Dimensions-Board-Player, _, Level, Move).
+parse_input([2, _, _, _, 0], [1, _]).
+parse_input([3, Dimensions, Board, Player, Move], [0]) :- verify_player_move(Dimensions-Board-Player, Move).
+parse_input([3, _, _, _, _], [1]).
 
 parse_input(handshake, ola).
 parse_input([quit], goodbye).
