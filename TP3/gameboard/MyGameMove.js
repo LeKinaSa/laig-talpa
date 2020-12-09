@@ -11,16 +11,16 @@ class MyGameMove extends MyMove {
     }
 
     toProlog() {
-        var column     = this.originTile.position[0];
-        var line       = this.originTile.position[1];
+        var column     = this.originTile.getColumn();
+        var line       = this.originTile.getLine();
         
         var direction;
         if (this.destinationTile == null) {
             direction = 'x';
         }
 
-        var nextColumn = this.destinationTile.position[0];
-        var nextLine   = this.destinationTile.position[1];
+        var nextColumn = this.destinationTile.getColumn();
+        var nextLine   = this.destinationTile.getLine();
         
         if     (column < nextColumn) {
             direction = 'r';
