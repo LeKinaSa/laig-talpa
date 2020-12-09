@@ -105,21 +105,23 @@ print_header_line(_).
 :- consult('talpa.pl').
 
 % Add Commands
-
-% | Command Number |     Command Name     |          Output          |
-% |        0       | Start the Game       | Dimensions Board Player  |
-% |        1       | Game Over            | Winner                   |
-% |        2       | AI choose a Move     | Move                     |
-% |        3       | Player choose a Move | Move                     |
-% |        4       | Move a Piece         | Dimensions Board Player  |
-
+/*
+_________________________________________________________________________________________
+| Number  |    Command Name    |                  Input                  |    Output    |
+|    0    | Start the Game     | Dimensions                              | Board Player |
+|    1    | Game Over          | Dimensions Board Player                 | Winner       |
+|    2    | Choose AI Move     | Dimensions Board Player Level           | Move         |
+|    3    | Choose Player Move | Dimensions Board Player Column Line Dir | Move         |
+|    4    | Move a Piece       | Dimensions Board Player Move            | Board Player |
+|_________|____________________|_________________________________________|______________|
+*/
 % parse_input(Input, Output).
 % Output:
 %		0 - Ok / Valid Move
 % 		1 - Error / Invalid Move
 
-parse_input([0], [0, 8, Board, Player]) :-
-	initial(8-Board-Player).
+parse_input([0, Dimensions], [0, Board, Player]) :-
+	initial(Dimensions-Board-Player).
 
 parse_input([1, Dimensions, Board, Player], [0, Winner]) :-
 	game_over(Dimensions-Board-Player, Winner).
@@ -132,8 +134,8 @@ parse_input([3, Dimensions, Board, Player, Column, Line, Direction], [0, Column-
 	verify_player_move(Dimensions-Board-Player, Column-Line-Direction).
 parse_input([3, _, _, _, _], [1]).
 
-parse_input([4, Dimensions, Board, Player, Move], [0, NewDimensions, NewBoard, NewPlayer]) :-
-	move(Dimensions-Board-Player, Move, NewDimensions-NewBoard-NewPlayer).
+parse_input([4, Dimensions, Board, Player, Move], [0, NewBoard, NewPlayer]) :-
+	move(Dimensions-Board-Player, Move, Dimensions-NewBoard-NewPlayer).
 
 parse_input(handshake, hi).
 parse_input([quit], goodbye).
