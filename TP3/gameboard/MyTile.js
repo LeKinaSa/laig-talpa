@@ -81,7 +81,7 @@ class MyTile {
         // Translation According to the Position on the Board
         var column = this.position[0];
         var  line  = 9 - this.position[1];
-        this.scene.translate(column - 4.5, 0, line - 4.5); // TODO : maybe trade line and column
+        this.scene.translate(4.5 - line, 0, 4.5 - column);
 
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.tileMaterial.apply();
