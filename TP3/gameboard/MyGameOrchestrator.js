@@ -12,7 +12,7 @@ class MyGameOrchestrator extends CGFobject{
     constructor(scene){
         this.animator = new MyAnimator(scene, this);
         this.gameboard = new MyGameboard(scene);
-        //this.gameSequence = new MyGameSequence(…);
+        this.gameSequence = new MyGameSequence(scene);
         //this.theme = new MyScenegraph(…);
         //this.prolog = new MyPrologInterface(…);
     }

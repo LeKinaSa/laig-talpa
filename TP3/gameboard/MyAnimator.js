@@ -6,6 +6,7 @@ class MyAnimator extends CGFobject{
     constructor(scene, gameOrchestrator){
         super(scene);
         this.gameOrchestrator = gameOrchestrator;
+        this.finished = false; // defines if the animation is finished
     }
 
     /**
