@@ -84,4 +84,26 @@ class MyGameBoard {
             this.tiles[i].display();
         }
     }
+
+    toProlog() {
+        var board = [];
+        var piece;
+        var symbol;
+        for (var tile = 0; tile < this.tiles.length; ++ tile) {
+            piece = this.tiles[tile].getPiece();
+            if      (      piece      ==  null ) {
+                symbol = ' ';
+            }
+            else if (piece.getColor() ==  'red') {
+                symbol = 'X';
+            }
+            else if (piece.getColor() == 'blue') {
+                symbol = 'O';
+            }
+            else {
+                console.log("Error in Piece Color.\n");
+            }
+            board.push(symbol);
+        }
+    }
 }

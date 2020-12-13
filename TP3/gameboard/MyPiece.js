@@ -32,7 +32,7 @@ class MyPiece {
     /**
      * Get Piece Type / Color
      */
-    getType() {
+    getColor() {
         return this.color;
     }
 
