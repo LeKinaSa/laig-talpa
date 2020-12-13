@@ -17,11 +17,11 @@ port(8081).
 % Server Entry Point
 server :-
 	port(Port),
-	write('Opened Server'),nl,nl,
+	write('Opened Server'), nl, nl,
 	socket_server_open(Port, Socket),
 	server_loop(Socket),
 	socket_server_close(Socket),
-	write('Closed Server'),nl.
+	write('Closed Server'), nl.
 
 % Server Loop 
 % Uncomment writes for more information on incomming connections
@@ -34,7 +34,7 @@ server_loop(Socket) :-
 			read_request(Stream, Request),
 			read_header(Stream)
 		),_Exception,(
-			% write('Error parsing request.'),nl,
+			% write('Error parsing request.'), nl,
 			close_stream(Stream),
 			fail
 		)),
@@ -50,7 +50,7 @@ server_loop(Socket) :-
 		format(Stream, 'Content-Type: text/plain~n~n', []),
 		format(Stream, '~p', [MyReply]),
 	
-		% write('Finnished Connection'),nl,nl,
+		% write('Finnished Connection'), nl, nl,
 		close_stream(Stream),
 	(Request = quit), !.
 	
@@ -87,10 +87,10 @@ read_header(Stream) :-
 	repeat,
 	read_line(Stream, Line),
 	print_header_line(Line),
-	(Line = []; Line = end_of_file),!.
+	(Line = []; Line = end_of_file), !.
 
 check_end_of_header([]) :- !, fail.
-check_end_of_header(end_of_file) :- !,fail.
+check_end_of_header(end_of_file) :- !, fail.
 check_end_of_header(_).
 
 % Function to Output Request Lines (uncomment the line bellow to see more information on received HTTP Requests)
@@ -102,18 +102,50 @@ print_header_line(_).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Require your Prolog Files here
-:- consult('board.pl').
-:- consult('display.pl').
-:- consult('game.pl').
-:- consult('menu.pl').
-:- consult('moves.pl').
-:- consult('path_finder.pl').
 :- consult('talpa.pl').
-:- consult('utils.pl').
-:- consult('value.pl').
 
-% add commands
+% Add Commands
+/*
+_________________________________________________________________________________________
+| Number  |    Command Name    |                  Input                  |    Output    |
+|    0    | Start the Game     | Dimensions                              | Board Player |
+|    1    | Game Over          | Dimensions Board Player                 | Winner       |
+|    2    | Choose AI Move     | Dimensions Board Player Level           | Move         |
+|    3    | Choose Player Move | Dimensions Board Player Column Line Dir | Move         |
+|    4    | Move a Piece       | Dimensions Board Player Move            | Board Player |
+|_________|____________________|_________________________________________|______________|
+*/
+% parse_input(Input, Output).
+% Output:
+%		0 - Ok / Valid Move
+% 		1 - Error / Invalid Move
 
+parse_input([0, Dimensions], [0, Board, Player]) :-
+	initial(Dimensions-Board-Player).
+
+parse_input([1, Dimensions, Board, Player], [0, Winner]) :-
+	game_over(Dimensions-Board-Player, Winner).
+
+parse_input([2, Dimensions, Board, Player, Level], [0, Move]) :-
+	Level \= 0, choose_move(Dimensions-Board-Player, _, Level, Move).
+parse_input([2, _, _, _, 0], [1, _]).
+
+parse_input([3, Dimensions, Board, Player, Column, Line, Direction], [0, Column-Line-Direction]) :-
+	verify_player_move(Dimensions-Board-Player, Column-Line-Direction).
+parse_input([3, _, _, _, _], [1]).
+
+parse_input([4, Dimensions, Board, Player, Move], [0, NewBoard, NewPlayer]) :-
+	move(Dimensions-Board-Player, Move, Dimensions-NewBoard-NewPlayer).
+
+parse_input(handshake, hi).
 parse_input([quit], goodbye).
 
-	
+/**
+ * Verifies if the Move made by the Player is Valid
+ * 		- Similar to choose_player_move but obtaining the move
+ * 				from the request and not from the console
+ */
+% verify_player_move(+GameState, +Move)
+verify_player_move(GameState, Move) :-
+    valid_moves(GameState, _, ValidMoves),
+    member(Move, ValidMoves).
