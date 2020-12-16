@@ -125,6 +125,10 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = true;
         this.board = new MyGameBoard(this);
+
+        // ----- TESTING
+        this.gameOrchestrator = new MyGameOrchestrator(this);
+        this.gameOrchestrator.makeRequest();
     }
 
     /**

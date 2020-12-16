@@ -1,6 +1,6 @@
 class MyGameUndoMove extends MyMove {
     MyGameUndoMove(initialGameState, move) {
-        super(initialGameState);
+        //super(initialGameState);
         this.move = move;
     }
 
