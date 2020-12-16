@@ -197,6 +197,7 @@
                 <noderef id="table-side3"/>
                 <noderef id="table-side4"/>
                 <noderef id="table-bottom"/>
+                <noderef id="table-legs"/>
             </descendants>
         </node>
 
@@ -286,6 +287,80 @@
 
             <descendants>
                 <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5"/>
+            </descendants>
+        </node>
+
+        <node id="table-legs">  
+            <material id="null" />
+            <texture id="wood">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-8" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="table-leg1"/>
+                <noderef id="table-leg2"/>
+                <noderef id="table-leg3"/>
+                <noderef id="table-leg4"/>
+            </descendants>
+        </node>
+
+        <node id="table-leg1">  
+            <material id="null" />
+            <texture id="wood">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="-4" y="-4" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="7" topRadius=".3" bottomRadius=".3" stacks="36" slices="36"/>
+            </descendants>
+        </node>
+
+        <node id="table-leg2">  
+            <material id="null" />
+            <texture id="wood">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="-4" y="4" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="7" topRadius=".3" bottomRadius=".3" stacks="36" slices="36"/>
+            </descendants>
+        </node>
+
+        <node id="table-leg3">  
+            <material id="null" />
+            <texture id="wood">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="4" y="-4" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="7" topRadius=".3" bottomRadius=".3" stacks="36" slices="36"/>
+            </descendants>
+        </node>
+
+        <node id="table-leg4">  
+            <material id="null" />
+            <texture id="wood">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="4" y="4" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="7" topRadius=".3" bottomRadius=".3" stacks="36" slices="36"/>
             </descendants>
         </node>
 
