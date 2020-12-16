@@ -10,11 +10,12 @@
  */
 class MyGameOrchestrator extends CGFobject{
     constructor(scene){
+        super(scene);
         this.animator = new MyAnimator(scene, this);
         this.gameboard = new MyGameboard(scene);
         this.gameSequence = new MyGameSequence(scene);
         //this.theme = new MyScenegraph(…);
-        //this.prolog = new MyPrologInterface(…);
+        this.prolog = new MyPrologInterface();
     }
 
     /**
@@ -29,5 +30,17 @@ class MyGameOrchestrator extends CGFobject{
         //this.theme.display();
         this.animator.display();
         this.gameboard.display();
+    }
+
+    onHandshakeSuccess(){
+
+    }
+
+    onHandshakeFailure(){
+
+    }
+
+    makeRequest(){
+        this.prolog.sendPrologRequest("handshake", this.onHandshakeSuccess, this.onHandshakeFailure );
     }
 }
