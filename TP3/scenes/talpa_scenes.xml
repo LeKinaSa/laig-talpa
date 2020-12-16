@@ -39,7 +39,7 @@
 
 
     <textures>
-        <texture id="table-top" path="./scenes/images/table-top.jpg" />
+        <texture id="wood" path="./scenes/images/wood.jpg" />
     </textures>
 
     <!-- spritesheets -->
@@ -57,8 +57,8 @@
         <material id="demoMaterial">
             <shininess value="30" />
             <ambient  r="0.0" g="0.0" b="0.0" a="1.0" />
-            <diffuse  r="0.6" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
+            <diffuse  r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
         <material id="demoMaterial2">
@@ -78,8 +78,7 @@
 
     <nodes>
         <node id="living-room">
-            <material id="null" />
-
+            <material id="demoMaterial" />
             <texture id="null">
                 <amplification afs="1" aft="1" />
             </texture>
@@ -193,17 +192,96 @@
 
             <descendants>
                 <noderef id="table-top"/>
+                <noderef id="table-side1"/>
+                <noderef id="table-side2"/>
+                <noderef id="table-side3"/>
+                <noderef id="table-side4"/>
+                <noderef id="table-bottom"/>
             </descendants>
         </node>
 
         <node id="table-top">  
             <material id="null" />
-            <texture id="null">
+            <texture id="wood">
                 <amplification afs="10" aft="10" />
             </texture>
             <transformations>
                 <translation x="0" y="-0.001" z="0"/>
                 <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5"/>
+            </descendants>
+        </node>
+
+        <node id="table-side1">  
+            <material id="null" />
+            <texture id="wood">
+                <amplification afs="10" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-0.5" z="5"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+            </descendants>
+        </node>
+
+        <node id="table-side2">  
+            <material id="null" />
+            <texture id="wood">
+                <amplification afs="10" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="5" y="-0.5" z="0"/>
+                <rotation axis="y" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+            </descendants>
+        </node>
+
+        <node id="table-side3">  
+            <material id="null" />
+            <texture id="wood">
+                <amplification afs="10" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="-5" y="-0.5" z="0"/>
+                <rotation axis="y" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+            </descendants>
+        </node>
+
+        <node id="table-side4">  
+            <material id="null" />
+            <texture id="wood">
+                <amplification afs="10" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-0.5" z="-5"/>
+                <rotation axis="y" angle="-180"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+            </descendants>
+        </node>
+
+        <node id="table-bottom">  
+            <material id="null" />
+            <texture id="wood">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-1" z="0"/>
+                <rotation axis="x" angle="90"/>
             </transformations>
 
             <descendants>
