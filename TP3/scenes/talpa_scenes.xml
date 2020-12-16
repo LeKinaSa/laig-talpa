@@ -2,7 +2,7 @@
     <initials>
         <reference length="2" />
         <!-- axis length; "0" means no axis displayed -->
-        <root id="root" />
+        <root id="living-room" />
         <!-- identifier of root node of the scene graph; this node -->
         <!-- must be defined in one of the following NODE declarations -->
     </initials>
@@ -39,8 +39,7 @@
 
 
     <textures>
-
-
+        <texture id="table-top" path="./scenes/images/table-top.jpg" />
     </textures>
 
     <!-- spritesheets -->
@@ -78,7 +77,7 @@
     </animations>
 
     <nodes>
-        <node id="root">
+        <node id="living-room">
             <material id="null" />
 
             <texture id="null">
@@ -87,12 +86,12 @@
             <transformations>
             </transformations>
             <descendants>
-                <noderef id="primitive" />
-                <!-- <noderef id="animation" /> -->
+                <noderef id="structure" />
+                <noderef id="table"/>
             </descendants>
         </node>
 
-        <node id="primitive">  
+        <node id="structure">  
             <material id="null" />
             <texture id="null">
                 <amplification afs="10" aft="10" />
@@ -101,7 +100,114 @@
             </transformations>
 
             <descendants>
-               
+               <noderef id="wall1"/>
+               <noderef id="wall2"/>
+               <noderef id="wall3"/>
+               <noderef id="wall4"/>
+               <noderef id="floor"/>
+               <noderef id="ceiling"/>
+            </descendants>
+        </node>
+
+        <node id="wall1">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+                <translation x="0" y="0" z="-10"/>
+            </transformations>
+
+            <descendants>
+                <!-- <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5"/> -->
+            </descendants>
+        </node>   
+
+        <node id="wall2">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+            </descendants>
+        </node>  
+
+        <node id="wall3">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+            </descendants>
+        </node> 
+
+        <node id="wall4">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+            </descendants>
+        </node> 
+
+        <node id="floor">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+            </descendants>
+        </node> 
+
+        <node id="ceiling">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+            </descendants>
+        </node>  
+
+        <node id="table">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="table-top"/>
+            </descendants>
+        </node>
+
+        <node id="table-top">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-0.001" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5"/>
             </descendants>
         </node>
 
