@@ -42,10 +42,13 @@
         <texture id="wall-paper" path="./scenes/images/wall-paper.jpg" />
         <texture id="red-chair" path="./scenes/images/red-chair.jpg" />
         <texture id="blue-chair" path="./scenes/images/blue-chair.jpg" />
+        <texture id="rug" path="./scenes/images/rug.jpg" />
+        <texture id="window" path="./scenes/images/window.jpg"/>
+        <texture id="window2" path="./scenes/images/test.gif"/>
+
     </textures>
 
     <spritesheets>
-            <spritesheet id="test" path="./scenes/images/texture.jpg" sizeM="10" sizeN="10" />
     </spritesheets>
 
     <materials>
@@ -92,8 +95,10 @@
             </transformations>
             <descendants>
                 <noderef id="structure" />
+                <noderef id="windows"/>
                 <noderef id="table"/>
                 <noderef id="chairs"/>
+                <noderef id="rug"/>
             </descendants>
         </node>
 
@@ -203,6 +208,102 @@
                 <leaf type="rectangle" x1="-50" y1="-50" x2="50" y2="50"/>
             </descendants>
         </node>  
+
+        <node id="windows">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="20" aft="20" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="window1"/>
+                <noderef id="window2"/>
+            </descendants>
+        </node> 
+
+        <node id="window1">
+            <material id="null" />
+            <texture id="window">
+                <amplification afs="20" aft="20" />
+            </texture>
+            
+            <transformations>
+                <translation x="-49.9" y="17" z="-25"/>
+                <rotation axis="y" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="glass"/>
+                <noderef id="window-grid1"/>
+                <noderef id="window-grid2"/>
+            </descendants>
+        </node> 
+
+        <node id="window2">
+            <material id="null" />
+            <texture id="window">
+                <amplification afs="20" aft="20" />
+            </texture>
+            
+            <transformations>
+                <translation x="-49.9" y="17" z="25"/>
+                <rotation axis="y" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="glass"/>
+                <noderef id="window-grid1"/>
+                <noderef id="window-grid2"/>
+            </descendants>
+        </node> 
+
+        <node id="glass">
+            <material id="null" />
+            <texture id="window">
+                <amplification afs="20" aft="20" />
+            </texture>
+            
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="10"/>
+            </descendants>
+        </node>
+
+        <node id="window-grid1">
+            <material id="null" />
+            <texture id="wood">
+                <amplification afs="20" aft="1" />
+            </texture>
+            
+            <transformations>
+                <translation x="0" y="0" z=".1"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-10" y1="-.5" x2="10" y2=".5"/>
+            </descendants>
+        </node>
+
+        <node id="window-grid2">
+            <material id="null" />
+            <texture id="wood">
+                <amplification afs="20" aft="1" />
+            </texture>
+            
+            <transformations>
+                <translation x="0" y="0" z=".1"/>
+                <rotation axis="z" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-10" y1="-.5" x2="10" y2=".5"/>
+            </descendants>
+        </node>
 
         <node id="table">  
             <material id="null" />
@@ -807,6 +908,22 @@
 
             <descendants>
                 <leaf type="cylinder" height="5" topRadius=".2" bottomRadius=".2" stacks="36" slices="36"/>
+            </descendants>
+        </node>
+    
+        <node id="rug">  
+            <material id="null" />
+            <texture id="rug">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-7.99" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                
+                <leaf type="rectangle" x1="-20" y1="-25" x2="20" y2="25"/>
             </descendants>
         </node>
 
