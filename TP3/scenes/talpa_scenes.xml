@@ -68,6 +68,20 @@
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
             <emissive r="1.0" g="1.0" b="1.0" a="1.0" />
         </material>
+        <material id="bluePieceMaterial">
+            <shininess value="30" />
+            <ambient  r="0.0" g="0.0" b="0.2" a="1.0" />
+            <diffuse  r="0.0" g="0.0" b="0.6" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.8" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="redPieceMaterial">
+            <shininess value="10" />
+            <ambient  r="0.2" g="0.0" b="0.0" a="1.0" />
+            <diffuse  r="0.6" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.8" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
     </materials>
 
     <!--informacao de animacao -->
@@ -198,6 +212,8 @@
                 <noderef id="table-side4"/>
                 <noderef id="table-bottom"/>
                 <noderef id="table-legs"/>
+
+                <noderef id="board-limits"/>                
             </descendants>
         </node>
 
@@ -361,6 +377,84 @@
 
             <descendants>
                 <leaf type="cylinder" height="7" topRadius=".3" bottomRadius=".3" stacks="36" slices="36"/>
+            </descendants>
+        </node>
+
+        <node id="board-limits">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="red-top"/>
+                <noderef id="red-bottom"/>
+                <noderef id="blue-left"/>
+                <noderef id="blue-right"/>
+            </descendants>
+        </node>
+
+        <node id="red-top">
+            <material id="redPieceMaterial" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-0.0005" z="4.25"/>
+                <rotation axis="x" angle="-90"/>
+                <rotation axis="z" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.25" y1="-4" x2="0.25" y2="4"/>
+            </descendants>
+        </node>
+
+        <node id="red-bottom">
+            <material id="redPieceMaterial" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-0.0005" z="-4.25"/>
+                <rotation axis="x" angle="-90"/>
+                <rotation axis="z" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.25" y1="-4" x2="0.25" y2="4"/>
+            </descendants>
+        </node>
+
+        <node id="blue-left">
+            <material id="bluePieceMaterial" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="-4.25" y="-0.0005" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.25" y1="-4" x2="0.25" y2="4"/>
+            </descendants>
+        </node>
+
+        <node id="blue-right">
+            <material id="bluePieceMaterial" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="4.25" y="-0.0005" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.25" y1="-4" x2="0.25" y2="4"/>
             </descendants>
         </node>
 
