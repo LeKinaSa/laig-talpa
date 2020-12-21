@@ -45,11 +45,13 @@
         <texture id="rug" path="./scenes/images/rug.jpg" />
         <texture id="door" path="./scenes/images/door.jpg" />
         <texture id="window" path="./scenes/images/window.jpg"/>
-        <texture id="window2" path="./scenes/images/test.gif"/>
+        <texture id="fireplace" path="./scenes/images/fireplace.jpg"/>
+        <texture id="rock" path="./scenes/images/rock.jpg"/>
 
     </textures>
 
     <spritesheets>
+        <spritesheet id="fire" path="./scenes/images/fire.png" sizeM="8" sizeN="8"/>
     </spritesheets>
 
     <materials>
@@ -118,6 +120,7 @@
                 <noderef id="ceiling"/>
                 <noderef id="windows"/>
                 <noderef id="door"/>
+                <noderef id="fireplace"/>
             </descendants>
         </node>
 
@@ -232,7 +235,7 @@
             </texture>
             
             <transformations>
-                <translation x="-29.9" y="17" z="-25"/>
+                <translation x="-29.9" y="17" z="-35"/>
                 <rotation axis="y" angle="90"/>
             </transformations>
 
@@ -250,7 +253,7 @@
             </texture>
             
             <transformations>
-                <translation x="-29.9" y="17" z="25"/>
+                <translation x="-29.9" y="17" z="15"/>
                 <rotation axis="y" angle="90"/>
             </transformations>
 
@@ -959,6 +962,143 @@
             </descendants>
         </node>
 
+        <node id="fireplace">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+            </transformations>
 
+            <descendants>
+                <noderef id="fireplace-structure"/>
+                <noderef id="fireplace-chimney"/>
+                <noderef id="fire"/>
+            </descendants>
+        </node>
+
+        <node id="fireplace-structure">  
+            <material id="null" />
+            <texture id="fireplace">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="45" y="2" z="-55"/>
+                <scale sx="2" sy="10" sz="2"/>
+            </transformations>
+
+            <descendants>                
+                <noderef id="fireplace-top"/>
+                <noderef id="fireplace-side1"/>
+                <noderef id="fireplace-side2"/>
+                <noderef id="fireplace-side3"/>
+                <noderef id="fireplace-side4"/>              
+            </descendants>
+        </node>
+
+        <node id="fireplace-top">  
+            <material id="null" />
+            <texture id="fireplace">
+                <amplification afs="30" aft="3" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-0.001" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5"/>
+            </descendants>
+        </node>
+
+        <node id="fireplace-side1">  
+            <material id="null" />
+            <texture id="fireplace">
+                <amplification afs="30" aft="3" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-0.5" z="5"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+            </descendants>
+        </node>
+
+        <node id="fireplace-side2">  
+            <material id="null" />
+            <texture id="fireplace">
+                <amplification afs="30" aft="3" />
+            </texture>
+            <transformations>
+                <translation x="5" y="-0.5" z="0"/>
+                <rotation axis="y" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+            </descendants>
+        </node>
+
+        <node id="fireplace-side3">  
+            <material id="null" />
+            <texture id="fireplace">
+                <amplification afs="30" aft="3" />
+            </texture>
+            <transformations>
+                <translation x="-5" y="-0.5" z="0"/>
+                <rotation axis="y" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+            </descendants>
+        </node>
+
+        <node id="fireplace-side4">  
+            <material id="null" />
+            <texture id="fireplace">
+                <amplification afs="30" aft="3" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-0.5" z="-5"/>
+                <rotation axis="y" angle="-180"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+            </descendants>
+        </node>
+
+        <node id="fireplace-chimney">  
+            <material id="null" />
+            <texture id="fireplace">
+                <amplification afs="2" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="45" y="42" z="-55"/>
+                <rotation axis="y" angle="45"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="40" topRadius="7" bottomRadius="7" stacks="4" slices="4"/>
+            </descendants>
+        </node>
+
+        <node id="fire">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="2" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="44.5" y="-3" z="-44.5"/>
+                <scale sx="8" sy="4" sz="4"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="spriteanim" ssid="fire" startCell="1" endCell="63" duration=".5"/>
+            </descendants>
+        </node>
     </nodes>
 </lsf>
