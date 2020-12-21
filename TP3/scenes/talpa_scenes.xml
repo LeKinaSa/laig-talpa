@@ -43,6 +43,7 @@
         <texture id="red-chair" path="./scenes/images/red-chair.jpg" />
         <texture id="blue-chair" path="./scenes/images/blue-chair.jpg" />
         <texture id="rug" path="./scenes/images/rug.jpg" />
+        <texture id="door" path="./scenes/images/door.jpg" />
         <texture id="window" path="./scenes/images/window.jpg"/>
         <texture id="window2" path="./scenes/images/test.gif"/>
 
@@ -95,9 +96,7 @@
             </transformations>
             <descendants>
                 <noderef id="structure" />
-                <noderef id="windows"/>
-                <noderef id="table"/>
-                <noderef id="chairs"/>
+                <noderef id="game-zone"/>
                 <noderef id="rug"/>
             </descendants>
         </node>
@@ -111,12 +110,14 @@
             </transformations>
 
             <descendants>
-               <noderef id="wall1"/>
-               <noderef id="wall2"/>
-               <noderef id="wall3"/>
-               <noderef id="wall4"/>
-               <noderef id="floor"/>
-               <noderef id="ceiling"/>
+                <noderef id="wall1"/>
+                <noderef id="wall2"/>
+                <noderef id="wall3"/>
+                <noderef id="wall4"/>
+                <noderef id="floor"/>
+                <noderef id="ceiling"/>
+                <noderef id="windows"/>
+                <noderef id="door"/>
             </descendants>
         </node>
 
@@ -126,7 +127,7 @@
                 <amplification afs="10" aft="10" />
             </texture>
             <transformations>
-                <translation x="0" y="17" z="-50"/>
+                <translation x="20" y="17" z="-60"/>
             </transformations>
 
             <descendants>
@@ -140,7 +141,7 @@
                 <amplification afs="10" aft="10" />
             </texture>
             <transformations>
-                <translation x="-50" y="17" z="0"/>
+                <translation x="-30" y="17" z="-10"/>
                 <rotation axis="y" angle="90"/>
             </transformations>
 
@@ -155,7 +156,7 @@
                 <amplification afs="10" aft="10" />
             </texture>
             <transformations>
-                <translation x="50" y="17" z="0"/>
+                <translation x="70" y="17" z="-10"/>
                 <rotation axis="y" angle="-90"/>
             </transformations>
 
@@ -170,7 +171,7 @@
                 <amplification afs="10" aft="10" />
             </texture>
             <transformations>
-                <translation x="0" y="17" z="50"/>
+                <translation x="20" y="17" z="40"/>
                 <rotation axis="y" angle="180"/>
             </transformations>
 
@@ -190,7 +191,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-50" y1="-50" x2="50" y2="50"/>
+                <leaf type="rectangle" x1="-30" y1="-40" x2="70" y2="60"/>
             </descendants>
         </node> 
 
@@ -200,12 +201,12 @@
                 <amplification afs="10" aft="10" />
             </texture>
             <transformations>
-                <translation x="0" y="42" z="0"/>
+                <translation x="0" y="42" z="-20"/>
                 <rotation axis="x" angle="90"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-50" y1="-50" x2="50" y2="50"/>
+                <leaf type="rectangle" x1="-30" y1="-40" x2="70" y2="60"/>
             </descendants>
         </node>  
 
@@ -231,7 +232,7 @@
             </texture>
             
             <transformations>
-                <translation x="-49.9" y="17" z="-25"/>
+                <translation x="-29.9" y="17" z="-25"/>
                 <rotation axis="y" angle="90"/>
             </transformations>
 
@@ -249,7 +250,7 @@
             </texture>
             
             <transformations>
-                <translation x="-49.9" y="17" z="25"/>
+                <translation x="-29.9" y="17" z="25"/>
                 <rotation axis="y" angle="90"/>
             </transformations>
 
@@ -302,6 +303,37 @@
 
             <descendants>
                 <leaf type="rectangle" x1="-10" y1="-.5" x2="10" y2=".5"/>
+            </descendants>
+        </node>
+
+        <node id="door">
+            <material id="null" />
+            <texture id="door">
+                <amplification afs="20" aft="30" />
+            </texture>
+            
+            <transformations>
+                <translation x="69.9" y="7" z="25"/>
+                <rotation axis="y" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-10" y1="-15" x2="10" y2="15"/>
+            </descendants>
+        </node>
+
+        <node id="game-zone">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="20" aft="30" />
+            </texture>
+            
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="table"/>
+                <noderef id="chairs"/>
             </descendants>
         </node>
 
