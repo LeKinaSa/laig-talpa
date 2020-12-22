@@ -55,6 +55,7 @@
 
     <spritesheets>
         <spritesheet id="fire" path="./scenes/images/fire.png" sizeM="8" sizeN="8"/>
+        <spritesheet id="tv" path="./scenes/images/tv.png" sizeM="20" sizeN="15"/>
     </spritesheets>
 
     <materials>
@@ -108,6 +109,7 @@
                 <noderef id="painting"/>
                 <noderef id="couchs"/>
                 <noderef id="sideboard"/> 
+                <noderef id="tv"/> 
             </descendants>
         </node>
 
@@ -1656,6 +1658,22 @@
 
             <descendants>
                 <leaf type="rectangle" x1="-15" y1="-5" x2="15" y2="5"/>
+            </descendants>
+        </node>
+
+        <node id="tv">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="68" y="10" z="-20"/>
+                <rotation axis="y" angle="-90"/>
+                <scale sx="20" sy="10" sz="1"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="spriteanim" ssid="tv" startCell="1" endCell="100" duration="1"/>
             </descendants>
         </node>
         
