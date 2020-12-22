@@ -48,6 +48,8 @@
         <texture id="fireplace" path="./scenes/images/fireplace.jpg"/>
         <texture id="drawer" path="./scenes/images/drawer.jpg"/>
         <texture id="mole-painting" path="./scenes/images/mole-painting.jpg"/>
+        <texture id="leather" path="./scenes/images/leather.jpg"/>
+        <texture id="sideboard" path="./scenes/images/sideboard.jpg"/>
 
     </textures>
 
@@ -104,6 +106,8 @@
                 <noderef id="fireplace"/>
                 <noderef id="drawer"/>
                 <noderef id="painting"/>
+                <noderef id="couchs"/>
+                <noderef id="sideboard"/> 
             </descendants>
         </node>
 
@@ -1099,14 +1103,15 @@
                 <noderef id="drawer-side1"/>
                 <noderef id="drawer-side2"/>
                 <noderef id="drawer-side3"/>
-                <noderef id="drawer-side4"/>          
+                <noderef id="drawer-side4"/>  
+                <noderef id="drawer-bottom"/>         
             </descendants>
         </node>
 
         <node id="drawer-top">  
             <material id="null" />
             <texture id="wood">
-                <amplification afs="1" aft="1" />
+                <amplification afs="10" aft="20" />
             </texture>
             <transformations>
                 <translation x="0" y="6.5" z="0"/>
@@ -1135,7 +1140,7 @@
         <node id="drawer-side2">  
             <material id="null" />
             <texture id="wood">
-                <amplification afs="1" aft="1" />
+                <amplification afs="10" aft="20" />
             </texture>
             <transformations>
                 <translation x="15" y="-0.5" z="0"/>
@@ -1149,8 +1154,8 @@
 
         <node id="drawer-side3">  
             <material id="null" />
-            <texture id="drawer">
-                <amplification afs="1" aft="1" />
+            <texture id="wood">
+                <amplification afs="10" aft="20" />
             </texture>
             <transformations>
                 <translation x="-15" y="-0.5" z="0"/>
@@ -1165,7 +1170,7 @@
         <node id="drawer-side4">  
             <material id="null" />
             <texture id="drawer">
-                <amplification afs="1" aft="1" />
+                <amplification afs="10" aft="20" />
             </texture>
             <transformations>
                 <translation x="0" y="-0.5" z="-5"/>
@@ -1174,6 +1179,21 @@
 
             <descendants>
                 <leaf type="rectangle" x1="-15" y1="-5" x2="15" y2="7"/>
+            </descendants>
+        </node>
+
+        <node id="drawer-bottom">  
+            <material id="null" />
+            <texture id="wood">
+                <amplification afs="10" aft="20" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-5.5" z="0"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-15" y1="-5" x2="15" y2="5"/>
             </descendants>
         </node>
 
@@ -1190,5 +1210,454 @@
                 <leaf type="rectangle" x1="-7" y1="-7" x2="7" y2="7"/>
             </descendants>
         </node>
+
+        <node id="couchs">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="couch1"/> 
+                <noderef id="couch2"/>        
+            </descendants>
+        </node>
+
+        <node id="couch1">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+                <translation x="47" y="0" z="-2"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="couch-sit"/> 
+                <noderef id="couch-back"/>  
+                <noderef id="couch-legs"/>           
+            </descendants>
+        </node>
+
+        <node id="couch2">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+                <translation x="30" y="0" z="-20"/>
+                <rotation axis="y" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="couch-sit"/> 
+                <noderef id="couch-back"/>  
+                <noderef id="couch-legs"/>           
+            </descendants>
+        </node>
+
+        <node id="couch-sit">  
+            <material id="null" />
+            <texture id="leather">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-3" z="0"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="couch-sit-top"/>
+                <noderef id="couch-sit-side1"/>
+                <noderef id="couch-sit-side2"/>
+                <noderef id="couch-sit-side3"/>
+                <noderef id="couch-sit-side4"/>
+                <noderef id="couch-sit-bottom"/>   
+            </descendants>
+        </node>
+        <node id="couch-sit-top">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="20" aft="10" />
+            </texture>
+            <transformations>
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-10" y1="-5" x2="10" y2="5"/>
+            </descendants>
+        </node>
+
+        <node id="couch-sit-side1">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="20" aft="10" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-2" z="5"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-10" y1="-2" x2="10" y2="2"/>
+            </descendants>
+        </node>
+
+        <node id="couch-sit-side2">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="20" aft="10" />
+            </texture>
+            <transformations>
+                <translation x="10" y="-2" z="0"/>
+                <rotation axis="y" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-2" x2="5" y2="2"/>
+            </descendants>
+        </node>
+
+        <node id="couch-sit-side3">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="20" aft="10" />
+            </texture>
+            <transformations>
+                <translation x="-10" y="-2" z="0"/>
+                <rotation axis="y" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-2" x2="5" y2="2"/>
+            </descendants>
+        </node>
+
+        <node id="couch-sit-side4">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="20" aft="10" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-2" z="-5"/>
+                <rotation axis="y" angle="-180"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-10" y1="-2" x2="10" y2="2"/>
+            </descendants>
+        </node>
+
+        <node id="couch-sit-bottom">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="20" aft="10" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-4" z="0"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-10" y1="-5" x2="10" y2="5"/>
+            </descendants>
+        </node>
+
+        <node id="couch-back">  
+            <material id="null" />
+            <texture id="leather">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+                <translation x="0" y="0" z="5.5"/>
+                <scale sx="1.9" sy="0.7" sz="1"/>
+                <rotation axis="x" angle="-75"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="couch-back-top"/>
+                <noderef id="couch-back-side1"/>
+                <noderef id="couch-back-side2"/>
+                <noderef id="couch-back-side3"/>
+                <noderef id="couch-back-side4"/>
+                <noderef id="couch-back-bottom"/>
+            </descendants>
+        </node>
+
+        <node id="couch-back-top">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-0.001" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5"/>
+            </descendants>
+        </node>
+
+        <node id="couch-back-side1">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-0.5" z="5"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+            </descendants>
+        </node>
+
+        <node id="couch-back-side2">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="5" y="-0.5" z="0"/>
+                <rotation axis="y" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+            </descendants>
+        </node>
+
+        <node id="couch-back-side3">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="-5" y="-0.5" z="0"/>
+                <rotation axis="y" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+            </descendants>
+        </node>
+
+        <node id="couch-back-side4">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-0.5" z="-5"/>
+                <rotation axis="y" angle="-180"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+            </descendants>
+        </node>
+
+        <node id="couch-back-bottom">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-1" z="0"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5"/>
+            </descendants>
+        </node>
+
+        <node id="couch-legs">  
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-8" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="couch-leg1"/>
+                <noderef id="couch-leg2"/>
+                <noderef id="couch-leg3"/>
+                <noderef id="couch-leg4"/>
+            </descendants>
+        </node>
+
+        <node id="couch-leg1">  
+            <material id="metalMaterial" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="-9" y="-4" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="1" topRadius=".2" bottomRadius=".2" stacks="36" slices="36"/>
+            </descendants>
+        </node>
+
+        <node id="couch-leg2">  
+            <material id="metalMaterial" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="-9" y="4" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="1" topRadius=".2" bottomRadius=".2" stacks="36" slices="36"/>
+            </descendants>
+        </node>
+
+        <node id="couch-leg3">  
+            <material id="metalMaterial" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="9" y="-4" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="1" topRadius=".2" bottomRadius=".2" stacks="36" slices="36"/>
+            </descendants>
+        </node>
+
+        <node id="couch-leg4">  
+            <material id="metalMaterial" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="9" y="4" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="1" topRadius=".2" bottomRadius=".2" stacks="36" slices="36"/>
+            </descendants>
+        </node>
+
+        <node id="sideboard">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="67" y="-2.5" z="-20"/>
+                <rotation axis="y" angle="-90"/>
+                <scale sx="1" sy="1" sz="0.5"/>
+            </transformations>
+
+            <descendants>                
+                <noderef id="sideboard-top"/>
+                <noderef id="sideboard-side1"/>
+                <noderef id="sideboard-side2"/>
+                <noderef id="sideboard-side3"/>
+                <noderef id="sideboard-side4"/>  
+                <noderef id="sideboard-bottom"/>         
+            </descendants>
+        </node>
+
+        <node id="sideboard-top">  
+            <material id="null" />
+            <texture id="wood">
+                <amplification afs="10" aft="20" />
+            </texture>
+            <transformations>
+                <translation x="0" y="6.5" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-15" y1="-5" x2="15" y2="5"/>
+            </descendants>
+        </node>
+
+        <node id="sideboard-side1">  
+            <material id="null" />
+            <texture id="sideboard">
+                <amplification afs="30" aft="12" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-0.5" z="5"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-15" y1="-5" x2="15" y2="7"/>
+            </descendants>
+        </node>
+
+        <node id="sideboard-side2">  
+            <material id="null" />
+            <texture id="wood">
+                <amplification afs="10" aft="20" />
+            </texture>
+            <transformations>
+                <translation x="15" y="-0.5" z="0"/>
+                <rotation axis="y" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="7"/>
+            </descendants>
+        </node>
+
+        <node id="sideboard-side3">  
+            <material id="null" />
+            <texture id="wood">
+                <amplification afs="10" aft="20" />
+            </texture>
+            <transformations>
+                <translation x="-15" y="-0.5" z="0"/>
+                <rotation axis="y" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="7"/>
+            </descendants>
+        </node>
+
+        <node id="sideboard-side4">  
+            <material id="null" />
+            <texture id="drawer">
+                <amplification afs="10" aft="20" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-0.5" z="-5"/>
+                <rotation axis="y" angle="-180"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-15" y1="-5" x2="15" y2="7"/>
+            </descendants>
+        </node>
+
+        <node id="sideboard-bottom">  
+            <material id="null" />
+            <texture id="wood">
+                <amplification afs="10" aft="20" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-5.5" z="0"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-15" y1="-5" x2="15" y2="5"/>
+            </descendants>
+        </node>
+        
     </nodes>
 </lsf>
