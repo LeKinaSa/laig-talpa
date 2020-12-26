@@ -16,7 +16,10 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.j
 'animations/MyAnimation.js', 'animations/MyKeyframe.js', 'animations/MyKeyframeAnimation.js',
 'animations/MySpriteSheet.js', 'animations/MySpriteText.js', 'animations/MySpriteAnim.js',
 'primitives/MyPlane.js', 'primitives/MyPatch.js', 'primitives/MyDefBarrel.js',
-'gameboard/MyPiece.js', 'gameboard/MyTile.js', 'gameboard/MyGameBoard.js', 'MyPrologConnection.js',
+'MyPrologConnection.js',
+'gameboard/MyPiece.js', 'gameboard/MyTile.js', 'gameboard/MyGameBoard.js', 'gameboard/MyGameState.js',
+'gameboard/MyMove.js', 'gameboard/MyGameMove.js', 'gameboard/MyGameUndoMove.js', 'gameboard/MyGameSequence.js',
+'gameboard/MyAnimator.js', 'gameboard/MyGameOrchestrator.js', 'gameboard/MyMoveAnimator.js',
 
 main=function()
 {
@@ -35,7 +38,7 @@ main=function()
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
 	// or use "camping.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
 	
-    var filename=getUrlVars()['file'] || "demo.xml";
+    var filename=getUrlVars()['file'] || "talpa_scenes.xml";
 
 	// create and load graph, and associate it to scene. 
 	// Check console for loading errors

@@ -73,6 +73,20 @@ class MyTile {
     }
 
     /**
+     * Get Column
+     */
+    getColumn() {
+        return this.position[0];
+    }
+
+    /**
+     * Get Line
+     */
+    getLine() {
+        return this.position[1];
+    }
+
+    /**
      * Display Tile Primitive and the Piece Standing on that Tile
      */
     display() {
