@@ -32,8 +32,8 @@ class MyGameOrchestrator extends CGFobject{
         this.gameboard.display();
     }
 
-    onHandshakeSuccess(){
-        console.log("Success");
+    /*onHandshakeSuccess(){
+        console.log("Success Establishing Connection");
     }
 
     onHandshakeFailure(){
@@ -43,5 +43,5 @@ class MyGameOrchestrator extends CGFobject{
     makeRequest(){
         let context = this;
         this.prolog.sendPrologRequest("handshake", context.onHandshakeSuccess, context.onHandshakeFailure );
-    }
+    }*/
 }
