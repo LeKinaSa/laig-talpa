@@ -1673,7 +1673,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="spriteanim" ssid="tv" startCell="1" endCell="100" duration="1"/>
+                <leaf type="spriteanim" ssid="tv" startCell="1" endCell="300" duration="30"/>
             </descendants>
         </node>
         
