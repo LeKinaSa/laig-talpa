@@ -13,6 +13,7 @@ class MyPiece {
         this.scene = scene;
         this.piece = new MyCylinder(this.scene, 0.5, 0.5, 0.5, 2, 4);
         this.color = color;
+        this.selected = false;
 
         this.redMaterial = new CGFappearance(this.scene);
         this.redMaterial.setShininess(30);
@@ -28,19 +29,33 @@ class MyPiece {
         this.blueMaterial.setSpecular(0.0, 0.0, 0.8, 1.0);
         this.blueMaterial.setEmission(0.0, 0.0, 0.0, 1.0);
 
+        this.selectedRedMaterial = new CGFappearance(this.scene);
+        this.selectedRedMaterial.setShininess(30);
+        this.selectedRedMaterial.setAmbient (0.2, 0.0, 0.0, 1.0);
+        this.selectedRedMaterial.setDiffuse (0.6, 0.0, 0.0, 1.0);
+        this.selectedRedMaterial.setSpecular(0.8, 0.0, 0.0, 1.0);
+        this.selectedRedMaterial.setEmission(0.6, 0.0, 0.0, 1.0);
+
         this.selectedBlueMaterial = new CGFappearance(this.scene);
         this.selectedBlueMaterial.setShininess(30);
         this.selectedBlueMaterial.setAmbient (0.0, 0.0, 0.2, 1.0);
         this.selectedBlueMaterial.setDiffuse (0.0, 0.0, 0.6, 1.0);
         this.selectedBlueMaterial.setSpecular(0.0, 0.0, 0.8, 1.0);
         this.selectedBlueMaterial.setEmission(0.0, 0.0, 0.6, 1.0);
+    }
 
-        this.selectedRedMaterial = new CGFappearance(this.scene);
-        this.selectedRedMaterial.setShininess(30);
-        this.selectedRedMaterial.setAmbient (0.2, 0.0, 0.0, 1.0);
-        this.selectedRedMaterial.setDiffuse (0.6, 0.0, 0.0, 1.0);
-        this.selectedRedMaterial.setSpecular(0.8, 0.0, 0.0, 1.0);
-        this.selectedRedMaterial.setEmission(0.6, 0, 0, 1.0);
+    /**
+     * Select Piece
+     */
+    select() {
+        this.selected = true;
+    }
+
+    /**
+     * Reset Selection
+     */
+    resetSelection() {
+        this.selected = false;
     }
 
     /**
@@ -58,14 +73,12 @@ class MyPiece {
 
         // Display Piece Color
         if (this.selected) {
-            if(this.color == 'red')         this.selectedRedMaterial.apply();
-            else if (this.color == 'blue')  this.selectedBlueMaterial.apply();
+            if      (this.color ==  'red') { this.selectedRedMaterial.apply();  }
+            else if (this.color == 'blue') { this.selectedBlueMaterial.apply(); }
         }
-        else if (this.color == 'red') {
-            this.redMaterial.apply();
-        }
-        else if (this.color == 'blue') {
-            this.blueMaterial.apply();
+        else {
+            if      (this.color ==  'red') { this.redMaterial.apply();  }
+            else if (this.color == 'blue') { this.blueMaterial.apply(); }
         }
 
         // Display Piece

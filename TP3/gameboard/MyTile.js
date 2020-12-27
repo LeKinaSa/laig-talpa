@@ -117,13 +117,4 @@ class MyTile {
             this.scene.clearPickRegistration();
         }
     }
-
-    /**
-     * Reset Picking Selection
-     */
-    resetPickingSelection() {
-        if (this.piece != null) {
-            this.piece.selected = false;
-        }
-    }
 }

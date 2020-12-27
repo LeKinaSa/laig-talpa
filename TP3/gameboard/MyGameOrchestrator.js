@@ -16,6 +16,8 @@ class MyGameOrchestrator extends CGFobject{
         this.gameSequence = new MyGameSequence(scene);
         //this.theme = new MyScenegraph(…);
         this.prolog = new MyPrologConnection();
+        this.selectedPieces = 0;
+        this.selected = [null, null];
     }
 
     /**
@@ -64,7 +66,22 @@ class MyGameOrchestrator extends CGFobject{
     onObjectSelected(obj, id) {
         if (obj instanceof MyPiece) {
             // Selecting a Piece
-            obj.selected = true;
+            obj.select();
+            this.selected[this.selectedPieces] = obj;
+            ++ this.selectedPieces;
+            console.log(this.selectedPieces);
+        }
+
+        if (this.selectedPieces == 2) {
+            // Move Completed
+
+            // Unselect Pieces
+            this.selected[0].resetSelection();
+            this.selected[1].resetSelection();
+            this.selectedPieces = 0;
+            
+            // Make a Move
+            // TODO: this.selected tem as duas peças que foram selecionadas
         }
     }
 }
