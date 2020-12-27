@@ -57,7 +57,6 @@ class MyTile {
      */
     unsetPiece(gameboard) {
         if (this.piece != null) {
-            this.resetPickingSelection(); //TODO : review
             gameboard.addRemovedPiece(this.piece);
             this.piece = null;
         }

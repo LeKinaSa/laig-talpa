@@ -41,8 +41,14 @@ class XMLscene extends CGFscene {
         this.scaleFactor = 1;
         this.updatePeriod = 100;
 
-        // enable picking
-		this.setPickEnabled(true);
+        // Enable Picking
+        this.setPickEnabled(true);
+        
+        // Game Utilities
+        this.board = new MyGameBoard(this);
+
+        this.gameOrchestrator = new MyGameOrchestrator(this);
+        this.gameOrchestrator.makeRequest();
     }
 
     /**
@@ -127,11 +133,6 @@ class XMLscene extends CGFscene {
         this.setUpdatePeriod(100);
 
         this.sceneInited = true;
-        this.board = new MyGameBoard(this);
-
-        // ----- TESTING // TODO
-        this.gameOrchestrator = new MyGameOrchestrator(this);
-        this.gameOrchestrator.makeRequest();
     }
 
     /**
