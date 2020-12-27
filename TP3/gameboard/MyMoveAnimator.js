@@ -6,6 +6,15 @@ class MyMoveAnimator extends MyAnimator{
     constructor(scene, move){
         super(scene);
         this.move = move;
+        this.pieces = []; // pieces involved in the move
+        this.over = false;
+    }
+
+    update(t){
+    }
+
+    display(){
+
     }
 
 }
