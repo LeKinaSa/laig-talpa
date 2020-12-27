@@ -90,11 +90,17 @@ class MyTile {
      * Display Tile Primitive and the Piece Standing on that Tile
      */
     display() {
+        // Obtain Position in the Board
+        var column = this.position[0];
+        var  line  = 9 - this.position[1];
+        
+        // Register for Picking
+        if (this.piece != null) {
+            this.scene.registerForPick(line * 8 + column, this.piece);
+        }
         this.scene.pushMatrix();
 
         // Translation According to the Position on the Board
-        var column = this.position[0];
-        var  line  = 9 - this.position[1];
         this.scene.translate(4.5 - line, 0, 4.5 - column);
 
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
@@ -104,5 +110,10 @@ class MyTile {
             this.piece.display();
         }
         this.scene.popMatrix();
+
+        // Clear from Picking
+        if (this.piece != null) {
+            this.scene.clearPickRegistration();
+        }
     }
 }

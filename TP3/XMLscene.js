@@ -42,6 +42,15 @@ class XMLscene extends CGFscene {
         this.displayAxis = false;
         this.scaleFactor = 1;
         this.updatePeriod = 100;
+
+        // Enable Picking
+        this.setPickEnabled(true);
+        
+        // Game Utilities
+        this.board = new MyGameBoard(this);
+
+        this.gameOrchestrator = new MyGameOrchestrator(this);
+        this.gameOrchestrator.makeRequest();
     }
 
     /**
@@ -126,7 +135,6 @@ class XMLscene extends CGFscene {
         this.setUpdatePeriod(100);
 
         this.sceneInited = true;
-
     }
 
     /**
@@ -167,6 +175,10 @@ class XMLscene extends CGFscene {
         }
 
         if (this.sceneInited) {
+            // Picking
+            this.gameOrchestrator.managePick(this.pickMode, this.pickResults);
+            this.clearPickRegistration();
+
             // Draw axis
             if(this.displayAxis)
                 this.axis.display();
