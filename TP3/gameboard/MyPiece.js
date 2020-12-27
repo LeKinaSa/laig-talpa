@@ -28,12 +28,19 @@ class MyPiece {
         this.blueMaterial.setSpecular(0.0, 0.0, 0.8, 1.0);
         this.blueMaterial.setEmission(0.0, 0.0, 0.0, 1.0);
 
-        this.yellowMaterial = new CGFappearance(this.scene);
-        this.yellowMaterial.setShininess(30);
-        this.yellowMaterial.setAmbient (0.2, 0.2, 0.0, 1.0);
-        this.yellowMaterial.setDiffuse (0.6, 0.6, 0.0, 1.0);
-        this.yellowMaterial.setSpecular(0.8, 0.8, 0.0, 1.0);
-        this.yellowMaterial.setEmission(0.0, 0.0, 0.0, 1.0);
+        this.selectedBlueMaterial = new CGFappearance(this.scene);
+        this.selectedBlueMaterial.setShininess(30);
+        this.selectedBlueMaterial.setAmbient (0.0, 0.0, 0.2, 1.0);
+        this.selectedBlueMaterial.setDiffuse (0.0, 0.0, 0.6, 1.0);
+        this.selectedBlueMaterial.setSpecular(0.0, 0.0, 0.8, 1.0);
+        this.selectedBlueMaterial.setEmission(0.0, 0.0, 0.6, 1.0);
+
+        this.selectedRedMaterial = new CGFappearance(this.scene);
+        this.selectedRedMaterial.setShininess(30);
+        this.selectedRedMaterial.setAmbient (0.2, 0.0, 0.0, 1.0);
+        this.selectedRedMaterial.setDiffuse (0.6, 0.0, 0.0, 1.0);
+        this.selectedRedMaterial.setSpecular(0.8, 0.0, 0.0, 1.0);
+        this.selectedRedMaterial.setEmission(0.6, 0, 0, 1.0);
     }
 
     /**
@@ -51,7 +58,8 @@ class MyPiece {
 
         // Display Piece Color
         if (this.selected) {
-            this.yellowMaterial.apply();
+            if(this.color == 'red')         this.selectedRedMaterial.apply();
+            else if (this.color == 'blue')  this.selectedBlueMaterial.apply();
         }
         else if (this.color == 'red') {
             this.redMaterial.apply();
