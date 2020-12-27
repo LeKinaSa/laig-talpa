@@ -100,6 +100,15 @@ class MyGameBoard {
     }
 
     /**
+     * Reset Picking Selection
+     */
+    resetPickingSelections() {
+        for (var i = 0; i < this.tiles.length; ++ i) {
+            this.tiles[i].resetPickingSelection();
+        }
+    }
+
+    /**
      * Turn the GameBoard into a Prolog Board
      */
     toProlog() {
