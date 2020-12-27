@@ -40,6 +40,9 @@ class XMLscene extends CGFscene {
         this.displayAxis = false;
         this.scaleFactor = 1;
         this.updatePeriod = 100;
+
+        // enable picking
+		this.setPickEnabled(true);
     }
 
     /**
@@ -126,7 +129,7 @@ class XMLscene extends CGFscene {
         this.sceneInited = true;
         this.board = new MyGameBoard(this);
 
-        // ----- TESTING
+        // ----- TESTING // TODO
         this.gameOrchestrator = new MyGameOrchestrator(this);
         this.gameOrchestrator.makeRequest();
     }
@@ -140,6 +143,24 @@ class XMLscene extends CGFscene {
         if (this.sceneInited)  {
             this.graph.updateAnimations(t);
         }
+    }
+
+    /**
+     * Picking // TODO
+     */
+    logPicking() {
+        if (this.pickMode == false) {
+			if (this.pickResults != null && this.pickResults.length > 0) {
+				for (var i = 0; i < this.pickResults.length; i++) {
+					var obj = this.pickResults[i][0];
+					if (obj) {
+						var customId = this.pickResults[i][1];
+						console.log("Picked object: " + obj + ", with pick id " + customId);						
+					}
+				}
+				this.pickResults.splice(0, this.pickResults.length);
+			}
+		}
     }
 
     /**
@@ -168,6 +189,11 @@ class XMLscene extends CGFscene {
         }
 
         if (this.sceneInited) {
+            // Picking
+            this.logPicking();
+            this.clearPickRegistration();
+            this.board.registerPicks();
+
             // Draw axis
             if(this.displayAxis)
                 this.axis.display();

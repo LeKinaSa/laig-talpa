@@ -35,6 +35,12 @@ class MyGameBoard {
     removePiece(tile) {
         tile.unsetPiece(this);
     }
+
+    /**
+     * Remove the Piece Standing on this Position
+     * @param {int} column
+     * @param {int} line
+     */
     removePieceByPosition(column, line) {
         var tile = this.getTile(column, line);
         this.removePiece(tile);
@@ -70,6 +76,14 @@ class MyGameBoard {
         startingTile.unsetPiece();
         destinationTile.setPiece(this, piece);
     }
+
+    /**
+     * Move the Piece from Starting Position to Destination Position
+     * @param {int} startingColumn 
+     * @param {int} startingLine 
+     * @param {int} destinationColumn 
+     * @param {int} destinationLine 
+     */
     movePieceByPosition(startingColumn, startingLine, destinationColumn, destinationLine) {
         var startingTile    = this.getTile(startingColumn, startingLine);
         var destinationTile = this.getTile(destinationColumn, destinationLine);
@@ -85,6 +99,9 @@ class MyGameBoard {
         }
     }
 
+    /**
+     * Turn the GameBoard into a Prolog Board
+     */
     toProlog() {
         var board = [];
         var piece;
@@ -104,6 +121,21 @@ class MyGameBoard {
                 console.log("Error in Piece Color.\n");
             }
             board.push(symbol);
+        }
+    }
+
+    /**
+     * Picking Auxiliary Function
+     */
+    registerPicks() {
+        var pickNumber = 1;
+        var piece;
+        for (var tile = 0; tile < this.tiles.length; ++ tile) {
+            piece = this.tiles[tile].getPiece();
+            if (piece) {
+                this.scene.registerForPick(pickNumber, piece);
+                ++ pickNumber;
+            }
         }
     }
 }
