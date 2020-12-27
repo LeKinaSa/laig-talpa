@@ -69,7 +69,6 @@ class MyGameOrchestrator extends CGFobject{
             obj.select();
             this.selected[this.selectedPieces] = obj;
             ++ this.selectedPieces;
-            console.log(this.selectedPieces);
         }
 
         if (this.selectedPieces == 2) {
