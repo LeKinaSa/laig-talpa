@@ -44,4 +44,27 @@ class MyGameOrchestrator extends CGFobject{
         let context = this;
         this.prolog.sendPrologRequest("handshake", context.onHandshakeSuccess, context.onHandshakeFailure );
     }
+
+    managePick(mode, results) {
+        if (mode == false /* && some other game conditions */) {
+            if (results != null && results.length > 0) {
+                for (var i = 0; i < results.length; ++ i) {
+                    var obj = results[i][0];
+                    if (obj) {
+                        var uniqueId = results[i][1];
+                        this.onObjectSelected(obj, uniqueId);
+                    }
+                }
+                // clear results
+                results.splice(0, results.length);
+            }
+        }
+    }
+
+    onObjectSelected(obj, id) {
+        if (obj instanceof MyPiece) {
+            // Selecting a Piece
+            obj.selected = true;
+        }
+    }
 }

@@ -27,6 +27,13 @@ class MyPiece {
         this.blueMaterial.setDiffuse (0.0, 0.0, 0.6, 1.0);
         this.blueMaterial.setSpecular(0.0, 0.0, 0.8, 1.0);
         this.blueMaterial.setEmission(0.0, 0.0, 0.0, 1.0);
+
+        this.yellowMaterial = new CGFappearance(this.scene);
+        this.yellowMaterial.setShininess(30);
+        this.yellowMaterial.setAmbient (0.2, 0.2, 0.0, 1.0);
+        this.yellowMaterial.setDiffuse (0.6, 0.6, 0.0, 1.0);
+        this.yellowMaterial.setSpecular(0.8, 0.8, 0.0, 1.0);
+        this.yellowMaterial.setEmission(0.0, 0.0, 0.0, 1.0);
     }
 
     /**
@@ -43,7 +50,10 @@ class MyPiece {
         this.scene.pushMatrix();
 
         // Display Piece Color
-        if (this.color == 'red') {
+        if (this.selected) {
+            this.yellowMaterial.apply();
+        }
+        else if (this.color == 'red') {
             this.redMaterial.apply();
         }
         else if (this.color == 'blue') {

@@ -123,19 +123,4 @@ class MyGameBoard {
             board.push(symbol);
         }
     }
-
-    /**
-     * Picking Auxiliary Function
-     */
-    registerPicks() {
-        var pickNumber = 1;
-        var piece;
-        for (var tile = 0; tile < this.tiles.length; ++ tile) {
-            piece = this.tiles[tile].getPiece();
-            if (piece) {
-                this.scene.registerForPick(pickNumber, piece);
-                ++ pickNumber;
-            }
-        }
-    }
 }
