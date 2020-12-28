@@ -109,8 +109,17 @@ class MyPrologConnection {
      * Gets the initial Board
      * @param {*} data initial board
      */
-    startReply(data){
-        // Does Nothing ??? TODO: PARSE BOARD
+    startReply(data) {
+        let response = data.target.response.substring(2, data.target.response.length - 2);
+        var auxList = response.split("],[");
+        
+        var board = [];
+        for(let i = 0; i < auxList.length; i++){
+            var line = auxList[i].split(",");
+            board.push(line);
+        }
+
+        return board;
     }
 
     /**
