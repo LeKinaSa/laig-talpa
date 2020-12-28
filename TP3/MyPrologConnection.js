@@ -5,18 +5,18 @@ class MyPrologConnection {
     constructor() {
         this.request = null;
     }
-    
+
     /*
     *   Convert arguments to String
     */
-    convertToString(listArgs){
-        let str="";
-        for (let i=0; i<listArgs.length; i++){
+    convertToString(listArgs) {
+        let str = "";
+        for (let i=0; i<listArgs.length; ++ i) {
             if (Array.isArray(listArgs[i]))
-                str+='[' + this.toStringObject(listArgs[i]) +']';
+                str += '[' + this.toStringObject(listArgs[i]) + ']';
             else
                 str += listArgs[i];
-            if (i<listArgs.length-1)
+            if (i < listArgs.length - 1)
                 str += ',';
         }
         return str;
@@ -29,13 +29,13 @@ class MyPrologConnection {
     sendPrologRequest(args, onSuccess, onError, port) {
         let requestString = '[' + this.convertToString(args) + ']';
 
-        var requestPort = port || 8081
+        var requestPort = port || 8081;
         var request = new XMLHttpRequest();
         request.open('GET', 'http://localhost:'+requestPort+'/'+requestString, false);
         //request.open('GET', 'http://localhost:'+requestPort+'/'+args, true);
 
-        request.onload = onSuccess || function(data) { console.log("Request successful. Reply: " + data.target.response); }
-        request.onerror = onError  || function()     { console.log("Error waiting for response"); }
+        request.onload  = onSuccess || function(data) { console.log("Request successful. Reply: " + data.target.response); }
+        request.onerror =  onError  || function()     { console.log("Error waiting for response"); }
 
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         request.send();
@@ -61,7 +61,7 @@ class MyPrologConnection {
      * @param {*} board current board
      * @param {*} player player that is gonna be verified
      */
-    gameOverRequest(dimensions, board, player){
+    gameOverRequest(dimensions, board, player) {
         this.sendPrologRequest([this.GameOver, dimensions, board, player], this.gameOverReply);
     }
 
@@ -72,7 +72,7 @@ class MyPrologConnection {
      * @param {*} player bot player
      * @param {*} level bot difficulty
      */
-    AIMoveRequest(dimensions, board, player, level){
+    AIMoveRequest(dimensions, board, player, level) {
         this.sendPrologRequest([this.AIMove, dimensions, board, player, level], this.AIMoveReply);
     }
 
@@ -85,7 +85,7 @@ class MyPrologConnection {
      * @param {*} line line of the move
      * @param {*} direction direction of the move
      */
-    playerMoveRequest(dimensions, board, player, column, line, direction){
+    playerMoveRequest(dimensions, board, player, column, line, direction) {
         this.sendPrologRequest([this.playerMove, dimensions, board, player, column, line, direction], this.playerMoveReply);
     }
 
@@ -96,7 +96,7 @@ class MyPrologConnection {
      * @param {*} player current player
      * @param {*} move move that is gonna be made
      */
-    moveRequest(dimensions, board, player, move){
+    moveRequest(dimensions, board, player, move) {
         this.sendPrologRequest([this.move, dimensions, board, player, move], this.moveReply);
     }
 
@@ -105,25 +105,25 @@ class MyPrologConnection {
     --------------------------------------------------------------------------------------*/
     /**
      * Gets the initial Board
-     * @param {*} data initial board
+     * @param {*} data initial board and player
      */
      startReply(data) {
         let answer = data.target.response.split("-");
         if (answer[0] != "0") {
             console.log("Error");
         }
-        var Player = answer[2]; 
+        var player = answer[2]; 
         var boardStr = answer[1].substring(2, answer[1].length - 2);;
         var auxList = boardStr.split("],[");
         
         var board = [];
-        for(let i = 0; i < auxList.length; i++){
+        for (let i = 0; i < auxList.length; ++ i) {
             var line = auxList[i].split(",");
             board.push(line);
         }
+
         var result = [];
-        
-        result.push(Player);
+        result.push(player);
         result.push(board);
 
         this.request = result;
@@ -133,43 +133,62 @@ class MyPrologConnection {
      * Verifies if the game as finished
      * @param {*} data winner
      */
-    gameOverReply(data){
-        let response_array = JSON.parse(data.target.response);
-            self.response= response_array[1];
-        if (response_array == self.Full)
-            self.response= true;
-        else
-            self.response= false;
+    gameOverReply(data) {
+        let answer = data.target.response;
+        if (answer[0] != "0") {
+            console.log("Error");
+        }
+        return answer[1];
     }
 
     /**
      * Gets AI Move
-     * @param {*} data move 
-     */
-    AIMoveReply(data){
-        let response_array = JSON.parse(data.target.response);
-            self.response= response_array[1];
-    }
-
-    /**
-     * Gets player move
      * @param {*} data move (column-line-direction)
      */
-    playerMoveReply(data){
-        let response_array = JSON.parse(data.target.response);
-            self.response= response_array[1];
+    AIMoveReply(data) {
+        let answer = data.target.response.split("-");
+        if (answer[0] != "0") {
+            console.log("Error");
+            return [];
+        }
+        return [answer[1], answer[2], answer[3]];
     }
 
     /**
-     * Makes new move, returning new board
-     * @param {*} data new baord and next player
+     * Verifies if player move is valid
+     * @param {*} data move (column-line-direction)
      */
-    moveReply(data){
-        let response_array = JSON.parse(data.target.response);
-        if (response_array[0] == self.Ok)
-            self.response=response_array[1];
-        else
-            self.response=false;
+    playerMoveReply(data) {
+        let answer = data.target.response;
+        if (answer != "0") {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Makes move, returning new board
+     * @param {*} data new board and next player to move
+     */
+    moveReply(data) {
+        let answer = data.target.response.split("-");
+        if (answer[0] != "0") {
+            console.log("Error");
+        }
+        var player = answer[2]; 
+        var boardStr = answer[1].substring(2, answer[1].length - 2);;
+        var auxList = boardStr.split("],[");
+        
+        var board = [];
+        for (let i = 0; i < auxList.length; ++ i) {
+            var line = auxList[i].split(",");
+            board.push(line);
+        }
+
+        var result = [];
+        result.push(player);
+        result.push(board);
+        return result;
     }
 }
 

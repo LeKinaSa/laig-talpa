@@ -122,21 +122,19 @@ ________________________________________________________________________________
 
 parse_input([0, Dimensions], 0-Board-Player) :-
 	initial(Dimensions-Board-Player).
-%parse_input([0, Dimensions], Board) :-
-% 	create_initial_board(Dimensions, Board).
 
-parse_input([1, Dimensions, Board, Player], [0, Winner]) :-
+parse_input([1, Dimensions, Board, Player], 0-Winner) :-
 	game_over(Dimensions-Board-Player, Winner).
 
-parse_input([2, Dimensions, Board, Player, Level], [0, Move]) :-
+parse_input([2, Dimensions, Board, Player, Level], 0) :-
 	Level \= 0, choose_move(Dimensions-Board-Player, _, Level, Move).
-parse_input([2, _, _, _, 0], [1, _]).
+parse_input([2, _, _, _, 0], 1).
 
-parse_input([3, Dimensions, Board, Player, Column, Line, Direction], [0, Column-Line-Direction]) :-
+parse_input([3, Dimensions, Board, Player, Column, Line, Direction], 0-Column-Line-Direction) :-
 	verify_player_move(Dimensions-Board-Player, Column-Line-Direction).
-parse_input([3, _, _, _, _], [1]).
+parse_input([3, _, _, _, _], 1).
 
-parse_input([4, Dimensions, Board, Player, Move], [0, NewBoard, NewPlayer]) :-
+parse_input([4, Dimensions, Board, Player, Move], 0-NewBoard-NewPlayer) :-
 	move(Dimensions-Board-Player, Move, Dimensions-NewBoard-NewPlayer).
 
 parse_input(handshake, hi).
