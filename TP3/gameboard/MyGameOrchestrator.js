@@ -16,9 +16,13 @@ class MyGameOrchestrator extends CGFobject{
         this.gameSequence = new MyGameSequence(scene);
         //this.theme = new MyScenegraph(…);
         this.prolog = new MyPrologConnection();
+
+        this.gameState = [];
+        this.player = 0;
         this.selectedPieces = 0;
         this.selected = [null, null];
         this.state = { 
+            so_para_nao_dar_load_infinito: 999,
             menu: 0, // show menu and handle settings.
             load_scenario: 1, // (keep game state), load file, render scene, board, pieces, etc.
             next_turn: 2, // Human? pick piece or tile. Prolog? [Request(s) to prolog] get piece/tile, 
@@ -40,6 +44,7 @@ class MyGameOrchestrator extends CGFobject{
         };
 
         this.currentState = this.state.menu;
+        //this.currentState = this.state.so_para_nao_dar_load_infinito;
     }
 
     /**
@@ -67,10 +72,43 @@ class MyGameOrchestrator extends CGFobject{
         this.currentState = this.state.movement_animation;
     }
 
+    startReply(data) {
+        let answer = data.response.split("-");
+        if (answer[0] != "0") {
+            console.log("Error");
+        }
+        var Player = answer[2]; 
+        var boardStr = answer[1].substring(2, answer[1].length - 2);;
+        var auxList = boardStr.split("],[");
+        
+        var board = [];
+        for(let i = 0; i < auxList.length; i++){
+            var line = auxList[i].split(",");
+            board.push(line);
+        }
+        var result = [];
+        
+        result.push(Player);
+        result.push(board);
+
+        return result;
+    }
+
     orchestrate(){
         switch(this.currentState){
             case this.state.menu:
                 this.prolog.startRequest(8);
+                let result = this.startReply(this.prolog.request);
+                this.player = result[0];
+                this.gameboard.toJS(result[1]);
+                // this.gameboard.tile = result[1];
+                
+
+
+                // TODO: APAGAR ISTO DEPOIS; SO PARA NAO IMPRIMIR INFINITAS VEZES
+                this.currentState = this.state.so_para_nao_dar_load_infinito;
+                break;
+            case this.state.so_para_nao_dar_load_infinito:
                 break;
             default:
                 console.log("Unknown Game State");

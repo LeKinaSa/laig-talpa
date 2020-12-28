@@ -5,7 +5,7 @@ class MyPrologConnection {
     constructor() {
         this.request = null;
     }
-
+    
     /*
     *   Convert arguments to String
     */
@@ -19,7 +19,6 @@ class MyPrologConnection {
             if (i<listArgs.length-1)
                 str += ',';
         }
-        console.log(str);
         return str;
     }
 
@@ -29,12 +28,10 @@ class MyPrologConnection {
     */
     sendPrologRequest(args, onSuccess, onError, port) {
         let requestString = '[' + this.convertToString(args) + ']';
-        
-        self = this;
 
         var requestPort = port || 8081
         var request = new XMLHttpRequest();
-        request.open('GET', 'http://localhost:'+requestPort+'/'+requestString, true);
+        request.open('GET', 'http://localhost:'+requestPort+'/'+requestString, false);
         //request.open('GET', 'http://localhost:'+requestPort+'/'+args, true);
 
         request.onload = onSuccess || function(data) { console.log("Request successful. Reply: " + data.target.response); }
@@ -42,6 +39,8 @@ class MyPrologConnection {
 
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         request.send();
+
+        this.request = request;
     }
 
     /* ------------------------------------------------------------------------------------
@@ -53,7 +52,7 @@ class MyPrologConnection {
      * @param {*} dimensions dimensions of the board
      */
     startRequest(dimensions){
-        this.sendPrologRequest([this.start, dimensions], this.startReply);
+        this.sendPrologRequest([this.start, dimensions]);
     }
 
     /**
@@ -104,12 +103,11 @@ class MyPrologConnection {
     /* ------------------------------------------------------------------------------------
     ---------------------------------- RESPONSE HANDLERS ----------------------------------
     --------------------------------------------------------------------------------------*/
-
     /**
      * Gets the initial Board
      * @param {*} data initial board
      */
-    startReply(data) {
+     startReply(data) {
         let answer = data.target.response.split("-");
         if (answer[0] != "0") {
             console.log("Error");
@@ -128,10 +126,10 @@ class MyPrologConnection {
         result.push(Player);
         result.push(board);
 
-        return result;
+        this.request = result;
     }
 
-    /**
+    /**A
      * Verifies if the game as finished
      * @param {*} data winner
      */

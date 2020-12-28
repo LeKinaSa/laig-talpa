@@ -13,7 +13,8 @@ class MyTile {
         this.scene = scene;
         this.tile = new MyRectangle(this.scene, -0.5, -0.5, 0.5, 0.5);
         this.position = position;
-        this.piece = this.startingPiece();
+        //this.piece = this.startingPiece();
+        this.piece = null;
         
         this.tileMaterial = new CGFappearance(this.scene);
         this.tileMaterial.setShininess(30);
@@ -29,7 +30,7 @@ class MyTile {
         this.tileMaterial.apply();
     }
 
-    startingPiece() {
+    /* startingPiece() {
         var column = this.position[0] % 2; // Is column odd or even ?
         var  line  = this.position[1] % 2; // Is  line  odd or even ?
 
@@ -41,7 +42,7 @@ class MyTile {
             // Piece is blue
             return new MyPiece(this.scene, 'blue');
         }
-    }
+    } */
 
     /**
      * Set the Piece standing on this Tile

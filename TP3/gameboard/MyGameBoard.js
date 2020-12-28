@@ -12,11 +12,12 @@ class MyGameBoard {
     constructor(scene) {
         this.scene = scene;
         this.tiles = [];
-        for (var line = 8; line >= 1; -- line) {
+        this.gameboard = [];
+        /*for (var line = 8; line >= 1; -- line) {
             for (var column = 1; column <= 8; ++ column) {
                 this.tiles.push(new MyTile(this.scene, [column, line]));
             }
-        }
+        }*/
         this.removedPieces = [];
     }
 
@@ -99,6 +100,22 @@ class MyGameBoard {
         }
     }
     
+    toJS(prologBoard){
+        for(let i = 0; i < prologBoard.length; i++){
+            for(let j = 0; j < prologBoard[i].length; j++){  
+                let tile = new MyTile(this.scene, [j+1, i+1]);
+                if(prologBoard[i][j] == "O"){       // blue
+                    tile.piece = new MyPiece(this.scene, 'blue');
+                    console.log(j); console.log(i);
+                }
+                else if(prologBoard[i][j] == "X"){  // red
+                    tile.piece = new MyPiece(this.scene, 'red');
+                }
+                else console.log("Error getting tiles") ;               
+                this.tiles.push(tile);
+            }
+        }
+    }
     /**
      * Turn the GameBoard into a Prolog Board
      */
