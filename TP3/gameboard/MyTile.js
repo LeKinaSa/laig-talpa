@@ -97,7 +97,7 @@ class MyTile {
         
         // Register for Picking
         if (this.piece != null) {
-            this.scene.registerForPick(line * 8 + column, this.piece);
+            this.scene.registerForPick((line - 1) * 8 + column, this.piece);
         }
         this.scene.pushMatrix();
 
