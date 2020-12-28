@@ -48,9 +48,6 @@ class XMLscene extends CGFscene {
         
         // Game Utilities
         this.board = new MyGameBoard(this);
-
-        this.gameOrchestrator = new MyGameOrchestrator(this);
-        this.gameOrchestrator.makeRequest();
     }
 
     /**
@@ -176,6 +173,7 @@ class XMLscene extends CGFscene {
 
         if (this.sceneInited) {
             // Picking
+            this.gameOrchestrator.orchestrate();
             this.gameOrchestrator.managePick(this.pickMode, this.pickResults);
             this.clearPickRegistration();
 

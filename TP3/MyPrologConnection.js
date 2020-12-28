@@ -9,12 +9,15 @@ class MyPrologConnection {
     /*
     *   Convert arguments to String
     */
-    convertToString(args) {
-        let str = "";
-        for (let i = 0; i <= args.length; ++i) {
-            if (Array.isArray(args[i])) { str += this.convertToString(args[i]); }
-            else                        { str += args[i]; }
-            if (i < args.length-1) { str += ','; }
+    convertToString(listArgs){
+        let str="";
+        for (let i=0; i<listArgs.length; i++){
+            if (Array.isArray(listArgs[i]))
+                str+='[' + this.toStringObject(listArgs[i]) +']';
+            else
+                str += listArgs[i];
+            if (i<listArgs.length-1)
+                str += ',';
         }
         console.log(str);
         return str;
@@ -107,6 +110,7 @@ class MyPrologConnection {
      * @param {*} data initial board
      */
     startReply(data){
+        console.log(data);
         let response_array = JSON.parse(data.target.response);
             self.response= response_array[1];
     }
