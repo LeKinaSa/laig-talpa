@@ -147,8 +147,12 @@ class MyPrologConnection {
      * @param {*} data move (column-line-direction)
      */
     AIMoveReply(data) {
-        let response_array = JSON.parse(data.target.response);
-            self.response= response_array[1];
+        let answer = data.target.response.split("-");
+        if (answer[0] != "0") {
+            console.log("Error");
+            return [];
+        }
+        return [answer[1], answer[2], answer[3]];
     }
 
     /**
@@ -156,8 +160,11 @@ class MyPrologConnection {
      * @param {*} data move (column-line-direction)
      */
     playerMoveReply(data) {
-        let response_array = JSON.parse(data.target.response);
-            self.response= response_array[1];
+        let answer = data.target.response;
+        if (answer != "0") {
+            return false;
+        }
+        return true;
     }
 
     /**
