@@ -110,16 +110,25 @@ class MyPrologConnection {
      * @param {*} data initial board
      */
     startReply(data) {
-        let response = data.target.response.substring(2, data.target.response.length - 2);
-        var auxList = response.split("],[");
+        let answer = data.target.response.split("-");
+        if (answer[0] != "0") {
+            console.log("Error");
+        }
+        var Player = answer[2]; 
+        var boardStr = answer[1].substring(2, answer[1].length - 2);;
+        var auxList = boardStr.split("],[");
         
         var board = [];
         for(let i = 0; i < auxList.length; i++){
             var line = auxList[i].split(",");
             board.push(line);
         }
+        var result = [];
+        
+        result.push(Player);
+        result.push(board);
 
-        return board;
+        return result;
     }
 
     /**

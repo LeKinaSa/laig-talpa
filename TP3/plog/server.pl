@@ -120,10 +120,10 @@ ________________________________________________________________________________
 %		0 - Ok / Valid Move
 % 		1 - Error / Invalid Move
 
-%parse_input([0, Dimensions], [0, Board, Player]) :-
-%	initial(Dimensions-Board-Player).
-parse_input([0, Dimensions], Board) :-
-	create_initial_board(Dimensions, Board).
+parse_input([0, Dimensions], 0-Board-Player) :-
+	initial(Dimensions-Board-Player).
+%parse_input([0, Dimensions], Board) :-
+% 	create_initial_board(Dimensions, Board).
 
 parse_input([1, Dimensions, Board, Player], [0, Winner]) :-
 	game_over(Dimensions-Board-Player, Winner).
