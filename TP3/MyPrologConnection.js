@@ -110,9 +110,7 @@ class MyPrologConnection {
      * @param {*} data initial board
      */
     startReply(data){
-        console.log(data);
-        let response_array = JSON.parse(data.target.response);
-            self.response= response_array[1];
+        // Does Nothing ??? TODO: PARSE BOARD
     }
 
     /**

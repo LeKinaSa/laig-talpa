@@ -70,7 +70,7 @@ class MyGameOrchestrator extends CGFobject{
     orchestrate(){
         switch(this.currentState){
             case this.state.menu:
-                this.prolog.startRequest(7);
+                this.prolog.startRequest(8);
                 break;
             default:
                 console.log("Unknown Game State");
