@@ -142,6 +142,7 @@ class MyGameOrchestrator extends CGFobject{
         if (obj instanceof MyPiece) {
             // Selecting a Piece
             obj.select();
+            console.log(id);
             this.selected[this.selectedPieces] = obj;
             ++ this.selectedPieces;
         }
