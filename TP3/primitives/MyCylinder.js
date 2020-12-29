@@ -64,8 +64,15 @@ class MyCylinder extends CGFobject {
                     // pushing two triangles using indices from this round (current, current+1)
                     // and the ones directly south (next, next+1)
                     // (i.e. one full round of slices ahead)
-                    this.indices.push(current + 1, current, next);
-                    this.indices.push(current + 1, next, next + 1);
+                    if (currentRadius >= 0) {
+                        this.indices.push(current + 1, current, next);
+                        this.indices.push(current + 1, next, next + 1);
+                    }
+                    else {
+                        this.indices.push(current + 1, next, current);
+                        this.indices.push(current + 1, next + 1, next);
+                    }
+                    
                 }
     
                 //--- Normals
@@ -101,8 +108,12 @@ class MyCylinder extends CGFobject {
                     var current = (this.heightDivs + 1) * circleVertices + slice;
                     var next = current + circleVertices;
 
-
-                    this.indices.push(current + 1, next + 1, next);
+                    if (this.topRadius >= 0) {
+                        this.indices.push(current + 1, next + 1, next);
+                    }
+                    else {
+                        this.indices.push(current + 1, next, next + 1);
+                    }
                 }
                 //--- Normals
                 this.normals.push(0, 0, -1);
@@ -129,7 +140,12 @@ class MyCylinder extends CGFobject {
                     var current = (this.heightDivs + 3) * circleVertices + slice;
                     var next = current + circleVertices;
 
-                    this.indices.push(current + 1, next, next + 1);
+                    if (this.bottomRadius >= 0) {
+                        this.indices.push(current + 1, next, next + 1);
+                    }
+                    else {
+                        this.indices.push(current + 1, next + 1, next);
+                    }
                 }
                 //--- Normals
                 this.normals.push(0, 0, 1);

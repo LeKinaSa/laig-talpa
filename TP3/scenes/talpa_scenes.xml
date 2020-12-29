@@ -928,7 +928,6 @@
             </transformations>
 
             <descendants>
-                
                 <leaf type="rectangle" x1="-20" y1="-25" x2="20" y2="25"/>
             </descendants>
         </node>
