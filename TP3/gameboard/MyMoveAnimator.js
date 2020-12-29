@@ -68,6 +68,12 @@ class MyMoveAnimator extends MyAnimator {
     update(t) {
         var deltaTime = this.getDeltaTime(t);
 
+        if (deltaTime >= this.totalTime) {
+            this.currentPosition = this.positions[1];
+            this.finished = true;
+            return;
+        }
+
         // Portion of the Animation that has elapsed
         var elapsedAnimation = deltaTime / this.totalTime;
         
