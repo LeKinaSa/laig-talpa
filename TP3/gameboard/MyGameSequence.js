@@ -2,7 +2,7 @@
  * MyGameSequence
  * @description Stores the a sequence of game moves (MyGameMove objects)
  */
-class MyGameSequence extends CGFobject{
+class MyGameSequence extends CGFobject {
     constructor(scene){
         super(scene);
         this.sequence = [];
@@ -11,7 +11,7 @@ class MyGameSequence extends CGFobject{
     /**
      * Returns the sequence of game moves
      */
-    getSequence(){
+    getSequence() {
         return this.sequence;
     }
 
@@ -19,21 +19,21 @@ class MyGameSequence extends CGFobject{
      * Adds a game move to the sequence
      * @param {GameMove} gameMove 
      */
-    addGameMove(gameMove){
+    addGameMove(gameMove) {
         this.sequence.push(gameMove);
     }
 
     /**
      * Manage undo
      */
-    undo(){
+    undo() {
         // TODO
     }
 
     /**
      * Feeds move replay
      */
-    moveReplay(){
+    moveReplay() {
 
     }
 

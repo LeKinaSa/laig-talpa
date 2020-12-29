@@ -100,7 +100,7 @@ class MyGameBoard {
         }
     }
     
-    toJS(prologBoard){
+    toJS(prologBoard) {
         for(let i = 0; i < prologBoard.length; i++){
             for(let j = 0; j < prologBoard[i].length; j++){  
                 let tile = new MyTile(this.scene, [j+1, i+1]);

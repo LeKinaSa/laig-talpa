@@ -60,6 +60,27 @@ class MyPiece {
     }
 
     /**
+     * Start Movement
+     */
+    startMovement() {
+        this.moving = true;
+    }
+
+    /**
+     * Finish Movement
+     */
+    finishMovement() {
+        this.moving = false;
+    }
+
+    /**
+     * Determines if the Piece is in Movement
+     */
+    inMovement() {
+        return this.moving;
+    }
+
+    /**
      * Get Piece Type / Color
      */
     getColor() {

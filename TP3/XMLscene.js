@@ -137,7 +137,7 @@ class XMLscene extends CGFscene {
     /**
      * Update the scene
      * Updates all the animations in the scene based on the current time
-     * @param {time} t 
+     * @param {time} t - current time
      */
     update(t) {
         this.gameOrchestrator.update(t);

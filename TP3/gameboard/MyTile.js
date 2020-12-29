@@ -12,7 +12,7 @@ class MyTile {
     constructor(scene, position) {
         this.scene = scene;
         this.tile = new MyRectangle(this.scene, -0.5, -0.5, 0.5, 0.5);
-        this.position = position;
+        this.position = position; // Position = [column, line]
         //this.piece = this.startingPiece();
         this.piece = null;
         
@@ -92,7 +92,7 @@ class MyTile {
      */
     display() {
         // Obtain Position in the Board
-        var column = this.position[0];
+        var column =     this.position[0];
         var  line  = 9 - this.position[1];
         
         // Register for Picking
@@ -107,7 +107,7 @@ class MyTile {
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.tileMaterial.apply();
         this.tile.display();
-        if ((this.piece != null) && (!this.piece.moving)) {
+        if ((this.piece != null) && (!this.piece.inMovement())) {
             this.piece.display();
         }
         this.scene.popMatrix();

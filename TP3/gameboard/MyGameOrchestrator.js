@@ -9,9 +9,9 @@
  * Manage object selection
  */
 class MyGameOrchestrator extends CGFobject{
-    constructor(scene){
+    constructor(scene) {
         super(scene);
-        this.animator = new MyAnimator(scene, this);
+        this.animator = null;
         this.gameboard = new MyGameBoard(scene);
         this.gameSequence = new MyGameSequence(scene);
         //this.theme = new MyScenegraph(…);
@@ -21,6 +21,8 @@ class MyGameOrchestrator extends CGFobject{
         this.player = 0;
         this.selectedPieces = 0;
         this.selected = [null, null];
+        this.selectedIds = [0, 0];
+
         this.state = { 
             so_para_nao_dar_load_infinito: 999,
             menu: 0, // show menu and handle settings.
@@ -48,24 +50,34 @@ class MyGameOrchestrator extends CGFobject{
 
     /**
      * Updates animation
-     * @param {*} time current time
+     * @param {*} t current time
      */
-    update(time){
-        if(this.animator != undefined)
-            this.animator.update(time);
+    update(t) {
+        if (this.animator != null) {
+            this.animator.update(t);
+            if (this.animator.finish()) {
+                this.animator = null;
+            }
+        }
     }
 
-    renderMove(){
+    renderMove() {
+        // TODO
+        this.currentState = this.state.movement_animation;
+
+        // Check if the move is valid
+
+        this.move = new MyMove(this.selected[0], this.selected[1]);
+        this.animator = new MyMoveAnimator(this.scene, this, move);
+        this.animator.start(this.selected, this.selectedIds);
+    }
+
+    undo() {
         // TODO
         this.currentState = this.state.movement_animation;
     }
 
-    undo(){
-        // TODO
-        this.currentState = this.state.movement_animation;
-    }
-
-    movie(){
+    movie() {
         // TODO
         // activate an animation that plays the game sequence
         this.currentState = this.state.movement_animation;
@@ -93,12 +105,12 @@ class MyGameOrchestrator extends CGFobject{
         return result;
     }
 
-    orchestrate(){
-        // nao sei se posso fazer isto aqui... perguntar à clara
+    orchestrate() {
+        // TODO: nao sei se posso fazer isto aqui... perguntar à clara
         this.managePick(this.scene.pickMode, this.scene.pickResults);
         this.scene.clearPickRegistration();
 
-        switch(this.currentState){
+        switch(this.currentState) {
             case this.state.menu:
                 this.prolog.startRequest(8);
                 let result = this.startReply(this.prolog.request);
@@ -107,23 +119,28 @@ class MyGameOrchestrator extends CGFobject{
                 this.currentState = this.state.next_turn;          
                 break;
 
-            case this.state.next_turn: // selecionar peça origem
-                // humano -> escolher uma peça
-                if(this.selected[0] != null)                
-                    this.currentState = this.state.destination_piece_selection; 
+            case this.state.next_turn: // select origin piece
+                // human : choose a piece
+                if (this.selected[0] != null) {
+                    this.currentState = this.state.destination_piece_selection;
+                }
                 break;
 
-            case this.state.destination_piece_selection: // selecionar peça destino
-                if(this.selected[1] != null)                
+            case this.state.destination_piece_selection: // select destination piece
+                if (this.selected[1] != null) {
                     this.renderMove();
+                }
                 break;
 
-            case this.state.movement_animation: // animação de jogada
-            
-                // animação terminou
+            case this.state.movement_animation: // move animation
+                if (this.animator != null) {
+                    // this.animator.start();
+                }
+
+                // animation is over
                 this.selected[0] = null;
                 this.selected[1] = null;
-                // nova jogada
+                // next turn
                 this.currentState = this.state.next_turn; 
                 break;
 
@@ -133,7 +150,7 @@ class MyGameOrchestrator extends CGFobject{
         }
     }
 
-    display(){
+    display() {
         //this.theme.display();
         this.animator.display();
         this.gameboard.display();
@@ -159,8 +176,8 @@ class MyGameOrchestrator extends CGFobject{
         if (obj instanceof MyPiece) {
             // Selecting a Piece
             obj.select();
-            console.log(id); //TODO : remove
             this.selected[this.selectedPieces] = obj;
+            this.selectedIds[this.selectedPieces] = id;
             ++ this.selectedPieces;
         }
 
