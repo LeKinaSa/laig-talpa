@@ -22,7 +22,8 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'scaleFactor', 0.1, 10.0).name('Scale');
 
         this.first_update = true;
-        this.initKeys();
+        this.initKeys();        
+        this.gameOptions();
         
         return true;
     }
@@ -76,5 +77,11 @@ class MyInterface extends CGFinterface {
 
     isKeyPressed(keyCode) {
         return this.activeKeys[keyCode] || false;
+    }
+
+    gameOptions(){
+        const folder = this.gui.addFolder("Game Options");
+        folder.open;
+        folder.add(this.scene, 'gameScenes', this.scene.gameScenes).name('Game Scene').onChange(this.scene.changeTheme.bind(this.scene));
     }
 }

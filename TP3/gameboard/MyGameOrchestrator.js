@@ -14,7 +14,7 @@ class MyGameOrchestrator extends CGFobject{
         this.animator = new MyAnimator(scene, this);
         this.gameboard = new MyGameBoard(scene);
         this.gameSequence = new MyGameSequence(scene);
-        //this.theme = new MyScenegraph(…);
+        this.theme = new MySceneGraph("talpa_scenes.xml", this.scene);
         this.prolog = new MyPrologConnection();
     }
 
@@ -27,9 +27,13 @@ class MyGameOrchestrator extends CGFobject{
     }
 
     display(){
-        //this.theme.display();
+        this.theme.displayScene();
         this.animator.display();
         this.gameboard.display();
+    }
+
+    changeTheme(theme) {
+        this.theme = new MySceneGraph(theme, this.scene);
     }
 
     onHandshakeSuccess(){

@@ -39,11 +39,11 @@ main=function()
 	// or use "camping.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
 	
     // var filename=getUrlVars()['file'] || "talpa_scenes.xml";
-    var filename=getUrlVars()['file'] || "talpa_game_house.xml";
+    //var filename=getUrlVars()['file'] || "talpa_game_house.xml";
 
 	// create and load graph, and associate it to scene. 
 	// Check console for loading errors
-	var myGraph = new MySceneGraph(filename, myScene);
+	//var myGraph = new MySceneGraph(filename, myScene);
 	
 	// start
     app.run();

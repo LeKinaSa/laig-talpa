@@ -21,6 +21,11 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = false;
 
+        this.gameScenes = {
+            'Living Room': "talpa_scenes.xml",
+            'The GameHouse': "talpa_game_house.xml",
+        }
+
         this.initCameras();
 
         this.enableTextures(true);
@@ -40,6 +45,9 @@ class XMLscene extends CGFscene {
         this.displayAxis = false;
         this.scaleFactor = 1;
         this.updatePeriod = 100;
+        
+        // ----- TESTING
+        this.gameOrchestrator = new MyGameOrchestrator(this);
     }
 
     /**
@@ -124,11 +132,7 @@ class XMLscene extends CGFscene {
         this.setUpdatePeriod(100);
 
         this.sceneInited = true;
-        this.board = new MyGameBoard(this);
 
-        // ----- TESTING
-        this.gameOrchestrator = new MyGameOrchestrator(this);
-        this.gameOrchestrator.makeRequest();
     }
 
     /**
@@ -177,11 +181,7 @@ class XMLscene extends CGFscene {
             // Update Lights
             this.updateLights();
             
-            // Displays the scene (MySceneGraph function).
-            this.graph.displayScene();
-            
-            // Display the Game Board
-            this.board.display();
+            this.gameOrchestrator.display();
         }
         else {
             // Show some "loading" visuals
@@ -196,4 +196,9 @@ class XMLscene extends CGFscene {
         this.popMatrix();
         // ---- END Background, camera and axis setup
     }
+
+    changeTheme(theme) {
+        this.gameOrchestrator.changeTheme(theme);
+    }
+
 }
