@@ -1,4 +1,4 @@
-class MyMove extends CGFobject {
+class MyMove {
     constructor(scene, initialGameState, player, originTile, destinationTile) {
         super(scene);
         this.initialGameState = initialGameState;
