@@ -57,6 +57,7 @@ class MyMoveAnimator extends MyAnimator {
 
         this.pieces[0].finishMovement();
         this.pieces[1].finishMovement();
+        this.gameOrchestrator.gameboard.movePieceByPosition(this.positions[0][0], this.positions[0][1], this.positions[1][0], this.positions[1][1]);
         return true;
     }
     
