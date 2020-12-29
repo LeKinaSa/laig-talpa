@@ -83,9 +83,13 @@ class MyMoveAnimator extends MyAnimator {
      * Display Animation
      */
     display() {
+        this.scene.pushMatrix();
+
         var column =     this.currentPosition[0];
         var  line  = 9 - this.currentPosition[1];
         // Translation According to the Current Position on the Board
         this.scene.translate(4.5 - line, 0, 4.5 - column);
+
+        this.scene.popMatrix();
     }
 }
