@@ -24,8 +24,7 @@ class MyMoveAnimator extends MyAnimator {
 
         var originPosition = [originId % 8, Math.floor(originId / 8) + 1];
         var destinPosition = [destinId % 8, Math.floor(destinId / 8) + 1];
-
-        this.positions = [originPosition, destinPosition];
+        this.positions = [[originPosition[0],originPosition[1]], destinPosition];
         this.currentPosition = originPosition;
     }
 
@@ -55,10 +54,10 @@ class MyMoveAnimator extends MyAnimator {
         if (!this.finished) {
             return false;
         }
-
         this.pieces[0].finishMovement();
         this.pieces[1].finishMovement();
-        this.gameOrchestrator.gameboard.movePieceByPosition(this.positions[0][0], this.positions[0][1], this.positions[1][0], this.positions[1][1]);
+        console.log(this.positions);
+        this.gameOrchestrator.gameboard.movePieceByPosition(this.positions[0][0],this.positions[0][1],this.positions[1][0], this.positions[1][1]);
         return true;
     }
     

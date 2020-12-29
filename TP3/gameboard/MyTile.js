@@ -9,7 +9,7 @@ class MyTile {
      * @param {CGFscene} scene - Reference to MyScene object
      * @param {Position} position - Position of the Tile in the Game Board
      */
-    constructor(scene, position) {
+    constructor(scene, position, texture) {
         this.scene = scene;
         this.tile = new MyRectangle(this.scene, -0.5, -0.5, 0.5, 0.5);
         this.position = position; // Position = [column, line]
@@ -23,7 +23,7 @@ class MyTile {
         this.tileMaterial.setSpecular(1.0, 1.0, 1.0, 1.0);
         this.tileMaterial.setEmission(0.0, 0.0, 0.0, 1.0);
 
-        this.tileTexture = new CGFtexture(this.scene, "./scenes/images/tile.png");
+        this.tileTexture = texture;
         
         this.tileMaterial.setTexture(this.tileTexture);
         this.tileMaterial.setTextureWrap('REPEAT', 'REPEAT');
