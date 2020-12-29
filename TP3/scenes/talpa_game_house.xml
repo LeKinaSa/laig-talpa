@@ -4,7 +4,7 @@
         <root id="gaming-room" />
     </initials>
 
-    <views default="player1Camera">
+    <views default="room">
         <perspective id="player1Camera" near="0.1" far="500" angle="45">
             <from x="0" y="20" z="10" />
             <to x="0" y="-2" z="0" />
@@ -13,9 +13,9 @@
             <from x="0" y="20" z="-10" />
             <to x="0" y="-2" z="0" />
         </perspective>
-        <perspective id="livingroom" near="0.1" far="500" angle="45">
-            <from x="0" y="60" z="60" />
-            <to x="0" y="-2" z="0" />
+        <perspective id="room" near="0.1" far="500" angle="45">
+            <from x="0" y="65" z="80" />
+            <to x="0" y="5" z="0" />
         </perspective>
     </views>
 
@@ -116,105 +116,42 @@
             </transformations>
 
             <descendants>
-                <noderef id="wall1"/>
-                <noderef id="wall2"/>
-                <noderef id="wall3"/>
-                <noderef id="wall4"/>
+                <noderef id="walls"/>
                 <noderef id="floor"/>
-                <noderef id="ceiling"/>
                 <noderef id="windows"/>
                 <noderef id="door"/>
             </descendants>
         </node>
 
-        <node id="wall1">  
+        <node id="walls">
             <material id="null" />
             <texture id="wall-paper">
-                <amplification afs="10" aft="10" />
-            </texture>
-            <transformations>
-                <translation x="20" y="17" z="-60"/>
-            </transformations>
-
-            <descendants>
-                <leaf type="rectangle" x1="-50" y1="-25" x2="50" y2="25"/>
-            </descendants>
-        </node>   
-
-        <node id="wall2">  
-            <material id="null" />
-            <texture id="wall-paper">
-                <amplification afs="10" aft="10" />
-            </texture>
-            <transformations>
-                <translation x="-30" y="17" z="-10"/>
-                <rotation axis="y" angle="90"/>
-            </transformations>
-
-            <descendants>
-                <leaf type="rectangle" x1="-50" y1="-25" x2="50" y2="25"/>
-            </descendants>
-        </node>  
-
-        <node id="wall3">  
-            <material id="null" />
-            <texture id="wall-paper">
-                <amplification afs="10" aft="10" />
-            </texture>
-            <transformations>
-                <translation x="70" y="17" z="-10"/>
-                <rotation axis="y" angle="-90"/>
-            </transformations>
-
-            <descendants>
-                <leaf type="rectangle" x1="-50" y1="-25" x2="50" y2="25"/>
-            </descendants>
-        </node> 
-
-        <node id="wall4">  
-            <material id="null" />
-            <texture id="wall-paper">
-                <amplification afs="10" aft="10" />
-            </texture>
-            <transformations>
-                <translation x="20" y="17" z="40"/>
-                <rotation axis="y" angle="180"/>
-            </transformations>
-
-            <descendants>
-                <leaf type="rectangle" x1="-50" y1="-25" x2="50" y2="25"/>
-            </descendants>
-        </node> 
-
-        <node id="floor">  
-            <material id="null" />
-            <texture id="wood-floor">
-                <amplification afs="10" aft="10" />
+                <amplification afs="1" aft="1" />
             </texture>
             <transformations>
                 <translation x="0" y="-8" z="0"/>
-                <rotation axis="x" angle="-90"/>
-            </transformations>
-
-            <descendants>
-                <leaf type="rectangle" x1="-30" y1="-40" x2="70" y2="60"/>
-            </descendants>
-        </node> 
-
-        <node id="ceiling">  
-            <material id="null" />
-            <texture id="wall-paper">
-                <amplification afs="10" aft="10" />
-            </texture>
-            <transformations>
-                <translation x="0" y="42" z="-20"/>
                 <rotation axis="x" angle="90"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-30" y1="-40" x2="70" y2="60"/>
+                <leaf type="cylinder" height="-60" topRadius="75" bottomRadius="75" stacks="10" slices="6"/>
             </descendants>
-        </node>  
+        </node>
+
+        <node id="floor">
+            <material id="null" />
+            <texture id="wood-floor">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-8" z="0"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="0.01" topRadius="75" bottomRadius="75" stacks="2" slices="6"/>
+            </descendants>
+        </node>
 
         <node id="windows">
             <material id="null" />
@@ -238,7 +175,7 @@
             </texture>
             
             <transformations>
-                <translation x="-29.9" y="17" z="-35"/>
+                <translation x="-64.94" y="17" z="-20"/>
                 <rotation axis="y" angle="90"/>
             </transformations>
 
@@ -254,7 +191,7 @@
             </texture>
             
             <transformations>
-                <translation x="-29.9" y="17" z="15"/>
+                <translation x="-64.94" y="17" z="15"/>
                 <rotation axis="y" angle="90"/>
             </transformations>
 
@@ -284,7 +221,7 @@
             </texture>
             
             <transformations>
-                <translation x="69.9" y="7" z="25"/>
+                <translation x="64.94" y="7" z="25"/>
                 <rotation axis="y" angle="-90"/>
             </transformations>
 
