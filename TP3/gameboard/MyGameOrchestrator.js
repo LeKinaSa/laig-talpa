@@ -67,8 +67,9 @@ class MyGameOrchestrator extends CGFobject{
 
         // Check if the move is valid
 
-        this.move = new MyMove(this.scene, this.gameState, this.player, this.selected[0], this.selected[1]);
-        this.animator = new MyMoveAnimator(this.scene, this, move);
+        // this.move = new MyMove(this.scene, this.gameState, this.player, this.selected[0], this.selected[1]);
+        // this.animator = new MyMoveAnimator(this.scene, this, move);
+        this.animator = new MyMoveAnimator(this.scene, this, null);
         this.animator.start(this.selected, this.selectedIds);
     }
 

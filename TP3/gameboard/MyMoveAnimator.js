@@ -66,7 +66,7 @@ class MyMoveAnimator extends MyAnimator {
      * @param {time} t - current time
      */
     update(t) {
-        var deltaTime = getDeltaTime(t);
+        var deltaTime = this.getDeltaTime(t);
 
         // Portion of the Animation that has elapsed
         var elapsedAnimation = deltaTime / this.totalTime;
