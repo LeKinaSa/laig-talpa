@@ -152,7 +152,9 @@ class MyGameOrchestrator extends CGFobject{
 
     display() {
         //this.theme.display();
-        this.animator.display();
+        if (this.animator != null) {
+            this.animator.display();
+        }
         this.gameboard.display();
     }
 

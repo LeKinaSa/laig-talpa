@@ -70,8 +70,12 @@ class MyMoveAnimator extends MyAnimator {
         // Portion of the Animation that has elapsed
         var elapsedAnimation = deltaTime / this.totalTime;
         
-        //TODO: make animation based on elapsedAnimation
-        // update the value on this.currentPosition
+        // Animation Based on elapsedAnimation
+        // Update the Value on this.currentPosition
+        var initialPosition = this.positions[0];
+        var  finalPosition  = this.positions[1];
+        this.currentPosition[0] = initialPosition[0] + elapsedAnimation * (finalPosition[0] - initialPosition[0]);
+        this.currentPosition[1] = initialPosition[1] + elapsedAnimation * (finalPosition[1] - initialPosition[1]);
     }
 
     /**
