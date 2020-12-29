@@ -17,13 +17,8 @@ class MyInterface extends CGFinterface {
         super.init(application);
         this.gui = new dat.GUI();
 
-        // Adding some GUI Controls
-        this.gui.add(this.scene, 'displayAxis').name("Display Axis");
-        this.gui.add(this.scene, 'scaleFactor', 0.1, 10.0).name('Scale');
-
         this.first_update = true;
         this.initKeys();        
-        this.gameOptions();
         
         return true;
     }
@@ -35,25 +30,25 @@ class MyInterface extends CGFinterface {
     update() {
         if ((this.scene.sceneInited) && (this.first_update)) {
             this.first_update = false;
-            this.addCameras();
-            this.addLights();
+            this.displayOptions();
+            this.gameOptions();
         }
     }
 
     /**
      * Add a GUI interface for the cameras.
      */
-    addCameras() {
-        this.gui.add(this.scene, 'selectedCamera', this.scene.cameraIDs).name('Selected Camera').onChange(this.scene.updateCamera.bind(this.scene));
+    addCameras(folder) {
+        folder.add(this.scene, 'selectedCamera', this.scene.cameraIDs).name('Selected Camera').onChange(this.scene.updateCamera.bind(this.scene));
     }
 
     /**
      * Add a GUI interface for the lights.
      */
-    addLights() {
+    addLights(folder) {
         for (let i = 0; i < this.scene.lights.length; i++) {
             if (this.scene.lights[i].key != null) {
-                this.gui.add(this.scene.lights[i], 'enabled').name(this.scene.lights[i].key).onChange(this.scene.updateLights.bind(this.scene));
+                folder.add(this.scene.lights[i], 'enabled').name(this.scene.lights[i].key).onChange(this.scene.updateLights.bind(this.scene));
             }
         }
     }
@@ -79,9 +74,24 @@ class MyInterface extends CGFinterface {
         return this.activeKeys[keyCode] || false;
     }
 
+    displayOptions(){
+        const folder = this.gui.addFolder("Display Options");
+        folder.open();
+        this.addCameras(folder);
+        this.addLights(folder);
+        folder.add(this.scene, 'displayAxis').name("Display Axis");
+        folder.add(this.scene, 'scaleFactor', 0.1, 10.0).name('Scale');
+
+    }
+
     gameOptions(){
         const folder = this.gui.addFolder("Game Options");
-        folder.open;
+        folder.open();
         folder.add(this.scene, 'gameScenes', this.scene.gameScenes).name('Game Scene').onChange(this.scene.changeTheme.bind(this.scene));
+        folder.add(this.scene, 'dimensions', this.scene.dimensions).name('Board Dimensions'); // onchange .............
+        folder.add(this.scene, 'gameMode', this.scene.gameMode).name('Game Mode'); // onchange .............
+        folder.add(this.scene, 'difficulty').name('Increased Difficulty');
+        folder.add(this.scene, 'movie').name('Movie');
+        folder.add(this.scene, 'undo').name('Undo');
     }
 }
