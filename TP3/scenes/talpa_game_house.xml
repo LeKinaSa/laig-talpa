@@ -1,0 +1,234 @@
+<lsf>
+    <initials>
+        <reference length="2" />
+        <root id="gaming-room" />
+    </initials>
+
+    <views default="room">
+        <perspective id="player1Camera" near="0.1" far="500" angle="45">
+            <from x="0" y="20" z="10" />
+            <to x="0" y="-2" z="0" />
+        </perspective>
+        <perspective id="player2Camera" near="0.1" far="500" angle="45">
+            <from x="0" y="20" z="-10" />
+            <to x="0" y="-2" z="0" />
+        </perspective>
+        <perspective id="room" near="0.1" far="500" angle="45">
+            <from x="0" y="65" z="80" />
+            <to x="0" y="5" z="0" />
+        </perspective>
+    </views>
+
+    <illumination>
+        <ambient    r="0.2" g="0.2" b="0.2" a="1.0" />
+        <background r="0.1" g="0.7" b="1.0" a="1.0" />
+    </illumination>
+
+
+    <lights>
+        <light id="demoLight">
+            <enable value="1" />
+            <position x="10"  y="12"  z="9.5" w="1.0" />
+            <ambient  r="0.0" g="0.0" b="0.0" a="1.0" />                 
+            <diffuse  r="1.0" g="1.0" b="1.0" a="1.0" /> 
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" /> 
+        </light>
+    </lights>
+
+
+    <textures>
+        <texture id="wood"          path="./scenes/images/wood.jpg" />
+        <texture id="wood-floor"    path="./scenes/images/wood-floor.jpg" />
+        <texture id="wall-paper"    path="./scenes/images/wall-paper.jpg" />
+        <texture id="red-chair"     path="./scenes/images/red-chair.jpg" />
+        <texture id="blue-chair"    path="./scenes/images/blue-chair.jpg" />
+        <texture id="rug"           path="./scenes/images/rug.jpg" />
+        <texture id="door"          path="./scenes/images/door.jpg" />
+        <texture id="window"        path="./scenes/images/night_window.jpg"/>
+    </textures>
+
+    <spritesheets>
+        <spritesheet id="fire" path="./scenes/images/fire.png" sizeM="8" sizeN="8"/>
+    </spritesheets>
+
+    <materials>
+        <material id="default">
+            <shininess value="30" />
+            <ambient  r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse  r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="bluePieceMaterial">
+            <shininess value="30" />
+            <ambient  r="0.0" g="0.0" b="0.2" a="1.0" />
+            <diffuse  r="0.0" g="0.0" b="0.6" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.8" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="redPieceMaterial">
+            <shininess value="10" />
+            <ambient  r="0.2" g="0.0" b="0.0" a="1.0" />
+            <diffuse  r="0.6" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.8" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="metalMaterial">
+            <shininess value="10" />
+            <ambient  r="0.8" g="0.8" b="0.8" a="1.0" />
+            <diffuse  r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.5" g="0.5" b="0.5" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+    </materials>
+
+    <animations>
+    </animations>
+
+    <nodes>
+
+        <node id="gaming-room">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+            <descendants>
+                <noderef id="structure" />
+                <!--<noderef id="game-zone"/>
+                <noderef id="rug"/>
+                <noderef id="fireplace"/>
+                <noderef id="drawer"/>
+                <noderef id="painting"/>
+                <noderef id="couchs"/>
+                <noderef id="sideboard"/>
+                <noderef id="tv"/>-->
+            </descendants>
+        </node>
+
+        <node id="structure">  
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="10" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="walls"/>
+                <noderef id="floor"/>
+                <noderef id="windows"/>
+                <noderef id="door"/>
+            </descendants>
+        </node>
+
+        <node id="walls">
+            <material id="null" />
+            <texture id="wall-paper">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-8" z="0"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="-60" topRadius="75" bottomRadius="75" stacks="10" slices="6"/>
+            </descendants>
+        </node>
+
+        <node id="floor">
+            <material id="null" />
+            <texture id="wood-floor">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-8" z="0"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="0.01" topRadius="75" bottomRadius="75" stacks="2" slices="6"/>
+            </descendants>
+        </node>
+
+        <node id="windows">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="20" aft="20" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="window1"/>
+                <noderef id="window2"/>
+            </descendants>
+        </node> 
+
+        <node id="window1">
+            <material id="null" />
+            <texture id="window">
+                <amplification afs="20" aft="20" />
+            </texture>
+            
+            <transformations>
+                <translation x="-64.94" y="17" z="-20"/>
+                <rotation axis="y" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="glass"/>
+            </descendants>
+        </node> 
+
+        <node id="window2">
+            <material id="null" />
+            <texture id="window">
+                <amplification afs="20" aft="20" />
+            </texture>
+            
+            <transformations>
+                <translation x="-64.94" y="17" z="15"/>
+                <rotation axis="y" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="glass"/>
+            </descendants>
+        </node> 
+
+        <node id="glass">
+            <material id="null" />
+            <texture id="window">
+                <amplification afs="20" aft="20" />
+            </texture>
+            
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="10"/>
+            </descendants>
+        </node>
+
+        <node id="door">
+            <material id="null" />
+            <texture id="door">
+                <amplification afs="20" aft="30" />
+            </texture>
+            
+            <transformations>
+                <translation x="64.94" y="7" z="25"/>
+                <rotation axis="y" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-10" y1="-15" x2="10" y2="15"/>
+            </descendants>
+        </node>
+
+    </nodes>
+</lsf>
