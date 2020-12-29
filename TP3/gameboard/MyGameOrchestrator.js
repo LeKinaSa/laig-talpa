@@ -33,13 +33,12 @@ class MyGameOrchestrator extends CGFobject{
             destination_piece_selection: 4, // Human? pick destination tile/piece. Prolog? 
             // render destination piece/tile.
             movement_animation: 5, // selection is moved with based on some animation f(t)
-            next_turn: 6, // [request to prolog] and evaluate game end or Next turn.
-            end_game: 7, // display winner and goto menu
+            end_game: 6, // display winner and goto menu
 
             // INTERRUPTING GAME STATES
 
-            undo: 8, //  undo the last game movement. Updates turn.
-            movie: 9, // > keep game state. Renders all the game movements (should use 
+            undo: 7, //  undo the last game movement. Updates turn.
+            movie: 8, // > keep game state. Renders all the game movements (should use 
             // the same animation features used for movement animation). 
         };
 
@@ -95,21 +94,39 @@ class MyGameOrchestrator extends CGFobject{
     }
 
     orchestrate(){
+        // nao sei se posso fazer isto aqui... perguntar à clara
+        this.managePick(this.scene.pickMode, this.scene.pickResults);
+        this.scene.clearPickRegistration();
+
         switch(this.currentState){
             case this.state.menu:
                 this.prolog.startRequest(8);
                 let result = this.startReply(this.prolog.request);
                 this.player = result[0];
                 this.gameboard.toJS(result[1]);
-                // this.gameboard.tile = result[1];
-                
-
-
-                // TODO: APAGAR ISTO DEPOIS; SO PARA NAO IMPRIMIR INFINITAS VEZES
-                this.currentState = this.state.so_para_nao_dar_load_infinito;
+                this.currentState = this.state.next_turn;          
                 break;
-            case this.state.so_para_nao_dar_load_infinito:
+
+            case this.state.next_turn: // selecionar peça origem
+                // humano -> escolher uma peça
+                if(this.selected[0] != null)                
+                    this.currentState = this.state.destination_piece_selection; 
                 break;
+
+            case this.state.destination_piece_selection: // selecionar peça destino
+                if(this.selected[1] != null)                
+                    this.renderMove();
+                break;
+
+            case this.state.movement_animation: // animação de jogada
+            
+                // animação terminou
+                this.selected[0] = null;
+                this.selected[1] = null;
+                // nova jogada
+                this.currentState = this.state.next_turn; 
+                break;
+
             default:
                 console.log("Unknown Game State");
                 break;
