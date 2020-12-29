@@ -107,7 +107,7 @@ class MyTile {
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.tileMaterial.apply();
         this.tile.display();
-        if (this.piece != null) {
+        if ((this.piece != null) && (!this.piece.moving)) {
             this.piece.display();
         }
         this.scene.popMatrix();

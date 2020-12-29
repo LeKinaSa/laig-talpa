@@ -14,6 +14,7 @@ class MyPiece {
         this.piece = new MyCylinder(this.scene, 0.5, 0.5, 0.5, 2, 4);
         this.color = color;
         this.selected = false;
+        this.moving = false;
 
         this.redMaterial = new CGFappearance(this.scene);
         this.redMaterial.setShininess(30);
