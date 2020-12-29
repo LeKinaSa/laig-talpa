@@ -38,7 +38,8 @@ class MyMoveAnimator extends MyAnimator {
      * Starts Animation
      */
     start(pieces, ids) {
-        this.pieces = pieces;
+        this.pieces[0] = pieces[0];
+        this.pieces[1] = pieces[1];
         this.ids = ids;
 
         this.calculatePositions();
@@ -95,6 +96,8 @@ class MyMoveAnimator extends MyAnimator {
         var  line  = 9 - this.currentPosition[1];
         // Translation According to the Current Position on the Board
         this.scene.translate(4.5 - line, 0, 4.5 - column);
+
+        this.pieces[0].display();
 
         this.scene.popMatrix();
     }
