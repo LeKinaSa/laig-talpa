@@ -1,6 +1,6 @@
 class MyMove {
     constructor(scene, initialGameState, player, originTile, destinationTile) {
-        super(scene);
+        this.scene = scene;
         this.initialGameState = initialGameState;
         this.player = player;
         this.originTile = originTile;
