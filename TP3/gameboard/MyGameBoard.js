@@ -133,13 +133,13 @@ class MyGameBoard {
             if (count == 1) board += "[";
             piece = this.tiles[tile].getPiece();
             if      (      piece      ==  null ) {
-                symbol = "E";
+                symbol = "'E'";
             }
             else if (piece.getColor() ==  'red') {
-                symbol = 'X';
+                symbol = "'X'";
             }
             else if (piece.getColor() == 'blue') {
-                symbol = 'O';
+                symbol = "'O'";
             }
             else {
                 console.log("Error in Piece Color.\n");
