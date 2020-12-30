@@ -71,7 +71,7 @@ class MyGameOrchestrator extends CGFobject{
     renderMove() {
         // Check if Move is Valid
         this.gameState = this.gameboard.toProlog();
-        var move = new MyMove(this.scene, this, this.gameState, this.player, this.selectedIds[0], this.selectedIds[1], this.gameboard);
+        var move = new MyMove(this.scene, this, this.gameState, this.player, this.selectedIds[0], this.selectedIds[1]);
         if (move.isValid()) {
             this.gameSequence.addGameMove(move); // add move to the game sequence
             this.animator = new MyMoveAnimator(this.scene, this);
