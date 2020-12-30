@@ -188,8 +188,8 @@ class XMLscene extends CGFscene {
         if (this.sceneInited) {
             // Picking
             this.gameOrchestrator.orchestrate();
-            //this.gameOrchestrator.managePick(this.pickMode, this.pickResults);
-            //this.clearPickRegistration();
+            this.gameOrchestrator.managePick(this.pickMode, this.pickResults);
+            this.clearPickRegistration();
 
             // Draw axis
             if(this.displayAxis)

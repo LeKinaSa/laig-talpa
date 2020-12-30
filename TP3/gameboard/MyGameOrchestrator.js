@@ -116,17 +116,11 @@ class MyGameOrchestrator extends CGFobject{
     gameOverReply(data) {
         console.log(data);
         let answer = data.response;
-        if (answer[0] != "1") {
-            console.log("Error");
-        }
-        return answer[2];
+        return answer[0];
     }
 
     orchestrate() {
         let result = null;
-        // TODO: nao sei se posso fazer isto aqui... perguntar à clara
-        this.managePick(this.scene.pickMode, this.scene.pickResults);
-        this.scene.clearPickRegistration();
 
         if(!this.over){
             switch(this.currentState) {
@@ -141,12 +135,14 @@ class MyGameOrchestrator extends CGFobject{
                 case this.state.next_turn: // select origin piece
                     // human : choose a piece
                     if (this.selected[0] != null) {
+                        console.log("selected1");
                         this.currentState = this.state.destination_piece_selection;
                     }
                     break;
     
                 case this.state.destination_piece_selection: // select destination piece
                     if (this.selected[1] != null) {
+                        console.log("selected2");
                         this.renderMove();
                     }
                     break;
@@ -164,9 +160,11 @@ class MyGameOrchestrator extends CGFobject{
                     break;
     
                 case this.state.end_game: // end game
+                    console.log(this.selected);
                     this.prolog.gameOverRequest(8,this.gameboard.toProlog(), this.player);
                     result = this.gameOverReply(this.prolog.request);
                     this.winner = result;
+                    console.log("Winner: "+ this.winner);
                     if (this.winner != 0) {
                         this.over = true;
                         if(this.winner == 1) console.log("Red Player Wins");
@@ -174,6 +172,7 @@ class MyGameOrchestrator extends CGFobject{
                         this.currentState = this.state.end_game;
                     }
                     else {
+                        console.log("here");
                         this.currentState = this.state.next_turn;
                     }
                     break;
