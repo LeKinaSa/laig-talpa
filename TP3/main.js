@@ -20,6 +20,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.j
 'gameboard/MyPiece.js', 'gameboard/MyTile.js', 'gameboard/MyGameBoard.js', 'gameboard/MyGameState.js',
 'gameboard/MyMove.js', 'gameboard/MyGameMove.js', 'gameboard/MyGameUndoMove.js', 'gameboard/MyGameSequence.js',
 'gameboard/MyAnimator.js', 'gameboard/MyGameOrchestrator.js', 'gameboard/MyMoveAnimator.js',
+'gameboard/MyUndoAnimator.js',
 
 main=function()
 {

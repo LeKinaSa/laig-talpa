@@ -200,6 +200,10 @@ class MyGameOrchestrator extends CGFobject{
             this.savedboard = this.gameboard; 
             this.currentState = this.state.movie;
         }
+        else if(this.scene.undo && this.currentState != this.state.undo){
+            this.savedboard = this.gameboard; 
+            this.currentState = this.state.undo;
+        }
 
         if(!this.over){
             switch(this.currentState) {
