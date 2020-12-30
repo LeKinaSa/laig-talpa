@@ -66,11 +66,13 @@ class MyGameOrchestrator extends CGFobject{
         // TODO
         this.currentState = this.state.movement_animation;
 
-        // Check if the move is valid
-
-        var move = new MyMove(this.scene, this.gameState, this.player, this.selected[0], this.selected[1]);
-        this.animator = new MyMoveAnimator(this.scene, this, move);
-        this.animator.start(this.selected, this.selectedIds);
+        // Check if Move is Valid
+        this.gameState = this.gameboard.toProlog();
+        var move = new MyMove(this.scene, this.prolog, this.gameState, this.player, this.selectedIds[0], this.selectedIds[1]);
+        if (move.isValid()) {
+            this.animator = new MyMoveAnimator(this.scene, this);
+            this.animator.start(this.selected, this.selectedIds);
+        }
     }
 
     undo() {
