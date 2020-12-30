@@ -39,7 +39,7 @@ class MyMoveAnimator extends MyAnimator {
         var destinPosition   = [destinId % 8 + 1, Math.floor(destinId / 8) + 1];
         this.positions       = [[originPosition[0], originPosition[1]],
                                 [destinPosition[0], destinPosition[1]]];
-        this.movingCurrentPosition = originPosition;
+        this.movingCurrentPosition = positions[0];
     }
 
     /**
@@ -56,11 +56,6 @@ class MyMoveAnimator extends MyAnimator {
                                   [outsideBoardPos[0], outsideBoardPos[1], outsideBoardPos[2]]]; 
         this.removingCurrentPosition = this.removingPositions[0];
     }
-
-    /**
-     * Resets Animation
-     */
-    reset() {}
 
     /**
      * Starts Animation

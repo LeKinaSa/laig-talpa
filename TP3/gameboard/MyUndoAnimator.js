@@ -17,7 +17,7 @@ class MyUndoAnimator extends MyMoveAnimator {
         // Move from Outside the Board to Destination Id
         var removingPieceId = this.ids[0];  // Destination Id
         var position = [removingPieceId % 8 + 1, Math.floor(removingPieceId / 8) + 1];
-        var outsideBoardPos = [-10, -10, -10]; // TODO
+        var outsideBoardPos = [0, 5, 0]; // TODO
         this.removingPositions = [[outsideBoardPos[0], outsideBoardPos[1], outsideBoardPos[2]],
                                   [       position[0],          0        ,        position[1]]]; 
         this.removingCurrentPosition = this.removingPositions[0];
@@ -47,7 +47,7 @@ class MyUndoAnimator extends MyMoveAnimator {
         }
         this.pieces[0].finishMovement();
         this.pieces[1].finishMovement();
-        this.gameOrchestrator.gameboard.toJS(this.move.initialGameState);
+        this.gameOrchestrator.gameboard.toJS(this.move.initialBoard);
         this.gameOrchestrator.player = this.move.player;
         return true;
     }
