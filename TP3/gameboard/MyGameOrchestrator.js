@@ -18,6 +18,7 @@ class MyGameOrchestrator extends CGFobject{
         this.prolog = new MyPrologConnection();
 
         this.gameState = [];
+        this.over = false;
         this.player = 0;
         this.winner = null;
         this.selectedPieces = 0;
@@ -118,7 +119,7 @@ class MyGameOrchestrator extends CGFobject{
         if (answer[0] != "1") {
             console.log("Error");
         }
-        return answer[1];
+        return answer[2];
     }
 
     orchestrate() {
@@ -127,58 +128,62 @@ class MyGameOrchestrator extends CGFobject{
         this.managePick(this.scene.pickMode, this.scene.pickResults);
         this.scene.clearPickRegistration();
 
-        switch(this.currentState) {
-            case this.state.menu:
-                this.prolog.startRequest(8);
-                result = this.startReply(this.prolog.request);
-                this.player = result[0];
-                this.gameboard.toJS(result[1]);
-                this.currentState = this.state.next_turn;
-                break;
-
-            case this.state.next_turn: // select origin piece
-                // human : choose a piece
-                if (this.selected[0] != null) {
-                    this.currentState = this.state.destination_piece_selection;
-                }
-                break;
-
-            case this.state.destination_piece_selection: // select destination piece
-                if (this.selected[1] != null) {
-                    this.renderMove();
-                }
-                break;
-
-            case this.state.movement_animation: // move animation
-                if (this.animator != null) {
-                    // this.animator.start();
-                }
-
-                // animation is over
-                this.selected[0] = null;
-                this.selected[1] = null;
-                // next turn
-                this.currentState = this.state.end_game; 
-                break;
-
-            case this.state.end_game: // end game
-                this.prolog.gameOverRequest(8,this.gameboard.toProlog(), this.player);
-                result = this.gameOverReply(this.prolog.request);
-                this.winner = result;
-                if (this.winner != 0) {
-                    // TODO
-                    console.log(this.winner);
-                    this.currentState = this.state.end_game;
-                }
-                else {
+        if(!this.over){
+            switch(this.currentState) {
+                case this.state.menu:
+                    this.prolog.startRequest(8);
+                    result = this.startReply(this.prolog.request);
+                    this.player = result[0];
+                    this.gameboard.toJS(result[1]);
                     this.currentState = this.state.next_turn;
-                }
-                break;
-
-            default:
-                console.log("Unknown Game State");
-                break;
+                    break;
+    
+                case this.state.next_turn: // select origin piece
+                    // human : choose a piece
+                    if (this.selected[0] != null) {
+                        this.currentState = this.state.destination_piece_selection;
+                    }
+                    break;
+    
+                case this.state.destination_piece_selection: // select destination piece
+                    if (this.selected[1] != null) {
+                        this.renderMove();
+                    }
+                    break;
+    
+                case this.state.movement_animation: // move animation
+                    if (this.animator != null) {
+                        // this.animator.start();
+                    }
+    
+                    // animation is over
+                    this.selected[0] = null;
+                    this.selected[1] = null;
+                    // next turn
+                    this.currentState = this.state.end_game; 
+                    break;
+    
+                case this.state.end_game: // end game
+                    this.prolog.gameOverRequest(8,this.gameboard.toProlog(), this.player);
+                    result = this.gameOverReply(this.prolog.request);
+                    this.winner = result;
+                    if (this.winner != 0) {
+                        this.over = true;
+                        if(this.winner == 1) console.log("Red Player Wins");
+                        else if(this.winner == -1) console.log("Blue Player Wins");
+                        this.currentState = this.state.end_game;
+                    }
+                    else {
+                        this.currentState = this.state.next_turn;
+                    }
+                    break;
+    
+                default:
+                    console.log("Unknown Game State");
+                    break;
+            }
         }
+        
     }
 
     display() {
