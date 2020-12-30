@@ -48,6 +48,8 @@ class XMLscene extends CGFscene {
         
         // Game Utilities
         this.board = new MyGameBoard(this);
+
+        this.gameOrchestrator = new MyGameOrchestrator(this);
     }
 
     /**
