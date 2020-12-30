@@ -23,7 +23,7 @@ class MyMoveAnimator extends MyAnimator {
 
         var originPosition   = [originId % 8 + 1, Math.floor(originId / 8) + 1];
         var destinPosition   = [destinId % 8 + 1, Math.floor(destinId / 8) + 1];
-        this.positions       = [originPosition, destinPosition];
+        this.positions       = [[originPosition[0], originPosition[1]], destinPosition];
         console.log(this.positions);
         this.currentPosition = originPosition;
     }
