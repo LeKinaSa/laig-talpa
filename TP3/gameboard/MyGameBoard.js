@@ -102,10 +102,8 @@ class MyGameBoard {
     }
     
     toJS(prologBoard) {
-        console.log(prologBoard);
-        console.log(prologBoard.length, prologBoard[0].length);
         for (let line = 0; line < prologBoard.length; ++ line) {
-            for (let column = 0; column < prologBoard[line].length; ++ column) {  
+            for (let column = 0; column < prologBoard[line].length; ++ column) {
                 let tile = new MyTile(this.scene, [column + 1, line + 1], this.tiletexture);
                 if (prologBoard[line][column] == "O") {       // blue
                     tile.piece = new MyPiece(this.scene, 'blue');
