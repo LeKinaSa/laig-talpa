@@ -39,7 +39,7 @@ class MyMoveAnimator extends MyAnimator {
         var destinPosition   = [destinId % 8 + 1, Math.floor(destinId / 8) + 1];
         this.positions       = [[originPosition[0], originPosition[1]],
                                 [destinPosition[0], destinPosition[1]]];
-        this.movingCurrentPosition = positions[0];
+        this.movingCurrentPosition = [this.positions[0][0], this.positions[0][1]];
     }
 
     /**
