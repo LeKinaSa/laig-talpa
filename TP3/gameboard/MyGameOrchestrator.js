@@ -74,6 +74,9 @@ class MyGameOrchestrator extends CGFobject{
             this.animator = new MyMoveAnimator(this.scene, this);
             this.animator.start(this.selected, this.selectedIds);
         }
+        else{
+            this.currentState = this.state.next_turn;
+        }
     }
 
     undo() {
@@ -144,7 +147,6 @@ class MyGameOrchestrator extends CGFobject{
      */
     playerMoveReply(data) {
         let answer = data.response;
-        console.log(answer);
         if (answer == "1") {
             return false;
         }
@@ -225,6 +227,8 @@ class MyGameOrchestrator extends CGFobject{
                         this.currentState = this.state.end_game;
                     }
                     else {
+                        if(this.player == 1) this.player = -1;
+                        else if(this.player == -1) this.player = 1;
                         this.currentState = this.state.next_turn;
                     }
                     break;
