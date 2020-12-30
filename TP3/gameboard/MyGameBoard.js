@@ -111,6 +111,9 @@ class MyGameBoard {
                 else if (prologBoard[line][column] == "X") {  // red
                     tile.piece = new MyPiece(this.scene, 'red');
                 }
+                else if (prologBoard[line][column] == "E") {  // red
+                    // nothing
+                }
                 else {
                     console.log("Error getting tiles");
                 }
@@ -130,7 +133,7 @@ class MyGameBoard {
             if (count == 1) board += "[";
             piece = this.tiles[tile].getPiece();
             if      (      piece      ==  null ) {
-                symbol = ' ';
+                symbol = "E";
             }
             else if (piece.getColor() ==  'red') {
                 symbol = 'X';
