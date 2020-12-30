@@ -168,9 +168,11 @@ transform_board([], []).
  * Transforms the Received Line into Prolog Line
  */
 % transform_line(+Line, -TransformedLine)
-transform_line(['E' | Line], [' ' | TransformedLine]).
+transform_line(['E' | Line], [' ' | TransformedLine]) :-
+    transform_line(Line, TransformedLine).
 transform_line([Element | Line], [Element | TransformedLine]) :-
-    Element \= 'E'.
+    Element \= 'E',
+    transform_line(Line, TransformedLine).
 transform_line([], []).
 
 
@@ -178,7 +180,7 @@ transform_line([], []).
  * Transforms the Prolog Board into Sending Board
  */
 % untransform_board(+TransformedBoard, -Board)
-untransform_board(TransformedBoard, Board) :-
+untransform_board([TransformedLine | TransformedBoard], [Line | Board]) :-
     untransform_line(TransformedLine, Line),
     untransform_board(TransformedBoard, Board).
 untransform_board([], []).
@@ -187,7 +189,9 @@ untransform_board([], []).
  * Transforms the Prolog Line into Sending Line
  */
 % untransform_line(+TransformedLine, -Line)
-untransform_line([' ' | TransformedLine], ['E' | Line]).
+untransform_line([' ' | TransformedLine], ['E' | Line]) :-
+    untransform_line(TransformedLine, Line).
 untransform_line([Element | TransformedLine], [Element | Line]) :-
-    Element \= ' '.
+    Element \= ' ',
+    untransform_line(TransformedLine, Line).
 untransform_line([], []).
