@@ -157,6 +157,7 @@ parse_input([quit], goodbye).
 % verify_player_move(+GameState, +Move)
 verify_player_move(GameState, Move) :-
     valid_moves(GameState, _, ValidMoves),
+    !,
     member(Move, ValidMoves).
 
 /**
