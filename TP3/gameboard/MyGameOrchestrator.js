@@ -125,6 +125,7 @@ class MyGameOrchestrator extends CGFobject{
         if (answer[0] != "0") {
             console.log("Error");
         }
+        if(answer[2] == " ") return (answer[3] + answer[4]);
         return answer[2];
     }
 
@@ -220,7 +221,8 @@ class MyGameOrchestrator extends CGFobject{
                     this.prolog.gameOverRequest(8,this.gameboard.toProlog(), this.player);
                     result = this.gameOverReply(this.prolog.request);
                     this.winner = result;
-                     if (this.winner != 0) {
+                    console.log(this.winner);
+                    if (this.winner != 0) {
                         this.over = true;
                         if(this.winner == 1) console.log("Red Player Wins");
                         else if(this.winner == -1) console.log("Blue Player Wins");
