@@ -504,6 +504,7 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <rotation axis="y" angle="90"/>
             </transformations>
 
             <descendants>
