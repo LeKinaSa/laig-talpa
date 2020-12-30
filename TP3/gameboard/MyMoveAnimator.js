@@ -3,9 +3,8 @@
  * @description Class that defines the animations for the moves
  */
 class MyMoveAnimator extends MyAnimator {
-    constructor(scene, gameOrchestrator, move) {
+    constructor(scene, gameOrchestrator) {
         super(scene, gameOrchestrator);
-        this.move = move;
         this.pieces    = []; // pieces involved in the move
         this.ids       = []; // Ids of the Pieces involved in the move
         this.positions = []; // Positions of the Pieces involved in the move
@@ -16,15 +15,16 @@ class MyMoveAnimator extends MyAnimator {
     /**
      * Calculate Position of the Involved Pieces
      * Based on Id
-     * Id Calculation : (line - 1) * 8 + column
+     * Id Calculation : (line - 1) * 8 + (column - 1)
      */
     calculatePositions() {
         var originId = this.ids[0];
         var destinId = this.ids[1];
 
-        var originPosition = [originId % 8, Math.floor(originId / 8) + 1];
-        var destinPosition = [destinId % 8, Math.floor(destinId / 8) + 1];
-        this.positions = [[originPosition[0],originPosition[1]], destinPosition];
+        var originPosition   = [originId % 8 + 1, Math.floor(originId / 8) + 1];
+        var destinPosition   = [destinId % 8 + 1, Math.floor(destinId / 8) + 1];
+        this.positions       = [originPosition, destinPosition];
+        console.log(this.positions);
         this.currentPosition = originPosition;
     }
 
@@ -56,7 +56,8 @@ class MyMoveAnimator extends MyAnimator {
         }
         this.pieces[0].finishMovement();
         this.pieces[1].finishMovement();
-        this.gameOrchestrator.gameboard.movePieceByPosition(this.positions[0][0],this.positions[0][1],this.positions[1][0], this.positions[1][1]);
+        this.gameOrchestrator.gameboard.movePieceByPosition(this.positions[0][0], this.positions[0][1],
+                                                            this.positions[1][0], this.positions[1][1]);
         return true;
     }
     
