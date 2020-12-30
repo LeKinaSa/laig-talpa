@@ -14,7 +14,7 @@ class MyGameOrchestrator extends CGFobject{
         this.animator = new MyAnimator(scene, this);
         this.gameboard = new MyGameBoard(scene);
         this.gameSequence = new MyGameSequence(scene);
-        //this.theme = new MyScenegraph(…);
+        this.theme = new MySceneGraph("talpa_scenes.xml", this.scene);
         this.prolog = new MyPrologConnection();
         this.selectedPieces = 0;
         this.selected = [null, null];
@@ -67,14 +67,22 @@ class MyGameOrchestrator extends CGFobject{
         this.currentState = this.state.movement_animation;
     }
 
-    orchestrate(){
+    orchestrate() {
 
     }
 
-    display(){
-        //this.theme.display();
+    display() {
+        this.theme.displayScene();
         this.animator.display();
         this.gameboard.display();
+    }
+
+    changeTheme(theme) {
+        this.theme = new MySceneGraph(theme, this.scene);
+    }
+
+    onHandshakeSuccess(){
+        console.log("Success");
     }
 
     managePick(mode, results) {

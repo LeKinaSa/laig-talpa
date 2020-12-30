@@ -3,7 +3,8 @@
         <reference length="2" />
         <root id="living-room" />
     </initials>
-    <views default="player1Camera">
+
+    <views default="global">
         <perspective id="player1Camera" near="0.1" far="500" angle="45">
             <from x="0" y="20" z="10" />
             <to x="0" y="-2" z="0" />
@@ -12,50 +13,46 @@
             <from x="0" y="20" z="-10" />
             <to x="0" y="-2" z="0" />
         </perspective>        
-        <perspective id="livingroom" near="0.1" far="500" angle="45">
+        <perspective id="global" near="0.1" far="500" angle="45">
             <from x="0" y="60" z="60" />
             <to x="0" y="-2" z="0" />
         </perspective>
     </views>
 
     <illumination>
-        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <ambient    r="0.2" g="0.2" b="0.2" a="1.0" />
         <background r="0.1" g="0.7" b="1.0" a="1.0" />
     </illumination>
 
-
     <lights>
-        
         <light id="demoLight">
             <enable value="1" />
-            <position x="10" y="12" z="9.5" w="1.0" />
-            <ambient r="0" g="0" b="0" a="1.0" />                 
-            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" /> 
+            <position x="10"  y="12"  z="9.5" w="1.0" />
+            <ambient  r="0.0" g="0.0" b="0.0" a="1.0" />                 
+            <diffuse  r="1.0" g="1.0" b="1.0" a="1.0" /> 
             <specular r="1.0" g="1.0" b="1.0" a="1.0" /> 
         </light>
     </lights>
 
-
     <textures>
-        <texture id="wood" path="./scenes/images/wood.jpg" />
-        <texture id="wood-floor" path="./scenes/images/wood-floor.jpg" />
-        <texture id="wall-paper" path="./scenes/images/wall-paper.jpg" />
-        <texture id="red-chair" path="./scenes/images/red-chair.jpg" />
-        <texture id="blue-chair" path="./scenes/images/blue-chair.jpg" />
-        <texture id="rug" path="./scenes/images/rug.jpg" />
-        <texture id="door" path="./scenes/images/door.jpg" />
-        <texture id="window" path="./scenes/images/window.jpg"/>
-        <texture id="fireplace" path="./scenes/images/fireplace.jpg"/>
-        <texture id="drawer" path="./scenes/images/drawer.jpg"/>
+        <texture id="wood"          path="./scenes/images/wood.jpg" />
+        <texture id="wood-floor"    path="./scenes/images/wood-floor.jpg" />
+        <texture id="wall-paper"    path="./scenes/images/wall-paper.jpg" />
+        <texture id="red-chair"     path="./scenes/images/red-chair.jpg" />
+        <texture id="blue-chair"    path="./scenes/images/blue-chair.jpg" />
+        <texture id="rug"           path="./scenes/images/rug.jpg" />
+        <texture id="door"          path="./scenes/images/door.jpg" />
+        <texture id="window"        path="./scenes/images/window.jpg"/>
+        <texture id="fireplace"     path="./scenes/images/fireplace.jpg"/>
+        <texture id="drawer"        path="./scenes/images/drawer.jpg"/>
         <texture id="mole-painting" path="./scenes/images/mole-painting.jpg"/>
-        <texture id="leather" path="./scenes/images/leather.jpg"/>
-        <texture id="sideboard" path="./scenes/images/sideboard.jpg"/>
-
+        <texture id="leather"       path="./scenes/images/leather.jpg"/>
+        <texture id="sideboard"     path="./scenes/images/sideboard.jpg"/>
     </textures>
 
     <spritesheets>
         <spritesheet id="fire" path="./scenes/images/fire.png" sizeM="8" sizeN="8"/>
-        <spritesheet id="tv" path="./scenes/images/tv.png" sizeM="20" sizeN="15"/>
+        <spritesheet id="tv"   path="./scenes/images/tv.png" sizeM="20" sizeN="15"/>
     </spritesheets>
 
     <materials>
@@ -1065,7 +1062,6 @@
             </transformations>
 
             <descendants>
-                
                 <leaf type="rectangle" x1="-20" y1="-25" x2="20" y2="25"/>
             </descendants>
         </node>

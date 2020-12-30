@@ -71,7 +71,12 @@ class MyCylinder extends CGFobject {
                 //--- Normals
                 // at each vertex, the direction of the normal is equal to 
                 // the vector from the center of the cylinder to the vertex.
-                this.normals.push(x/currentRadius, y/currentRadius, 0);
+                if (this.height > 0) {
+                    this.normals.push(x/currentRadius, y/currentRadius, 0);
+                }
+                else {
+                    this.normals.push(-x/currentRadius, -y/currentRadius, 0);
+                }
     
                 //--- Texture Coordinates
                 this.texCoords.push(slice/this.circleDivs , stack/this.heightDivs);
@@ -100,7 +105,6 @@ class MyCylinder extends CGFobject {
                 if (line == 1 && slice < this.circleDivs) {
                     var current = (this.heightDivs + 1) * circleVertices + slice;
                     var next = current + circleVertices;
-
 
                     this.indices.push(current + 1, next + 1, next);
                 }
