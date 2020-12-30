@@ -19,6 +19,8 @@ class XMLscene extends CGFscene {
     init(application) {
         super.init(application);
 
+        this.gameOrchestrator = new MyGameOrchestrator(this);
+
         this.sceneInited = false;
 
         this.difficulty = false;
@@ -57,8 +59,13 @@ class XMLscene extends CGFscene {
         this.displayAxis = false;
         this.scaleFactor = 1;
         this.updatePeriod = 100;
+
+        // Enable Picking
+        this.setPickEnabled(true);
         
-        // ----- TESTING
+        // Game Utilities
+        this.board = new MyGameBoard(this);
+
         this.gameOrchestrator = new MyGameOrchestrator(this);
     }
 
@@ -144,7 +151,6 @@ class XMLscene extends CGFscene {
         this.setUpdatePeriod(100);
 
         this.sceneInited = true;
-
     }
 
     /**
@@ -153,6 +159,7 @@ class XMLscene extends CGFscene {
      * @param {time} t 
      */
     update(t) {
+        this.gameOrchestrator.update(t);
         if (this.sceneInited)  {
             this.graph.updateAnimations(t);
         }
@@ -184,6 +191,10 @@ class XMLscene extends CGFscene {
         }
 
         if (this.sceneInited) {
+            // Picking
+            this.gameOrchestrator.managePick(this.pickMode, this.pickResults);
+            this.clearPickRegistration();
+
             // Draw axis
             if(this.displayAxis)
                 this.axis.display();
@@ -193,6 +204,13 @@ class XMLscene extends CGFscene {
             // Update Lights
             this.updateLights();
             
+            // Displays the scene (MySceneGraph function).
+            this.graph.displayScene();
+            
+            // Display the Game Board
+            //this.board.display();
+
+            // Displays the scene (MySceneGraph function).
             this.gameOrchestrator.display();
         }
         else {
@@ -212,5 +230,4 @@ class XMLscene extends CGFscene {
     changeTheme(theme) {
         this.gameOrchestrator.changeTheme(theme);
     }
-
 }
