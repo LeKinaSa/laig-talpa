@@ -23,6 +23,23 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = false;
 
+        this.difficulty = false;
+        this.movie = false;
+        this.undo = false;
+        
+        this.gameScenes = {
+            'Living Room': "talpa_scenes.xml",
+            'The GameHouse': "talpa_game_house.xml"
+        }
+        this.dimensions = {
+            '8': 0,
+        }
+        this.gameMode = {
+            'Player vs. Player': 0,
+            'Player vs. Bot': 1,
+            'Bot vs. Bot': 2
+        }
+
         this.initCameras();
 
         this.enableTextures(true);
@@ -48,6 +65,8 @@ class XMLscene extends CGFscene {
         
         // Game Utilities
         this.board = new MyGameBoard(this);
+
+        this.gameOrchestrator = new MyGameOrchestrator(this);
     }
 
     /**
@@ -207,5 +226,9 @@ class XMLscene extends CGFscene {
 
         this.popMatrix();
         // ---- END Background, camera and axis setup
+    }
+
+    changeTheme(theme) {
+        this.gameOrchestrator.changeTheme(theme);
     }
 }
