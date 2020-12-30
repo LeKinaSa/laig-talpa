@@ -17,6 +17,8 @@ class MyGameOrchestrator extends CGFobject{
         this.theme = new MySceneGraph("talpa_scenes.xml", this.scene);
         this.prolog = new MyPrologConnection();
 
+        this.savedboard = null;
+
         this.gameState = [];
         this.over = false;
         this.player = 0;
@@ -67,17 +69,16 @@ class MyGameOrchestrator extends CGFobject{
     }
 
     renderMove() {
-        // TODO
-        this.currentState = this.state.movement_animation;
-
         // Check if Move is Valid
         this.gameState = this.gameboard.toProlog();
-        var move = new MyMove(this.scene, this, this.gameState, this.player, this.selectedIds[0], this.selectedIds[1]);
+        var move = new MyMove(this.scene, this, this.gameState, this.player, this.selectedIds[0], this.selectedIds[1], this.gameboard);
         if (move.isValid()) {
+            this.gameSequence.addGameMove(move); // add move to the game sequence
             this.animator = new MyMoveAnimator(this.scene, this);
             this.animator.start(this.selected, this.selectedIds);
             this.lastMove = move;
             this.lastMovedPieces = [this.selected[0], this.selected[1]];
+            this.currentState = this.state.movement_animation;
         }
         else {
             this.currentState = this.state.next_turn;
@@ -95,7 +96,9 @@ class MyGameOrchestrator extends CGFobject{
     movie() {
         // TODO
         // activate an animation that plays the game sequence
-        this.currentState = this.state.movement_animation;
+        this.gameboard = new MyGameBoard(this.scene);
+        this.gameSequence.currentMove = 0;
+        this.gameSequence.moveReplay();        
     }
 
     onHandshakeSuccess() {
@@ -193,6 +196,10 @@ class MyGameOrchestrator extends CGFobject{
 
     orchestrate() {
         let result = null;
+        if(this.scene.movie && this.currentState != this.state.movie){
+            this.savedboard = this.gameboard; 
+            this.currentState = this.state.movie;
+        }
 
         if(!this.over){
             switch(this.currentState) {
@@ -249,7 +256,18 @@ class MyGameOrchestrator extends CGFobject{
                     console.log("Undo"); //TODO : remove
                     this.undo();
                     this.currentState = this.state.next_turn;
+                    break;
     
+                case this.state.movie:
+                    console.log("MOVIE");
+                    if(!this.scene.movie){
+                        this.gameboard = this.savedboard;
+                        this.currentState = this.state.next_turn;
+                    }
+                    this.movie();
+
+
+                    break;
                 default:
                     console.log("Unknown Game State");
                     break;

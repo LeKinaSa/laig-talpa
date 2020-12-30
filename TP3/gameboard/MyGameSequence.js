@@ -34,7 +34,12 @@ class MyGameSequence extends CGFobject {
      * Feeds move replay
      */
     moveReplay() {
-
+        if (this.currentMove == this.sequence.length) {
+            this.scene.gameOrchestrator.gameBoard = this.sequence[0].board;
+            this.scene.interface.currentCameraId = this.scene.graph.defaultCameraId;
+        } else {
+            this.currentMove++;
+        }
     }
 
 

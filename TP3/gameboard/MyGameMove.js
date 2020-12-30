@@ -1,9 +1,10 @@
 class MyGameMove extends MyMove {
-    constructor (movedPiece, originTile, destinationTile, initialGameState) {
+    constructor (movedPiece, originTile, destinationTile, initialGameState, board) {
         super(initialGameState);        
         this.movedPiece       = movedPiece;
         this.originTile       = originTile;
         this.destinationTile  = destinationTile;
+        this.board            = board;
     }
 
     animate() {
