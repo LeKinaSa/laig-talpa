@@ -14,7 +14,7 @@ class MyGameOrchestrator extends CGFobject{
         this.animator = null;
         this.gameboard = new MyGameBoard(scene);
         this.gameSequence = new MyGameSequence(scene);
-        //this.theme = new MyScenegraph(…);
+        this.theme = new MySceneGraph("talpa_scenes.xml", this.scene);
         this.prolog = new MyPrologConnection();
 
         this.gameState = [];
@@ -108,7 +108,7 @@ class MyGameOrchestrator extends CGFobject{
         return result;
     }
 
-    /**A
+    /**
      * Verifies if the game as finished
      * @param {*} data winner
      */
@@ -160,6 +160,7 @@ class MyGameOrchestrator extends CGFobject{
                 // next turn
                 this.currentState = this.state.end_game; 
                 break;
+    orchestrate() {
 
             case this.state.end_game: // end game
                 this.prolog.gameOverRequest(8,this.gameboard.toProlog(), this.player);
@@ -182,11 +183,19 @@ class MyGameOrchestrator extends CGFobject{
     }
 
     display() {
-        //this.theme.display();
+        this.theme.displayScene();
         if (this.animator != null) {
             this.animator.display();
         }
         this.gameboard.display();
+    }
+
+    changeTheme(theme) {
+        this.theme = new MySceneGraph(theme, this.scene);
+    }
+
+    onHandshakeSuccess(){
+        console.log("Success");
     }
 
     managePick(mode, results) {
