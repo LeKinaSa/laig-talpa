@@ -123,7 +123,7 @@ ________________________________________________________________________________
 parse_input([0, Dimensions], 0-Board-Player) :-
 	initial(Dimensions-Board-Player).
 
-parse_input([1, Dimensions, JSBoard, Player], 1-Winner) :-
+parse_input([1, Dimensions, JSBoard, Player], Winner) :-
     transform_board(JSBoard, Board),
 	game_over(Dimensions-Board-Player, Winner).
 
