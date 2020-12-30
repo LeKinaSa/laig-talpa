@@ -3,10 +3,12 @@
  * @description Class that defines the animations for the moves
  */
 class MyMoveAnimator extends MyAnimator {
-    constructor(scene, gameOrchestrator) {
+    constructor(scene, gameOrchestrator, pieces, ids) {
         super(scene, gameOrchestrator);
-        this.pieces    = []; // pieces involved in the move
-        this.ids       = []; // Ids of the Pieces involved in the move
+        this.pieces = [null, null];
+        this.pieces[0] = pieces[0]; //  Moving  Piece
+        this.pieces[1] = pieces[1]; // Removing Piece
+        this.ids = ids;
         this.positions = []; // Positions of the Pieces involved in the move
         this.totalTime = 1;
         this.movingCurrentPosition   = [0, 0]; // Position = [column, line]
@@ -60,11 +62,7 @@ class MyMoveAnimator extends MyAnimator {
     /**
      * Starts Animation
      */
-    start(pieces, ids) {
-        this.pieces[0] = pieces[0]; //  Moving  Piece
-        this.pieces[1] = pieces[1]; // Removing Piece
-        this.ids = ids;
-
+    start() {
         this.calculatePositions();
 
         this.pieces[0].startMovement();

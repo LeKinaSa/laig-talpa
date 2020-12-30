@@ -3,9 +3,10 @@
  * @description Class that defines the animations for the moves
  */
 class MyUndoAnimator extends MyMoveAnimator {
-    constructor(scene, gameOrchestrator) {
-        super(scene, gameOrchestrator);
-        this.move      = null;  // Move that will be undo
+    constructor(scene, gameOrchestrator, move, pieces) {
+        super(scene, gameOrchestrator, pieces, []);
+        this.move = move;
+        this.ids = [this.move.destinId, this.move.originId];
     }
 
     /**
@@ -26,12 +27,7 @@ class MyUndoAnimator extends MyMoveAnimator {
     /**
      * Starts Animation
      */
-    start(move, pieces) {
-        this.move = move;
-        this.pieces[0] = pieces[0]; //  Moving  Piece
-        this.pieces[1] = pieces[1]; // Removing Piece
-        this.ids = [this.move.destinId, this.move.originId];
-
+    start() {
         this.calculatePositions();
 
         this.pieces[0].startMovement();

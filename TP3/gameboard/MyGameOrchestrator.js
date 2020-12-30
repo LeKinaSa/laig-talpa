@@ -74,8 +74,8 @@ class MyGameOrchestrator extends CGFobject{
         var move = new MyMove(this.scene, this, this.gameState, this.player, this.selectedIds[0], this.selectedIds[1]);
         if (move.isValid()) {
             this.gameSequence.addGameMove(move); // add move to the game sequence
-            this.animator = new MyMoveAnimator(this.scene, this);
-            this.animator.start(this.selected, this.selectedIds);
+            this.animator = new MyMoveAnimator(this.scene, this, this.selected, this.selectedIds);
+            this.animator.start();
             this.lastMove = move;
             this.lastMovedPieces = [this.selected[0], this.selected[1]];
             this.currentState = this.state.movement_animation;
@@ -88,8 +88,8 @@ class MyGameOrchestrator extends CGFobject{
     undo() {
         // TODO
         if (this.lastMove != null) {
-            this.animator = new MyUndoAnimator(this.scene, this);
-            this.animator.start(this.lastMove, this.lastMovedPieces);
+            this.animator = new MyUndoAnimator(this.scene, this, this.lastMove, this.lastMovedPieces);
+            this.animator.start();
             this.lastMove = null;
             this.lastMovedPieces = [null, null];
         }
