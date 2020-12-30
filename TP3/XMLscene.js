@@ -19,8 +19,6 @@ class XMLscene extends CGFscene {
     init(application) {
         super.init(application);
 
-        this.gameOrchestrator = new MyGameOrchestrator(this);
-
         this.sceneInited = false;
 
         this.difficulty = false;
@@ -62,9 +60,6 @@ class XMLscene extends CGFscene {
 
         // Enable Picking
         this.setPickEnabled(true);
-        
-        // Game Utilities
-        this.board = new MyGameBoard(this);
 
         this.gameOrchestrator = new MyGameOrchestrator(this);
     }
