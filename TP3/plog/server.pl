@@ -123,7 +123,7 @@ ________________________________________________________________________________
 parse_input([0, Dimensions], 0-Board-Player) :-
 	initial(Dimensions-Board-Player).
 
-parse_input([1, Dimensions, Board, Player], 0-Winner) :-
+parse_input([1, Dimensions, Board, Player], 1-Winner) :-
 	game_over(Dimensions-Board-Player, Winner).
 
 parse_input([2, Dimensions, Board, Player, Level], 0) :-

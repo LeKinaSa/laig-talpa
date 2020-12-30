@@ -121,10 +121,12 @@ class MyGameBoard {
      * Turn the GameBoard into a Prolog Board
      */
     toProlog() {
-        var board = [];
+        var board = "[";
         var piece;
         var symbol;
+        let count = 1;
         for (var tile = 0; tile < this.tiles.length; ++ tile) {
+            if(count == 1) board+="[";
             piece = this.tiles[tile].getPiece();
             if      (      piece      ==  null ) {
                 symbol = ' ';
@@ -138,7 +140,18 @@ class MyGameBoard {
             else {
                 console.log("Error in Piece Color.\n");
             }
-            board.push(symbol);
+            board += symbol;
+            if(count == 8){
+                board+="],";
+                count = 0;
+            }
+            else{
+                board+=",";
+            }
+            count++;
         }
+        let final = board.substring(0, board.length-1);
+        final+="]";
+        return final;
     }
 }

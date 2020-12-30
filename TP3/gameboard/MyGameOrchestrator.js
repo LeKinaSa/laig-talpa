@@ -19,6 +19,7 @@ class MyGameOrchestrator extends CGFobject{
 
         this.gameState = [];
         this.player = 0;
+        this.winner = null;
         this.selectedPieces = 0;
         this.selected = [null, null];
         this.selectedIds = [0, 0];
@@ -89,7 +90,7 @@ class MyGameOrchestrator extends CGFobject{
             console.log("Error");
         }
         var Player = answer[2]; 
-        var boardStr = answer[1].substring(2, answer[1].length - 2);;
+        var boardStr = answer[1].substring(2, answer[1].length - 2);
         var auxList = boardStr.split("],[");
         
         var board = [];
@@ -105,7 +106,21 @@ class MyGameOrchestrator extends CGFobject{
         return result;
     }
 
+    /**A
+     * Verifies if the game as finished
+     * @param {*} data winner
+     */
+    gameOverReply(data) {
+        console.log(data);
+        let answer = data.response;
+        if (answer[0] != "1") {
+            console.log("Error");
+        }
+        return answer[1];
+    }
+
     orchestrate() {
+        let result = null;
         // TODO: nao sei se posso fazer isto aqui... perguntar à clara
         this.managePick(this.scene.pickMode, this.scene.pickResults);
         this.scene.clearPickRegistration();
@@ -113,7 +128,7 @@ class MyGameOrchestrator extends CGFobject{
         switch(this.currentState) {
             case this.state.menu:
                 this.prolog.startRequest(8);
-                let result = this.startReply(this.prolog.request);
+                result = this.startReply(this.prolog.request);
                 this.player = result[0];
                 this.gameboard.toJS(result[1]);
                 this.currentState = this.state.next_turn;          
@@ -141,6 +156,14 @@ class MyGameOrchestrator extends CGFobject{
                 this.selected[0] = null;
                 this.selected[1] = null;
                 // next turn
+                this.currentState = this.state.end_game; 
+                break;
+
+            case this.state.end_game: // move animation
+                this.prolog.gameOverRequest(8,this.gameboard.toProlog(), this.player);
+                result = this.gameOverReply(this.prolog.request);
+                this.winner = result;
+                console.log(this.winner);
                 this.currentState = this.state.next_turn; 
                 break;
 

@@ -62,7 +62,7 @@ class MyPrologConnection {
      * @param {*} player player that is gonna be verified
      */
     gameOverRequest(dimensions, board, player) {
-        this.sendPrologRequest([this.GameOver, dimensions, board, player], this.gameOverReply);
+        this.sendPrologRequest([this.GameOver, dimensions, board, player]);
     }
 
     /**
@@ -127,18 +127,6 @@ class MyPrologConnection {
         result.push(board);
 
         this.request = result;
-    }
-
-    /**A
-     * Verifies if the game as finished
-     * @param {*} data winner
-     */
-    gameOverReply(data) {
-        let answer = data.target.response;
-        if (answer[0] != "0") {
-            console.log("Error");
-        }
-        return answer[1];
     }
 
     /**
