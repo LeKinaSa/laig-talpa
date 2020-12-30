@@ -22,9 +22,6 @@ class MyAnimator extends CGFobject {
         // Reset Timer
         this.startTime = 0;
         this.finished = false;
-
-        // Reset Positions
-        this.calculatePositions();
     }
 
     /**
