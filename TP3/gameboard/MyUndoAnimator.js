@@ -25,16 +25,6 @@ class MyUndoAnimator extends MyMoveAnimator {
     }
 
     /**
-     * Starts Animation
-     */
-    start() {
-        this.calculatePositions();
-
-        this.pieces[0].startMovement();
-        this.pieces[1].startMovement();
-    }
-
-    /**
      * Finish Animation
      */
     finish() {
