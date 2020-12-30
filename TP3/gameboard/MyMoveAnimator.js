@@ -9,7 +9,7 @@ class MyMoveAnimator extends MyAnimator {
         this.pieces    = []; // pieces involved in the move
         this.ids       = []; // Ids of the Pieces involved in the move
         this.positions = []; // Positions of the Pieces involved in the move
-        this.totalTime = 2;
+        this.totalTime = 1;
         this.currentPosition = [0, 0]; // Position = [column, line]
     }
 
@@ -56,7 +56,6 @@ class MyMoveAnimator extends MyAnimator {
         }
         this.pieces[0].finishMovement();
         this.pieces[1].finishMovement();
-        console.log(this.positions);
         this.gameOrchestrator.gameboard.movePieceByPosition(this.positions[0][0],this.positions[0][1],this.positions[1][0], this.positions[1][1]);
         return true;
     }
