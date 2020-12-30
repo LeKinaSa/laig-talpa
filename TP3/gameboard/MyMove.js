@@ -1,7 +1,8 @@
 class MyMove {
-    constructor(scene, prolog, initialGameState, player, originId, destinId) {
+    constructor(scene, gameOrchestrator, initialGameState, player, originId, destinId) {
         this.scene = scene;
-        this.prolog = prolog;
+        this.gameOrchestrator = gameOrchestrator;
+        this.prolog = this.gameOrchestrator.prolog;
         this.initialGameState = initialGameState; // Board
         this.player = player;
         this.originId = originId;
@@ -75,7 +76,9 @@ class MyMove {
         this.getMove();
 
         // Prolog Verification
+        console.log("manda request para move");
         this.prolog.playerMoveRequest(8, this.initialGameState, this.player, this.column, this.line, this.direction);
-        return this.prolog.playerMoveReply(this.prolog.request);
+        console.log("analisa reply de move");
+        return this.gameOrchestrator.playerMoveReply(this.prolog.request);
     }
 }

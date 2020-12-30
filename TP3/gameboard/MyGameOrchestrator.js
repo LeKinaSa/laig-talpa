@@ -69,7 +69,7 @@ class MyGameOrchestrator extends CGFobject{
 
         // Check if Move is Valid
         this.gameState = this.gameboard.toProlog();
-        var move = new MyMove(this.scene, this.prolog, this.gameState, this.player, this.selectedIds[0], this.selectedIds[1]);
+        var move = new MyMove(this.scene, this, this.gameState, this.player, this.selectedIds[0], this.selectedIds[1]);
         if (move.isValid()) {
             this.animator = new MyMoveAnimator(this.scene, this);
             this.animator.start(this.selected, this.selectedIds);
@@ -87,6 +87,10 @@ class MyGameOrchestrator extends CGFobject{
         this.currentState = this.state.movement_animation;
     }
 
+    /**
+     * Gets the initial Board
+     * @param {*} data initial board and player
+     */
     startReply(data) {
         let answer = data.response.split("-");
         if (answer[0] != "0") {
@@ -114,12 +118,62 @@ class MyGameOrchestrator extends CGFobject{
      * @param {*} data winner
      */
     gameOverReply(data) {
-        console.log(data);
         let answer = data.response;
         if (answer[0] != "0") {
             console.log("Error");
         }
         return answer[2];
+    }
+
+    /**
+     * Gets AI Move
+     * @param {*} data move (column-line-direction)
+     */
+    AIMoveReply(data) {
+        let answer = data.response.split("-");
+        if (answer[0] != "0") {
+            console.log("Error");
+            return [];
+        }
+        return [answer[1], answer[2], answer[3]];
+    }      
+
+    /**
+     * Verifies if player move is valid
+     * @param {*} data move (column-line-direction)
+     */
+    playerMoveReply(data) {
+        let answer = data.response;
+        console.log(answer);
+        if (answer == "1") {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Makes move, returning new board
+     * @param {*} data new board and next player to move
+     */
+    moveReply(data) {
+        let answer = data.response.split("-");
+        if (answer[0] != "0") {
+            console.log("Error");
+        }
+        var player = answer[2]; 
+        var boardStr = answer[1].substring(2, answer[1].length - 2);;
+        var auxList = boardStr.split("],[");
+        
+        var board = [];
+        for (let i = 0; i < auxList.length; ++ i) {
+            var line = auxList[i].split(",");
+            board.push(line);
+        }
+
+        var result = [];
+        result.push(player);
+        result.push(board);
+        return result;
     }
 
     orchestrate() {
@@ -138,14 +192,12 @@ class MyGameOrchestrator extends CGFobject{
                 case this.state.next_turn: // select origin piece
                     // human : choose a piece
                     if (this.selected[0] != null) {
-                        console.log("selected1");
                         this.currentState = this.state.destination_piece_selection;
                     }
                     break;
     
                 case this.state.destination_piece_selection: // select destination piece
                     if (this.selected[1] != null) {
-                        console.log("selected2");
                         this.renderMove();
                     }
                     break;
@@ -163,11 +215,9 @@ class MyGameOrchestrator extends CGFobject{
                     break;
     
                 case this.state.end_game: // end game
-                    console.log(this.selected);
                     this.prolog.gameOverRequest(8,this.gameboard.toProlog(), this.player);
                     result = this.gameOverReply(this.prolog.request);
                     this.winner = result;
-                    console.log("Winner: "+ this.winner);
                      if (this.winner != 0) {
                         this.over = true;
                         if(this.winner == 1) console.log("Red Player Wins");
@@ -175,7 +225,6 @@ class MyGameOrchestrator extends CGFobject{
                         this.currentState = this.state.end_game;
                     }
                     else {
-                        console.log("here");
                         this.currentState = this.state.next_turn;
                     }
                     break;

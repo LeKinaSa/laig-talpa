@@ -73,7 +73,7 @@ class MyPrologConnection {
      * @param {*} level bot difficulty
      */
     AIMoveRequest(dimensions, board, player, level) {
-        this.sendPrologRequest([this.AIMove, dimensions, board, player, level], this.AIMoveReply);
+        this.sendPrologRequest([this.AIMove, dimensions, board, player, level]);
     }
 
     /**
@@ -86,7 +86,7 @@ class MyPrologConnection {
      * @param {*} direction direction of the move
      */
     playerMoveRequest(dimensions, board, player, column, line, direction) {
-        this.sendPrologRequest([this.playerMove, dimensions, board, player, column, line, direction], this.playerMoveReply);
+        this.sendPrologRequest([this.playerMove, dimensions, board, player, column, line, direction]);
     }
 
     /**
@@ -97,87 +97,13 @@ class MyPrologConnection {
      * @param {*} move move that is gonna be made
      */
     moveRequest(dimensions, board, player, move) {
-        this.sendPrologRequest([this.move, dimensions, board, player, move], this.moveReply);
+        this.sendPrologRequest([this.move, dimensions, board, player, move]);
     }
 
     /* ------------------------------------------------------------------------------------
     ---------------------------------- RESPONSE HANDLERS ----------------------------------
     --------------------------------------------------------------------------------------*/
-    /**
-     * Gets the initial Board
-     * @param {*} data initial board and player
-     */
-     startReply(data) {
-        let answer = data.target.response.split("-");
-        if (answer[0] != "0") {
-            console.log("Error");
-        }
-        var player = answer[2]; 
-        var boardStr = answer[1].substring(2, answer[1].length - 2);;
-        var auxList = boardStr.split("],[");
-        
-        var board = [];
-        for (let i = 0; i < auxList.length; ++ i) {
-            var line = auxList[i].split(",");
-            board.push(line);
-        }
 
-        var result = [];
-        result.push(player);
-        result.push(board);
-
-        this.request = result;
-    }
-
-    /**
-     * Gets AI Move
-     * @param {*} data move (column-line-direction)
-     */
-    AIMoveReply(data) {
-        let answer = data.target.response.split("-");
-        if (answer[0] != "0") {
-            console.log("Error");
-            return [];
-        }
-        return [answer[1], answer[2], answer[3]];
-    }
-
-    /**
-     * Verifies if player move is valid
-     * @param {*} data move (column-line-direction)
-     */
-    playerMoveReply(data) {
-        let answer = data.target.response;
-        if (answer != "0") {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Makes move, returning new board
-     * @param {*} data new board and next player to move
-     */
-    moveReply(data) {
-        let answer = data.target.response.split("-");
-        if (answer[0] != "0") {
-            console.log("Error");
-        }
-        var player = answer[2]; 
-        var boardStr = answer[1].substring(2, answer[1].length - 2);;
-        var auxList = boardStr.split("],[");
-        
-        var board = [];
-        for (let i = 0; i < auxList.length; ++ i) {
-            var line = auxList[i].split(",");
-            board.push(line);
-        }
-
-        var result = [];
-        result.push(player);
-        result.push(board);
-        return result;
-    }
 }
 
 //defining constants to be easier to work with the code
