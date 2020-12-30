@@ -75,8 +75,7 @@ class MyMove {
         this.getMove();
 
         // Prolog Verification
-        // this.prolog.playerMoveRequest(8, this.initialGameState, this.player, this.column, this.line, this.direction);
-        // return this.prolog.playerMoveReply(this.prolog.request);
-        return true;
+        this.prolog.playerMoveRequest(8, this.initialGameState, this.player, this.column, this.line, this.direction);
+        return this.prolog.playerMoveReply(this.prolog.request);
     }
 }
