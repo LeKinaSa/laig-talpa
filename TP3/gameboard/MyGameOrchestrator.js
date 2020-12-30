@@ -233,19 +233,22 @@ class MyGameOrchestrator extends CGFobject{
                     this.prolog.gameOverRequest(8,this.gameboard.toProlog(), this.player);
                     result = this.gameOverReply(this.prolog.request);
                     this.winner = result;
-                    console.log(this.winner);
                     if (this.winner != 0) {
                         this.over = true;
-                        if(this.winner == 1) console.log("Red Player Wins");
-                        else if(this.winner == -1) console.log("Blue Player Wins");
+                        if (this.winner == 1) console.log("Red Player Wins");
+                        else if (this.winner == -1) console.log("Blue Player Wins");
                         this.currentState = this.state.end_game;
                     }
                     else {
-                        if(this.player == 1) this.player = -1;
-                        else if(this.player == -1) this.player = 1;
+                        this.player = -this.player;
                         this.currentState = this.state.next_turn;
                     }
                     break;
+
+                case this.state.undo:
+                    console.log("Undo"); //TODO : remove
+                    this.undo();
+                    this.currentState = this.state.next_turn;
     
                 default:
                     console.log("Unknown Game State");

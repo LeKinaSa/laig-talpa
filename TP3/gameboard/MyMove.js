@@ -66,10 +66,6 @@ class MyMove {
             // Diagonal
             this.direction = "e";
         }
-
-        console.log(this.originId, this.destinId);
-        console.log(originPos[0], originPos[1], destinPos[0], destinPos[1]);
-        console.log(this.column, this.line, this.direction);
     }
 
     isValid() {
