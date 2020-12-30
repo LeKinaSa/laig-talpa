@@ -52,7 +52,7 @@ class MyMove {
                 // Next Column
                 this.direction = "r";
             }
-            if ((originPos[0] - 1) == destinPos[0]) {
+            else if ((originPos[0] - 1) == destinPos[0]) {
                 // Column Before
                 this.direction = "l";
             }

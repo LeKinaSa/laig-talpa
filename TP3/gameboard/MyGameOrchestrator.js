@@ -168,7 +168,7 @@ class MyGameOrchestrator extends CGFobject{
                     result = this.gameOverReply(this.prolog.request);
                     this.winner = result;
                     console.log("Winner: "+ this.winner);
-                    if (this.winner != 0) {
+                     if (this.winner != 0) {
                         this.over = true;
                         if(this.winner == 1) console.log("Red Player Wins");
                         else if(this.winner == -1) console.log("Blue Player Wins");
