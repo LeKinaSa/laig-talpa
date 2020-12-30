@@ -102,17 +102,18 @@ class MyGameBoard {
     }
     
     toJS(prologBoard) {
-        for(let i = 0; i < prologBoard.length; i++){
-            for(let j = 0; j < prologBoard[i].length; j++){  
-                let tile = new MyTile(this.scene, [j+1, i+1], this.tiletexture);
-                if(prologBoard[i][j] == "O"){       // blue
+        for (let line = 0; line < prologBoard.length; ++ line) {
+            for (let column = 0; column < prologBoard[line].length; ++ column) {  
+                let tile = new MyTile(this.scene, [column + 1, line + 1], this.tiletexture);
+                if (prologBoard[line][column] == "O") {       // blue
                     tile.piece = new MyPiece(this.scene, 'blue');
-                    //console.log(j); console.log(i);
                 }
-                else if(prologBoard[i][j] == "X"){  // red
+                else if (prologBoard[line][column] == "X") {  // red
                     tile.piece = new MyPiece(this.scene, 'red');
                 }
-                else console.log("Error getting tiles") ;               
+                else {
+                    console.log("Error getting tiles");
+                }
                 this.tiles.push(tile);
             }
         }
@@ -126,7 +127,7 @@ class MyGameBoard {
         var symbol;
         let count = 1;
         for (var tile = 0; tile < this.tiles.length; ++ tile) {
-            if(count == 1) board+="[";
+            if (count == 1) board += "[";
             piece = this.tiles[tile].getPiece();
             if      (      piece      ==  null ) {
                 symbol = ' ';
@@ -141,17 +142,17 @@ class MyGameBoard {
                 console.log("Error in Piece Color.\n");
             }
             board += symbol;
-            if(count == 8){
-                board+="],";
+            if (count == 8) {
+                board += "],";
                 count = 0;
             }
             else{
-                board+=",";
+                board += ",";
             }
-            count++;
+            ++ count;
         }
-        let final = board.substring(0, board.length-1);
-        final+="]";
+        let final = board.substring(0, board.length - 1);
+        final += "]";
         return final;
     }
 }

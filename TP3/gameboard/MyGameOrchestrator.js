@@ -131,7 +131,7 @@ class MyGameOrchestrator extends CGFobject{
                 result = this.startReply(this.prolog.request);
                 this.player = result[0];
                 this.gameboard.toJS(result[1]);
-                this.currentState = this.state.next_turn;          
+                this.currentState = this.state.next_turn;
                 break;
 
             case this.state.next_turn: // select origin piece
@@ -159,12 +159,18 @@ class MyGameOrchestrator extends CGFobject{
                 this.currentState = this.state.end_game; 
                 break;
 
-            case this.state.end_game: // move animation
+            case this.state.end_game: // end game
                 this.prolog.gameOverRequest(8,this.gameboard.toProlog(), this.player);
                 result = this.gameOverReply(this.prolog.request);
                 this.winner = result;
-                console.log(this.winner);
-                this.currentState = this.state.next_turn; 
+                if (this.winner != 0) {
+                    // TODO
+                    console.log(this.winner);
+                    this.currentState = this.state.end_game;
+                }
+                else {
+                    this.currentState = this.state.next_turn;
+                }
                 break;
 
             default:
