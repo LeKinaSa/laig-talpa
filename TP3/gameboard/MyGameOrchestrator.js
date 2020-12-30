@@ -116,7 +116,10 @@ class MyGameOrchestrator extends CGFobject{
     gameOverReply(data) {
         console.log(data);
         let answer = data.response;
-        return answer[0];
+        if (answer[0] != "0") {
+            console.log("Error");
+        }
+        return answer[2];
     }
 
     orchestrate() {
