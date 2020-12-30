@@ -122,25 +122,29 @@ ________________________________________________________________________________
 
 parse_input([0, Dimensions], 0-Board-Player) :-
 	initial(Dimensions-Board-Player).
+parse_input([0 | _], 1).
 
-parse_input([1, Dimensions, JSBoard, Player], Winner) :-
+parse_input([1, Dimensions, JSBoard, Player], 0-Winner) :-
     transform_board(JSBoard, Board),
 	game_over(Dimensions-Board-Player, Winner).
+parse_input([1 | _], 1).
 
 parse_input([2, Dimensions, JSBoard, Player, Level], 0-Move) :-
     transform_board(JSBoard, Board),
 	Level \= 0, choose_move(Dimensions-Board-Player, _, Level, Move).
 parse_input([2, _, _, _, 0], 1).
+parse_input([2 | _], 1).
 
 parse_input([3, Dimensions, JSBoard, Player, Column, Line, Direction], 0-Column-Line-Direction) :-
     transform_board(JSBoard, Board),
 	verify_player_move(Dimensions-Board-Player, Column-Line-Direction).
-parse_input([3, _, _, _, _], 1).
+parse_input([3 | _], 1).
 
 parse_input([4, Dimensions, JSBoard, Player, Move], 0-JSNewBoard-NewPlayer) :-
     transform_board(JSBoard, Board),
 	move(Dimensions-Board-Player, Move, Dimensions-NewBoard-NewPlayer),
     untransform_board(NewBoard, JSNewBoard).
+parse_input([4 | _], 1).
 
 parse_input(handshake, hi).
 parse_input([quit], goodbye).
