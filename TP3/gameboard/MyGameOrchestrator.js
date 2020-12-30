@@ -25,6 +25,9 @@ class MyGameOrchestrator extends CGFobject{
         this.selected = [null, null];
         this.selectedIds = [0, 0];
 
+        this.lastMove = null; // TODO
+        this.lastMovedPieces = [null, null]; // TODO
+
         this.state = { 
             so_para_nao_dar_load_infinito: 999,
             menu: 0, // show menu and handle settings.
@@ -73,14 +76,19 @@ class MyGameOrchestrator extends CGFobject{
         if (move.isValid()) {
             this.animator = new MyMoveAnimator(this.scene, this);
             this.animator.start(this.selected, this.selectedIds);
+            this.lastMove = move;
+            this.lastMovedPieces = [this.selected[0], this.selected[1]];
         }
-        else{
+        else {
             this.currentState = this.state.next_turn;
         }
     }
 
     undo() {
         // TODO
+        this.animator = new MyUndoAnimator(this.scene, this);
+        this.animator.start(this.lastMove, this.lastMovedPieces);
+
         this.currentState = this.state.movement_animation;
     }
 
@@ -88,6 +96,10 @@ class MyGameOrchestrator extends CGFobject{
         // TODO
         // activate an animation that plays the game sequence
         this.currentState = this.state.movement_animation;
+    }
+
+    onHandshakeSuccess() {
+        console.log("Success");
     }
 
     /**
@@ -253,10 +265,6 @@ class MyGameOrchestrator extends CGFobject{
 
     changeTheme(theme) {
         this.theme = new MySceneGraph(theme, this.scene);
-    }
-
-    onHandshakeSuccess(){
-        console.log("Success");
     }
 
     managePick(mode, results) {
