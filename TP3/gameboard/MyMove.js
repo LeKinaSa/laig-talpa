@@ -13,14 +13,33 @@ class MyMove {
     }
 
     /**
+     * Transform the Prolog Board from String to List
+     */
+    getInitialBoard() {
+        var boardStr = this.initialBoard.substring(2, this.initialBoard.length - 2);
+        var auxList = boardStr.split("],[");
+        
+        var board = [];
+        for(let i = 0; i < auxList.length; i++){
+            var line = auxList[i].split(",");
+            board.push(line);
+        }
+        return board;
+    }
+
+    /**
      * Calculate Position of the Piece
      * Based on Id
      * Id Calculation : (line - 1) * 8 + (column - 1)
+     * @param {*} id 
      */
     calculatePosition(id) {
         return [id % 8 + 1, Math.floor(id / 8) + 1];
     }
 
+    /**
+     * Obtain the Move in Column, Line and Direction
+     */
     getMove() {
         var originPos = this.calculatePosition(this.originId);
         var destinPos = this.calculatePosition(this.destinId);
@@ -68,6 +87,9 @@ class MyMove {
         }
     }
 
+    /**
+     * Verify on Prolog if the Move is Valid
+     */
     isValid() {
         this.getMove();
 

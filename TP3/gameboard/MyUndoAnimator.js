@@ -47,7 +47,7 @@ class MyUndoAnimator extends MyMoveAnimator {
         }
         this.pieces[0].finishMovement();
         this.pieces[1].finishMovement();
-        this.gameOrchestrator.gameboard.toJS(this.move.initialBoard);
+        this.gameOrchestrator.gameboard.toJS(this.move.getInitialBoard());
         this.gameOrchestrator.player = this.move.player;
         return true;
     }
