@@ -3,8 +3,7 @@
         <reference length="2" />
         <root id="living-room" />
     </initials>
-
-    <views default="global">
+    <views default="boardCamera">
         <perspective id="player1Camera" near="0.1" far="500" angle="45">
             <from x="0" y="20" z="10" />
             <to x="0" y="-2" z="0" />
@@ -15,6 +14,10 @@
         </perspective>        
         <perspective id="global" near="0.1" far="500" angle="45">
             <from x="0" y="60" z="60" />
+            <to x="0" y="-2" z="0" />
+        </perspective>
+        <perspective id="boardCamera" near="0.1" far="500" angle="45">
+            <from x="10" y="20" z="0" />
             <to x="0" y="-2" z="0" />
         </perspective>
     </views>
@@ -501,6 +504,7 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <rotation axis="y" angle="90"/>
             </transformations>
 
             <descendants>

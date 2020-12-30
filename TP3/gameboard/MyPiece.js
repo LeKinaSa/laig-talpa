@@ -14,6 +14,7 @@ class MyPiece {
         this.piece = new MyCylinder(this.scene, 0.5, 0.5, 0.5, 2, 4);
         this.color = color;
         this.selected = false;
+        this.moving = false;
 
         this.redMaterial = new CGFappearance(this.scene);
         this.redMaterial.setShininess(30);
@@ -56,6 +57,27 @@ class MyPiece {
      */
     resetSelection() {
         this.selected = false;
+    }
+
+    /**
+     * Start Movement
+     */
+    startMovement() {
+        this.moving = true;
+    }
+
+    /**
+     * Finish Movement
+     */
+    finishMovement() {
+        this.moving = false;
+    }
+
+    /**
+     * Determines if the Piece is in Movement
+     */
+    inMovement() {
+        return this.moving;
     }
 
     /**

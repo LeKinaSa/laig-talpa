@@ -9,11 +9,12 @@ class MyTile {
      * @param {CGFscene} scene - Reference to MyScene object
      * @param {Position} position - Position of the Tile in the Game Board
      */
-    constructor(scene, position) {
+    constructor(scene, position, texture) {
         this.scene = scene;
         this.tile = new MyRectangle(this.scene, -0.5, -0.5, 0.5, 0.5);
-        this.position = position;
-        this.piece = this.startingPiece();
+        this.position = position; // Position = [column, line]
+        //this.piece = this.startingPiece();
+        this.piece = null;
         
         this.tileMaterial = new CGFappearance(this.scene);
         this.tileMaterial.setShininess(30);
@@ -22,14 +23,14 @@ class MyTile {
         this.tileMaterial.setSpecular(1.0, 1.0, 1.0, 1.0);
         this.tileMaterial.setEmission(0.0, 0.0, 0.0, 1.0);
 
-        this.tileTexture = new CGFtexture(this.scene, "./scenes/images/tile.png");
+        this.tileTexture = texture;
         
         this.tileMaterial.setTexture(this.tileTexture);
         this.tileMaterial.setTextureWrap('REPEAT', 'REPEAT');
         this.tileMaterial.apply();
     }
 
-    startingPiece() {
+    /* startingPiece() {
         var column = this.position[0] % 2; // Is column odd or even ?
         var  line  = this.position[1] % 2; // Is  line  odd or even ?
 
@@ -41,7 +42,7 @@ class MyTile {
             // Piece is blue
             return new MyPiece(this.scene, 'blue');
         }
-    }
+    } */
 
     /**
      * Set the Piece standing on this Tile
@@ -91,12 +92,12 @@ class MyTile {
      */
     display() {
         // Obtain Position in the Board
-        var column = this.position[0];
+        var column =     this.position[0];
         var  line  = 9 - this.position[1];
         
         // Register for Picking
         if (this.piece != null) {
-            this.scene.registerForPick(line * 8 + column, this.piece);
+            this.scene.registerForPick((line - 1) * 8 + (column - 1), this.piece);
         }
         this.scene.pushMatrix();
 
@@ -106,7 +107,7 @@ class MyTile {
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.tileMaterial.apply();
         this.tile.display();
-        if (this.piece != null) {
+        if ((this.piece != null) && (!this.piece.inMovement())) {
             this.piece.display();
         }
         this.scene.popMatrix();

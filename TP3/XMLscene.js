@@ -156,7 +156,7 @@ class XMLscene extends CGFscene {
     /**
      * Update the scene
      * Updates all the animations in the scene based on the current time
-     * @param {time} t 
+     * @param {time} t - current time
      */
     update(t) {
         this.gameOrchestrator.update(t);
@@ -192,8 +192,9 @@ class XMLscene extends CGFscene {
 
         if (this.sceneInited) {
             // Picking
-            this.gameOrchestrator.managePick(this.pickMode, this.pickResults);
-            this.clearPickRegistration();
+            this.gameOrchestrator.orchestrate();
+            //this.gameOrchestrator.managePick(this.pickMode, this.pickResults);
+            //this.clearPickRegistration();
 
             // Draw axis
             if(this.displayAxis)

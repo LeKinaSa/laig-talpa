@@ -11,12 +11,14 @@ class MyGameBoard {
      */
     constructor(scene) {
         this.scene = scene;
+        this.tiletexture = new CGFtexture(this.scene, "./scenes/images/tile.png");
         this.tiles = [];
-        for (var line = 8; line >= 1; -- line) {
+        this.gameboard = [];
+        /*for (var line = 8; line >= 1; -- line) {
             for (var column = 1; column <= 8; ++ column) {
                 this.tiles.push(new MyTile(this.scene, [column, line]));
             }
-        }
+        }*/
         this.removedPieces = [];
     }
 
@@ -99,14 +101,33 @@ class MyGameBoard {
         }
     }
     
+    toJS(prologBoard) {
+        for (let line = 0; line < prologBoard.length; ++ line) {
+            for (let column = 0; column < prologBoard[line].length; ++ column) {  
+                let tile = new MyTile(this.scene, [column + 1, line + 1], this.tiletexture);
+                if (prologBoard[line][column] == "O") {       // blue
+                    tile.piece = new MyPiece(this.scene, 'blue');
+                }
+                else if (prologBoard[line][column] == "X") {  // red
+                    tile.piece = new MyPiece(this.scene, 'red');
+                }
+                else {
+                    console.log("Error getting tiles");
+                }
+                this.tiles.push(tile);
+            }
+        }
+    }
     /**
      * Turn the GameBoard into a Prolog Board
      */
     toProlog() {
-        var board = [];
+        var board = "[";
         var piece;
         var symbol;
+        let count = 1;
         for (var tile = 0; tile < this.tiles.length; ++ tile) {
+            if (count == 1) board += "[";
             piece = this.tiles[tile].getPiece();
             if      (      piece      ==  null ) {
                 symbol = ' ';
@@ -120,7 +141,18 @@ class MyGameBoard {
             else {
                 console.log("Error in Piece Color.\n");
             }
-            board.push(symbol);
+            board += symbol;
+            if (count == 8) {
+                board += "],";
+                count = 0;
+            }
+            else{
+                board += ",";
+            }
+            ++ count;
         }
+        let final = board.substring(0, board.length - 1);
+        final += "]";
+        return final;
     }
 }
