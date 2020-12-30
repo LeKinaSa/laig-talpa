@@ -123,19 +123,24 @@ ________________________________________________________________________________
 parse_input([0, Dimensions], 0-Board-Player) :-
 	initial(Dimensions-Board-Player).
 
-parse_input([1, Dimensions, Board, Player], 1-Winner) :-
+parse_input([1, Dimensions, JSBoard, Player], 1-Winner) :-
+    transform_board(JSBoard, Board),
 	game_over(Dimensions-Board-Player, Winner).
 
-parse_input([2, Dimensions, Board, Player, Level], 0-Move) :-
+parse_input([2, Dimensions, JSBoard, Player, Level], 0-Move) :-
+    transform_board(JSBoard, Board),
 	Level \= 0, choose_move(Dimensions-Board-Player, _, Level, Move).
 parse_input([2, _, _, _, 0], 1).
 
-parse_input([3, Dimensions, Board, Player, Column, Line, Direction], 0-Column-Line-Direction) :-
+parse_input([3, Dimensions, JSBoard, Player, Column, Line, Direction], 0-Column-Line-Direction) :-
+    transform_board(JSBoard, Board),
 	verify_player_move(Dimensions-Board-Player, Column-Line-Direction).
 parse_input([3, _, _, _, _], 1).
 
-parse_input([4, Dimensions, Board, Player, Move], 0-NewBoard-NewPlayer) :-
-	move(Dimensions-Board-Player, Move, Dimensions-NewBoard-NewPlayer).
+parse_input([4, Dimensions, JSBoard, Player, Move], 0-JSNewBoard-NewPlayer) :-
+    transform_board(JSBoard, Board),
+	move(Dimensions-Board-Player, Move, Dimensions-NewBoard-NewPlayer),
+    untransform_board(NewBoard, JSNewBoard).
 
 parse_input(handshake, hi).
 parse_input([quit], goodbye).
@@ -149,3 +154,40 @@ parse_input([quit], goodbye).
 verify_player_move(GameState, Move) :-
     valid_moves(GameState, _, ValidMoves),
     member(Move, ValidMoves).
+
+/**
+ * Transforms the Received Board into Prolog Board
+ */
+% transform_board(+Board, -TransformedBoard)
+transform_board([Line | Board], [TransformedLine | TransformedBoard]) :-
+    transform_line(Line, TransformedLine),
+    transform_board(Board, TransformedBoard).
+transform_board([], []).
+
+/**
+ * Transforms the Received Line into Prolog Line
+ */
+% transform_line(+Line, -TransformedLine)
+transform_line(['E' | Line], [' ' | TransformedLine]).
+transform_line([Element | Line], [Element | TransformedLine]) :-
+    Element \= 'E'.
+transform_line([], []).
+
+
+/**
+ * Transforms the Prolog Board into Sending Board
+ */
+% untransform_board(+TransformedBoard, -Board)
+untransform_board(TransformedBoard, Board) :-
+    untransform_line(TransformedLine, Line),
+    untransform_board(TransformedBoard, Board).
+untransform_board([], []).
+
+/**
+ * Transforms the Prolog Line into Sending Line
+ */
+% untransform_line(+TransformedLine, -Line)
+untransform_line([' ' | TransformedLine], ['E' | Line]).
+untransform_line([Element | TransformedLine], [Element | Line]) :-
+    Element \= ' '.
+untransform_line([], []).
