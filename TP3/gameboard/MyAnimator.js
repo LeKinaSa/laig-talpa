@@ -11,9 +11,21 @@ class MyAnimator extends CGFobject {
     }
 
     /**
+     * Calculate Positions needed for the Animation
+     */
+    calculatePositions() {}
+
+    /**
      * Resets Animation
      */
-    reset() {}
+    reset() {
+        // Reset Timer
+        this.startTime = 0;
+        this.finished = false;
+
+        // Reset Positions
+        this.calculatePositions();
+    }
 
     /**
      * Starts Animation
