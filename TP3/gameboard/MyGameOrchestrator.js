@@ -19,6 +19,7 @@ class MyGameOrchestrator extends CGFobject{
 
         this.savedboard = null;
 
+        this.initialBoard = null;
         this.gameState = [];
         this.over = false;
         this.player = 0;
@@ -130,7 +131,7 @@ class MyGameOrchestrator extends CGFobject{
         // TODO
         // activate an animation that plays the game sequence
         this.startedMovie = true;
-        this.animator = new MyMovieAnimator(this.scene, this, this.gameSequence.getMoveAnimators());
+        this.animator = new MyMovieAnimator(this.scene, this, this.gameSequence.getMoveAnimators(), this.initialBoard);
         this.animator.start();
     }
 
@@ -241,6 +242,8 @@ class MyGameOrchestrator extends CGFobject{
                     result = this.startReply(this.prolog.request);
                     this.player = result[0];
                     this.gameboard.toJS(result[1]);
+                    this.initialBoard = new MyGameBoard(this.scene);
+                    this.initialBoard.toJS(result[1]);
                     this.currentState = this.state.next_turn;
                     break;
     
