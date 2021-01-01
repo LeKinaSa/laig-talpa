@@ -21,8 +21,6 @@ class MyMovieAnimator extends MyAnimator {
         }
     }
 
-    start() {}
-
     update(t) {
         if (this.active == null) {
             this.startNewAnimator();
