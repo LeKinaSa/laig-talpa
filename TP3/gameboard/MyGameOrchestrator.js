@@ -294,7 +294,7 @@ class MyGameOrchestrator extends CGFobject{
                         this.animator = null;
                         this.currentState = this.state.next_turn;
                     }
-                    if (this.animator == null) {
+                    else if (this.animator == null) {
                         this.movie();
                     }
 
