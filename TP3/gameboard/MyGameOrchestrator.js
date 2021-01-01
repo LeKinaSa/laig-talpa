@@ -127,6 +127,7 @@ class MyGameOrchestrator extends CGFobject{
         // TODO
         // activate an animation that plays the game sequence
         this.animator = new MyMovieAnimator(this.scene, this, this.gameSequence.getMoveAnimators());
+        this.animator.start();
     }
 
     /**
