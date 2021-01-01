@@ -245,18 +245,20 @@ class MyGameOrchestrator extends CGFobject{
                     break;
     
                 case this.state.end_game: // end game
-                    this.prolog.gameOverRequest(8,this.gameboard.toProlog(), this.player);
-                    result = this.gameOverReply(this.prolog.request);
-                    this.winner = result;
-                    if (this.winner != 0) {
-                        this.over = true;
-                        if (this.winner == 1) console.log("Red Player Wins");
-                        else if (this.winner == -1) console.log("Blue Player Wins");
-                        this.currentState = this.state.end_game;
-                    }
-                    else {
-                        this.player = -this.player;
-                        this.currentState = this.state.next_turn;
+                    if (this.animator == null) {    
+                        this.prolog.gameOverRequest(8,this.gameboard.toProlog(), this.player);
+                        result = this.gameOverReply(this.prolog.request);
+                        this.winner = result;
+                        if (this.winner != 0) {
+                            this.over = true;
+                            if (this.winner == 1) console.log("Red Player Wins");
+                            else if (this.winner == -1) console.log("Blue Player Wins");
+                            this.currentState = this.state.end_game;
+                        }
+                        else {
+                            this.player = -this.player;
+                            this.currentState = this.state.next_turn;
+                        }
                     }
                     break;
 

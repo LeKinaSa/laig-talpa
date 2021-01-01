@@ -47,7 +47,7 @@ class MyMoveAnimator extends MyAnimator {
     /**
      * Obtains the initial and final positions for the Piece to be removed
      * Based on Id
-     * Id Calculation : (line - 1) * 8 + (column- 1)
+     * Id Calculation : (line - 1) * 8 + (column - 1)
      */
     calculateRemovingPiecePositions() {
         // Move from Destination Id to Outside the Board

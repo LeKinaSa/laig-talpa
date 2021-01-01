@@ -1,6 +1,6 @@
 /**
- * MyMoveAnimator
- * @description Class that defines the animations for the moves
+ * MyUndoAnimator
+ * @description Class that defines the animations for the undo moves
  */
 class MyUndoAnimator extends MyMoveAnimator {
     constructor(scene, gameOrchestrator, move, pieces) {
@@ -12,7 +12,7 @@ class MyUndoAnimator extends MyMoveAnimator {
     /**
      * Obtains the initial and final positions for the Piece to be removed
      * Based on Id
-     * Id Calculation : (line - 1) * 8 + (column- 1)
+     * Id Calculation : (line - 1) * 8 + (column - 1)
      */
     calculateRemovingPiecePositions() {
         // Move from Outside the Board to Destination Id
