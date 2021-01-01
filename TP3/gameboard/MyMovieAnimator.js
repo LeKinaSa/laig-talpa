@@ -5,15 +5,39 @@
 class MyMovieAnimator extends MyAnimator {
     constructor(scene, gameOrchestrator, sequence) {
         super(scene, gameOrchestrator);
-        this.sequence = sequence; // list of MyMoveAnimator
+        this.sequence = sequence; // List of MyAnimator
+        this.index = -1;
     }
 
-    start(){
-        this.reset();
+    startNewAnimator() {
+        ++ this.index;
+        if (this.index < this.sequence.length) {
+            this.active = this.sequence[this.index];
+            this.active.reset();
+            this.active.start();
+        }
+        else {
+            this.finished = true;
+        }
+    }
 
-        for(let i = 0; i < this.sequence.length; i++){
-            this.sequence[i].reset();
-            this.sequence[i].start();
+    start() {}
+
+    update(t) {
+        if (this.active == null) {
+            this.startNewAnimator();
+        }
+
+        if (this.finished) {
+            return;
+        }
+
+        this.active.update(t);
+    }
+
+    display() {
+        if (this.active != null) {
+            this.active.display();
         }
     }
 
