@@ -20,7 +20,9 @@ class MyUndoAnimator extends MyMoveAnimator {
         var position = [removingPieceId % 8 + 1, Math.floor(removingPieceId / 8) + 1];
         this.removingPositions = [[this.outsideBoardPos[0], this.outsideBoardPos[1], this.outsideBoardPos[2]],
                                   [            position[0],            0           ,             position[1]]]; 
-        this.removingCurrentPosition = this.removingPositions[0];
+        this.removingCurrentPosition[0] = this.removingPositions[0][0];
+        this.removingCurrentPosition[1] = this.removingPositions[0][1];
+        this.removingCurrentPosition[2] = this.removingPositions[0][2];
     }
 
     /**

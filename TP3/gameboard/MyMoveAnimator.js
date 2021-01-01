@@ -44,7 +44,8 @@ class MyMoveAnimator extends MyAnimator {
         var destinPosition   = [destinId % 8 + 1, Math.floor(destinId / 8) + 1];
         this.positions       = [[originPosition[0], originPosition[1]],
                                 [destinPosition[0], destinPosition[1]]];
-        this.movingCurrentPosition = [this.positions[0][0], this.positions[0][1]];
+        this.movingCurrentPosition[0] = this.positions[0][0];
+        this.movingCurrentPosition[1] = this.positions[0][1];
     }
 
     /**
@@ -58,7 +59,9 @@ class MyMoveAnimator extends MyAnimator {
         var position = [removingPieceId % 8 + 1, Math.floor(removingPieceId / 8) + 1];
         this.removingPositions = [[      4.5 - position[1],            0           ,       4.5 - position[0]],
                                   [this.outsideBoardPos[0], this.outsideBoardPos[1], this.outsideBoardPos[2]]]; 
-        this.removingCurrentPosition = this.removingPositions[0];
+        this.removingCurrentPosition[0] = this.removingPositions[0][0];
+        this.removingCurrentPosition[1] = this.removingPositions[0][1];
+        this.removingCurrentPosition[2] = this.removingPositions[0][2];
     }
 
     /**
@@ -168,7 +171,6 @@ class MyMoveAnimator extends MyAnimator {
      * @param {time} t - current time
      */
     updateRemovingPiece(t) {
-        console.log(this.removingPositions[0][0]);
         // Piece will jump out of the board
         var deltaTime = this.getDeltaTime(t);
 
