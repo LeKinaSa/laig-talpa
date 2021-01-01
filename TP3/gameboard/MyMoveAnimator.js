@@ -12,9 +12,9 @@ class MyMoveAnimator extends MyAnimator {
         this.positions = []; // Positions of the Pieces involved in the move
         this.removingPositions = []; // Initial and Final Position for the Removed Piece
         this.totalTime = 1;
-        this.movingCurrentPosition   = [0, 0]; // Position = [column, line]
-        this.removingCurrentPosition = [0, 0, 0]; // Position = [x, y, z]
-        this.outsideBoardPos = [5, 0, 0]; // Y = 0
+        this.movingCurrentPosition   = [0, 0];      // Position = [column, line]
+        this.removingCurrentPosition = [0, 0, 0];   // Position = [x, y, z]
+        this.outsideBoardPos = [5, 0, 0];   // Y = 0
         this.ymax = 3;
     }
 
