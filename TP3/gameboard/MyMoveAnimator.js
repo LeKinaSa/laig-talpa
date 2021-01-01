@@ -168,6 +168,7 @@ class MyMoveAnimator extends MyAnimator {
      * @param {time} t - current time
      */
     updateRemovingPiece(t) {
+        console.log(this.removingPositions[0][0]);
         // Piece will jump out of the board
         var deltaTime = this.getDeltaTime(t);
 
