@@ -102,6 +102,7 @@ class MyGameOrchestrator extends CGFobject{
         if (move.isValid()) {
             this.gameSequence.addGameMove(move); // add move to the game sequence
             this.animator = new MyMoveAnimator(this.scene, this, this.selected, this.selectedIds);
+            this.gameSequence.addMoveAnimator(this.animator); // add move to the game sequence
             this.animator.start();
             this.lastMove = move;
             this.lastMovedPieces = [this.selected[0], this.selected[1]];
@@ -120,20 +121,13 @@ class MyGameOrchestrator extends CGFobject{
             this.lastMove = null;
             this.lastMovedPieces = [null, null];
         }
-
-        this.currentState = this.state.movement_animation;
     }
 
-    movie() {
+    movie_play() {
         // TODO
         // activate an animation that plays the game sequence
-        this.gameboard = new MyGameBoard(this.scene);
-        this.gameSequence.currentMove = 0;
-        this.gameSequence.moveReplay();        
-    }
-
-    onHandshakeSuccess() {
-        console.log("Success");
+        this.animator= new MyMovieAnimator(this.scene, this, this.gameSequence.getMoveAnimators());
+        this.animator.start();     
     }
 
     /**
@@ -298,10 +292,9 @@ class MyGameOrchestrator extends CGFobject{
                 case this.state.movie:
                     console.log("MOVIE");
                     if(!this.scene.movie){
-                        this.gameboard = this.savedboard;
                         this.currentState = this.state.next_turn;
                     }
-                    this.movie();
+                    this.movie_play();
 
 
                     break;
