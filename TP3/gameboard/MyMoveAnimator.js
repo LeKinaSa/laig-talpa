@@ -192,6 +192,7 @@ class MyMoveAnimator extends MyAnimator {
         // Y is Quadratic
         /*
             Travelled Distance = d = sqrt((currentX - initialX)^2 + (currentZ - initialZ)^2)
+            Quadratic Function : y = a * d^2 + b * d + c
             (xi, zi) -> distance = 0   and y = 0
             (xh, zh) -> distance = d/2 and y = ymax
             (xf, zf) -> distance = d   and y = 0
