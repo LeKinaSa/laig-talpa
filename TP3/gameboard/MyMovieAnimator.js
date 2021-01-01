@@ -3,11 +3,16 @@
  * @description
  */
 class MyMovieAnimator extends MyAnimator {
-    constructor(scene, gameOrchestrator, sequence) {
+    constructor(scene, gameOrchestrator, sequence, initialBoard) {
         super(scene, gameOrchestrator);
         this.sequence = sequence; // List of MyAnimator
         this.active = null;
         this.index = -1;
+        this.initialBoard = initialBoard;
+    }
+
+    start(){
+        this.gameOrchestrator.gameboard = this.initialBoard;
     }
 
     startNewAnimator() {
