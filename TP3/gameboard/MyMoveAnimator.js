@@ -8,7 +8,7 @@ class MyMoveAnimator extends MyAnimator {
         this.pieces = [null, null];
         this.pieces[0] = pieces[0]; //  Moving  Piece
         this.pieces[1] = pieces[1]; // Removing Piece
-        this.ids = ids;
+        this.ids = [ids[0], ids[1]];
         this.positions = []; // Positions of the Pieces involved in the move
         this.removingPositions = []; // Initial and Final Position for the Removed Piece
         this.totalTime = 1;
