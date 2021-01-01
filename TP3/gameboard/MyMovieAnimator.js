@@ -32,11 +32,15 @@ class MyMovieAnimator extends MyAnimator {
             this.startNewAnimator();
         }
 
-        if (this.finished) {
+        if (this.finish()) {
             return;
         }
-
-        this.active.update(t);
+        else {
+            this.active.update(t);
+            if (this.active.finish()) {
+                this.active = null;
+            }
+        }
     }
 
     display() {
