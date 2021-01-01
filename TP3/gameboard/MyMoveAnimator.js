@@ -10,9 +10,10 @@ class MyMoveAnimator extends MyAnimator {
         this.pieces[1] = pieces[1]; // Removing Piece
         this.ids = ids;
         this.positions = []; // Positions of the Pieces involved in the move
+        this.removingPositions = []; // Initial and Final Position for the Removed Piece
         this.totalTime = 1;
         this.movingCurrentPosition   = [0, 0]; // Position = [column, line]
-        this.removingCurrentPosition = [0, 0]; // Position = [column, line]
+        this.removingCurrentPosition = [0, 0, 0]; // Position = [x, y, z]
         this.outsideBoardPos = [5, 0, 0]; // TODO
     }
 
@@ -54,7 +55,7 @@ class MyMoveAnimator extends MyAnimator {
         // Move from Destination Id to Outside the Board
         var removingPieceId = this.ids[1];  // Destination Id
         var position = [removingPieceId % 8 + 1, Math.floor(removingPieceId / 8) + 1];
-        this.removingPositions = [[ 4.5 - position[1],          0        ,   4.5 - position[0]],
+        this.removingPositions = [[      4.5 - position[1],            0           ,       4.5 - position[0]],
                                   [this.outsideBoardPos[0], this.outsideBoardPos[1], this.outsideBoardPos[2]]]; 
         this.removingCurrentPosition = this.removingPositions[0];
     }
@@ -107,7 +108,7 @@ class MyMoveAnimator extends MyAnimator {
         var deltaTime = this.getDeltaTime(t);
 
         if (deltaTime >= this.totalTime) {
-            this.movingCurrentPosition = this.positions[1];
+            this.removingCurrentPosition = this.positions[1];
             this.finished = true;
             return;
         }
@@ -128,7 +129,29 @@ class MyMoveAnimator extends MyAnimator {
      * @param {time} t - current time
      */
     updateRemovingPiece(t) {
-        // TODO - piece will have to jump out of the board
+        // Piece will jump out of the board
+        var deltaTime = this.getDeltaTime(t);
+
+        if (deltaTime >= this.totalTime) {
+            this.removingCurrentPosition = this.removingPositions[1];
+            this.finished = true;
+            return;
+        }
+
+        // Portion of the Animation that has elapsed
+        var elapsedAnimation = deltaTime / this.totalTime;
+
+        // Animation Based on elapsedAnimation
+        // Update the Value on this.movingCurrentPosition
+        var initialPosition = this.removingPositions[0];
+        var  finalPosition  = this.removingPositions[1];
+        // X is Linear
+        this.removingCurrentPosition[0] = initialPosition[0] + elapsedAnimation * (finalPosition[0] - initialPosition[0]);
+        // Z is Linear
+        this.removingCurrentPosition[2] = initialPosition[2] + elapsedAnimation * (finalPosition[2] - initialPosition[2]);
+        // Y is Quadratic
+        this.removingCurrentPosition[1] = 0;
+
     }
 
     /**
@@ -154,9 +177,7 @@ class MyMoveAnimator extends MyAnimator {
         // Removing Piece
         this.scene.pushMatrix();
         
-        var column = this.removingCurrentPosition[0];
-        var  line  = this.removingCurrentPosition[1];
-        // Translation According to the Current Position on the Board
+        // Translation According to the Current Position
         this.scene.translate(this.removingCurrentPosition[0],
                              this.removingCurrentPosition[1],
                              this.removingCurrentPosition[2]);

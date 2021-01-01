@@ -11,7 +11,7 @@ class MyMovieAnimator extends MyAnimator {
         this.initialBoard = initialBoard;
     }
 
-    start(){
+    start() {
         this.gameOrchestrator.gameboard = this.initialBoard;
     }
 
