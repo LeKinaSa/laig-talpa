@@ -115,7 +115,7 @@ class MyGameBoard {
                     // nothing
                 }
                 else {
-                    console.log("Error getting tiles");
+                    console.log("Error getting tile:", line, column, prologBoard[line][column]);
                 }
                 this.tiles.push(tile);
             }

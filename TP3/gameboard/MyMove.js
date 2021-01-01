@@ -20,8 +20,11 @@ class MyMove {
         var auxList = boardStr.split("],[");
         
         var board = [];
-        for(let i = 0; i < auxList.length; i++){
+        for(let i = 0; i < auxList.length; ++ i){
             var line = auxList[i].split(",");
+            for (let j = 0; j < line.length; ++j) {
+                line[j] = line[j][1];
+            }
             board.push(line);
         }
         return board;
