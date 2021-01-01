@@ -29,8 +29,9 @@ class MyTimer {
 
         this.scene.pushMatrix();
 
-        this.scene.translate(-4.5, 1.5, -0.5);
+        this.scene.translate(-4.5, 1.5, 0);
         this.scene.scale(1.5, 1.5, 1.5);
+        this.scene.translate(0, 0, -0.5);
         this.scene.rotate(Math.PI/2, 0, 1, 0);
 
         this.spriteText.display();
