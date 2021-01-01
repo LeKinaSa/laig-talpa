@@ -18,9 +18,8 @@ class MyUndoAnimator extends MyMoveAnimator {
         // Move from Outside the Board to Destination Id
         var removingPieceId = this.ids[0];  // Destination Id
         var position = [removingPieceId % 8 + 1, Math.floor(removingPieceId / 8) + 1];
-        var outsideBoardPos = [0, 5, 0]; // TODO
-        this.removingPositions = [[outsideBoardPos[0], outsideBoardPos[1], outsideBoardPos[2]],
-                                  [       position[0],          0        ,        position[1]]]; 
+        this.removingPositions = [[this.outsideBoardPos[0], this.outsideBoardPos[1], this.outsideBoardPos[2]],
+                                  [            position[0],            0           ,             position[1]]]; 
         this.removingCurrentPosition = this.removingPositions[0];
     }
 

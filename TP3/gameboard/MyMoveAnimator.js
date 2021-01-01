@@ -13,6 +13,7 @@ class MyMoveAnimator extends MyAnimator {
         this.totalTime = 1;
         this.movingCurrentPosition   = [0, 0]; // Position = [column, line]
         this.removingCurrentPosition = [0, 0]; // Position = [column, line]
+        this.outsideBoardPos = [5, 0, 0]; // TODO
     }
 
     /**
@@ -53,9 +54,8 @@ class MyMoveAnimator extends MyAnimator {
         // Move from Destination Id to Outside the Board
         var removingPieceId = this.ids[1];  // Destination Id
         var position = [removingPieceId % 8 + 1, Math.floor(removingPieceId / 8) + 1];
-        var outsideBoardPos = [-10, -10, -10]; // TODO
         this.removingPositions = [[ 4.5 - position[1],          0        ,   4.5 - position[0]],
-                                  [outsideBoardPos[0], outsideBoardPos[1], outsideBoardPos[2]]]; 
+                                  [this.outsideBoardPos[0], this.outsideBoardPos[1], this.outsideBoardPos[2]]]; 
         this.removingCurrentPosition = this.removingPositions[0];
     }
 
