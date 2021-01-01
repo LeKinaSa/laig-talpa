@@ -38,6 +38,9 @@ class MyGameOrchestrator extends CGFobject{
         this.time = 0;
         this.timer = new MyTimer(this.scene);
 
+        // Movie
+        this.startedMovie = false;
+
         this.state = { 
             so_para_nao_dar_load_infinito: 999,
             menu: 0, // show menu and handle settings.
@@ -126,6 +129,7 @@ class MyGameOrchestrator extends CGFobject{
     movie() {
         // TODO
         // activate an animation that plays the game sequence
+        this.startedMovie = true;
         this.animator = new MyMovieAnimator(this.scene, this, this.gameSequence.getMoveAnimators());
         this.animator.start();
     }
@@ -292,10 +296,11 @@ class MyGameOrchestrator extends CGFobject{
     
                 case this.state.movie:
                     if (!this.scene.movie) {
+                        this.startedMovie = false;
                         this.animator = null;
                         this.currentState = this.state.next_turn;
                     }
-                    else if (this.animator == null) {
+                    else if ((this.animator == null) && (!this.startedMovie)) {
                         this.movie();
                     }
 
