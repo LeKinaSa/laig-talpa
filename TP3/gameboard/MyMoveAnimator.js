@@ -14,7 +14,8 @@ class MyMoveAnimator extends MyAnimator {
         this.totalTime = 1;
         this.movingCurrentPosition   = [0, 0]; // Position = [column, line]
         this.removingCurrentPosition = [0, 0, 0]; // Position = [x, y, z]
-        this.outsideBoardPos = [5, 0, 0]; // TODO
+        this.outsideBoardPos = [5, 0, 0]; // Y = 0
+        this.ymax = 3;
     }
 
     /**
@@ -61,10 +62,48 @@ class MyMoveAnimator extends MyAnimator {
     }
 
     /**
+     * Calculate the Equation Values for the Remotion of the Piece
+     */
+    calculateRemovingMovementEquation() {
+        /*
+            Travelled Distance = d = sqrt((finalX - initialX)^2 + (finalZ - initialZ)^2)
+            Quadratic Function : y = a * d^2 + b * d + c
+            (xi, zi) -> distance = 0   and y = 0
+            (xh, zh) -> distance = d/2 and y = ymax
+            (xf, zf) -> distance = d   and y = 0
+        */
+
+        var initialPosition = this.removingPositions[0];
+        var  finalPosition  = this.removingPositions[1];
+
+        var initialX = initialPosition[0]; var finalX = finalPosition[0];
+        var initialZ = initialPosition[2]; var finalZ = finalPosition[2];
+
+        var d  = Math.sqrt(Math.pow(finalX - initialX, 2) + Math.pow(finalZ - initialZ, 2));
+        var dh = d / 2;
+
+        /*
+            ----------------------- Equations ----------------------
+            | yi = a * di^2 + b * di + c -> yi =   0  ; di =   0   |
+            | yh = a * dh^2 + b * dh + c -> yh = ymax ; dh = d / 2 |
+            | yf = a * df^2 + b * df + c -> yf =   0  ; df =   d   |
+            --------------------------------------------------------
+
+            yi = a * di^2 + b * di + c  ->  c = 0
+            yf = a * df^2 + b * df + c  ->  a * df^2 = -b * df              ->  b = -a * df
+            yh = a * dh^2 + b * dh + c  ->  yh = a * dh^2 + (-a * df) * dh  ->  a = yh / (dh^2 - df * dh)
+        */
+        this.a = this.ymax / (dh * (dh - d));
+        this.b = - this.a * d;
+        this.c = 0;
+    }
+
+    /**
      * Starts Animation
      */
     start() {
         this.calculatePositions();
+        this.calculateRemovingMovementEquation();
 
         this.pieces[0].startMovement();
         this.pieces[1].startMovement();
@@ -145,13 +184,22 @@ class MyMoveAnimator extends MyAnimator {
         // Update the Value on this.movingCurrentPosition
         var initialPosition = this.removingPositions[0];
         var  finalPosition  = this.removingPositions[1];
+
         // X is Linear
         this.removingCurrentPosition[0] = initialPosition[0] + elapsedAnimation * (finalPosition[0] - initialPosition[0]);
         // Z is Linear
         this.removingCurrentPosition[2] = initialPosition[2] + elapsedAnimation * (finalPosition[2] - initialPosition[2]);
         // Y is Quadratic
-        this.removingCurrentPosition[1] = 0;
-
+        /*
+            Travelled Distance = d = sqrt((currentX - initialX)^2 + (currentZ - initialZ)^2)
+            (xi, zi) -> distance = 0   and y = 0
+            (xh, zh) -> distance = d/2 and y = ymax
+            (xf, zf) -> distance = d   and y = 0
+        */
+        var initialX = initialPosition[0]; var currentX = this.removingCurrentPosition[0];
+        var initialZ = initialPosition[2]; var currentZ = this.removingCurrentPosition[2];
+        var d = Math.sqrt(Math.pow(currentX - initialX, 2) + Math.pow(currentZ - initialZ, 2));
+        this.removingCurrentPosition[1] = this.a * Math.pow(d, 2) + this.b * d + this.c;
     }
 
     /**
