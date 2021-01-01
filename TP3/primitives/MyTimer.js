@@ -19,7 +19,6 @@ class MyTimer {
         var seconds = secondsStr.substring(secondsStr.length - 2, secondsStr.length)
 
         var timeStr = minutes + ":" + seconds;
-        console.log(timeStr);
         return timeStr;
     }
 

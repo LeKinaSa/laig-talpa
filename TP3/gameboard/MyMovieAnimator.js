@@ -6,6 +6,7 @@ class MyMovieAnimator extends MyAnimator {
     constructor(scene, gameOrchestrator, sequence) {
         super(scene, gameOrchestrator);
         this.sequence = sequence; // List of MyAnimator
+        this.active = null;
         this.index = -1;
     }
 

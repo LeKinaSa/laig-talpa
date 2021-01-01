@@ -123,11 +123,10 @@ class MyGameOrchestrator extends CGFobject{
         }
     }
 
-    movie_play() {
+    movie() {
         // TODO
         // activate an animation that plays the game sequence
-        this.animator= new MyMovieAnimator(this.scene, this, this.gameSequence.getMoveAnimators());
-        this.animator.start();     
+        this.animator = new MyMovieAnimator(this.scene, this, this.gameSequence.getMoveAnimators());
     }
 
     /**
@@ -266,7 +265,7 @@ class MyGameOrchestrator extends CGFobject{
                     break;
     
                 case this.state.end_game: // end game
-                    if (this.animator == null) {    
+                    if (this.animator == null) {
                         this.prolog.gameOverRequest(8,this.gameboard.toProlog(), this.player);
                         result = this.gameOverReply(this.prolog.request);
                         this.winner = result;
@@ -284,18 +283,20 @@ class MyGameOrchestrator extends CGFobject{
                     break;
 
                 case this.state.undo:
-                    console.log("Undo"); //TODO : remove
-                    this.undo();
-                    this.currentState = this.state.next_turn;
+                    if (this.animator == null) {
+                        this.undo();
+                        this.currentState = this.state.next_turn;
+                    }                    
                     break;
     
                 case this.state.movie:
-                    console.log("MOVIE");
-                    if(!this.scene.movie){
+                    if (!this.scene.movie) {
+                        this.animator = null;
                         this.currentState = this.state.next_turn;
                     }
-                    this.movie_play();
-
+                    if (this.animator == null) {
+                        this.movie();
+                    }
 
                     break;
                 default:
