@@ -12,8 +12,8 @@ class MyGameOrchestrator extends CGFobject{
     constructor(scene) {
         super(scene);
         this.animator = null;
-        this.gameboard = new MyGameBoard(scene);
-        this.gameSequence = new MyGameSequence(scene);
+        this.gameboard = new MyGameBoard(this.scene);
+        this.gameSequence = new MyGameSequence(this.scene);
         this.theme = new MySceneGraph("talpa_scenes.xml", this.scene);
         this.prolog = new MyPrologConnection();
 
@@ -23,12 +23,20 @@ class MyGameOrchestrator extends CGFobject{
         this.over = false;
         this.player = 0;
         this.winner = null;
+
+        // Player Moves
         this.selectedPieces = 0;
         this.selected = [null, null];
         this.selectedIds = [0, 0];
 
+        // Undo Move
         this.lastMove = null; // TODO
         this.lastMovedPieces = [null, null]; // TODO
+
+        // Timer
+        this.startTime = 0;
+        this.time = 0;
+        this.timer = new MyTimer(this.scene);
 
         this.state = { 
             so_para_nao_dar_load_infinito: 999,
@@ -56,6 +64,24 @@ class MyGameOrchestrator extends CGFobject{
     }
 
     /**
+     * Update Elapsed Time
+     * @param {time} t - current time
+     */
+    updateTime(t) {
+        t = t / 1000;
+
+        /* verify if it's the first call -> if it's the first, change startTime to current time */
+        if (this.startTime == 0) { this.startTime = t; }
+        
+        /**
+         * this.time -> game's elapsed time
+         * elapsed time = actual time - init time
+         * for example: first call -> this.time = 0
+         */
+        this.time = t - this.startTime;
+    }
+
+    /**
      * Updates animation
      * @param {*} t current time
      */
@@ -66,6 +92,7 @@ class MyGameOrchestrator extends CGFobject{
                 this.animator = null;
             }
         }
+        this.updateTime(t);
     }
 
     renderMove() {
@@ -209,7 +236,7 @@ class MyGameOrchestrator extends CGFobject{
             this.currentState = this.state.undo;
         }
 
-        if(!this.over){
+        if (!this.over) {
             switch(this.currentState) {
                 case this.state.menu:
                     this.prolog.startRequest(8);
@@ -292,6 +319,7 @@ class MyGameOrchestrator extends CGFobject{
             this.animator.display();
         }
         this.gameboard.display();
+        this.timer.display(this.time);
     }
 
     changeTheme(theme) {

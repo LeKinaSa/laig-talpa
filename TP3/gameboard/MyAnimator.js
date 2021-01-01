@@ -43,12 +43,12 @@ class MyAnimator extends CGFobject {
     getDeltaTime(t) {
         t = t / 1000;
 
-        /* verify if it's the first call -> if it's the first, change init to current time */
+        /* verify if it's the first call -> if it's the first, change start to current time */
         if (this.startTime == 0) { this.startTime = t; }
         
         /**
-         * delta_time -> animation's elapsed time
-         * elapsed time = actual time - init time
+         * deltaTime -> animation's elapsed time
+         * elapsed time = actual time - start time
          * for example: first call -> deltaTime = 0
          */
         var deltaTime = t - this.startTime;
