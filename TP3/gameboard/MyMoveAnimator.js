@@ -6,6 +6,7 @@ class MyMoveAnimator extends MyAnimator {
     constructor(scene, gameOrchestrator, pieces, ids, dimensions) {
         super(scene, gameOrchestrator);
         this.dimensions = dimensions;
+        this.gameboardPieces = [null, null]; // Needed to make sure there are no duplicates
         this.pieces = [null, null];
         this.pieces[0] = pieces[0]; //  Moving  Piece
         this.pieces[1] = pieces[1]; // Removing Piece
@@ -112,6 +113,15 @@ class MyMoveAnimator extends MyAnimator {
         this.calculatePositions();
         this.calculateRemovingMovementEquation();
 
+        var initialTile = this.gameOrchestrator.gameboard.getTile(this.movingPositions[0][0],
+                                                                  this.movingPositions[0][1]);
+        var  finalTile  = this.gameOrchestrator.gameboard.getTile(this.movingPositions[1][0],
+                                                                  this.movingPositions[1][1]);
+        this.gameboardPieces[0] = initialTile.getPiece();
+        this.gameboardPieces[1] =   finalTile.getPiece();
+
+        if (this.gameboardPieces[0] != null) { this.gameboardPieces[0].startMovement(); }
+        if (this.gameboardPieces[1] != null) { this.gameboardPieces[1].startMovement(); }
         this.pieces[0].startMovement();
         this.pieces[1].startMovement();
     }
@@ -123,8 +133,12 @@ class MyMoveAnimator extends MyAnimator {
         if (!this.finished) {
             return false;
         }
+        
         this.pieces[0].finishMovement();
         this.pieces[1].finishMovement();
+        if (this.gameboardPieces[0] != null) { this.gameboardPieces[0].finishMovement(); }
+        if (this.gameboardPieces[1] != null) { this.gameboardPieces[1].finishMovement(); }
+
         if (this.ids[0] != this.ids[1]) {
             this.gameOrchestrator.gameboard.movePieceByPosition(this.movingPositions[0][0],
                                                                 this.movingPositions[0][1],
