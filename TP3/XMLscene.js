@@ -242,7 +242,7 @@ class XMLscene extends CGFscene {
 
     changeDimension(dimension) {
         // TODO
-        this.electedDimensione = dimension;
+        this.selectedDimensione = dimension;
     }
 
     changeTheme(theme) {
