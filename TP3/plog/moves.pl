@@ -261,8 +261,7 @@ choose_ai_random_move(GameState, Move) :-
     now(Time),
     setrand(Time),
     random_member(Move, ValidMoves),
-    display_ai_move(Move),
-    obtain_empty_input.
+    display_ai_move(Move).
 
 /**
  * Choose the Next Move According to the Greedy AI
@@ -273,8 +272,7 @@ choose_ai_greedy_move(GameState, Move):-
     calculate_value_of_possible_next_boards(GameState, ValidMoves, ListOfValueMovePares),
     sort(ListOfValueMovePares, AscendingListOfValueMovePares),
     last(AscendingListOfValueMovePares, _ - Move),
-    display_ai_move(Move), 
-    obtain_empty_input.
+    display_ai_move(Move).
 
 /**
  * Calculates the Value of All the Possible Next Boards 
