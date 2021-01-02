@@ -40,10 +40,12 @@ class MyGameOrchestrator extends CGFobject{
         this.selectedPieces = 0;
         this.selected = [null, null];
         this.selectedIds = [0, 0];
+        this.botLastPieces = [null, null];
 
         // Undo Move
         this.lastMove = null;
         this.lastMovedPieces = [null, null];
+        this.lastBotMove = null;
 
         // Timer
         this.startTime = 0;
@@ -82,12 +84,10 @@ class MyGameOrchestrator extends CGFobject{
 
     changeRedPlayer(mode) {
         this.players["1"] = parseInt(mode);
-        console.log(this.players);
     }
 
     changeBluePlayer(mode) {
         this.players["-1"] = parseInt(mode);
-        console.log(this.players);
     }
 
     /**
@@ -117,6 +117,7 @@ class MyGameOrchestrator extends CGFobject{
         // Undo Move
         this.lastMove = null;
         this.lastMovedPieces = [null, null];
+        this.lastBotMove = null;
 
         // Timer
         this.startTime = 0;
@@ -125,11 +126,12 @@ class MyGameOrchestrator extends CGFobject{
 
         // Movie
         this.startedMovie = false;
-        //TODO
+        // TODO
+        // this.gameSequence.restart();
 
         // Dimensions
-        
         this.dimensions = parseInt(Object.keys(this.scene.dimensions).find(key => this.scene.dimensions[key] === this.scene.selectedDimension));
+        
         this.currentState = this.state.menu;
         this.scene.restart = false;
     }
@@ -149,6 +151,7 @@ class MyGameOrchestrator extends CGFobject{
             this.animator.start();
             this.lastMove = move;
             this.lastMovedPieces = [this.selected[0], this.selected[1]];
+            this.lastBotMove = null;
             this.currentState = this.state.end_game;
         }
         else {
@@ -163,22 +166,27 @@ class MyGameOrchestrator extends CGFobject{
         var levelAI = this.players[this.player.toString()];
         this.prolog.AIMoveRequest(this.dimensions, this.gameState, this.player, levelAI);
         var moveParameters = this.AIMoveReply(this.prolog.request);
-        var move = new MyAIMove(this.scene, this.dimensions, this.gameboard, moveParameters);
+        var move = new MyAIMove(this.scene, this.dimensions, this.gameState, this.player, this.gameboard, moveParameters);
         this.animator = new MyMoveAnimator(this.scene, this, move.getPieces(), move.getIds(), this.dimensions);
         this.gameSequence.addMoveAnimator(this.animator); // add move to the game sequence
         this.animator.start();
-        this.lastMove = move;
-        this.lastMovedPieces = [this.selected[0], this.selected[1]];
+        this.lastBotMove = move;
     }
 
     undo() {
-        if (this.lastMove != null) {
+        if (this.lastBotMove != null) {
+            this.animator = new MyUndoAnimator(this.scene, this, this.lastBotMove, this.lastBotMove.getPieces(), this.dimensions);
+            this.lastBotMove = null;
+        }
+        else if (this.lastMove != null) {
             this.animator = new MyUndoAnimator(this.scene, this, this.lastMove, this.lastMovedPieces, this.dimensions);
             this.gameSequence.addMoveAnimator(this.animator); // add undo move to the game sequence
             this.animator.start();
             this.lastMove = null;
             this.lastMovedPieces = [null, null];
+            return true;
         }
+        return false;
     }
 
     movie() {
@@ -275,8 +283,9 @@ class MyGameOrchestrator extends CGFobject{
 
                 case this.state.undo:
                     if (this.animator == null) {
-                        this.undo();
-                        this.currentState = this.state.next_turn;
+                        if (this.undo()) {
+                            this.currentState = this.state.next_turn;
+                        }
                     }                    
                     break;
     

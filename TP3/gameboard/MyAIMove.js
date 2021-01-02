@@ -1,14 +1,12 @@
-class MyAIMove {
-    constructor(scene, dimensions, gameBoard, moveParameters) {
-        this.scene = scene;
-        this.dimensions = dimensions;
+class MyAIMove extends MyGameMove {
+    constructor(scene, dimensions, initialBoard, player, gameBoard, moveParameters) {
+        super(scene, dimensions, initialBoard, player);
         this.gameBoard = gameBoard;
         this.column    = parseInt(moveParameters[0]);
         this.line      = parseInt(moveParameters[1]);
         this.direction =          moveParameters[2];
         this.calculateIds();
         this.findPieces();
-        console.log([this.column, this.line, this.direction]);
     }
 
     /**
@@ -22,36 +20,33 @@ class MyAIMove {
     }
 
     calculateIds() {
-        var originId = (this.line - 1) * this.dimensions + (this.column - 1);
-        console.log(originId);
-        var destinId = originId;
+        this.originId = (this.line - 1) * this.dimensions + (this.column - 1);
+        this.destinId = this.originId;
         switch (this.direction) {
             case 'u':
-                destinId = originId + this.dimensions;
+                this.destinId = this.originId + this.dimensions;
                 break;
             case 'd':
-                destinId = originId - this.dimensions;
+                this.destinId = this.originId - this.dimensions;
                 break;
             case 'r':
-                destinId = originId + 1;
+                this.destinId = this.originId + 1;
                 break;
             case 'l':
-                destinId = originId - 1;
+                this.destinId = this.originId - 1;
                 break;
             case 'x':
-                destinId = originId;
+                this.destinId = this.originId;
                 break;
             default:
                 console.log("Error with AI Play.");
                 break;
         }
-        console.log(destinId);
-        this.ids = [originId, destinId];
     }
 
     findPieces() {
-        var originPos = this.calculatePosition(this.ids[0]);
-        var destinPos = this.calculatePosition(this.ids[1]);
+        var originPos = this.calculatePosition(this.originId);
+        var destinPos = this.calculatePosition(this.destinId);
         var originTile = this.gameBoard.getTile(originPos[0], originPos[1]);
         var destinTile = this.gameBoard.getTile(destinPos[0], destinPos[1]);
         var originPiece = originTile.getPiece();
@@ -64,6 +59,6 @@ class MyAIMove {
     }
 
     getIds() {
-        return this.ids;
+        return [this.originId, this.destionId];
     }
 }
