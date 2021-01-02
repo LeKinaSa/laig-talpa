@@ -1,8 +1,9 @@
 class MyMove {
-    constructor(scene, gameOrchestrator, initialBoard, player, originId, destinId) {
+    constructor(scene, gameOrchestrator, dimensions, initialBoard, player, originId, destinId) {
         this.scene = scene;
         this.gameOrchestrator = gameOrchestrator;
         this.prolog = this.gameOrchestrator.prolog;
+        this.dimensions = dimensions;
         this.initialBoard = initialBoard;
         this.player = player;
         this.originId = originId;
@@ -33,11 +34,11 @@ class MyMove {
     /**
      * Calculate Position of the Piece
      * Based on Id
-     * Id Calculation : (line - 1) * 8 + (column - 1)
+     * Id Calculation : (line - 1) * dimensions + (column - 1)
      * @param {*} id 
      */
     calculatePosition(id) {
-        return [id % 8 + 1, Math.floor(id / 8) + 1];
+        return [id % this.dimensions + 1, Math.floor(id / this.dimensions) + 1];
     }
 
     /**
@@ -97,7 +98,7 @@ class MyMove {
         this.getMove();
 
         // Prolog Verification
-        this.prolog.playerMoveRequest(8, this.initialBoard, this.player, this.column, this.line, this.direction);
+        this.prolog.playerMoveRequest(this.dimensions, this.initialBoard, this.player, this.column, this.line, this.direction);
         return this.gameOrchestrator.playerMoveReply(this.prolog.request);
     }
 }

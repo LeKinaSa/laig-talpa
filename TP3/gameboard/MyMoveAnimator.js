@@ -3,8 +3,9 @@
  * @description Class that defines the animations for the moves
  */
 class MyMoveAnimator extends MyAnimator {
-    constructor(scene, gameOrchestrator, pieces, ids) {
+    constructor(scene, gameOrchestrator, pieces, ids, dimensions) {
         super(scene, gameOrchestrator);
+        this.dimensions = dimensions;
         this.pieces = [null, null];
         this.pieces[0] = pieces[0]; //  Moving  Piece
         this.pieces[1] = pieces[1]; // Removing Piece
@@ -31,7 +32,7 @@ class MyMoveAnimator extends MyAnimator {
     /**
      * Calculate Position of the Involved Pieces (Moving)
      * Based on Id
-     * Id Calculation : (line - 1) * 8 + (column - 1)
+     * Id Calculation : (line - 1) * dimensions + (column - 1)
      */
     calculateMovingPiecePositions() {
         // Move from Id 0 to Id 1
@@ -40,8 +41,8 @@ class MyMoveAnimator extends MyAnimator {
         var originId = this.ids[0];
         var destinId = this.ids[1];
 
-        var originPosition   = [originId % 8 + 1, Math.floor(originId / 8) + 1];
-        var destinPosition   = [destinId % 8 + 1, Math.floor(destinId / 8) + 1];
+        var originPosition   = [originId % this.dimensions + 1, Math.floor(originId / this.dimensions) + 1];
+        var destinPosition   = [destinId % this.dimensions + 1, Math.floor(destinId / this.dimensions) + 1];
         this.positions       = [[originPosition[0], originPosition[1]],
                                 [destinPosition[0], destinPosition[1]]];
         this.movingCurrentPosition[0] = this.positions[0][0];
@@ -51,13 +52,14 @@ class MyMoveAnimator extends MyAnimator {
     /**
      * Obtains the initial and final positions for the Piece to be removed
      * Based on Id
-     * Id Calculation : (line - 1) * 8 + (column - 1)
+     * Id Calculation : (line - 1) * dimensions + (column - 1)
      */
     calculateRemovingPiecePositions() {
         // Move from Destination Id to Outside the Board
         var removingPieceId = this.ids[1];  // Destination Id
-        var position = [removingPieceId % 8 + 1, Math.floor(removingPieceId / 8) + 1];
-        this.removingPositions = [[      4.5 - position[1],            0           ,       4.5 - position[0]],
+        var position = [removingPieceId % this.dimensions + 1, Math.floor(removingPieceId / this.dimensions) + 1];
+        var offset = this.dimensions / 2 + 0.5;
+        this.removingPositions = [[   offset - position[1],            0           ,    offset - position[0]],
                                   [this.outsideBoardPos[0], this.outsideBoardPos[1], this.outsideBoardPos[2]]]; 
         this.removingCurrentPosition[0] = this.removingPositions[0][0];
         this.removingCurrentPosition[1] = this.removingPositions[0][1];
@@ -217,8 +219,9 @@ class MyMoveAnimator extends MyAnimator {
 
             var column = this.movingCurrentPosition[0];
             var  line  = this.movingCurrentPosition[1];
+            var offset = this.dimensions / 2 + 0.5;
             // Translation According to the Current Position on the Board
-            this.scene.translate(4.5 - line, 0, 4.5 - column);
+            this.scene.translate(offset - line, 0, offset - column);
             this.scene.rotate(-Math.PI/2, 1, 0, 0);
 
             this.pieces[0].display();
