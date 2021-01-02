@@ -103,7 +103,7 @@ class MyGameBoard {
     
     toJS(prologBoard) {
         for (let line = 0; line < prologBoard.length; ++ line) {
-            for (let column = 0; column < prologBoard[line].length; ++ column) {  
+            for (let column = 0; column < prologBoard[line].length; ++ column) {
                 let tile = new MyTile(this.scene, [column + 1, line + 1], this.tiletexture);
                 if (prologBoard[line][column] == "O") {       // blue
                     tile.piece = new MyPiece(this.scene, 'blue');
@@ -115,7 +115,7 @@ class MyGameBoard {
                     // nothing
                 }
                 else {
-                    console.log("Error getting tiles");
+                    console.log("Error getting tile:", line, column, prologBoard[line][column]);
                 }
                 this.tiles.push(tile);
             }
@@ -133,13 +133,13 @@ class MyGameBoard {
             if (count == 1) board += "[";
             piece = this.tiles[tile].getPiece();
             if      (      piece      ==  null ) {
-                symbol = "E";
+                symbol = "'E'";
             }
             else if (piece.getColor() ==  'red') {
-                symbol = 'X';
+                symbol = "'X'";
             }
             else if (piece.getColor() == 'blue') {
-                symbol = 'O';
+                symbol = "'O'";
             }
             else {
                 console.log("Error in Piece Color.\n");

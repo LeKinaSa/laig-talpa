@@ -1,25 +1,48 @@
 class MyMove {
-    constructor(scene, prolog, initialGameState, player, originId, destinId) {
+    constructor(scene, gameOrchestrator, initialBoard, player, originId, destinId) {
         this.scene = scene;
-        this.prolog = prolog;
-        this.initialGameState = initialGameState; // Board
+        this.gameOrchestrator = gameOrchestrator;
+        this.prolog = this.gameOrchestrator.prolog;
+        this.initialBoard = initialBoard;
         this.player = player;
         this.originId = originId;
         this.destinId = destinId;
         this.column = 0;
         this.line   = 0;
-        this.direction = 'x';
+        this.direction = 'e';
+    }
+
+    /**
+     * Transform the Prolog Board from String to List
+     */
+    getInitialBoard() {
+        var boardStr = this.initialBoard.substring(2, this.initialBoard.length - 2);
+        var auxList = boardStr.split("],[");
+        
+        var board = [];
+        for(let i = 0; i < auxList.length; ++ i){
+            var line = auxList[i].split(",");
+            for (let j = 0; j < line.length; ++j) {
+                line[j] = line[j][1];
+            }
+            board.push(line);
+        }
+        return board;
     }
 
     /**
      * Calculate Position of the Piece
      * Based on Id
      * Id Calculation : (line - 1) * 8 + (column - 1)
+     * @param {*} id 
      */
     calculatePosition(id) {
         return [id % 8 + 1, Math.floor(id / 8) + 1];
     }
 
+    /**
+     * Obtain the Move in Column, Line and Direction
+     */
     getMove() {
         var originPos = this.calculatePosition(this.originId);
         var destinPos = this.calculatePosition(this.destinId);
@@ -31,52 +54,50 @@ class MyMove {
             // Same Column
             if (originPos[1] == destinPos[1]) {
                 // Same Line
-                this.direction = "x";
+                this.direction = 'x';
             }
             else if ((originPos[1] + 1) == destinPos[1]) {
                 // Next Line
-                this.direction = "u";
+                this.direction = 'u';
             }
             else if ((originPos[1] - 1) == destinPos[1]) {
                 // Line Before
-                this.direction = "d";
+                this.direction = 'd';
             }
             else {
                 // Line too far away
-                this.direction = "e";
+                this.direction = 'e';
             }
         }
         else if (originPos[1] == destinPos[1]) {
             // Same Line
             if ((originPos[0] + 1) == destinPos[0]) {
                 // Next Column
-                this.direction = "r";
+                this.direction = 'r';
             }
-            if ((originPos[0] - 1) == destinPos[0]) {
+            else if ((originPos[0] - 1) == destinPos[0]) {
                 // Column Before
-                this.direction = "l";
+                this.direction = 'l';
             }
             else {
                 // Column too far away
-                this.direction = "e";
+                this.direction = 'e';
             }
         }
         else {
             // Diagonal
-            this.direction = "e";
+            this.direction = 'e';
         }
-
-        console.log(this.originId, this.destinId);
-        console.log(originPos[0], originPos[1], destinPos[0], destinPos[1]);
-        console.log(this.column, this.line, this.direction);
     }
 
+    /**
+     * Verify on Prolog if the Move is Valid
+     */
     isValid() {
         this.getMove();
 
         // Prolog Verification
-        // this.prolog.playerMoveRequest(8, this.initialGameState, this.player, this.column, this.line, this.direction);
-        // return this.prolog.playerMoveReply(this.prolog.request);
-        return true;
+        this.prolog.playerMoveRequest(8, this.initialBoard, this.player, this.column, this.line, this.direction);
+        return this.gameOrchestrator.playerMoveReply(this.prolog.request);
     }
 }

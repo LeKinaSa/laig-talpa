@@ -12,18 +12,35 @@ class MyGameOrchestrator extends CGFobject{
     constructor(scene) {
         super(scene);
         this.animator = null;
-        this.gameboard = new MyGameBoard(scene);
-        this.gameSequence = new MyGameSequence(scene);
+        this.gameboard = new MyGameBoard(this.scene);
+        this.gameSequence = new MyGameSequence(this.scene);
         this.theme = new MySceneGraph("talpa_scenes.xml", this.scene);
         this.prolog = new MyPrologConnection();
 
+        this.savedboard = null;
+
+        this.initialBoard = null;
         this.gameState = [];
         this.over = false;
         this.player = 0;
         this.winner = null;
+
+        // Player Moves
         this.selectedPieces = 0;
         this.selected = [null, null];
         this.selectedIds = [0, 0];
+
+        // Undo Move
+        this.lastMove = null; // TODO
+        this.lastMovedPieces = [null, null]; // TODO
+
+        // Timer
+        this.startTime = 0;
+        this.time = 0;
+        this.timer = new MyTimer(this.scene);
+
+        // Movie
+        this.startedMovie = false;
 
         this.state = { 
             so_para_nao_dar_load_infinito: 999,
@@ -51,6 +68,24 @@ class MyGameOrchestrator extends CGFobject{
     }
 
     /**
+     * Update Elapsed Time
+     * @param {time} t - current time
+     */
+    updateTime(t) {
+        t = t / 1000;
+
+        /* verify if it's the first call -> if it's the first, change startTime to current time */
+        if (this.startTime == 0) { this.startTime = t; }
+        
+        /**
+         * this.time -> game's elapsed time
+         * elapsed time = actual time - init time
+         * for example: first call -> this.time = 0
+         */
+        this.time = t - this.startTime;
+    }
+
+    /**
      * Updates animation
      * @param {*} t current time
      */
@@ -61,32 +96,52 @@ class MyGameOrchestrator extends CGFobject{
                 this.animator = null;
             }
         }
+        this.updateTime(t);
     }
 
     renderMove() {
-        // TODO
-        this.currentState = this.state.movement_animation;
-
         // Check if Move is Valid
         this.gameState = this.gameboard.toProlog();
-        var move = new MyMove(this.scene, this.prolog, this.gameState, this.player, this.selectedIds[0], this.selectedIds[1]);
+        var move = new MyMove(this.scene, this, this.gameState, this.player, this.selectedIds[0], this.selectedIds[1]);
         if (move.isValid()) {
-            this.animator = new MyMoveAnimator(this.scene, this);
-            this.animator.start(this.selected, this.selectedIds);
+            this.gameSequence.addGameMove(move); // add move to the game sequence
+            this.animator = new MyMoveAnimator(this.scene, this, this.selected, this.selectedIds);
+            this.gameSequence.addMoveAnimator(this.animator); // add move to the game sequence
+            this.animator.start();
+            this.lastMove = move;
+            this.lastMovedPieces = [this.selected[0], this.selected[1]];
+            this.currentState = this.state.movement_animation;
+        }
+        else {
+            this.selected[0] = null;
+            this.selected[1] = null;
+            this.currentState = this.state.next_turn;
         }
     }
 
     undo() {
         // TODO
-        this.currentState = this.state.movement_animation;
+        if (this.lastMove != null) {
+            this.animator = new MyUndoAnimator(this.scene, this, this.lastMove, this.lastMovedPieces);
+            this.gameSequence.addMoveAnimator(this.animator); // add undo move to the game sequence
+            this.animator.start();
+            this.lastMove = null;
+            this.lastMovedPieces = [null, null];
+        }
     }
 
     movie() {
         // TODO
         // activate an animation that plays the game sequence
-        this.currentState = this.state.movement_animation;
+        this.startedMovie = true;
+        this.animator = new MyMovieAnimator(this.scene, this, this.gameSequence.getMoveAnimators(), this.initialBoard);
+        this.animator.start();
     }
 
+    /**
+     * Gets the initial Board
+     * @param {*} data initial board and player
+     */
     startReply(data) {
         let answer = data.response.split("-");
         if (answer[0] != "0") {
@@ -114,27 +169,84 @@ class MyGameOrchestrator extends CGFobject{
      * @param {*} data winner
      */
     gameOverReply(data) {
-        console.log(data);
         let answer = data.response;
-        if (answer[0] != "1") {
+        if (answer[0] != "0") {
             console.log("Error");
         }
+        if(answer[2] == " ") return (answer[3] + answer[4]);
         return answer[2];
+    }
+
+    /**
+     * Gets AI Move
+     * @param {*} data move (column-line-direction)
+     */
+    AIMoveReply(data) {
+        let answer = data.response.split("-");
+        if (answer[0] != "0") {
+            console.log("Error");
+            return [];
+        }
+        return [answer[1], answer[2], answer[3]];
+    }      
+
+    /**
+     * Verifies if player move is valid
+     * @param {*} data move (column-line-direction)
+     */
+    playerMoveReply(data) {
+        let answer = data.response;
+        if (answer == "1") {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Makes move, returning new board
+     * @param {*} data new board and next player to move
+     */
+    moveReply(data) {
+        let answer = data.response.split("-");
+        if (answer[0] != "0") {
+            console.log("Error");
+        }
+        var player = answer[2]; 
+        var boardStr = answer[1].substring(2, answer[1].length - 2);;
+        var auxList = boardStr.split("],[");
+        
+        var board = [];
+        for (let i = 0; i < auxList.length; ++ i) {
+            var line = auxList[i].split(",");
+            board.push(line);
+        }
+
+        var result = [];
+        result.push(player);
+        result.push(board);
+        return result;
     }
 
     orchestrate() {
         let result = null;
-        // TODO: nao sei se posso fazer isto aqui... perguntar à clara
-        this.managePick(this.scene.pickMode, this.scene.pickResults);
-        this.scene.clearPickRegistration();
+        if(this.scene.movie && this.currentState != this.state.movie){
+            this.savedboard = this.gameboard; 
+            this.currentState = this.state.movie;
+        }
+        else if(this.scene.undo && this.currentState != this.state.undo){
+            this.savedboard = this.gameboard; 
+            this.currentState = this.state.undo;
+        }
 
-        if(!this.over){
+        if (!this.over) {
             switch(this.currentState) {
                 case this.state.menu:
                     this.prolog.startRequest(8);
                     result = this.startReply(this.prolog.request);
                     this.player = result[0];
                     this.gameboard.toJS(result[1]);
+                    this.initialBoard = new MyGameBoard(this.scene);
+                    this.initialBoard.toJS(result[1]);
                     this.currentState = this.state.next_turn;
                     break;
     
@@ -164,20 +276,41 @@ class MyGameOrchestrator extends CGFobject{
                     break;
     
                 case this.state.end_game: // end game
-                    this.prolog.gameOverRequest(8,this.gameboard.toProlog(), this.player);
-                    result = this.gameOverReply(this.prolog.request);
-                    this.winner = result;
-                    if (this.winner != 0) {
-                        this.over = true;
-                        if(this.winner == 1) console.log("Red Player Wins");
-                        else if(this.winner == -1) console.log("Blue Player Wins");
-                        this.currentState = this.state.end_game;
-                    }
-                    else {
-                        this.currentState = this.state.next_turn;
+                    if (this.animator == null) {
+                        this.prolog.gameOverRequest(8,this.gameboard.toProlog(), this.player);
+                        result = this.gameOverReply(this.prolog.request);
+                        this.winner = result;
+                        if (this.winner != 0) {
+                            this.over = true;
+                            if (this.winner == 1) console.log("Red Player Wins");
+                            else if (this.winner == -1) console.log("Blue Player Wins");
+                            this.currentState = this.state.end_game;
+                        }
+                        else {
+                            this.player = -this.player;
+                            this.currentState = this.state.next_turn;
+                        }
                     }
                     break;
+
+                case this.state.undo:
+                    if (this.animator == null) {
+                        this.undo();
+                        this.currentState = this.state.next_turn;
+                    }                    
+                    break;
     
+                case this.state.movie:
+                    if (!this.scene.movie) {
+                        this.startedMovie = false;
+                        this.animator = null;
+                        this.currentState = this.state.next_turn;
+                    }
+                    else if ((this.animator == null) && (!this.startedMovie)) {
+                        this.movie();
+                    }
+
+                    break;
                 default:
                     console.log("Unknown Game State");
                     break;
@@ -192,14 +325,11 @@ class MyGameOrchestrator extends CGFobject{
             this.animator.display();
         }
         this.gameboard.display();
+        this.timer.display(this.time);
     }
 
     changeTheme(theme) {
         this.theme = new MySceneGraph(theme, this.scene);
-    }
-
-    onHandshakeSuccess(){
-        console.log("Success");
     }
 
     managePick(mode, results) {
