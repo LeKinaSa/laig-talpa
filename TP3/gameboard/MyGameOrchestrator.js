@@ -113,6 +113,8 @@ class MyGameOrchestrator extends CGFobject{
             this.currentState = this.state.movement_animation;
         }
         else {
+            this.selected[0] = null;
+            this.selected[1] = null;
             this.currentState = this.state.next_turn;
         }
     }
