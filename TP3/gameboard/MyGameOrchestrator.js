@@ -53,14 +53,14 @@ class MyGameOrchestrator extends CGFobject{
             // Prolog? render and wait a couple of seconds…
             destination_piece_selection: 4, // Human? pick destination tile/piece. Prolog? 
             // render destination piece/tile.
-            movement_animation: 5, // selection is moved with based on some animation f(t)
-            end_game: 6, // display winner and goto menu
+            end_game: 5, // display winner and goto menu
 
             // INTERRUPTING GAME STATES
 
-            undo: 7, //  undo the last game movement. Updates turn.
-            movie: 8, // > keep game state. Renders all the game movements (should use 
-            // the same animation features used for movement animation). 
+            undo: 6,    //  undo the last game movement. Updates turn.
+            movie: 7,   // > keep game state. Renders all the game movements (should use 
+                        // the same animation features used for movement animation).
+            restart: 8, // restart the game -> verify the dimensions
         };
 
         this.currentState = this.state.menu;
@@ -110,7 +110,7 @@ class MyGameOrchestrator extends CGFobject{
             this.animator.start();
             this.lastMove = move;
             this.lastMovedPieces = [this.selected[0], this.selected[1]];
-            this.currentState = this.state.movement_animation;
+            this.currentState = this.state.end_game;
         }
         else {
             this.selected[0] = null;
@@ -185,6 +185,7 @@ class MyGameOrchestrator extends CGFobject{
             console.log("Error");
             return [];
         }
+        console.log(answer[1], answer[2], answer[3]);
         return [answer[1], answer[2], answer[3]];
     }      
 
@@ -257,31 +258,23 @@ class MyGameOrchestrator extends CGFobject{
     
                 case this.state.destination_piece_selection: // select destination piece
                     if (this.selected[1] != null) {
-                        this.renderMove();
+                        this.renderMove(); // animation
                     }
-                    break;
-    
-                case this.state.movement_animation: // move animation
-                    if (this.animator != null) {
-                        // this.animator.start();
-                    }
-    
-                    // animation is over
-                    this.selected[0] = null;
-                    this.selected[1] = null;
-                    // next turn
-                    this.currentState = this.state.end_game; 
                     break;
     
                 case this.state.end_game: // end game
                     if (this.animator == null) {
+                        // animation is over
+                        this.selected[0] = null;
+                        this.selected[1] = null;
+
                         this.prolog.gameOverRequest(8,this.gameboard.toProlog(), this.player);
                         result = this.gameOverReply(this.prolog.request);
                         this.winner = result;
                         if (this.winner != 0) {
                             this.over = true;
-                            if (this.winner == 1) console.log("Red Player Wins");
-                            else if (this.winner == -1) console.log("Blue Player Wins");
+                            if      (this.winner ==  1) { console.log("Red Player Wins");  }
+                            else if (this.winner == -1) { console.log("Blue Player Wins"); }
                             this.currentState = this.state.end_game;
                         }
                         else {
