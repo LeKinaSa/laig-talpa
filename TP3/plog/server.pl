@@ -129,9 +129,9 @@ parse_input([1, Dimensions, JSBoard, Player], 0-Winner) :-
 	game_over(Dimensions-Board-Player, Winner).
 parse_input([1 | _], 1).
 
-parse_input([2, Dimensions, JSBoard, Player, Level], 0-Move) :-
+parse_input([2, Dimensions, JSBoard, Player, Level], 0-Column-Line-Direction) :-
     transform_board(JSBoard, Board),
-	Level \= 0, choose_move(Dimensions-Board-Player, _, Level, Move).
+	Level \= 0, choose_move(Dimensions-Board-Player, _, Level, Column-Line-Direction).
 parse_input([2, _, _, _, 0], 1).
 parse_input([2 | _], 1).
 

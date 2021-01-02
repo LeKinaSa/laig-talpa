@@ -3,13 +3,15 @@
  * @description Class that defines the animations for the moves
  */
 class MyMoveAnimator extends MyAnimator {
-    constructor(scene, gameOrchestrator, pieces, ids) {
+    constructor(scene, gameOrchestrator, pieces, ids, dimensions) {
         super(scene, gameOrchestrator);
+        this.dimensions = dimensions;
+        this.gameboardPieces = [null, null]; // Needed to make sure there are no duplicates
         this.pieces = [null, null];
         this.pieces[0] = pieces[0]; //  Moving  Piece
         this.pieces[1] = pieces[1]; // Removing Piece
         this.ids = [ids[0], ids[1]];
-        this.positions = []; // Positions of the Pieces involved in the move
+        this.movingPositions   = []; // Positions of the Pieces involved in the move
         this.removingPositions = []; // Initial and Final Position for the Removed Piece
         this.totalTime = 1;
         this.movingCurrentPosition   = [0, 0];      // Position = [column, line]
@@ -31,7 +33,7 @@ class MyMoveAnimator extends MyAnimator {
     /**
      * Calculate Position of the Involved Pieces (Moving)
      * Based on Id
-     * Id Calculation : (line - 1) * 8 + (column - 1)
+     * Id Calculation : (line - 1) * dimensions + (column - 1)
      */
     calculateMovingPiecePositions() {
         // Move from Id 0 to Id 1
@@ -40,24 +42,27 @@ class MyMoveAnimator extends MyAnimator {
         var originId = this.ids[0];
         var destinId = this.ids[1];
 
-        var originPosition   = [originId % 8 + 1, Math.floor(originId / 8) + 1];
-        var destinPosition   = [destinId % 8 + 1, Math.floor(destinId / 8) + 1];
-        this.positions       = [[originPosition[0], originPosition[1]],
-                                [destinPosition[0], destinPosition[1]]];
-        this.movingCurrentPosition[0] = this.positions[0][0];
-        this.movingCurrentPosition[1] = this.positions[0][1];
+        var originPosition   = [originId % this.dimensions + 1, Math.floor(originId / this.dimensions) + 1];
+        var destinPosition   = [destinId % this.dimensions + 1, Math.floor(destinId / this.dimensions) + 1];
+        
+        this.movingPositions       = [[originPosition[0], originPosition[1]],
+                                      [destinPosition[0], destinPosition[1]]];
+        
+        this.movingCurrentPosition[0] = this.movingPositions[0][0];
+        this.movingCurrentPosition[1] = this.movingPositions[0][1];
     }
 
     /**
      * Obtains the initial and final positions for the Piece to be removed
      * Based on Id
-     * Id Calculation : (line - 1) * 8 + (column - 1)
+     * Id Calculation : (line - 1) * dimensions + (column - 1)
      */
     calculateRemovingPiecePositions() {
         // Move from Destination Id to Outside the Board
         var removingPieceId = this.ids[1];  // Destination Id
-        var position = [removingPieceId % 8 + 1, Math.floor(removingPieceId / 8) + 1];
-        this.removingPositions = [[      4.5 - position[1],            0           ,       4.5 - position[0]],
+        var position = [removingPieceId % this.dimensions + 1, Math.floor(removingPieceId / this.dimensions) + 1];
+        var offset = this.dimensions / 2 + 0.5;
+        this.removingPositions = [[   offset - position[1],            0           ,    offset - position[0]],
                                   [this.outsideBoardPos[0], this.outsideBoardPos[1], this.outsideBoardPos[2]]]; 
         this.removingCurrentPosition[0] = this.removingPositions[0][0];
         this.removingCurrentPosition[1] = this.removingPositions[0][1];
@@ -108,6 +113,15 @@ class MyMoveAnimator extends MyAnimator {
         this.calculatePositions();
         this.calculateRemovingMovementEquation();
 
+        var initialTile = this.gameOrchestrator.gameboard.getTile(this.movingPositions[0][0],
+                                                                  this.movingPositions[0][1]);
+        var  finalTile  = this.gameOrchestrator.gameboard.getTile(this.movingPositions[1][0],
+                                                                  this.movingPositions[1][1]);
+        this.gameboardPieces[0] = initialTile.getPiece();
+        this.gameboardPieces[1] =   finalTile.getPiece();
+
+        if (this.gameboardPieces[0] != null) { this.gameboardPieces[0].startMovement(); }
+        if (this.gameboardPieces[1] != null) { this.gameboardPieces[1].startMovement(); }
         this.pieces[0].startMovement();
         this.pieces[1].startMovement();
     }
@@ -119,14 +133,21 @@ class MyMoveAnimator extends MyAnimator {
         if (!this.finished) {
             return false;
         }
+        
         this.pieces[0].finishMovement();
         this.pieces[1].finishMovement();
+        if (this.gameboardPieces[0] != null) { this.gameboardPieces[0].finishMovement(); }
+        if (this.gameboardPieces[1] != null) { this.gameboardPieces[1].finishMovement(); }
+
         if (this.ids[0] != this.ids[1]) {
-            this.gameOrchestrator.gameboard.movePieceByPosition(this.positions[0][0], this.positions[0][1],
-                                                                this.positions[1][0], this.positions[1][1]);
+            this.gameOrchestrator.gameboard.movePieceByPosition(this.movingPositions[0][0],
+                                                                this.movingPositions[0][1],
+                                                                this.movingPositions[1][0],
+                                                                this.movingPositions[1][1]);
         }
         else {
-            this.gameOrchestrator.gameboard.removePieceByPosition(this.positions[0][0], this.positions[0][1]);
+            this.gameOrchestrator.gameboard.removePieceByPosition(this.movingPositions[0][0],
+                                                                  this.movingPositions[0][1]);
         }
         return true;
     }
@@ -150,7 +171,7 @@ class MyMoveAnimator extends MyAnimator {
         var deltaTime = this.getDeltaTime(t);
 
         if (deltaTime >= this.totalTime) {
-            this.removingCurrentPosition = this.positions[1];
+            this.removingCurrentPosition = this.movingPositions[1];
             this.finished = true;
             return;
         }
@@ -160,8 +181,8 @@ class MyMoveAnimator extends MyAnimator {
         
         // Animation Based on elapsedAnimation
         // Update the Value on this.movingCurrentPosition
-        var initialPosition = this.positions[0];
-        var  finalPosition  = this.positions[1];
+        var initialPosition = this.movingPositions[0];
+        var  finalPosition  = this.movingPositions[1];
         this.movingCurrentPosition[0] = initialPosition[0] + elapsedAnimation * (finalPosition[0] - initialPosition[0]);
         this.movingCurrentPosition[1] = initialPosition[1] + elapsedAnimation * (finalPosition[1] - initialPosition[1]);
     }
@@ -217,8 +238,9 @@ class MyMoveAnimator extends MyAnimator {
 
             var column = this.movingCurrentPosition[0];
             var  line  = this.movingCurrentPosition[1];
+            var offset = this.dimensions / 2 + 0.5;
             // Translation According to the Current Position on the Board
-            this.scene.translate(4.5 - line, 0, 4.5 - column);
+            this.scene.translate(offset - line, 0, offset - column);
             this.scene.rotate(-Math.PI/2, 1, 0, 0);
 
             this.pieces[0].display();

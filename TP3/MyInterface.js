@@ -80,6 +80,7 @@ class MyInterface extends CGFinterface {
         this.addCameras(folder);
         this.addLights(folder);
         folder.add(this.scene, 'displayAxis').name("Display Axis");
+        folder.add(this.scene, 'cameralock').name('Camera Lock');
         folder.add(this.scene, 'scaleFactor', 0.1, 10.0).name('Scale');
 
     }
@@ -87,11 +88,12 @@ class MyInterface extends CGFinterface {
     gameOptions(){
         const folder = this.gui.addFolder("Game Options");
         folder.open();
-        folder.add(this.scene, 'gameScenes', this.scene.gameScenes).name('Game Scene').onChange(this.scene.changeTheme.bind(this.scene));
-        folder.add(this.scene, 'dimensions', this.scene.dimensions).name('Board Dimensions'); // onchange .............
-        folder.add(this.scene, 'gameMode', this.scene.gameMode).name('Game Mode'); // onchange .............
-        folder.add(this.scene, 'difficulty').name('Increased Difficulty');
+        folder.add(this.scene, 'selectedTheme', this.scene.gameScenes).name('Game Scene').onChange(this.scene.changeTheme.bind(this.scene));
+        folder.add(this.scene, 'selectedDimension', this.scene.dimensions).name('Board Dimensions').onChange(this.scene.changeDimension.bind(this.scene));
+        folder.add(this.scene, 'selectedRed', this.scene.redPlayer).name('Red Player').onChange(this.scene.changeRedPlayer.bind(this.scene));
+        folder.add(this.scene, 'selectedBlue', this.scene.bluePlayer).name('Blue Player').onChange(this.scene.changeBluePlayer.bind(this.scene));
         folder.add(this.scene, 'movie').name('Movie');
         folder.add(this.scene, 'undo').name('Undo');
+        folder.add(this.scene, 'restart').name('Restart');
     }
 }

@@ -40,13 +40,6 @@ class MyGameSequence extends CGFobject {
     }
 
     /**
-     * Manage undo
-     */
-    undo() {
-        // TODO
-    }
-
-    /**
      * Feeds move replay
      */
     moveReplay() {
@@ -58,6 +51,4 @@ class MyGameSequence extends CGFobject {
             this.currentMove++;
         } */
     }
-
-
 }
