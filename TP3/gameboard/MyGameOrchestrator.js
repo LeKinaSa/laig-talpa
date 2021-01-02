@@ -123,6 +123,7 @@ class MyGameOrchestrator extends CGFobject{
         // TODO
         if (this.lastMove != null) {
             this.animator = new MyUndoAnimator(this.scene, this, this.lastMove, this.lastMovedPieces);
+            this.gameSequence.addMoveAnimator(this.animator); // add undo move to the game sequence
             this.animator.start();
             this.lastMove = null;
             this.lastMovedPieces = [null, null];
