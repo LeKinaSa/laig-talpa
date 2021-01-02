@@ -1,7 +1,7 @@
 <lsf>
     <initials>
         <reference length="2" />
-        <root id="gaming-room" />
+        <root id="scenario" />
     </initials>
 
     <views default="global">
@@ -12,10 +12,14 @@
         <perspective id="player2Camera" near="0.1" far="500" angle="45">
             <from x="0" y="20" z="-10" />
             <to x="0" y="-2" z="0" />
-        </perspective>
+        </perspective>        
         <perspective id="global" near="0.1" far="500" angle="45">
-            <from x="0" y="65" z="80" />
-            <to x="0" y="5" z="0" />
+            <from x="0" y="60" z="60" />
+            <to x="0" y="-2" z="0" />
+        </perspective>
+        <perspective id="boardCamera" near="0.1" far="500" angle="45">
+            <from x="10" y="20" z="0" />
+            <to x="0" y="-2" z="0" />
         </perspective>
     </views>
 
@@ -23,7 +27,6 @@
         <ambient    r="0.2" g="0.2" b="0.2" a="1.0" />
         <background r="0.1" g="0.7" b="1.0" a="1.0" />
     </illumination>
-
 
     <lights>
         <light id="demoLight">
@@ -35,20 +38,16 @@
         </light>
     </lights>
 
-
     <textures>
-        <texture id="wood"          path="./scenes/images/wood.jpg" />
-        <texture id="wood-floor"    path="./scenes/images/wood-floor.jpg" />
-        <texture id="wall-paper"    path="./scenes/images/wall-paper.jpg" />
-        <texture id="red-chair"     path="./scenes/images/red-chair.jpg" />
-        <texture id="blue-chair"    path="./scenes/images/blue-chair.jpg" />
-        <texture id="rug"           path="./scenes/images/rug.jpg" />
-        <texture id="door"          path="./scenes/images/door.jpg" />
-        <texture id="window"        path="./scenes/images/night_window.jpg"/>
+        <texture id="lake"  path="./scenes/images/river/lake.png"  />
+        <texture id="river" path="./scenes/images/river/river.png" />
+        <texture id="buoy"  path="./scenes/images/river/buoy.png"  />
+        <texture id="oar"   path="./scenes/images/river/wood.jpg"  />
     </textures>
 
     <spritesheets>
         <spritesheet id="fire" path="./scenes/images/fire.png" sizeM="8" sizeN="8"/>
+        <spritesheet id="tv"   path="./scenes/images/tv.png" sizeM="20" sizeN="15"/>
     </spritesheets>
 
     <materials>
@@ -87,7 +86,7 @@
 
     <nodes>
 
-        <node id="gaming-room">
+        <node id="scenario">
             <material id="default" />
             <texture id="null">
                 <amplification afs="1" aft="1" />
@@ -95,138 +94,239 @@
             <transformations>
             </transformations>
             <descendants>
-                <noderef id="structure" />
-                <!--<noderef id="game-zone"/>
-                <noderef id="rug"/>
-                <noderef id="fireplace"/>
-                <noderef id="drawer"/>
-                <noderef id="painting"/>
-                <noderef id="couchs"/>
-                <noderef id="sideboard"/>
-                <noderef id="tv"/>-->
+                <noderef id="surroundings" />
+                <noderef id="river" />
+                <noderef id="canoe" />
             </descendants>
         </node>
 
-        <node id="structure">  
-            <material id="null" />
-            <texture id="null">
-                <amplification afs="10" aft="10" />
-            </texture>
-            <transformations>
-            </transformations>
-
-            <descendants>
-                <noderef id="walls"/>
-                <noderef id="floor"/>
-                <noderef id="windows"/>
-                <noderef id="door"/>
-            </descendants>
-        </node>
-
-        <node id="walls">
-            <material id="null" />
-            <texture id="wall-paper">
+        <node id="surroundings">
+            <material id="default" />
+            <texture id="lake">
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="0" y="-8" z="0"/>
-                <rotation axis="x" angle="90"/>
             </transformations>
 
             <descendants>
-                <leaf type="cylinder" height="-60" topRadius="75" bottomRadius="75" stacks="10" slices="6"/>
+                <leaf type="sphere" radius="-75" slices="32" stacks="32" />
             </descendants>
         </node>
 
-        <node id="floor">
-            <material id="null" />
-            <texture id="wood-floor">
+        <node id="river">
+            <material id="default" />
+            <texture id="river">
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="0" y="-8" z="0"/>
-                <rotation axis="x" angle="90"/>
             </transformations>
 
             <descendants>
-                <leaf type="cylinder" height="0.01" topRadius="75" bottomRadius="75" stacks="2" slices="6"/>
+                <leaf type="cylinder" height="0.1" topRadius="75" bottomRadius="75" stacks="32" slices="2" />
             </descendants>
         </node>
 
-        <node id="windows">
-            <material id="null" />
+        <node id="canoe">
+            <material id="default" />
             <texture id="null">
-                <amplification afs="20" aft="20" />
+                <amplification afs="1" aft="1" />
             </texture>
-
             <transformations>
             </transformations>
 
             <descendants>
-                <noderef id="window1"/>
-                <noderef id="window2"/>
-            </descendants>
-        </node> 
-
-        <node id="window1">
-            <material id="null" />
-            <texture id="window">
-                <amplification afs="20" aft="20" />
-            </texture>
-            
-            <transformations>
-                <translation x="-64.94" y="17" z="-20"/>
-                <rotation axis="y" angle="90"/>
-            </transformations>
-
-            <descendants>
-                <noderef id="glass"/>
-            </descendants>
-        </node> 
-
-        <node id="window2">
-            <material id="null" />
-            <texture id="window">
-                <amplification afs="20" aft="20" />
-            </texture>
-            
-            <transformations>
-                <translation x="-64.94" y="17" z="15"/>
-                <rotation axis="y" angle="90"/>
-            </transformations>
-
-            <descendants>
-                <noderef id="glass"/>
-            </descendants>
-        </node> 
-
-        <node id="glass">
-            <material id="null" />
-            <texture id="window">
-                <amplification afs="20" aft="20" />
-            </texture>
-            
-            <transformations>
-            </transformations>
-
-            <descendants>
-                <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="10"/>
+                <noderef id="outside-canoe" />
+                <noderef id="inside-canoe" />
+                <noderef id="blue-seat" />
+                <noderef id="red-seat" />
+                <noderef id="oars" />
+                <noderef id="buoys" />
             </descendants>
         </node>
 
-        <node id="door">
-            <material id="null" />
-            <texture id="door">
-                <amplification afs="20" aft="30" />
+        <node id="outside-canoe">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
             </texture>
-            
             <transformations>
-                <translation x="64.94" y="7" z="25"/>
-                <rotation axis="y" angle="-90"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-10" y1="-15" x2="10" y2="15"/>
+                
+            </descendants>
+        </node>
+
+        <node id="inside-canoe">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                
+            </descendants>
+        </node>
+
+        <node id="blue-seat">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                
+            </descendants>
+        </node>
+
+        <node id="red-seat">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                
+            </descendants>
+        </node>
+
+        <node id="oars">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="oar1" />
+                <noderef id="oar2" />
+            </descendants>
+        </node>
+
+        <node id="oar1">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                
+            </descendants>
+        </node>
+
+        <node id="oar2">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                
+            </descendants>
+        </node>
+        
+        <node id="oar">
+            <material id="default" />
+            <texture id="oar">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                
+            </descendants>
+        </node>
+
+        <node id="buoys">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="buoy1" />
+                <noderef id="buoy2" />
+                <noderef id="buoy3" />
+                <noderef id="buoy4" />
+            </descendants>
+        </node>
+
+        <node id="buoy1">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="buoy" />
+            </descendants>
+        </node>
+
+        <node id="buoy2">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="buoy" />
+            </descendants>
+        </node>
+
+        <node id="buoy3">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="buoy" />
+            </descendants>
+        </node>
+
+        <node id="buoy4">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="buoy" />
+            </descendants>
+        </node>
+
+        <node id="buoy">
+            <material id="default" />
+            <texture id="buoy">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="torus" inner="0.2" outer="1" slices="32" loops="32" />
             </descendants>
         </node>
 
