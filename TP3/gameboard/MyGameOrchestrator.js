@@ -120,7 +120,6 @@ class MyGameOrchestrator extends CGFobject{
     }
 
     undo() {
-        // TODO
         if (this.lastMove != null) {
             this.animator = new MyUndoAnimator(this.scene, this, this.lastMove, this.lastMovedPieces);
             this.gameSequence.addMoveAnimator(this.animator); // add undo move to the game sequence
@@ -131,7 +130,6 @@ class MyGameOrchestrator extends CGFobject{
     }
 
     movie() {
-        // TODO
         // activate an animation that plays the game sequence
         this.startedMovie = true;
         this.animator = new MyMovieAnimator(this.scene, this, this.gameSequence.getMoveAnimators(), this.initialBoard);
@@ -229,11 +227,11 @@ class MyGameOrchestrator extends CGFobject{
 
     orchestrate() {
         let result = null;
-        if(this.scene.movie && this.currentState != this.state.movie){
+        if (this.scene.movie && this.currentState != this.state.movie) {
             this.savedboard = this.gameboard; 
             this.currentState = this.state.movie;
         }
-        else if(this.scene.undo && this.currentState != this.state.undo){
+        else if (this.scene.undo && this.currentState != this.state.undo) {
             this.savedboard = this.gameboard; 
             this.currentState = this.state.undo;
         }
@@ -333,7 +331,7 @@ class MyGameOrchestrator extends CGFobject{
     }
 
     managePick(mode, results) {
-        if (mode == false /* && some other game conditions */) {
+        if (mode == false) {
             if (results != null && results.length > 0) {
                 for (var i = 0; i < results.length; ++ i) {
                     var obj = results[i][0];
@@ -358,15 +356,15 @@ class MyGameOrchestrator extends CGFobject{
         }
 
         if (this.selectedPieces == 2) {
-            // Move Completed
-
+            // Pieces for the Move Obtained
             // Unselect Pieces
-            this.selected[0].resetSelection();
-            this.selected[1].resetSelection();
+            if (this.selected[0] != null) {
+                this.selected[0].resetSelection();
+            }
+            if (this.selected[1] != null) {
+                this.selected[1].resetSelection();
+            }
             this.selectedPieces = 0;
-            
-            // Make a Move
-            // TODO: this.selected tem as duas peças que foram selecionadas
         }
     }
 }
