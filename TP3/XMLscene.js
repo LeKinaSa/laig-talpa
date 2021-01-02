@@ -21,7 +21,6 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = false;
 
-        this.difficulty = false;
         this.movie = false;
         this.undo = false;
         
@@ -29,14 +28,36 @@ class XMLscene extends CGFscene {
             'Living Room': "talpa_scenes.xml",
             'The GameHouse': "talpa_game_house.xml"
         }
+
+        this.selectedTheme = "talpa_scenes.xml";
+
         this.dimensions = {
             '8': 0,
         }
-        this.gameMode = {
-            'Player vs. Player': 0,
-            'Player vs. Bot': 1,
-            'Bot vs. Bot': 2
+
+        this.selectedDimension = 0;
+
+        this.redPlayer = {
+            'Player' : 0,
+            'Bot (Random)': 1,
+            'Bot (Greedy)': 2
         }
+
+        this.selectedRed = 0;
+
+        this.bluePlayer = {
+            'Player' : 0,
+            'Bot (Random)': 1,
+            'Bot (Greedy)': 2
+        }
+        
+        this.selectedBlue = 0;
+
+        this.restart = false;    
+        
+        // camera rotation
+        this.rotatingcamera = false;
+        this.angle = 0;
 
         this.initCameras();
 
@@ -57,6 +78,7 @@ class XMLscene extends CGFscene {
         this.displayAxis = false;
         this.scaleFactor = 1;
         this.updatePeriod = 100;
+        this.cameralock = true;
 
         // Enable Picking
         this.setPickEnabled(true);
@@ -157,7 +179,15 @@ class XMLscene extends CGFscene {
         this.gameOrchestrator.update(t);
         if (this.sceneInited)  {
             this.graph.updateAnimations(t);
-        }
+        }   
+        if (this.rotatingcamera) {
+            this.camera.orbit([0, 1, 0], Math.PI / 35.0);
+            this.angle += Math.PI / 35.0;
+            if (this.angle >= Math.PI) {
+                this.angle -= Math.PI;
+                this.rotatingcamera = false;
+            }
+        }   
     }
 
     /**
@@ -194,6 +224,12 @@ class XMLscene extends CGFscene {
             // Draw axis
             if(this.displayAxis)
                 this.axis.display();
+
+            if(this.cameralock)
+                this.interface.setActiveCamera(null);
+            else{
+                this.interface.setActiveCamera(this.camera);
+            }
  
             this.defaultAppearance.apply();
 
@@ -223,7 +259,29 @@ class XMLscene extends CGFscene {
         // ---- END Background, camera and axis setup
     }
 
+    changeDimension(dimension) {
+        // TODO
+        this.selectedDimensione = dimension;
+    }
+
     changeTheme(theme) {
         this.gameOrchestrator.changeTheme(theme);
+        this.selectedTheme = theme;
+    }
+
+    changeRedPlayer(mode) {
+        this.gameOrchestrator.changeRedPlayer(mode);
+        this.selectedRed = mode;
+    }
+
+    changeBluePlayer(mode) {
+        this.gameOrchestrator.changeBluePlayer(mode);
+        this.selectedBlue = mode;
+    }
+
+    rotateCamera(){
+        if(this.graph.cameras["player1Camera"] == this.camera ||
+            this.graph.cameras["player2Camera"] == this.camera)
+            this.rotatingcamera = true;
     }
 }

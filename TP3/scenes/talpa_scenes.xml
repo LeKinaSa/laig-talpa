@@ -3,7 +3,7 @@
         <reference length="2" />
         <root id="living-room" />
     </initials>
-    <views default="boardCamera">
+    <views default="player1Camera">
         <perspective id="player1Camera" near="0.1" far="500" angle="45">
             <from x="0" y="20" z="10" />
             <to x="0" y="-2" z="0" />
