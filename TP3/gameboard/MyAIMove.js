@@ -3,12 +3,12 @@ class MyAIMove {
         this.scene = scene;
         this.dimensions = dimensions;
         this.gameBoard = gameBoard;
-        this.column    = moveParameters[0];
-        this.line      = moveParameters[1];
-        this.direction = moveParameters[2];
+        this.column    = parseInt(moveParameters[0]);
+        this.line      = parseInt(moveParameters[1]);
+        this.direction =          moveParameters[2];
         this.calculateIds();
         this.findPieces();
-        console.log(this.column, this.line, this.direction);
+        console.log([this.column, this.line, this.direction]);
     }
 
     /**
@@ -23,6 +23,7 @@ class MyAIMove {
 
     calculateIds() {
         var originId = (this.line - 1) * this.dimensions + (this.column - 1);
+        console.log(originId);
         var destinId = originId;
         switch (this.direction) {
             case 'u':
@@ -44,6 +45,7 @@ class MyAIMove {
                 console.log("Error with AI Play.");
                 break;
         }
+        console.log(destinId);
         this.ids = [originId, destinId];
     }
 
