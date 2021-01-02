@@ -1,34 +1,13 @@
-class MyMove {
+class MyMove extends MyGameMove {
     constructor(scene, gameOrchestrator, dimensions, initialBoard, player, originId, destinId) {
-        this.scene = scene;
+        super(scene, dimensions, initialBoard, player);
         this.gameOrchestrator = gameOrchestrator;
         this.prolog = this.gameOrchestrator.prolog;
-        this.dimensions = dimensions;
-        this.initialBoard = initialBoard;
-        this.player = player;
         this.originId = originId;
         this.destinId = destinId;
         this.column = 0;
         this.line   = 0;
         this.direction = 'e';
-    }
-
-    /**
-     * Transform the Prolog Board from String to List
-     */
-    getInitialBoard() {
-        var boardStr = this.initialBoard.substring(2, this.initialBoard.length - 2);
-        var auxList = boardStr.split("],[");
-        
-        var board = [];
-        for(let i = 0; i < auxList.length; ++ i){
-            var line = auxList[i].split(",");
-            for (let j = 0; j < line.length; ++j) {
-                line[j] = line[j][1];
-            }
-            board.push(line);
-        }
-        return board;
     }
 
     /**
