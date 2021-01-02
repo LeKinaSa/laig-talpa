@@ -46,6 +46,7 @@ class MyGameOrchestrator extends CGFobject{
         this.lastMove = null;
         this.lastMovedPieces = [null, null];
         this.lastBotMove = null;
+        this.lastBotMovedPieces = [null, null];
 
         // Timer
         this.startTime = 0;
@@ -149,9 +150,12 @@ class MyGameOrchestrator extends CGFobject{
             this.animator = new MyMoveAnimator(this.scene, this, this.selected, this.selectedIds, this.dimensions);
             this.gameSequence.addMoveAnimator(this.animator); // add move to the game sequence
             this.animator.start();
+            
             this.lastMove = move;
             this.lastMovedPieces = [this.selected[0], this.selected[1]];
             this.lastBotMove = null;
+            this.lastBotMovedPieces = [null, null];
+            
             this.currentState = this.state.end_game;
         }
         else {
@@ -166,17 +170,24 @@ class MyGameOrchestrator extends CGFobject{
         var levelAI = this.players[this.player.toString()];
         this.prolog.AIMoveRequest(this.dimensions, this.gameState, this.player, levelAI);
         var moveParameters = this.AIMoveReply(this.prolog.request);
+        
         var move = new MyAIMove(this.scene, this.dimensions, this.gameState, this.player, this.gameboard, moveParameters);
+        this.lastBotMove = move;
+        this.lastBotMovedPieces = [move.getPieces()[0], move.getPieces()[1]];
+        
         this.animator = new MyMoveAnimator(this.scene, this, move.getPieces(), move.getIds(), this.dimensions);
         this.gameSequence.addMoveAnimator(this.animator); // add move to the game sequence
         this.animator.start();
-        this.lastBotMove = move;
     }
 
     undo() {
         if (this.lastBotMove != null) {
-            this.animator = new MyUndoAnimator(this.scene, this, this.lastBotMove, this.lastBotMove.getPieces(), this.dimensions);
+            this.animator = new MyUndoAnimator(this.scene, this, this.lastBotMove, this.lastBotMovedPieces, this.dimensions);
+            this.gameSequence.addMoveAnimator(this.animator); // add undo move to the game sequence
+            this.animator.start();
             this.lastBotMove = null;
+            this.lastBotMovedPieces = [null, null];
+            return false;
         }
         else if (this.lastMove != null) {
             this.animator = new MyUndoAnimator(this.scene, this, this.lastMove, this.lastMovedPieces, this.dimensions);
@@ -186,7 +197,7 @@ class MyGameOrchestrator extends CGFobject{
             this.lastMovedPieces = [null, null];
             return true;
         }
-        return false;
+        return true;
     }
 
     movie() {
@@ -417,12 +428,10 @@ class MyGameOrchestrator extends CGFobject{
      */
     AIMoveReply(data) {
         let answer = data.response.split("-");
-        console.log(answer);
         if (answer[0] != "0") {
             console.log("Error");
             return [];
         }
-        console.log(answer[1], answer[2], answer[3]);
         return [answer[1], answer[2], answer[3]];
     }      
 

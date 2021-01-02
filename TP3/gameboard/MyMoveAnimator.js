@@ -10,7 +10,7 @@ class MyMoveAnimator extends MyAnimator {
         this.pieces[0] = pieces[0]; //  Moving  Piece
         this.pieces[1] = pieces[1]; // Removing Piece
         this.ids = [ids[0], ids[1]];
-        this.positions = []; // Positions of the Pieces involved in the move
+        this.movingPositions   = []; // Positions of the Pieces involved in the move
         this.removingPositions = []; // Initial and Final Position for the Removed Piece
         this.totalTime = 1;
         this.movingCurrentPosition   = [0, 0];      // Position = [column, line]
@@ -43,10 +43,12 @@ class MyMoveAnimator extends MyAnimator {
 
         var originPosition   = [originId % this.dimensions + 1, Math.floor(originId / this.dimensions) + 1];
         var destinPosition   = [destinId % this.dimensions + 1, Math.floor(destinId / this.dimensions) + 1];
-        this.positions       = [[originPosition[0], originPosition[1]],
-                                [destinPosition[0], destinPosition[1]]];
-        this.movingCurrentPosition[0] = this.positions[0][0];
-        this.movingCurrentPosition[1] = this.positions[0][1];
+        
+        this.movingPositions       = [[originPosition[0], originPosition[1]],
+                                      [destinPosition[0], destinPosition[1]]];
+        
+        this.movingCurrentPosition[0] = this.movingPositions[0][0];
+        this.movingCurrentPosition[1] = this.movingPositions[0][1];
     }
 
     /**
@@ -124,11 +126,14 @@ class MyMoveAnimator extends MyAnimator {
         this.pieces[0].finishMovement();
         this.pieces[1].finishMovement();
         if (this.ids[0] != this.ids[1]) {
-            this.gameOrchestrator.gameboard.movePieceByPosition(this.positions[0][0], this.positions[0][1],
-                                                                this.positions[1][0], this.positions[1][1]);
+            this.gameOrchestrator.gameboard.movePieceByPosition(this.movingPositions[0][0],
+                                                                this.movingPositions[0][1],
+                                                                this.movingPositions[1][0],
+                                                                this.movingPositions[1][1]);
         }
         else {
-            this.gameOrchestrator.gameboard.removePieceByPosition(this.positions[0][0], this.positions[0][1]);
+            this.gameOrchestrator.gameboard.removePieceByPosition(this.movingPositions[0][0],
+                                                                  this.movingPositions[0][1]);
         }
         return true;
     }
@@ -152,7 +157,7 @@ class MyMoveAnimator extends MyAnimator {
         var deltaTime = this.getDeltaTime(t);
 
         if (deltaTime >= this.totalTime) {
-            this.removingCurrentPosition = this.positions[1];
+            this.removingCurrentPosition = this.movingPositions[1];
             this.finished = true;
             return;
         }
@@ -162,8 +167,8 @@ class MyMoveAnimator extends MyAnimator {
         
         // Animation Based on elapsedAnimation
         // Update the Value on this.movingCurrentPosition
-        var initialPosition = this.positions[0];
-        var  finalPosition  = this.positions[1];
+        var initialPosition = this.movingPositions[0];
+        var  finalPosition  = this.movingPositions[1];
         this.movingCurrentPosition[0] = initialPosition[0] + elapsedAnimation * (finalPosition[0] - initialPosition[0]);
         this.movingCurrentPosition[1] = initialPosition[1] + elapsedAnimation * (finalPosition[1] - initialPosition[1]);
     }
