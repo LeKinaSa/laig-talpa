@@ -63,14 +63,14 @@ class MyGameOrchestrator extends CGFobject{
             // Prolog? render and wait a couple of seconds…
             destination_piece_selection: 4, // Human? pick destination tile/piece. Prolog? 
             // render destination piece/tile.
-            movement_animation: 5, // selection is moved with based on some animation f(t)
-            end_game: 6, // display winner and goto menu
+            end_game: 5, // display winner and goto menu
 
             // INTERRUPTING GAME STATES
 
-            undo: 7, //  undo the last game movement. Updates turn.
-            movie: 8, // > keep game state. Renders all the game movements (should use 
-            // the same animation features used for movement animation). 
+            undo: 6,    //  undo the last game movement. Updates turn.
+            movie: 7,   // > keep game state. Renders all the game movements (should use 
+                        // the same animation features used for movement animation).
+            restart: 8, // restart the game -> verify the dimensions
         };
 
         this.currentState = this.state.menu;
@@ -120,7 +120,7 @@ class MyGameOrchestrator extends CGFobject{
             this.animator.start();
             this.lastMove = move;
             this.lastMovedPieces = [this.selected[0], this.selected[1]];
-            this.currentState = this.state.movement_animation;
+            this.currentState = this.state.end_game;
         }
         else {
             this.selected[0] = null;
@@ -166,7 +166,6 @@ class MyGameOrchestrator extends CGFobject{
     }
 
     undo() {
-        // TODO
         if (this.lastMove != null) {
             this.animator = new MyUndoAnimator(this.scene, this, this.lastMove, this.lastMovedPieces);
             this.gameSequence.addMoveAnimator(this.animator); // add undo move to the game sequence
@@ -177,7 +176,6 @@ class MyGameOrchestrator extends CGFobject{
     }
 
     movie() {
-        // TODO
         // activate an animation that plays the game sequence
         this.startedMovie = true;
         this.animator = new MyMovieAnimator(this.scene, this, this.gameSequence.getMoveAnimators(), this.initialBoard);
@@ -233,6 +231,7 @@ class MyGameOrchestrator extends CGFobject{
             console.log("Error");
             return [];
         }
+        console.log(answer[1], answer[2], answer[3]);
         return [answer[1], answer[2], answer[3]];
     }      
 
@@ -275,11 +274,11 @@ class MyGameOrchestrator extends CGFobject{
 
     orchestrate() {
         let result = null;
-        if(this.scene.movie && this.currentState != this.state.movie){
+        if (this.scene.movie && this.currentState != this.state.movie) {
             this.savedboard = this.gameboard; 
             this.currentState = this.state.movie;
         }
-        else if(this.scene.undo && this.currentState != this.state.undo){
+        else if (this.scene.undo && this.currentState != this.state.undo) {
             this.savedboard = this.gameboard; 
             this.currentState = this.state.undo;
         }
@@ -305,31 +304,23 @@ class MyGameOrchestrator extends CGFobject{
     
                 case this.state.destination_piece_selection: // select destination piece
                     if (this.selected[1] != null) {
-                        this.renderMove();
+                        this.renderMove(); // animation
                     }
-                    break;
-    
-                case this.state.movement_animation: // move animation
-                    if (this.animator != null) {
-                        // this.animator.start();
-                    }
-    
-                    // animation is over
-                    this.selected[0] = null;
-                    this.selected[1] = null;
-                    // next turn
-                    this.currentState = this.state.end_game; 
                     break;
     
                 case this.state.end_game: // end game
                     if (this.animator == null) {
+                        // animation is over
+                        this.selected[0] = null;
+                        this.selected[1] = null;
+
                         this.prolog.gameOverRequest(8,this.gameboard.toProlog(), this.player);
                         result = this.gameOverReply(this.prolog.request);
                         this.winner = result;
                         if (this.winner != 0) {
                             this.over = true;
-                            if (this.winner == 1) console.log("Red Player Wins");
-                            else if (this.winner == -1) console.log("Blue Player Wins");
+                            if      (this.winner ==  1) { console.log("Red Player Wins");  }
+                            else if (this.winner == -1) { console.log("Blue Player Wins"); }
                             this.currentState = this.state.end_game;
                         }
                         else {
@@ -379,7 +370,7 @@ class MyGameOrchestrator extends CGFobject{
     }
 
     managePick(mode, results) {
-        if (mode == false /* && some other game conditions */) {
+        if (mode == false) {
             if (results != null && results.length > 0) {
                 for (var i = 0; i < results.length; ++ i) {
                     var obj = results[i][0];
@@ -404,15 +395,15 @@ class MyGameOrchestrator extends CGFobject{
         }
 
         if (this.selectedPieces == 2) {
-            // Move Completed
-
+            // Pieces for the Move Obtained
             // Unselect Pieces
-            this.selected[0].resetSelection();
-            this.selected[1].resetSelection();
+            if (this.selected[0] != null) {
+                this.selected[0].resetSelection();
+            }
+            if (this.selected[1] != null) {
+                this.selected[1].resetSelection();
+            }
             this.selectedPieces = 0;
-            
-            // Make a Move
-            // TODO: this.selected tem as duas peças que foram selecionadas
         }
     }
 }
