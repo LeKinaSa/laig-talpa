@@ -59,6 +59,6 @@ class MyAIMove extends MyGameMove {
     }
 
     getIds() {
-        return [this.originId, this.destionId];
+        return [this.originId, this.destinId];
     }
 }
