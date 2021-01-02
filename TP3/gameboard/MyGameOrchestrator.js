@@ -26,14 +26,15 @@ class MyGameOrchestrator extends CGFobject{
         this.winner = null;
 
         /**
-         * 1 - red player               0 - player
+         *  1 - red player              0 - player
          * -1 - blue player             1 - random bot
          *                              2 - greedy bot
          */
         this.players = {
-            "1": 0,
+             "1": 0,
             "-1": 0,
         };
+        this.dimensions = 8;
 
         // Player Moves
         this.selectedPieces = 0;
@@ -52,8 +53,7 @@ class MyGameOrchestrator extends CGFobject{
         // Movie
         this.startedMovie = false;
 
-        this.state = { 
-            so_para_nao_dar_load_infinito: 999,
+        this.state = {
             menu: 0, // show menu and handle settings.
             load_scenario: 1, // (keep game state), load file, render scene, board, pieces, etc.
             next_turn: 2, // Human? pick piece or tile. Prolog? [Request(s) to prolog] get piece/tile, 
@@ -74,7 +74,20 @@ class MyGameOrchestrator extends CGFobject{
         };
 
         this.currentState = this.state.menu;
-        //this.currentState = this.state.so_para_nao_dar_load_infinito;
+    }
+
+    changeTheme(theme) {
+        this.theme = new MySceneGraph(theme, this.scene);
+    }
+
+    changeRedPlayer(mode) {
+        this.players["1"] = parseInt(mode);
+        console.log(this.players);
+    }
+
+    changeBluePlayer(mode) {
+        this.players["-1"] = parseInt(mode);
+        console.log(this.players);
     }
 
     /**
@@ -95,19 +108,31 @@ class MyGameOrchestrator extends CGFobject{
         this.time = t - this.startTime;
     }
 
-    /**
-     * Updates animation
-     * @param {*} t current time
-     */
-    update(t) {
-        if (this.animator != null) {
-            this.animator.update(t);
-            if (this.animator.finish()) {
-                this.animator = null;
-            }
-        }
-        this.updateTime(t);
+    restart() {
+        // Player Moves
+        this.selectedPieces = 0;
+        this.selected = [null, null];
+        this.selectedIds = [0, 0];
+
+        // Undo Move
+        this.lastMove = null;
+        this.lastMovedPieces = [null, null];
+
+        // Timer
+        this.startTime = 0;
+        this.time = 0;
+        this.timer = new MyTimer(this.scene);
+
+        // Movie
+        this.startedMovie = false;
+
+        // Dimensions
+        this.dimensions = this.scene.dimensions;
     }
+
+    /* -----------------------------------------------------------------------------------
+    ---------------------------------------- MOVES ---------------------------------------
+    -------------------------------------------------------------------------------------*/
 
     renderMove() {
         // Check if Move is Valid
@@ -129,16 +154,6 @@ class MyGameOrchestrator extends CGFobject{
         }
     }
 
-    changeRedPlayer(mode){
-        this.players["1"] = parseInt(mode);
-        console.log(this.players);
-    }
-
-    changeBluePlayer(mode){
-        this.players["-1"] = parseInt(mode);
-        console.log(this.players);
-    }
-
     undo() {
         if (this.lastMove != null) {
             this.animator = new MyUndoAnimator(this.scene, this, this.lastMove, this.lastMovedPieces);
@@ -155,6 +170,170 @@ class MyGameOrchestrator extends CGFobject{
         this.animator = new MyMovieAnimator(this.scene, this, this.gameSequence.getMoveAnimators(), this.initialBoard);
         this.animator.start();
     }
+
+    /* -----------------------------------------------------------------------------------
+    ---------------------------------------- MAIN ----------------------------------------
+    -------------------------------------------------------------------------------------*/
+
+    /**
+     * Updates animation
+     * @param {*} t current time
+     */
+    update(t) {
+        if (this.animator != null) {
+            this.animator.update(t);
+            if (this.animator.finish()) {
+                this.animator = null;
+            }
+        }
+        this.updateTime(t);
+    }
+
+    orchestrate() {
+        let result = null;
+        if (this.scene.movie && this.currentState != this.state.movie) {
+            this.savedboard = this.gameboard; 
+            this.currentState = this.state.movie;
+        }
+        else if (this.scene.undo && this.currentState != this.state.undo) {
+            this.savedboard = this.gameboard; 
+            this.currentState = this.state.undo;
+        }
+
+        if (!this.over) {
+            switch(this.currentState) {
+                case this.state.menu:
+                    this.prolog.startRequest(this.dimensions);
+                    result = this.startReply(this.prolog.request);
+                    this.player = result[0];
+                    this.gameboard.toJS(result[1]);
+                    this.initialBoard = new MyGameBoard(this.scene);
+                    this.initialBoard.toJS(result[1]);
+                    this.currentState = this.state.next_turn;
+                    break;
+    
+                case this.state.next_turn: // select origin piece
+                    // human : choose a piece
+                    if (this.selected[0] != null) {
+                        this.currentState = this.state.destination_piece_selection;
+                    }
+                    break;
+    
+                case this.state.destination_piece_selection: // select destination piece
+                    if (this.selected[1] != null) {
+                        this.renderMove(); // animation
+                    }
+                    break;
+    
+                case this.state.end_game: // end game
+                    if (this.animator == null) {
+                        // animation is over
+                        this.selected[0] = null;
+                        this.selected[1] = null;
+
+                        this.prolog.gameOverRequest(this.dimensions,this.gameboard.toProlog(), this.player);
+                        result = this.gameOverReply(this.prolog.request);
+                        this.winner = result;
+                        if (this.winner != 0) {
+                            this.over = true;
+                            if      (this.winner ==  1) { console.log("Red Player Wins");  }
+                            else if (this.winner == -1) { console.log("Blue Player Wins"); }
+                            this.currentState = this.state.end_game;
+                        }
+                        else {
+                            this.player = -this.player;
+                            this.currentState = this.state.next_turn;
+                        }
+                    }
+                    break;
+
+                case this.state.undo:
+                    if (this.animator == null) {
+                        this.undo();
+                        this.currentState = this.state.next_turn;
+                    }                    
+                    break;
+    
+                case this.state.movie:
+                    if (!this.scene.movie) {
+                        this.startedMovie = false;
+                        this.animator = null;
+                        this.currentState = this.state.next_turn;
+                    }
+                    else if ((this.animator == null) && (!this.startedMovie)) {
+                        this.movie();
+                    }
+                    break;
+                
+                case this.state.restart:
+                    if (!this.scene.restart) {
+                        this.restart();
+                        this.currentState = this.state.menu;
+                    }
+                    break;
+
+                default:
+                    console.log("Unknown Game State");
+                    break;
+            }
+        }
+        
+    }
+
+    display() {
+        this.theme.displayScene();
+        if (this.animator != null) {
+            this.animator.display();
+        }
+        this.gameboard.display();
+        this.timer.display(this.time);
+    }
+
+    /* -----------------------------------------------------------------------------------
+    --------------------------------------- PICKING --------------------------------------
+    -------------------------------------------------------------------------------------*/
+
+    managePick(mode, results) {
+        if (mode == false) {
+            if (results != null && results.length > 0) {
+                for (var i = 0; i < results.length; ++ i) {
+                    var obj = results[i][0];
+                    if (obj) {
+                        var uniqueId = results[i][1];
+                        this.onObjectSelected(obj, uniqueId);
+                    }
+                }
+                // clear results
+                results.splice(0, results.length);
+            }
+        }
+    }
+
+    onObjectSelected(obj, id) {
+        if (obj instanceof MyPiece) {
+            // Selecting a Piece
+            obj.select();
+            this.selected[this.selectedPieces] = obj;
+            this.selectedIds[this.selectedPieces] = id;
+            ++ this.selectedPieces;
+        }
+
+        if (this.selectedPieces == 2) {
+            // Pieces for the Move Obtained
+            // Unselect Pieces
+            if (this.selected[0] != null) {
+                this.selected[0].resetSelection();
+            }
+            if (this.selected[1] != null) {
+                this.selected[1].resetSelection();
+            }
+            this.selectedPieces = 0;
+        }
+    }
+
+    /* -----------------------------------------------------------------------------------
+    ------------------------------ PROLOG RESPONSE HANDLERS ------------------------------
+    -------------------------------------------------------------------------------------*/
 
     /**
      * Gets the initial Board
@@ -244,140 +423,5 @@ class MyGameOrchestrator extends CGFobject{
         result.push(player);
         result.push(board);
         return result;
-    }
-
-    orchestrate() {
-        let result = null;
-        if (this.scene.movie && this.currentState != this.state.movie) {
-            this.savedboard = this.gameboard; 
-            this.currentState = this.state.movie;
-        }
-        else if (this.scene.undo && this.currentState != this.state.undo) {
-            this.savedboard = this.gameboard; 
-            this.currentState = this.state.undo;
-        }
-
-        if (!this.over) {
-            switch(this.currentState) {
-                case this.state.menu:
-                    this.prolog.startRequest(8);
-                    result = this.startReply(this.prolog.request);
-                    this.player = result[0];
-                    this.gameboard.toJS(result[1]);
-                    this.initialBoard = new MyGameBoard(this.scene);
-                    this.initialBoard.toJS(result[1]);
-                    this.currentState = this.state.next_turn;
-                    break;
-    
-                case this.state.next_turn: // select origin piece
-                    // human : choose a piece
-                    if (this.selected[0] != null) {
-                        this.currentState = this.state.destination_piece_selection;
-                    }
-                    break;
-    
-                case this.state.destination_piece_selection: // select destination piece
-                    if (this.selected[1] != null) {
-                        this.renderMove(); // animation
-                    }
-                    break;
-    
-                case this.state.end_game: // end game
-                    if (this.animator == null) {
-                        // animation is over
-                        this.selected[0] = null;
-                        this.selected[1] = null;
-
-                        this.prolog.gameOverRequest(8,this.gameboard.toProlog(), this.player);
-                        result = this.gameOverReply(this.prolog.request);
-                        this.winner = result;
-                        if (this.winner != 0) {
-                            this.over = true;
-                            if      (this.winner ==  1) { console.log("Red Player Wins");  }
-                            else if (this.winner == -1) { console.log("Blue Player Wins"); }
-                            this.currentState = this.state.end_game;
-                        }
-                        else {
-                            this.player = -this.player;
-                            this.currentState = this.state.next_turn;
-                        }
-                    }
-                    break;
-
-                case this.state.undo:
-                    if (this.animator == null) {
-                        this.undo();
-                        this.currentState = this.state.next_turn;
-                    }                    
-                    break;
-    
-                case this.state.movie:
-                    if (!this.scene.movie) {
-                        this.startedMovie = false;
-                        this.animator = null;
-                        this.currentState = this.state.next_turn;
-                    }
-                    else if ((this.animator == null) && (!this.startedMovie)) {
-                        this.movie();
-                    }
-
-                    break;
-                default:
-                    console.log("Unknown Game State");
-                    break;
-            }
-        }
-        
-    }
-
-    display() {
-        this.theme.displayScene();
-        if (this.animator != null) {
-            this.animator.display();
-        }
-        this.gameboard.display();
-        this.timer.display(this.time);
-    }
-
-    changeTheme(theme) {
-        this.theme = new MySceneGraph(theme, this.scene);
-    }
-
-    managePick(mode, results) {
-        if (mode == false) {
-            if (results != null && results.length > 0) {
-                for (var i = 0; i < results.length; ++ i) {
-                    var obj = results[i][0];
-                    if (obj) {
-                        var uniqueId = results[i][1];
-                        this.onObjectSelected(obj, uniqueId);
-                    }
-                }
-                // clear results
-                results.splice(0, results.length);
-            }
-        }
-    }
-
-    onObjectSelected(obj, id) {
-        if (obj instanceof MyPiece) {
-            // Selecting a Piece
-            obj.select();
-            this.selected[this.selectedPieces] = obj;
-            this.selectedIds[this.selectedPieces] = id;
-            ++ this.selectedPieces;
-        }
-
-        if (this.selectedPieces == 2) {
-            // Pieces for the Move Obtained
-            // Unselect Pieces
-            if (this.selected[0] != null) {
-                this.selected[0].resetSelection();
-            }
-            if (this.selected[1] != null) {
-                this.selected[1].resetSelection();
-            }
-            this.selectedPieces = 0;
-        }
     }
 }
