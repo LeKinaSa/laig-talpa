@@ -129,39 +129,13 @@ class MyGameOrchestrator extends CGFobject{
         }
     }
 
-    /**
-     * Changes the mode of the game
-     * @param {int} mode game move (1 - pvp, 2 - pvb, 3 - bvb)
-     */
-    changeMode(mode){
-        console.log(mode);
-        if(mode == 0){                  // PVP
-            this.players["1"] = 0;      // player
-            this.players["-1"] = 0;     // player
-        }
-        else if(mode == 1){             // PVB
-            this.players["1"] = 0;      // player
-            this.players["-1"] = 1;     // easy bot (default)
-        }
-        else if(mode == 2){             // BVB
-            this.players["1"] = 1;      // easy bot (default)
-            this.players["-1"] = 1;     // easy bot (default)
-        }
+    changeRedPlayer(mode){
+        this.players["1"] = parseInt(mode);
         console.log(this.players);
     }
 
-    /**
-     * Changes the difficulty of the game
-     */
-    changeDifficulty(){
-        if(this.scene.difficulty){  // greedy bot
-            if(this.players["1"] == 1) this.players["1"] = 2;
-            if(this.players["-1"] == 1) this.players["-1"] = 2;
-        }
-        else{                       // random bot
-            if(this.players["1"] == 2) this.players["1"] = 1;
-            if(this.players["-1"] == 2) this.players["-1"] = 1;
-        }
+    changeBluePlayer(mode){
+        this.players["-1"] = parseInt(mode);
         console.log(this.players);
     }
 
