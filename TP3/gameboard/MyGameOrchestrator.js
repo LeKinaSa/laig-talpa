@@ -113,7 +113,8 @@ class MyGameOrchestrator extends CGFobject{
         this.time = t - this.startTime;
     }
 
-    restart() {
+    restart() {        
+        this.gameSequence = new MyGameSequence(this.scene);
         // Player Moves
         this.selectedPieces = 0;
         this.selected = [null, null];
