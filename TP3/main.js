@@ -9,7 +9,7 @@ function getUrlVars() {
       vars[decodeURIComponent(key)] = decodeURIComponent(value);
     });
     return vars;
-}	 
+}
 //Include additional files here
 serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'MyNode.js', 'MyLeaf.js',
 'primitives/MyRectangle.js', 'primitives/MyTriangle.js', 'primitives/MySphere.js', 'primitives/MyCylinder.js', 'primitives/MyTorus.js',
@@ -18,7 +18,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.j
 'primitives/MyPlane.js', 'primitives/MyPatch.js', 'primitives/MyDefBarrel.js',
 'MyPrologConnection.js', 'gameboard/MyGameOrchestrator.js', 'primitives/MyTimer.js',
 'gameboard/MyPiece.js', 'gameboard/MyTile.js', 'gameboard/MyGameBoard.js',
-'gameboard/MyMove.js', 'gameboard/MyGameSequence.js',
+'gameboard/MyMove.js', 'gameboard/MyAIMove.js', 'gameboard/MyGameSequence.js',
 'gameboard/MyAnimator.js', 'gameboard/MyMoveAnimator.js', 'gameboard/MyUndoAnimator.js',
 'gameboard/MyMovieAnimator.js',
 

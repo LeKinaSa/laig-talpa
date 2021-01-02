@@ -42,8 +42,8 @@ class MyGameOrchestrator extends CGFobject{
         this.selectedIds = [0, 0];
 
         // Undo Move
-        this.lastMove = null; // TODO
-        this.lastMovedPieces = [null, null]; // TODO
+        this.lastMove = null;
+        this.lastMovedPieces = [null, null];
 
         // Timer
         this.startTime = 0;
@@ -125,6 +125,7 @@ class MyGameOrchestrator extends CGFobject{
 
         // Movie
         this.startedMovie = false;
+        //TODO
 
         // Dimensions
         
@@ -155,6 +156,19 @@ class MyGameOrchestrator extends CGFobject{
             this.selected[1] = null;
             this.currentState = this.state.next_turn;
         }
+    }
+
+    renderAIMove() {
+        this.gameState = this.gameboard.toProlog();
+        var levelAI = this.players[this.player.toString()];
+        this.prolog.AIMoveRequest(this.dimensions, this.gameState, this.player, levelAI);
+        var moveParameters = this.AIMoveReply(this.prolog.request);
+        var move = new MyAIMove(this.scene, this.dimensions, this.gameboard, moveParameters);
+        this.animator = new MyMoveAnimator(this.scene, this, move.getPieces(), move.getIds(), this.dimensions);
+        this.gameSequence.addMoveAnimator(this.animator); // add move to the game sequence
+        this.animator.start();
+        this.lastMove = move;
+        this.lastMovedPieces = [this.selected[0], this.selected[1]];
     }
 
     undo() {
@@ -219,9 +233,15 @@ class MyGameOrchestrator extends CGFobject{
                     break;
     
                 case this.state.next_turn: // select origin piece
-                    // human : choose a piece
-                    if (this.selected[0] != null) {
-                        this.currentState = this.state.destination_piece_selection;
+                    if (this.players[this.player.toString()] == "0") {
+                        // human : choose a piece
+                        if (this.selected[0] != null) {
+                            this.currentState = this.state.destination_piece_selection;
+                        }
+                    }
+                    else {
+                        this.renderAIMove();
+                        this.currentState = this.state.end_game;
                     }
                     break;
     
@@ -388,6 +408,7 @@ class MyGameOrchestrator extends CGFobject{
      */
     AIMoveReply(data) {
         let answer = data.response.split("-");
+        console.log(answer);
         if (answer[0] != "0") {
             console.log("Error");
             return [];
