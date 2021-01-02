@@ -30,20 +30,6 @@ class MyTile {
         this.tileMaterial.apply();
     }
 
-    /* startingPiece() {
-        var column = this.position[0] % 2; // Is column odd or even ?
-        var  line  = this.position[1] % 2; // Is  line  odd or even ?
-
-        if (line == column) { // If line and column are both odd or both even
-            // Piece is red
-            return new MyPiece(this.scene, 'red');
-        }
-        else { // If line and column are 1 odd and 1 even
-            // Piece is blue
-            return new MyPiece(this.scene, 'blue');
-        }
-    } */
-
     /**
      * Set the Piece standing on this Tile
      * @param {MyPiece} piece - Piece Standing on this Tile
@@ -92,12 +78,19 @@ class MyTile {
      */
     display() {
         // Obtain Position in the Board
-        var column =     this.position[0];
-        var  line  = 9 - this.position[1];
+        var column, line;
+        if(parseInt(this.scene.selectedDimension) == 8){
+            column =     this.position[0];
+            line   = parseInt(this.scene.selectedDimension) + 1 - this.position[1];
+        }
+        else if(parseInt(this.scene.selectedDimension) == 6){
+            column =   1 +  this.position[0];
+            line   = parseInt(this.scene.selectedDimension) +2 - this.position[1];
+        }
         
         // Register for Picking
         if (this.piece != null) {
-            this.scene.registerForPick((line - 1) * 8 + (column - 1), this.piece);
+            this.scene.registerForPick((line - 1) * parseInt(this.scene.selectedDimension) + (column - 1), this.piece);
         }
         this.scene.pushMatrix();
 
