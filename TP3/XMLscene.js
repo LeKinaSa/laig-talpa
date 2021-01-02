@@ -21,7 +21,6 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = false;
 
-        this.difficulty = false;
         this.movie = false;
         this.undo = false;
         
@@ -32,11 +31,20 @@ class XMLscene extends CGFscene {
         this.dimensions = {
             '8': 0,
         }
-        this.gameMode = {
-            'Player vs. Player': 0,
-            'Player vs. Bot': 1,
-            'Bot vs. Bot': 2
+
+        this.redPlayer = {
+            'Player' : 0,
+            'Bot (Random)': 1,
+            'Bot (Greedy)': 2
         }
+
+        this.bluePlayer = {
+            'Player' : 0,
+            'Bot (Random)': 1,
+            'Bot (Greedy)': 2
+        }
+
+        this.restart = false;
 
         this.initCameras();
 
@@ -227,11 +235,11 @@ class XMLscene extends CGFscene {
         this.gameOrchestrator.changeTheme(theme);
     }
 
-    changeMode(mode) {
-        this.gameOrchestrator.changeMode(mode);
+    changeRedPlayer(mode) {
+        this.gameOrchestrator.changeRedPlayer(mode);
     }
 
-    changeDifficulty() {
-        this.gameOrchestrator.changeDifficulty();
+    changeBluePlayer(mode) {
+        this.gameOrchestrator.changeBluePlayer(mode);
     }
 }
