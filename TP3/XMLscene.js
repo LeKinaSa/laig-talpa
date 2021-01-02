@@ -28,9 +28,14 @@ class XMLscene extends CGFscene {
             'Living Room': "talpa_scenes.xml",
             'The GameHouse': "talpa_game_house.xml"
         }
+
+        this.selectedTheme = "talpa_scenes.xml";
+
         this.dimensions = {
             '8': 0,
         }
+
+        this.selectedDimension = 0;
 
         this.redPlayer = {
             'Player' : 0,
@@ -38,11 +43,15 @@ class XMLscene extends CGFscene {
             'Bot (Greedy)': 2
         }
 
+        this.selectedRed = 0;
+
         this.bluePlayer = {
             'Player' : 0,
             'Bot (Random)': 1,
             'Bot (Greedy)': 2
         }
+        
+        this.selectedBlue = 0;
 
         this.restart = false;
 
@@ -231,15 +240,23 @@ class XMLscene extends CGFscene {
         // ---- END Background, camera and axis setup
     }
 
+    changeDimension(dimension) {
+        // TODO
+        this.selectedDimensione = dimension;
+    }
+
     changeTheme(theme) {
         this.gameOrchestrator.changeTheme(theme);
+        this.selectedTheme = theme;
     }
 
     changeRedPlayer(mode) {
         this.gameOrchestrator.changeRedPlayer(mode);
+        this.selectedRed = mode;
     }
 
     changeBluePlayer(mode) {
         this.gameOrchestrator.changeBluePlayer(mode);
+        this.selectedBlue = mode;
     }
 }

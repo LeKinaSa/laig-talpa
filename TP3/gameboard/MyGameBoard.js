@@ -102,6 +102,7 @@ class MyGameBoard {
     }
     
     toJS(prologBoard) {
+        this.tiles = [];
         for (let line = 0; line < prologBoard.length; ++ line) {
             for (let column = 0; column < prologBoard[line].length; ++ column) {
                 let tile = new MyTile(this.scene, [column + 1, line + 1], this.tiletexture);

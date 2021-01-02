@@ -34,7 +34,7 @@ class MyGameOrchestrator extends CGFobject{
              "1": 0,
             "-1": 0,
         };
-        this.dimensions = 8;
+        this.dimensions = "8";
 
         // Player Moves
         this.selectedPieces = 0;
@@ -127,7 +127,10 @@ class MyGameOrchestrator extends CGFobject{
         this.startedMovie = false;
 
         // Dimensions
-        this.dimensions = this.scene.dimensions;
+        
+        this.dimensions = Object.keys(this.scene.dimensions).find(key => this.scene.dimensions[key] === this.scene.selectedDimension);
+        this.currentState = this.state.menu;
+        this.scene.restart = false;
     }
 
     /* -----------------------------------------------------------------------------------
@@ -198,6 +201,9 @@ class MyGameOrchestrator extends CGFobject{
         else if (this.scene.undo && this.currentState != this.state.undo) {
             this.savedboard = this.gameboard; 
             this.currentState = this.state.undo;
+        }
+        else if (this.scene.restart && this.currentState != this.state.menu) {
+            this.restart();
         }
 
         if (!this.over) {
@@ -340,6 +346,8 @@ class MyGameOrchestrator extends CGFobject{
      * @param {*} data initial board and player
      */
     startReply(data) {
+        if(data.response == "Syntax Error")
+            return data.response;
         let answer = data.response.split("-");
         if (answer[0] != "0") {
             console.log("Error");
