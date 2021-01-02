@@ -83,11 +83,13 @@ class MyGameOrchestrator extends CGFobject{
     changeRedPlayer(mode) {
         this.players["1"] = parseInt(mode);
         console.log(this.players);
+        this.restart();
     }
 
     changeBluePlayer(mode) {
         this.players["-1"] = parseInt(mode);
-        console.log(this.players);
+        console.log(this.players);        
+        this.restart();
     }
 
     /**
@@ -233,15 +235,18 @@ class MyGameOrchestrator extends CGFobject{
                     break;
     
                 case this.state.next_turn: // select origin piece
-                    if (this.players[this.player.toString()] == "0") {
-                        // human : choose a piece
-                        if (this.selected[0] != null) {
-                            this.currentState = this.state.destination_piece_selection;
+                    if(!this.scene.rotatingcamera){
+                        if (this.players[this.player.toString()] == "0") {
+                            // human : choose a piece
+                            if (this.selected[0] != null) {
+                                this.currentState = this.state.destination_piece_selection;
+                            }
                         }
-                    }
-                    else {
-                        this.renderAIMove();
-                        this.currentState = this.state.end_game;
+                        else {
+                            this.renderAIMove();
+                            this.currentState = this.state.end_game;
+                            
+                        }
                     }
                     break;
     
