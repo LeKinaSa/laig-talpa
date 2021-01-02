@@ -99,11 +99,6 @@ class MyPrologConnection {
     moveRequest(dimensions, board, player, move) {
         this.sendPrologRequest([this.move, dimensions, board, player, move]);
     }
-
-    /* ------------------------------------------------------------------------------------
-    ---------------------------------- RESPONSE HANDLERS ----------------------------------
-    --------------------------------------------------------------------------------------*/
-
 }
 
 //defining constants to be easier to work with the code
