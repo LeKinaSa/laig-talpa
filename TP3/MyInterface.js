@@ -80,6 +80,7 @@ class MyInterface extends CGFinterface {
         this.addCameras(folder);
         this.addLights(folder);
         folder.add(this.scene, 'displayAxis').name("Display Axis");
+        folder.add(this.scene, 'cameralock').name('Camera Lock');
         folder.add(this.scene, 'scaleFactor', 0.1, 10.0).name('Scale');
 
     }

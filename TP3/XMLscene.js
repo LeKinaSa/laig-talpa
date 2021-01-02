@@ -53,7 +53,11 @@ class XMLscene extends CGFscene {
         
         this.selectedBlue = 0;
 
-        this.restart = false;
+        this.restart = false;    
+        
+        // camera rotation
+        this.rotatingcamera = false;
+        this.angle = 0;
 
         this.initCameras();
 
@@ -74,6 +78,7 @@ class XMLscene extends CGFscene {
         this.displayAxis = false;
         this.scaleFactor = 1;
         this.updatePeriod = 100;
+        this.cameralock = true;
 
         // Enable Picking
         this.setPickEnabled(true);
@@ -174,7 +179,15 @@ class XMLscene extends CGFscene {
         this.gameOrchestrator.update(t);
         if (this.sceneInited)  {
             this.graph.updateAnimations(t);
-        }
+        }   
+        if (this.rotatingcamera) {
+            this.camera.orbit([0, 1, 0], Math.PI / 35.0);
+            this.angle += Math.PI / 35.0;
+            if (this.angle >= Math.PI) {
+                this.angle -= Math.PI;
+                this.rotatingcamera = false;
+            }
+        }   
     }
 
     /**
@@ -211,6 +224,12 @@ class XMLscene extends CGFscene {
             // Draw axis
             if(this.displayAxis)
                 this.axis.display();
+
+            if(this.cameralock)
+                this.interface.setActiveCamera(null);
+            else{
+                this.interface.setActiveCamera(this.camera);
+            }
  
             this.defaultAppearance.apply();
 
@@ -258,5 +277,11 @@ class XMLscene extends CGFscene {
     changeBluePlayer(mode) {
         this.gameOrchestrator.changeBluePlayer(mode);
         this.selectedBlue = mode;
+    }
+
+    rotateCamera(){
+        if(this.graph.cameras["player1Camera"] == this.camera ||
+            this.graph.cameras["player2Camera"] == this.camera)
+            this.rotatingcamera = true;
     }
 }
