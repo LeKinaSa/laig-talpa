@@ -89,8 +89,8 @@ class MyInterface extends CGFinterface {
         folder.open();
         folder.add(this.scene, 'gameScenes', this.scene.gameScenes).name('Game Scene').onChange(this.scene.changeTheme.bind(this.scene));
         folder.add(this.scene, 'dimensions', this.scene.dimensions).name('Board Dimensions'); // onchange .............
-        folder.add(this.scene, 'gameMode', this.scene.gameMode).name('Game Mode'); // onchange .............
-        folder.add(this.scene, 'difficulty').name('Increased Difficulty');
+        folder.add(this.scene, 'gameMode', this.scene.gameMode).name('Game Mode').onChange(this.scene.changeMode.bind(this.scene)); // onchange .............
+        folder.add(this.scene, 'difficulty').name('Increased Difficulty').onChange(this.scene.changeDifficulty.bind(this.scene))
         folder.add(this.scene, 'movie').name('Movie');
         folder.add(this.scene, 'undo').name('Undo');
     }

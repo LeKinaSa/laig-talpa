@@ -226,4 +226,12 @@ class XMLscene extends CGFscene {
     changeTheme(theme) {
         this.gameOrchestrator.changeTheme(theme);
     }
+
+    changeMode(mode) {
+        this.gameOrchestrator.changeMode(mode);
+    }
+
+    changeDifficulty() {
+        this.gameOrchestrator.changeDifficulty();
+    }
 }

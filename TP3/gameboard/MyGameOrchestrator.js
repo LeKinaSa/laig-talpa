@@ -25,6 +25,16 @@ class MyGameOrchestrator extends CGFobject{
         this.player = 0;
         this.winner = null;
 
+        /**
+         * 1 - red player               0 - player
+         * -1 - blue player             1 - random bot
+         *                              2 - greedy bot
+         */
+        this.players = {
+            "1": 0,
+            "-1": 0,
+        };
+
         // Player Moves
         this.selectedPieces = 0;
         this.selected = [null, null];
@@ -117,6 +127,42 @@ class MyGameOrchestrator extends CGFobject{
             this.selected[1] = null;
             this.currentState = this.state.next_turn;
         }
+    }
+
+    /**
+     * Changes the mode of the game
+     * @param {int} mode game move (1 - pvp, 2 - pvb, 3 - bvb)
+     */
+    changeMode(mode){
+        console.log(mode);
+        if(mode == 0){                  // PVP
+            this.players["1"] = 0;      // player
+            this.players["-1"] = 0;     // player
+        }
+        else if(mode == 1){             // PVB
+            this.players["1"] = 0;      // player
+            this.players["-1"] = 1;     // easy bot (default)
+        }
+        else if(mode == 2){             // BVB
+            this.players["1"] = 1;      // easy bot (default)
+            this.players["-1"] = 1;     // easy bot (default)
+        }
+        console.log(this.players);
+    }
+
+    /**
+     * Changes the difficulty of the game
+     */
+    changeDifficulty(){
+        if(this.scene.difficulty){  // greedy bot
+            if(this.players["1"] == 1) this.players["1"] = 2;
+            if(this.players["-1"] == 1) this.players["-1"] = 2;
+        }
+        else{                       // random bot
+            if(this.players["1"] == 2) this.players["1"] = 1;
+            if(this.players["-1"] == 2) this.players["-1"] = 1;
+        }
+        console.log(this.players);
     }
 
     undo() {
