@@ -3,16 +3,16 @@
  * @description
  */
 class MyMovieAnimator extends MyAnimator {
-    constructor(scene, gameOrchestrator, sequence, initialBoard) {
+    constructor(scene, gameOrchestrator, sequence) {
         super(scene, gameOrchestrator);
         this.sequence = sequence; // List of MyAnimator
         this.active = null;
         this.index = -1;
-        this.initialBoard = initialBoard;
     }
 
     start() {
-        this.gameOrchestrator.gameboard = this.initialBoard;
+        this.gameOrchestrator.prolog.startRequest(this.gameOrchestrator.dimensions);
+        this.gameOrchestrator.gameboard.toJS(this.gameOrchestrator.startReply(this.gameOrchestrator.prolog.request)[1]);
     }
 
     startNewAnimator() {

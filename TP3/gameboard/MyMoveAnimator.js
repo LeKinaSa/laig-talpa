@@ -3,9 +3,10 @@
  * @description Class that defines the animations for the moves
  */
 class MyMoveAnimator extends MyAnimator {
-    constructor(scene, gameOrchestrator, pieces, ids, dimensions) {
+    constructor(scene, gameOrchestrator, pieces, ids, dimensions, move) {
         super(scene, gameOrchestrator);
         this.dimensions = dimensions;
+        this.move = move;
         this.gameboardPieces = [null, null, null]; // Needed to make sure there are no duplicates
         this.pieces = [null, null];
         this.pieces[0] = pieces[0]; //  Moving  Piece
@@ -147,16 +148,11 @@ class MyMoveAnimator extends MyAnimator {
         if (this.gameboardPieces[1] != null) { this.gameboardPieces[1].finishMovement(); }
         if (this.gameboardPieces[2] != null) { this.gameboardPieces[2].finishMovement(); }
 
-        if (this.ids[0] != this.ids[1]) {
-            this.gameOrchestrator.gameboard.movePieceByPosition(this.movingPositions[0][0],
-                                                                this.movingPositions[0][1],
-                                                                this.movingPositions[1][0],
-                                                                this.movingPositions[1][1]);
-        }
-        else {
-            this.gameOrchestrator.gameboard.removePieceByPosition(this.removingPiecePosition[0],
-                                                                  this.removingPiecePosition[1]);
-        }
+        this.gameOrchestrator.prolog.moveRequest(this.dimensions, this.gameOrchestrator.gameboard.toProlog(),
+                                                 this.move.player, this.move.column, this.move.line,
+                                                 this.move.direction);
+        var prologBoard = this.gameOrchestrator.moveReply(this.gameOrchestrator.prolog.request)[1];
+        this.gameOrchestrator.gameboard.toJS(prologBoard);
         return true;
     }
     

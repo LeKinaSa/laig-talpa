@@ -175,7 +175,7 @@ class MyGameOrchestrator extends CGFobject{
         var move = new MyMove(this.scene, this, this.dimensions, this.gameState, this.player, this.selectedIds[0], this.selectedIds[1]);
         if (move.isValid()) {
             this.gameSequence.addGameMove(move); // add move to the game sequence
-            this.animator = new MyMoveAnimator(this.scene, this, this.selected, this.selectedIds, this.dimensions);
+            this.animator = new MyMoveAnimator(this.scene, this, this.selected, this.selectedIds, this.dimensions, move);
             this.gameSequence.addMoveAnimator(this.animator); // add move to the game sequence
             this.animator.start();
             
