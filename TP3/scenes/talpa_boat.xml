@@ -104,6 +104,13 @@
             <specular r="0.8" g="0.0" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
+        <material id="orange">
+            <shininess value="10" />
+            <ambient  r="0.8" g="0.4" b="0.0" a="1.0" />
+            <diffuse  r="0.6" g="0.3" b="0.0" a="1.0" />
+            <specular r="0.4" g="0.2" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
     </materials>
 
     <animations>
@@ -360,6 +367,79 @@
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
         </animation>
+
+        <animation id="fishy">
+            <keyframe instant="10">
+                <translation x="0" y="-2" z="-90" />
+                <rotation axis="x" angle="-120" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="14">
+                <translation x="0" y="0" z="-70" />
+                <rotation axis="x" angle="-60" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="18">
+                <translation x="0" y="0" z="-50" />
+                <rotation axis="x" angle="-120" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="22">
+                <translation x="0" y="0" z="-30" />
+                <rotation axis="x" angle="-60" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="26">
+                <translation x="0" y="0" z="-10" />
+                <rotation axis="x" angle="-120" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="30">
+                <translation x="0" y="0" z="10" />
+                <rotation axis="x" angle="-60" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="34">
+                <translation x="0" y="-2" z="30" />
+                <rotation axis="x" angle="-120" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="38">
+                <translation x="0" y="-2" z="50" />
+                <rotation axis="x" angle="-60" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="42">
+                <translation x="0" y="-2" z="70" />
+                <rotation axis="x" angle="-120" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="46">
+                <translation x="0" y="-2" z="90" />
+                <rotation axis="x" angle="-60" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+        </animation>
     </animations>
 
     <nodes>
@@ -375,6 +455,7 @@
                 <noderef id="surroundings" />
                 <noderef id="river" />
                 <noderef id="canoe" />
+                <noderef id="fishes" />
             </descendants>
         </node>
 
@@ -1116,6 +1197,87 @@
 
             <descendants>
                 <leaf type="cylinder" height="8" topRadius="2" bottomRadius="2" stacks="12" slices="4" />
+            </descendants>
+        </node>
+
+        <node id="fishes">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-17" z="0" />
+            </transformations>
+
+            <descendants>
+                <noderef id="fish1" />
+                <noderef id="fish2" />
+                <noderef id="fish3" />
+                <noderef id="fish4" />
+            </descendants>
+        </node>
+
+        <node id="fish1">
+            <material id="orange" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="-43" y="0" z="0" />
+            </transformations>
+
+            <animationref id="fishy" />
+
+            <descendants>
+                <leaf type="obj" url="models/fish.obj" />
+            </descendants>
+        </node>
+
+        <node id="fish2">
+            <material id="orange" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="-52" y="0" z="-4" />
+            </transformations>
+
+            <animationref id="fishy" />
+
+            <descendants>
+                <leaf type="obj" url="models/fish.obj" />
+            </descendants>
+        </node>
+
+        <node id="fish3">
+            <material id="orange" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="-60" y="0" z="5" />
+            </transformations>
+
+            <animationref id="fishy" />
+
+            <descendants>
+                <leaf type="obj" url="models/fish.obj" />
+            </descendants>
+        </node>
+
+        <node id="fish4">
+            <material id="orange" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="-54" y="0" z="12" />
+            </transformations>
+
+            <animationref id="fishy" />
+
+            <descendants>
+                <leaf type="obj" url="models/fish.obj" />
             </descendants>
         </node>
 

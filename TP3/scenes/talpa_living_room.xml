@@ -100,6 +100,12 @@
             <ambient  r="0.8" g="0.8" b="0.0" a="1.0" />
             <diffuse  r="0.8" g="0.8" b="0.0" a="1.0" />
             <specular r="0.8" g="0.8" b="0.0" a="1.0" />
+        </material>
+        <material id="green">
+            <shininess value="30" />
+            <ambient  r="0.0" g="0.2" b="0.0" a="1.0" />
+            <diffuse  r="0.0" g="0.6" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.8" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
     </materials>
@@ -125,6 +131,7 @@
                 <noderef id="couchs"/>
                 <noderef id="sideboard"/> 
                 <noderef id="tv"/> 
+                <noderef id="plant"/> 
             </descendants>
         </node>
 
@@ -1208,7 +1215,8 @@
                 <noderef id="drawer-side2"/>
                 <noderef id="drawer-side3"/>
                 <noderef id="drawer-side4"/>  
-                <noderef id="drawer-bottom"/>         
+                <noderef id="drawer-bottom"/>    
+                <noderef id="flower"/>     
             </descendants>
         </node>
 
@@ -1301,13 +1309,28 @@
             </descendants>
         </node>
 
+        <node id="flower">  
+            <material id="green" />
+            <texture id="null">
+                <amplification afs="10" aft="20" />
+            </texture>
+            <transformations>
+                <translation x="10" y="2" z="0"/>
+                <scale sx="0.1" sy="0.1" sz="0.1"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="obj" url="models/flower.obj"/>
+            </descendants>
+        </node>
+
         <node id="painting">  
             <material id="null" />
             <texture id="mole-painting">
                 <amplification afs="14" aft="14" />
             </texture>
             <transformations>
-                <translation x="0" y="16" z="-59.9"/>
+                <translation x="-5" y="16" z="-59.9"/>
             </transformations>
 
             <descendants>
@@ -1776,6 +1799,21 @@
 
             <descendants>
                 <leaf type="spriteanim" ssid="tv" startCell="1" endCell="300" duration="30"/>
+            </descendants>
+        </node>
+
+        <node id="plant">  
+            <material id="green" />
+            <texture id="null">
+                <amplification afs="10" aft="20" />
+            </texture>
+            <transformations>
+                <translation x="-20" y="-8" z="35"/>
+                <scale sx="0.05" sy="0.05" sz="0.05"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="obj" url="models/plant.obj"/>
             </descendants>
         </node>
         
