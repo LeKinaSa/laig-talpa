@@ -356,7 +356,7 @@
             </texture>
             <transformations>
                 <translation x="0" y="-15" z="0" />
-                <rotation axis="y" angle="180" />
+                <rotation axis="y" angle="150" />
                 <rotation axis="x" angle="90" />
             </transformations>
 
