@@ -32,10 +32,11 @@ class XMLscene extends CGFscene {
         this.selectedTheme = "talpa_scenes.xml";
 
         this.dimensions = {
-            '8': 0,
+            '8': 8,
+            '6': 6
         }
 
-        this.selectedDimension = 0;
+        this.selectedDimension = 8;
 
         this.redPlayer = {
             'Player' : 0,
@@ -259,9 +260,8 @@ class XMLscene extends CGFscene {
         // ---- END Background, camera and axis setup
     }
 
-    changeDimension(dimension) {
-        // TODO
-        this.selectedDimensione = dimension;
+    changeDimension() {
+        this.gameOrchestrator.changeDimension();
     }
 
     changeTheme(theme) {
