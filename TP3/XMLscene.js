@@ -24,6 +24,10 @@ class XMLscene extends CGFscene {
         this.movie = false;
         this.undo = false;
         this.timedGame = false;
+
+        this.start = function(){
+            this.gameOrchestrator.currentState = this.gameOrchestrator.state.start;
+        }
         
         this.gameScenes = {
             'Living Room': "talpa_living_room.xml",
@@ -41,7 +45,7 @@ class XMLscene extends CGFscene {
         this.selectedDimension = 8;
 
         this.redPlayer = {
-            'Player' : 0,
+            'Human' : 0,
             'Bot (Random)': 1,
             'Bot (Greedy)': 2
         }
@@ -49,7 +53,7 @@ class XMLscene extends CGFscene {
         this.selectedRed = 0;
 
         this.bluePlayer = {
-            'Player' : 0,
+            'Human' : 0,
             'Bot (Random)': 1,
             'Bot (Greedy)': 2
         }
@@ -108,7 +112,8 @@ class XMLscene extends CGFscene {
      * Initializes the scene lights with the values read from the XML file.
      */
     initLights() {
-        var i = 0;          // Lights index.
+        var i = 0;          // Lights index
+        this.lights = [];   // Reset Lights
 
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
@@ -116,6 +121,7 @@ class XMLscene extends CGFscene {
                 break;      // Only eight lights allowed by WebCGF on default shaders.
             
             if (this.graph.lights.hasOwnProperty(key)) {
+                this.lights[i] = new CGFlight(this, i);     // Created New Light
                 var graphLight = this.graph.lights[key];
                 
                 this.lights[i].key = key;
@@ -267,8 +273,10 @@ class XMLscene extends CGFscene {
     }
 
     changeTheme(theme) {
+        this.sceneInited = false;
         this.gameOrchestrator.changeTheme(theme);
         this.selectedTheme = theme;
+        this.interface.restart();
     }
 
     changeRedPlayer(mode) {
@@ -286,7 +294,7 @@ class XMLscene extends CGFscene {
         this.gameOrchestrator.restart();
     }
 
-    rotateCamera(){
+    rotateCamera() {
         if(this.graph.cameras["player1Camera"] == this.camera ||
             this.graph.cameras["player2Camera"] == this.camera)
             this.rotatingcamera = true;
