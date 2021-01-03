@@ -14,7 +14,7 @@ class MyGameOrchestrator extends CGFobject{
         this.animator = null;
         this.gameboard = new MyGameBoard(this.scene);
         this.gameSequence = new MyGameSequence(this.scene);
-        this.theme = new MySceneGraph("talpa_scenes.xml", this.scene);
+        this.theme = new MySceneGraph("talpa_living_room.xml", this.scene);
         this.prolog = new MyPrologConnection();
 
         this.savedboard = null;
