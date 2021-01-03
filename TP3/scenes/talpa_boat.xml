@@ -111,6 +111,27 @@
             <specular r="0.4" g="0.2" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
+        <material id="black">
+            <shininess value="30" />
+            <ambient  r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse  r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="metal">
+            <shininess value="10" />
+            <ambient  r="0.5" g="0.5" b="0.5" a="1.0" />
+            <diffuse  r="0.2" g="0.2" b="0.2" a="1.0" />
+            <specular r="0.2" g="0.2" b="0.2" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="handle">
+            <shininess value="10" />
+            <ambient  r="0.8" g="0.8" b="0.8" a="1.0" />
+            <diffuse  r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.5" g="0.5" b="0.5" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
     </materials>
 
     <animations>
@@ -456,6 +477,7 @@
                 <noderef id="river" />
                 <noderef id="canoe" />
                 <noderef id="fishes" />
+                <noderef id="box"/>
             </descendants>
         </node>
 
@@ -1278,6 +1300,66 @@
 
             <descendants>
                 <leaf type="obj" url="models/fish.obj" />
+            </descendants>
+        </node>
+
+        <node id="box">  
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="10" aft="20" />
+            </texture>
+            <transformations>
+                <translation x="8" y="0" z="0"/>
+                <rotation axis="x" angle="-90"/>                
+                <rotation axis="z" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="box-form"/>
+                <noderef id="box-floor"/>
+                <noderef id="box-handle"/>
+            </descendants>
+        </node>
+
+        <node id="box-form">  
+            <material id="metal" />
+            <texture id="null">
+                <amplification afs="10" aft="20" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="defbarrel" base="2" middle="2.5" height="3" slices="32" stacks="32" />
+            </descendants>
+        </node>
+
+        <node id="box-floor">  
+            <material id="black" />
+            <texture id="null">
+                <amplification afs="10" aft="20" />
+            </texture>
+            <transformations>
+                <translation x="0" y="0" z="1"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="1" topRadius="2" bottomRadius="2" stacks="32" slices="32"/>
+            </descendants>
+        </node>
+
+        <node id="box-handle">  
+            <material id="handle" />
+            <texture id="null">
+                <amplification afs="10" aft="20" />
+            </texture>
+            <transformations>
+                <translation x="0" y="0" z="2.5"/>
+                <rotation axis="x" angle="-90"/> 
+            </transformations>
+
+            <descendants>
+                <leaf type="torus" inner=".1" outer="2.1" slices="32" loops="32" />>
             </descendants>
         </node>
 

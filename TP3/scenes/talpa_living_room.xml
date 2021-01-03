@@ -108,6 +108,13 @@
             <specular r="0.0" g="0.8" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
+        <material id="black">
+            <shininess value="30" />
+            <ambient  r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse  r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
     </materials>
 
     <animations>
@@ -131,7 +138,8 @@
                 <noderef id="couchs"/>
                 <noderef id="sideboard"/> 
                 <noderef id="tv"/> 
-                <noderef id="plant"/> 
+                <noderef id="plant"/>                 
+                <noderef id="box"/> 
             </descendants>
         </node>
 
@@ -1814,6 +1822,49 @@
 
             <descendants>
                 <leaf type="obj" url="models/plant.obj"/>
+            </descendants>
+        </node>
+
+        <node id="box">  
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="10" aft="20" />
+            </texture>
+            <transformations>
+                <translation x="8" y="-8" z="0"/>
+                <rotation axis="x" angle="-90"/>                
+                <rotation axis="z" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="box-form"/>
+                <noderef id="box-floor"/>
+            </descendants>
+        </node>
+
+        <node id="box-form">  
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="10" aft="20" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="defbarrel" base="2" middle="3" height="8" slices="32" stacks="32" />
+            </descendants>
+        </node>
+
+        <node id="box-floor">  
+            <material id="black" />
+            <texture id="null">
+                <amplification afs="10" aft="20" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="1" topRadius="2" bottomRadius="2" stacks="32" slices="32"/>
             </descendants>
         </node>
         
