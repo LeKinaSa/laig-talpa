@@ -14,11 +14,6 @@ class MyGameBoard {
         this.tiletexture = new CGFtexture(this.scene, "./scenes/images/tile.png");
         this.tiles = [];
         this.gameboard = [];
-        /*for (var line = 8; line >= 1; -- line) {
-            for (var column = 1; column <= 8; ++ column) {
-                this.tiles.push(new MyTile(this.scene, [column, line]));
-            }
-        }*/
         this.removedPieces = [];
     }
 
@@ -62,9 +57,9 @@ class MyGameBoard {
      * @param {int} line
      */
     getTile(column, line) {
-        var x = 8 - line;
+        var x = parseInt(this.scene.selectedDimension) - line;
         var y = column - 1;
-        var tile = this.tiles[x * 8 + y];
+        var tile = this.tiles[x * parseInt(this.scene.selectedDimension) + y];
         return tile;
     }
 
@@ -95,7 +90,7 @@ class MyGameBoard {
     /**
      * Display GameBoard
      */
-    display() {
+    display() {        
         for (var i = 0; i < this.tiles.length; ++ i) {
             this.tiles[i].display();
         }
@@ -146,7 +141,7 @@ class MyGameBoard {
                 console.log("Error in Piece Color.\n");
             }
             board += symbol;
-            if (count == 8) {
+            if (count == parseInt(this.scene.selectedDimension)) {
                 board += "],";
                 count = 0;
             }

@@ -34,7 +34,7 @@ class MyGameOrchestrator extends CGFobject{
              "1": 0,
             "-1": 0,
         };
-        this.dimensions = 8;
+        this.dimensions = this.scene.selectedDimension;
 
         // Player Moves
         this.selectedPieces = 0;
@@ -77,6 +77,11 @@ class MyGameOrchestrator extends CGFobject{
         };
 
         this.currentState = this.state.menu;
+    }
+
+    changeDimension() {
+        console.log("CHANGING DIMENSION");
+        this.restart();
     }
 
     changeTheme(theme) {
@@ -136,7 +141,7 @@ class MyGameOrchestrator extends CGFobject{
         // this.gameSequence.restart();
 
         // Dimensions
-        this.dimensions = parseInt(Object.keys(this.scene.dimensions).find(key => this.scene.dimensions[key] === this.scene.selectedDimension));
+        this.dimensions = this.scene.selectedDimension;
         
         this.currentState = this.state.menu;
         this.scene.restart = false;
