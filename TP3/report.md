@@ -1,7 +1,10 @@
-# TITLE
-## Necessary Actions to have the complete program running
-TODO
-
+# User's Manual
+## Starting the Program
+1. Initialize SICStus Prolog.
+2. Consult the file ```server.pl``` inside the folder ```plog```.
+3. Execute the command ```server.```
+4. Start a HTML server in the project folder and select the folder TP3.
+5. Open the browser in the desired URL (the URL from the HTML server just started).
 
 ## The TALPA Game
 
@@ -47,11 +50,10 @@ If a player opens a path between his sides in the same move/turn as a path betwe
 There are no draws.
 
 ## User Instructions
-TODO
 ### Piece Movement
-TODO
+- To move a piece, click on your piece and then the opponent's piece that you wish to capture.
+- To remove a piece, click twice on the piece you want to remove.
+If the selected move is valid, it will execute. Otherwise, you will have to choose another movement.
+
 ### Buttons Functionality
 TODO
-### Menus
-TODO
-### ETC
