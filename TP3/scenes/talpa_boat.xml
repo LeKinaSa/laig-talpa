@@ -338,6 +338,79 @@
                 <scale sx="1" sy="1" sz="1"/>
             </keyframe>
         </animation>
+
+        <animation id="fishy">
+            <keyframe instant="10">
+                <translation x="0" y="-2" z="-90" />
+                <rotation axis="x" angle="-120" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="14">
+                <translation x="0" y="0" z="-70" />
+                <rotation axis="x" angle="-60" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="18">
+                <translation x="0" y="0" z="-50" />
+                <rotation axis="x" angle="-120" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="22">
+                <translation x="0" y="0" z="-30" />
+                <rotation axis="x" angle="-60" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="26">
+                <translation x="0" y="0" z="-10" />
+                <rotation axis="x" angle="-120" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="30">
+                <translation x="0" y="0" z="10" />
+                <rotation axis="x" angle="-60" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="34">
+                <translation x="0" y="-2" z="30" />
+                <rotation axis="x" angle="-120" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="38">
+                <translation x="0" y="-2" z="50" />
+                <rotation axis="x" angle="-60" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="42">
+                <translation x="0" y="-2" z="70" />
+                <rotation axis="x" angle="-120" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="46">
+                <translation x="0" y="-2" z="90" />
+                <rotation axis="x" angle="-60" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+        </animation>
     </animations>
 
     <nodes>
@@ -1106,14 +1179,13 @@
             </texture>
             <transformations>
                 <translation x="0" y="-17" z="0" />
-                <rotation axis="x" angle="-90" />
             </transformations>
 
             <descendants>
-                <noderef id="fish1"/>
-                <noderef id="fish2"/>
-                <noderef id="fish3"/>
-                <noderef id="fish4"/>
+                <noderef id="fish1" />
+                <noderef id="fish2" />
+                <noderef id="fish3" />
+                <noderef id="fish4" />
             </descendants>
         </node>
 
@@ -1123,11 +1195,13 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="-40" y="0" z="0" />
+                <translation x="-43" y="0" z="0" />
             </transformations>
 
+            <animationref id="fishy" />
+
             <descendants>
-                <leaf type="obj" url="models/fish.obj"/>
+                <leaf type="obj" url="models/fish.obj" />
             </descendants>
         </node>
 
@@ -1137,11 +1211,13 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="40" y="0" z="0" />
+                <translation x="-52" y="0" z="-4" />
             </transformations>
 
+            <animationref id="fishy" />
+
             <descendants>
-                <leaf type="obj" url="models/fish.obj"/>
+                <leaf type="obj" url="models/fish.obj" />
             </descendants>
         </node>
 
@@ -1151,11 +1227,13 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="0" y="60" z="0" />
+                <translation x="-60" y="0" z="5" />
             </transformations>
 
+            <animationref id="fishy" />
+
             <descendants>
-                <leaf type="obj" url="models/fish.obj"/>
+                <leaf type="obj" url="models/fish.obj" />
             </descendants>
         </node>
 
@@ -1165,11 +1243,13 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="0" y="-60" z="0" />
+                <translation x="-54" y="0" z="12" />
             </transformations>
 
+            <animationref id="fishy" />
+
             <descendants>
-                <leaf type="obj" url="models/fish.obj"/>
+                <leaf type="obj" url="models/fish.obj" />
             </descendants>
         </node>
 
