@@ -24,6 +24,10 @@ class MyGameOrchestrator extends CGFobject{
         this.over = false;
         this.player = 0;
         this.winner = null;
+        this.score = {
+            "1": 0,
+           "-1": 0,
+       };
 
         /**
          *  1 - red player              0 - player
@@ -228,6 +232,7 @@ class MyGameOrchestrator extends CGFobject{
             }
         }
         this.updateTime(t);
+        this.updateHTML();
     }
 
     orchestrate() {
@@ -244,6 +249,11 @@ class MyGameOrchestrator extends CGFobject{
             this.restart();
         }
 
+        if(this.currentState == this.state.end_game && this.over){
+            this.over = false;
+            this.winner = 0;
+            this.restart();
+        }
         if (!this.over) {
             switch(this.currentState) {
                 case this.state.menu:
@@ -266,8 +276,7 @@ class MyGameOrchestrator extends CGFobject{
                         }
                         else {
                             this.renderAIMove();
-                            this.currentState = this.state.end_game;
-                            
+                            this.currentState = this.state.end_game;                            
                         }
                     }
                     break;
@@ -289,8 +298,14 @@ class MyGameOrchestrator extends CGFobject{
                         this.winner = result;
                         if (this.winner != 0) {
                             this.over = true;
-                            if      (this.winner ==  1) { console.log("Red Player Wins");  }
-                            else if (this.winner == -1) { console.log("Blue Player Wins"); }
+                            if      (this.winner ==  1) { 
+                                console.log("Red Player Wins");                                  
+                                this.score["1"]++;
+                            }
+                            else if (this.winner == -1) { 
+                                console.log("Blue Player Wins");                              
+                                this.score["-1"]++;
+                            }
                             this.currentState = this.state.end_game;
                         }
                         else {
@@ -341,7 +356,7 @@ class MyGameOrchestrator extends CGFobject{
             this.animator.display();
         }
         this.gameboard.display();
-        this.timer.display(this.time);
+        //this.timer.display(this.time);
     }
 
     /* -----------------------------------------------------------------------------------
@@ -479,5 +494,32 @@ class MyGameOrchestrator extends CGFobject{
         result.push(player);
         result.push(board);
         return result;
+    }
+
+    updateErrors(error) {
+        document.getElementById("error").innerText = error;
+    }
+
+    updateScore() {
+        document.getElementById("score").innerText = this.gamesWon_player1 + " wins : " + this.gamesWon_player2 + " wins";
+
+    }
+
+    updateHTML() {
+        
+        if(this.player == 1){
+            document.getElementById("player").innerText = "Red Player's turn";
+            document.getElementById("next").innerText = "Next Turn: Blue Player";
+        }
+        else if(this.player == -1){
+            document.getElementById("player").innerText = "Blue Player's turn";
+            document.getElementById("next").innerText = "Next Turn: Red Player";
+        }
+
+        document.getElementById("score").innerText = "Red " + this.score["1"] + " : " + this.score["-1"] + " Blue";
+        
+        document.getElementById("time").innerText = "Total Time: " + this.timer.getTime(this.time) + " seconds ";
+        
+        
     }
 }
