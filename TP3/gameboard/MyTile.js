@@ -79,14 +79,8 @@ class MyTile {
     display() {
         // Obtain Position in the Board
         var column, line;
-        if(parseInt(this.scene.selectedDimension) == 8){
-            column =     this.position[0];
-            line   = parseInt(this.scene.selectedDimension) + 1 - this.position[1];
-        }
-        else if(parseInt(this.scene.selectedDimension) == 6){
-            column =   1 +  this.position[0];
-            line   = parseInt(this.scene.selectedDimension) +2 - this.position[1];
-        }
+        column =     this.position[0];
+        line   = parseInt(this.scene.selectedDimension) + 1 - this.position[1];       
         
         // Register for Picking
         if (this.piece != null) {
@@ -95,7 +89,7 @@ class MyTile {
         this.scene.pushMatrix();
 
         // Translation According to the Position on the Board
-        this.scene.translate(4.5 - line, 0, 4.5 - column);
+        this.scene.translate(parseInt(this.scene.selectedDimension)/2 + 0.5 - line, 0, parseInt(this.scene.selectedDimension)/2 + 0.5 - column);
 
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.tileMaterial.apply();

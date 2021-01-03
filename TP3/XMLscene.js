@@ -36,7 +36,7 @@ class XMLscene extends CGFscene {
             '6': 6
         }
 
-        this.selectedDimension = 6;
+        this.selectedDimension = 8;
 
         this.redPlayer = {
             'Player' : 0,
