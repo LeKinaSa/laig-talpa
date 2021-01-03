@@ -355,6 +355,8 @@ class MyGameOrchestrator extends CGFobject{
                         else {
                             this.scene.rotateCamera();
                             this.player = -this.player;
+                            this.startTurnTime = 0;
+                            this.turnTime = 30;
                             this.currentState = this.state.next_turn;
                         }
                     }
