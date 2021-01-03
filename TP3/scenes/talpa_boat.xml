@@ -346,6 +346,7 @@
                 <noderef id="surroundings" />
                 <noderef id="river" />
                 <noderef id="canoe" />
+                <noderef id="test" />
             </descendants>
         </node>
 
@@ -1088,6 +1089,19 @@
 
             <descendants>
                 <leaf type="cylinder" height="8" topRadius="2" bottomRadius="2" stacks="12" slices="4" />
+            </descendants>
+        </node>
+
+        <node id="test">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="obj" url="models/male.obj"/>
             </descendants>
         </node>
 
