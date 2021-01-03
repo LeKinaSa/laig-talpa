@@ -16,8 +16,8 @@
     There are also sofas, a fireplace, plants and lamps.
   - The second scene is a lake. There we can find the game on a canoe, with a seat for each player.
     The paddles of the canoe move in the water, and there are some fishes passing by.
-  - [Link to the Scene Room](link 1)
-  - [Link to the Scene Boat](link 2)
+  - [Link to the Scene Room](https://git.fe.up.pt/laig/laig-2020-2021/t06/laig-t06-g02/-/blob/master/TP3/scenes/talpa_living_room.xml)
+  - [Link to the Scene Boat](https://git.fe.up.pt/laig/laig-2020-2021/t06/laig-t06-g02/-/blob/master/TP3/scenes/talpa_boat.xml)
 ----
 ## Issues/Problems
 
