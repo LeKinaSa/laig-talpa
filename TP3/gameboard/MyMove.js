@@ -6,6 +6,7 @@
 class MyMove extends MyGameMove {
     /**
      * MyMove
+     * @constructor
      * @param {CGFscene} scene - Reference to MyScene object
      * @param {MyGameOrchestrator} gameOrchestrator - game orchestrator
      * @param {int} dimensions - dimensions of the board

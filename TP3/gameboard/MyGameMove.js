@@ -4,7 +4,8 @@
  */
 class MyGameMove {
     /**
-     * 
+     * MyGameMove
+     * @constructor
      * @param {CGFscene} scene - Reference to MyScene object
      * @param {int} dimensions - dimensions of the board
      * @param {list} initialBoard - board before the movement
