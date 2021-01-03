@@ -1,4 +1,19 @@
+/**
+ * Class MyAIMove
+ * Represents a Player Movement (Human)
+ * It doesn't need to be valid
+ */
 class MyMove extends MyGameMove {
+    /**
+     * MyMove
+     * @param {CGFscene} scene - Reference to MyScene object
+     * @param {MyGameOrchestrator} gameOrchestrator - game orchestrator
+     * @param {int} dimensions - dimensions of the board
+     * @param {list} initialBoard - board before the movement
+     * @param {int} player - player on the move
+     * @param {int} originId - id da peça a ser movida
+     * @param {int} destinId - id da peça a ser removida
+     */
     constructor(scene, gameOrchestrator, dimensions, initialBoard, player, originId, destinId) {
         super(scene, dimensions, initialBoard, player);
         this.gameOrchestrator = gameOrchestrator;

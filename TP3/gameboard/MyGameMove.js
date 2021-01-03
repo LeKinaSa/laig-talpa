@@ -1,4 +1,15 @@
+/**
+ * Class MyGameMove
+ * Represents a Valid or Invalid Move in the Game
+ */
 class MyGameMove {
+    /**
+     * 
+     * @param {CGFscene} scene - Reference to MyScene object
+     * @param {int} dimensions - dimensions of the board
+     * @param {list} initialBoard - board before the movement
+     * @param {int} player - player on the move
+     */
     constructor(scene, dimensions, initialBoard, player) {
         this.scene = scene;
         this.dimensions = dimensions;
