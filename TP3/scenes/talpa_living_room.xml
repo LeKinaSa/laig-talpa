@@ -3,7 +3,7 @@
         <reference length="2" />
         <root id="living-room" />
     </initials>
-    <views default="global">
+    <views default="room">
         <perspective id="player1Camera" near="0.1" far="500" angle="45">
             <from x="0" y="20" z="10" />
             <to x="0" y="-2" z="0" />
@@ -12,7 +12,7 @@
             <from x="0" y="20" z="-10" />
             <to x="0" y="-2" z="0" />
         </perspective>        
-        <perspective id="global" near="0.1" far="500" angle="45">
+        <perspective id="room" near="0.1" far="500" angle="45">
             <from x="0" y="60" z="60" />
             <to x="0" y="-2" z="0" />
         </perspective>
@@ -28,34 +28,42 @@
     </illumination>
 
     <lights>
-        <light id="demoLight">
+        <light id="lamp 1">
             <enable value="1" />
-            <position x="10"  y="12"  z="9.5" w="1.0" />
-            <ambient  r="0.0" g="0.0" b="0.0" a="1.0" />                 
-            <diffuse  r="1.0" g="1.0" b="1.0" a="1.0" /> 
-            <specular r="1.0" g="1.0" b="1.0" a="1.0" /> 
+            <position x="-15" y="28"  z="10"  w="1.0" />
+            <ambient  r="0.2" g="0.2" b="0.2" a="1.0" />                
+            <diffuse  r="0.5" g="0.5" b="0.5" a="1.0" />
+            <specular r="0.5" g="0.5" b="0.5" a="1.0" />
+        </light>
+
+        <light id="lamp 2">
+            <enable value="1" />
+            <position x="15"  y="28"  z="-10" w="1.0" />
+            <ambient  r="0.2" g="0.2" b="0.2" a="1.0" />                
+            <diffuse  r="0.5" g="0.5" b="0.5" a="1.0" />
+            <specular r="0.5" g="0.5" b="0.5" a="1.0" />
         </light>
     </lights>
 
     <textures>
-        <texture id="wood"          path="./scenes/images/wood.jpg" />
-        <texture id="wood-floor"    path="./scenes/images/wood-floor.jpg" />
-        <texture id="wall-paper"    path="./scenes/images/wall-paper.jpg" />
+        <texture id="wood"          path="./scenes/images/house/wood.jpg" />
+        <texture id="wood-floor"    path="./scenes/images/house/wood-floor.jpg" />
+        <texture id="wall-paper"    path="./scenes/images/house/wall-paper.jpg" />
+        <texture id="rug"           path="./scenes/images/house/rug.jpg" />
+        <texture id="door"          path="./scenes/images/house/door.jpg" />
+        <texture id="window"        path="./scenes/images/house/window.jpg"/>
+        <texture id="fireplace"     path="./scenes/images/house/fireplace.jpg"/>
+        <texture id="drawer"        path="./scenes/images/house/drawer.jpg"/>
+        <texture id="mole-painting" path="./scenes/images/house/mole-painting.jpg"/>
+        <texture id="leather"       path="./scenes/images/house/leather.jpg"/>
+        <texture id="sideboard"     path="./scenes/images/house/sideboard.jpg"/>
         <texture id="red-chair"     path="./scenes/images/red-chair.jpg" />
         <texture id="blue-chair"    path="./scenes/images/blue-chair.jpg" />
-        <texture id="rug"           path="./scenes/images/rug.jpg" />
-        <texture id="door"          path="./scenes/images/door.jpg" />
-        <texture id="window"        path="./scenes/images/window.jpg"/>
-        <texture id="fireplace"     path="./scenes/images/fireplace.jpg"/>
-        <texture id="drawer"        path="./scenes/images/drawer.jpg"/>
-        <texture id="mole-painting" path="./scenes/images/mole-painting.jpg"/>
-        <texture id="leather"       path="./scenes/images/leather.jpg"/>
-        <texture id="sideboard"     path="./scenes/images/sideboard.jpg"/>
     </textures>
 
     <spritesheets>
-        <spritesheet id="fire" path="./scenes/images/fire.png" sizeM="8" sizeN="8"/>
-        <spritesheet id="tv"   path="./scenes/images/tv.png" sizeM="20" sizeN="15"/>
+        <spritesheet id="fire" path="./scenes/images/house/fire.png" sizeM="8" sizeN="8"/>
+        <spritesheet id="tv"   path="./scenes/images/house/tv.png" sizeM="20" sizeN="15"/>
     </spritesheets>
 
     <materials>
@@ -86,6 +94,12 @@
             <diffuse  r="0.6" g="0.6" b="0.6" a="1.0" />
             <specular r="0.5" g="0.5" b="0.5" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="lightMaterial">
+            <shininess value="10" />
+            <ambient  r="0.8" g="0.8" b="0.0" a="1.0" />
+            <diffuse  r="0.8" g="0.8" b="0.0" a="1.0" />
+            <specular r="0.8" g="0.8" b="0.0" a="1.0" />
         </material>
         <material id="green">
             <shininess value="30" />
@@ -138,6 +152,8 @@
                 <noderef id="ceiling"/>
                 <noderef id="windows"/>
                 <noderef id="door"/>
+                <noderef id="lamp1" />
+                <noderef id="lamp2" />
             </descendants>
         </node>
 
@@ -307,6 +323,88 @@
             </descendants>
         </node>
 
+        <node id="lamp1">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            
+            <transformations>
+                <translation x="-15" y="0" z="10" />
+            </transformations>
+
+            <descendants>
+                <noderef id="lamp-cable"/>
+                <noderef id="lamp-holder"/>
+                <noderef id="lamp-bulb"/>
+            </descendants>
+        </node>
+
+        <node id="lamp2">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            
+            <transformations>
+                <translation x="15" y="0" z="-10" />
+            </transformations>
+
+            <descendants>
+                <noderef id="lamp-cable"/>
+                <noderef id="lamp-holder"/>
+                <noderef id="lamp-bulb"/>
+            </descendants>
+        </node>
+
+        <node id="lamp-cable">
+            <material id="metalMaterial" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            
+            <transformations>
+                <translation x="0" y="30" z="0" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="12" topRadius="0.2" bottomRadius="0.2" stacks="20" slices="20"/>
+            </descendants>
+        </node>
+
+        <node id="lamp-holder">
+            <material id="metalMaterial" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            
+            <transformations>
+                <translation x="0" y="29" z="0" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="1" topRadius="0.2" bottomRadius="3" stacks="20" slices="20"/>
+            </descendants>
+        </node>
+
+        <node id="lamp-bulb">
+            <material id="lightMaterial" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            
+            <transformations>
+                <translation x="0" y="28.5" z="0" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="sphere" radius="1" slices="32" stacks="32" />
+            </descendants>
+        </node>
+
         <node id="game-zone">
             <material id="null" />
             <texture id="null">
@@ -349,12 +447,12 @@
                 <amplification afs="10" aft="10" />
             </texture>
             <transformations>
-                <translation x="0" y="-0.001" z="0"/>
+                <translation x="0" y="-0.02" z="0"/>
                 <rotation axis="x" angle="-90"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5"/>
+                <leaf type="rectangle" x1="-6" y1="-6" x2="6" y2="6"/>
             </descendants>
         </node>
 
@@ -364,11 +462,11 @@
                 <amplification afs="10" aft="1" />
             </texture>
             <transformations>
-                <translation x="0" y="-0.5" z="5"/>
+                <translation x="0" y="-0.5" z="6"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+                <leaf type="rectangle" x1="-6" y1="-0.5" x2="6" y2="0.5"/>
             </descendants>
         </node>
 
@@ -378,12 +476,12 @@
                 <amplification afs="10" aft="1" />
             </texture>
             <transformations>
-                <translation x="5" y="-0.5" z="0"/>
+                <translation x="6" y="-0.5" z="0"/>
                 <rotation axis="y" angle="90"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+                <leaf type="rectangle" x1="-6" y1="-0.5" x2="6" y2="0.5"/>
             </descendants>
         </node>
 
@@ -393,12 +491,12 @@
                 <amplification afs="10" aft="1" />
             </texture>
             <transformations>
-                <translation x="-5" y="-0.5" z="0"/>
+                <translation x="-6" y="-0.5" z="0"/>
                 <rotation axis="y" angle="-90"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+                <leaf type="rectangle" x1="-6" y1="-0.5" x2="6" y2="0.5"/>
             </descendants>
         </node>
 
@@ -408,12 +506,12 @@
                 <amplification afs="10" aft="1" />
             </texture>
             <transformations>
-                <translation x="0" y="-0.5" z="-5"/>
+                <translation x="0" y="-0.5" z="-6"/>
                 <rotation axis="y" angle="-180"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+                <leaf type="rectangle" x1="-6" y1="-0.5" x2="6" y2="0.5"/>
             </descendants>
         </node>
 
@@ -428,7 +526,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5"/>
+                <leaf type="rectangle" x1="-6" y1="-6" x2="6" y2="6"/>
             </descendants>
         </node>
 
@@ -456,7 +554,7 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="-4" y="-4" z="0"/>
+                <translation x="-5" y="-5" z="0"/>
             </transformations>
 
             <descendants>
@@ -470,7 +568,7 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="-4" y="4" z="0"/>
+                <translation x="-5" y="5" z="0"/>
             </transformations>
 
             <descendants>
@@ -484,7 +582,7 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="4" y="-4" z="0"/>
+                <translation x="5" y="-5" z="0"/>
             </transformations>
 
             <descendants>
@@ -498,7 +596,7 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="4" y="4" z="0"/>
+                <translation x="5" y="5" z="0"/>
             </transformations>
 
             <descendants>
@@ -512,6 +610,7 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <translation x="0" y="-0.01" z="0" />
                 <rotation axis="y" angle="90"/>
             </transformations>
 
@@ -535,7 +634,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="triangle" x1="-6.5" y1="0" x2="0" y2="6.5" x3="0" y3="0" />
+                <leaf type="triangle" x1="-7.5" y1="0" x2="0" y2="7.5" x3="0" y3="0" />
             </descendants>
         </node>
 
@@ -551,7 +650,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="triangle" x1="-6.5" y1="0" x2="0" y2="6.5" x3="0" y3="0" />
+                <leaf type="triangle" x1="-7.5" y1="0" x2="0" y2="7.5" x3="0" y3="0" />
             </descendants>
         </node>
 
@@ -567,7 +666,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="triangle" x1="-6.5" y1="0" x2="0" y2="6.5" x3="0" y3="0" />
+                <leaf type="triangle" x1="-7.5" y1="0" x2="0" y2="7.5" x3="0" y3="0" />
             </descendants>
         </node>
 
@@ -583,7 +682,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="triangle" x1="-6.5" y1="0" x2="0" y2="6.5" x3="0" y3="0" />
+                <leaf type="triangle" x1="-7.5" y1="0" x2="0" y2="7.5" x3="0" y3="0" />
             </descendants>
         </node>
 

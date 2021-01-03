@@ -92,7 +92,6 @@ class MyGameOrchestrator extends CGFobject{
     }
 
     changeDimension() {
-        console.log("CHANGING DIMENSION");
         this.restart();
     }
 
@@ -102,13 +101,11 @@ class MyGameOrchestrator extends CGFobject{
 
     changeRedPlayer(mode) {
         this.players["1"] = parseInt(mode);
-        console.log(this.players);
         this.restart();
     }
 
     changeBluePlayer(mode) {
         this.players["-1"] = parseInt(mode);
-        console.log(this.players);        
         this.restart();
     }
 
