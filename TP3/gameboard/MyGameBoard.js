@@ -2,7 +2,6 @@
  * MyGameBoard
  * Represents the Game Board in the Prolog Game
  */
-
 class MyGameBoard {
     /**
      * MyGameBoard
@@ -13,78 +12,18 @@ class MyGameBoard {
         this.scene = scene;
         this.tiletexture = new CGFtexture(this.scene, "./scenes/images/tile.png");
         this.tiles = [];
-        this.gameboard = [];
-        this.removedPieces = [];
-    }
-
-    /**
-     * Add Piece to the Removed Pieces List
-     * @param {MyPiece} piece - Piece that got removed from the board 
-     */
-    addRemovedPiece(piece) {
-        this.removedPieces.push(piece);
-    }
-
-    /**
-     * Remove the Piece Standing on this Tile
-     * @param {MyTile} tile - Tile where the Piece is Standing
-     */
-    removePiece(tile) {
-        tile.unsetPiece(this);
-    }
-
-    /**
-     * Remove the Piece Standing on this Position
-     * @param {int} column
-     * @param {int} line
-     */
-    removePieceByPosition(column, line) {
-        var tile = this.getTile(column, line);
-        this.removePiece(tile);
-    }
-
-    /**
-     * Get the Piece Standing on this Tile
-     * @param {MyTile} tile - Tile where the Piece is Standing
-     */
-    getPiece(tile) {
-        return tile.getPiece();
     }
 
     /**
      * Get the Tile in this Column and Line of the GameBoard
-     * @param {int} column
-     * @param {int} line
+     * @param {int} column - tile's column
+     * @param {int} line - tile's line
      */
     getTile(column, line) {
         var x = parseInt(this.scene.selectedDimension) - line;
         var y = column - 1;
         var tile = this.tiles[x * parseInt(this.scene.selectedDimension) + y];
         return tile;
-    }
-
-    /**
-     * Move the Piece from Starting Tile to Destination Tile
-     * @param {MyTile} startingTile - Starting Tile
-     * @param {MyTile} destinationTile - Destination Tile
-     */
-    movePiece(startingTile, destinationTile) {
-        var piece = this.getPiece(startingTile);
-        startingTile.unsetPiece();
-        destinationTile.setPiece(this, piece);
-    }
-
-    /**
-     * Move the Piece from Starting Position to Destination Position
-     * @param {int} startingColumn 
-     * @param {int} startingLine 
-     * @param {int} destinationColumn 
-     * @param {int} destinationLine 
-     */
-    movePieceByPosition(startingColumn, startingLine, destinationColumn, destinationLine) {
-        var startingTile    = this.getTile(startingColumn, startingLine);
-        var destinationTile = this.getTile(destinationColumn, destinationLine);
-        this.movePiece(startingTile, destinationTile);
     }
 
     /**
@@ -96,6 +35,10 @@ class MyGameBoard {
         }
     }
     
+    /**
+     * Transform the Prolog Board into the Game Board in JS
+     * @param {List of chars} prologBoard - prolog version, in list, of the gameboard
+     */
     toJS(prologBoard) {
         this.tiles = [];
         for (let line = 0; line < prologBoard.length; ++ line) {
@@ -117,8 +60,9 @@ class MyGameBoard {
             }
         }
     }
+
     /**
-     * Turn the GameBoard into a Prolog Board
+     * Turn the GameBoard in JS into a Prolog Board (in String)
      */
     toProlog() {
         var board = "[";
