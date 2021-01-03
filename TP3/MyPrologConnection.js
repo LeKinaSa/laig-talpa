@@ -101,9 +101,9 @@ class MyPrologConnection {
     }
 }
 
-//defining constants to be easier to work with the code
-MyPrologConnection.prototype.start = 0;
-MyPrologConnection.prototype.GameOver = 1;
-MyPrologConnection.prototype.AIMove = 2;
+// Constants Needed for the Rest of the File
+MyPrologConnection.prototype.start      = 0;
+MyPrologConnection.prototype.GameOver   = 1;
+MyPrologConnection.prototype.AIMove     = 2;
 MyPrologConnection.prototype.playerMove = 3;
-MyPrologConnection.prototype.move = 4;
+MyPrologConnection.prototype.move       = 4;
