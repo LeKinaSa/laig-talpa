@@ -14,8 +14,8 @@
             <to x="0" y="-2" z="0" />
         </perspective>
         <perspective id="global" near="0.1" far="500" angle="45">
-            <from x="0" y="40" z="70" />
-            <to x="0" y="15" z="0" />
+            <from x="0" y="35" z="70" />
+            <to x="0" y="10" z="0" />
         </perspective>
         <perspective id="boardCamera" near="0.1" far="500" angle="45">
             <from x="10" y="20" z="0" />
@@ -138,11 +138,12 @@
             <descendants>
                 <noderef id="outside-canoe" />
                 <noderef id="inside-canoe" />
+                <noderef id="sticks" />
+                <noderef id="board" />
                 <noderef id="blue-seat" />
                 <noderef id="red-seat" />
-                <noderef id="sticks" />
                 <noderef id="buoys" />
-                <!--<noderef id="oars" /> -->
+                <noderef id="paddles" />
             </descendants>
         </node>
 
@@ -344,6 +345,24 @@
             </descendants>
         </node>
 
+        <node id="board">
+            <material id="default" />
+            <texture id="interior">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <scale sx="2.5" sy="1" sz="1" />
+                <translation x="0" y="14" z="0" />
+                <rotation axis="x" angle="-90" />
+                <rotation axis="z" angle="45" />
+            </transformations>
+
+            <descendants>
+                <!--<noderef id="borders" />-->
+                <leaf type="cylinder" height="1" topRadius="8" bottomRadius="7" stacks="4" slices="4" />
+            </descendants>
+        </node>
+
         <node id="sticks">
             <material id="default" />
             <texture id="null">
@@ -357,6 +376,8 @@
                 <noderef id="stick2" />
                 <noderef id="stick3" />
                 <noderef id="stick4" />
+                <noderef id="stick5" />
+                <noderef id="stick6" />
             </descendants>
         </node>
 
@@ -416,6 +437,34 @@
             </descendants>
         </node>
 
+        <node id="stick5">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="0" z="-4" />
+            </transformations>
+
+            <descendants>
+                <noderef id="stick" />
+            </descendants>
+        </node>
+
+        <node id="stick6">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="0" z="4" />
+            </transformations>
+
+            <descendants>
+                <noderef id="stick" />
+            </descendants>
+        </node>
+
         <node id="small-stick">
             <material id="default" />
             <texture id="interior">
@@ -443,6 +492,21 @@
 
             <descendants>
                 <leaf type="cylinder" height="26" topRadius="0.5" bottomRadius="0.5" stacks="16" slices="16" />
+            </descendants>
+        </node>
+
+        <node id="stick">
+            <material id="default" />
+            <texture id="interior">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="-18.3" y="14.2" z="0" />
+                <rotation axis="y" angle="90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="36.6" topRadius="0.5" bottomRadius="0.5" stacks="16" slices="16" />
             </descendants>
         </node>
 
@@ -537,6 +601,144 @@
 
             <descendants>
                 <leaf type="torus" inner="1.3" outer="4" slices="32" loops="32" />
+            </descendants>
+        </node>
+
+        <node id="paddles">
+            <material id="default" />
+            <texture id="interior">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="paddle1" />
+                <noderef id="paddle2" />
+            </descendants>
+        </node>
+
+        <node id="paddle1">
+            <material id="default" />
+            <texture id="interior">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="17" y="20" z="0" />
+                <rotation axis="y" angle="-45" /> <!-- TODO: animation from -45 to 45 -->
+                <rotation axis="z" angle="25" />
+                <rotation axis="x" angle="90" />
+            </transformations>
+
+            <descendants>
+                <noderef id="paddle" />
+            </descendants>
+        </node>
+
+        <node id="paddle2">
+            <material id="default" />
+            <texture id="interior">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="-17" y="20" z="0" />
+                <rotation axis="y" angle="45" /> <!-- TODO: animation from 45 to -45 -->
+                <rotation axis="z" angle="-25" />
+                <rotation axis="x" angle="90" />
+            </transformations>
+
+            <descendants>
+                <noderef id="paddle" />
+            </descendants>
+        </node>
+
+        <node id="paddle">
+            <material id="default" />
+            <texture id="interior">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="paddle-grip" />
+                <noderef id="paddle-shaft" />
+                <noderef id="paddle-shaft-throat" />
+                <noderef id="paddle-throat" />
+                <noderef id="paddle-blade" />
+            </descendants>
+        </node>
+
+        <node id="paddle-grip">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="0.5" topRadius="0.4" bottomRadius="1" stacks="2" slices="16"/>
+            </descendants>
+        </node>
+
+        <node id="paddle-shaft">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="0" z="0.5" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="12.5" topRadius="0.4" bottomRadius="0.4" stacks="16" slices="16"/>
+            </descendants>
+        </node>
+
+        <node id="paddle-shaft-throat">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="0" z="13" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="1" topRadius="0.2" bottomRadius="0.4" stacks="4" slices="16"/>
+            </descendants>
+        </node>
+
+        <node id="paddle-throat">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="0" z="13" />
+                <scale sx="1" sy="0.25" sz="1" />
+                <rotation axis="z" angle="45" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="1.5" topRadius="2" bottomRadius="0.4" stacks="4" slices="4"/>
+            </descendants>
+        </node>
+
+        <node id="paddle-blade">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="0" z="14.5" />
+                <scale sx="1" sy="0.25" sz="1" />
+                <rotation axis="z" angle="45" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="8" topRadius="2" bottomRadius="2" stacks="12" slices="4" />
             </descendants>
         </node>
 
