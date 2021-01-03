@@ -86,6 +86,8 @@ class XMLscene extends CGFscene {
         this.setPickEnabled(true);
 
         this.gameOrchestrator = new MyGameOrchestrator(this);
+
+		this.male = new CGFOBJModel(this, 'models/male.obj');
     }
 
     /**
