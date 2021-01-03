@@ -30,12 +30,9 @@ class XMLscene extends CGFscene {
             this.gameOrchestrator.restart();
         }
 
-        this.restart = function(){
-            this.gameOrchestrator.restart();
-        }
-
         this.movie = false;
         this.undo = false;
+        this.restart = false;
         
         this.gameScenes = {
             'Living Room': "talpa_living_room.xml",
@@ -293,6 +290,10 @@ class XMLscene extends CGFscene {
     changeBluePlayer(mode) {
         this.gameOrchestrator.changeBluePlayer(mode);
         this.selectedBlue = mode;
+    }
+
+    doRestart(){
+        this.gameOrchestrator.restart();
     }
 
     rotateCamera() {
