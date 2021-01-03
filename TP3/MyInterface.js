@@ -35,6 +35,13 @@ class MyInterface extends CGFinterface {
         }
     }
 
+    restart() {
+        this.gui = new dat.GUI();
+
+        this.first_update = true;
+        this.initKeys();
+    }
+
     /**
      * Add a GUI interface for the cameras.
      */
@@ -74,7 +81,7 @@ class MyInterface extends CGFinterface {
         return this.activeKeys[keyCode] || false;
     }
 
-    displayOptions(){
+    displayOptions() {
         const folder = this.gui.addFolder("Display Options");
         folder.open();
         this.addCameras(folder);
@@ -85,7 +92,7 @@ class MyInterface extends CGFinterface {
 
     }
 
-    gameOptions(){
+    gameOptions() {
         const folder = this.gui.addFolder("Game Options");
         folder.open();
         folder.add(this.scene, 'timedGame').name('Timed Game').onChange(this.scene.changeTimed.bind(this.scene));

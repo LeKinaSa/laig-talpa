@@ -283,6 +283,7 @@ class XMLscene extends CGFscene {
     changeTimed() {
         this.gameOrchestrator.timedGame = this.timedGame;
         this.gameOrchestrator.restart();
+        this.interface.restart();
     }
 
     rotateCamera(){
