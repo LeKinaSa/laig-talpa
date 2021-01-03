@@ -55,6 +55,13 @@ class MyGameOrchestrator extends CGFobject{
         // Timer
         this.startTime = 0;
         this.time = 0;
+
+        this.timedGame = false;
+        this.startTurnTime = 0;
+        this.defaultTurnTime = 30;
+        this.turnTime = 30;
+        this.timeout = false;
+
         this.timer = new MyTimer(this.scene);
 
         // Movie
@@ -105,16 +112,24 @@ class MyGameOrchestrator extends CGFobject{
      */
     updateTime(t) {
         t = t / 1000;
-
         /* verify if it's the first call -> if it's the first, change startTime to current time */
-        if (this.startTime == 0) { this.startTime = t; }
-        
+        if (this.startTime == 0)    { this.startTime = t; }
+
         /**
          * this.time -> game's elapsed time
          * elapsed time = actual time - init time
          * for example: first call -> this.time = 0
          */
         this.time = t - this.startTime;
+
+        if(this.timedGame && !this.timeout){
+            if (this.startTurnTime == 0){ this.startTurnTime = t;} 
+            this.turnTime = this.defaultTurnTime - (t - this.startTurnTime);
+        }
+        if(this.timer.getTime(this.turnTime) == "00:00"){
+            this.timeout = true;
+        }
+        
     }
 
     restart() {        
@@ -177,6 +192,21 @@ class MyGameOrchestrator extends CGFobject{
     renderAIMove() {
         this.gameState = this.gameboard.toProlog();
         var levelAI = this.players[this.player.toString()];
+        this.prolog.AIMoveRequest(this.dimensions, this.gameState, this.player, levelAI);
+        var moveParameters = this.AIMoveReply(this.prolog.request);
+        
+        var move = new MyAIMove(this.scene, this.dimensions, this.gameState, this.player, this.gameboard, moveParameters);
+        this.lastBotMove = move;
+        this.lastBotMovedPieces = [move.getPieces()[0], move.getPieces()[1]];
+        
+        this.animator = new MyMoveAnimator(this.scene, this, move.getPieces(), move.getIds(), this.dimensions);
+        this.gameSequence.addMoveAnimator(this.animator); // add move to the game sequence
+        this.animator.start();
+    }
+
+    forceMove(){
+        this.gameState = this.gameboard.toProlog();
+        var levelAI = "1";
         this.prolog.AIMoveRequest(this.dimensions, this.gameState, this.player, levelAI);
         var moveParameters = this.AIMoveReply(this.prolog.request);
         
@@ -273,6 +303,14 @@ class MyGameOrchestrator extends CGFobject{
                             if (this.selected[0] != null) {
                                 this.currentState = this.state.destination_piece_selection;
                             }
+                            if(this.timeout){
+                                this.forceMove();
+                                this.timeout = false;
+                                this.startTurnTime = 0;
+                                this.turnTime = 30;
+                                this.currentState = this.state.end_game;   
+                            }
+                            
                         }
                         else {
                             this.renderAIMove();
@@ -319,6 +357,9 @@ class MyGameOrchestrator extends CGFobject{
                 case this.state.undo:
                     if (this.animator == null) {
                         if (this.undo()) {
+                            this.timeout = false;
+                            this.startTurnTime = 0;
+                            this.turnTime = 30;
                             this.currentState = this.state.next_turn;
                         }
                     }                    
@@ -332,6 +373,9 @@ class MyGameOrchestrator extends CGFobject{
                     }
                     else if ((this.animator == null) && (!this.startedMovie)) {
                         this.movie();
+                        this.timeout = false;
+                        this.startTurnTime = 0;
+                        this.turnTime = 30;
                     }
                     break;
                 
@@ -496,15 +540,6 @@ class MyGameOrchestrator extends CGFobject{
         return result;
     }
 
-    updateErrors(error) {
-        document.getElementById("error").innerText = error;
-    }
-
-    updateScore() {
-        document.getElementById("score").innerText = this.gamesWon_player1 + " wins : " + this.gamesWon_player2 + " wins";
-
-    }
-
     updateHTML() {
         
         if(this.player == 1){
@@ -520,6 +555,10 @@ class MyGameOrchestrator extends CGFobject{
         
         document.getElementById("time").innerText = "Total Time: " + this.timer.getTime(this.time) + " seconds ";
         
-        
+        if(this.timedGame)
+            document.getElementById("turn-time").innerText = "Time Left: " + this.timer.getTime(this.turnTime) + " seconds ";
+        else{
+            document.getElementById("turn-time").innerText = "Game Not Timed";
+        }
     }
 }
