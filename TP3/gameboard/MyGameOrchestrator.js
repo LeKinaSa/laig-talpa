@@ -302,6 +302,9 @@ class MyGameOrchestrator extends CGFobject{
         this.updateHTML();
     }
 
+    /**
+     * Main Loop of the Game
+     */
     orchestrate() {
         let result = null;
         if (this.scene.movie && this.currentState != this.state.movie) {
