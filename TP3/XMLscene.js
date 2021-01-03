@@ -21,21 +21,9 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = false;
 
-        this.startGame = function() {
-            this.gameOrchestrator.currentState = this.gameOrchestrator.state.start;
-        }
-
-        this.changeTimed = function() {
-            this.gameOrchestrator.timedGame = !this.gameOrchestrator.timedGame;
-            this.gameOrchestrator.restart();
-        }
-
-        this.restart = function(){
-            this.gameOrchestrator.restart();
-        }
-
         this.movie = false;
         this.undo = false;
+        this.timedGame = false;
         
         this.gameScenes = {
             'Living Room': "talpa_living_room.xml",
@@ -66,7 +54,9 @@ class XMLscene extends CGFscene {
             'Bot (Greedy)': 2
         }
         
-        this.selectedBlue = 0; 
+        this.selectedBlue = 0;
+
+        this.restart = false;    
         
         // camera rotation
         this.rotatingcamera = false;
@@ -293,6 +283,11 @@ class XMLscene extends CGFscene {
     changeBluePlayer(mode) {
         this.gameOrchestrator.changeBluePlayer(mode);
         this.selectedBlue = mode;
+    }
+
+    changeTimed() {
+        this.gameOrchestrator.timedGame = this.timedGame;
+        this.gameOrchestrator.restart();
     }
 
     rotateCamera() {

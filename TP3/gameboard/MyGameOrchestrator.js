@@ -114,26 +114,25 @@ class MyGameOrchestrator extends CGFobject{
      * @param {time} t - current time
      */
     updateTime(t) {
-        if(this.currentState != this.state.menu){
-            t = t / 1000;
-            /* verify if it's the first call -> if it's the first, change startTime to current time */
-            if (this.startTime == 0)    { this.startTime = t; }
-    
-            /**
-             * this.time -> game's elapsed time
-             * elapsed time = actual time - init time
-             * for example: first call -> this.time = 0
-             */
-            this.time = t - this.startTime;
-    
-            if(this.timedGame && !this.timeout){
-                if (this.startTurnTime == 0){ this.startTurnTime = t;} 
-                this.turnTime = this.defaultTurnTime - (t - this.startTurnTime);
-            }
-            if(this.timer.getTime(this.turnTime) == "00:00"){
-                this.timeout = true;
-            }
-        }   
+        t = t / 1000;
+        /* verify if it's the first call -> if it's the first, change startTime to current time */
+        if (this.startTime == 0)    { this.startTime = t; }
+
+        /**
+         * this.time -> game's elapsed time
+         * elapsed time = actual time - init time
+         * for example: first call -> this.time = 0
+         */
+        this.time = t - this.startTime;
+
+        if(this.timedGame && !this.timeout){
+            if (this.startTurnTime == 0){ this.startTurnTime = t;} 
+            this.turnTime = this.defaultTurnTime - (t - this.startTurnTime);
+        }
+        if(this.timer.getTime(this.turnTime) == "00:00"){
+            this.timeout = true;
+        }
+        
     }
 
     restart() {        
@@ -278,6 +277,9 @@ class MyGameOrchestrator extends CGFobject{
         else if (this.scene.undo && this.currentState != this.state.undo) {
             this.savedboard = this.gameboard; 
             this.currentState = this.state.undo;
+        }
+        else if (this.scene.restart && this.currentState != this.state.start) {
+            this.restart();
         }
 
         if(this.currentState == this.state.end_game && this.over){
@@ -545,7 +547,6 @@ class MyGameOrchestrator extends CGFobject{
 
     updateHTML() {
         if(this.currentState != this.state.menu){
-            document.getElementById("info").innerText = "";
             if(this.player == 1){
                 document.getElementById("player").innerText = "Red Player's turn";
                 document.getElementById("next").innerText = "Next Turn: Blue Player";

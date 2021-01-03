@@ -95,13 +95,12 @@ class MyInterface extends CGFinterface {
     gameOptions() {
         const folder = this.gui.addFolder("Game Options");
         folder.open();
-        folder.add(this.scene, 'startGame').name('Start Game');
-        folder.add(this.scene, 'changeTimed').name('Timed Game');
+        folder.add(this.scene, 'timedGame').name('Timed Game').onChange(this.scene.changeTimed.bind(this.scene));
         folder.add(this.scene, 'selectedTheme', this.scene.gameScenes).name('Game Scene').onChange(this.scene.changeTheme.bind(this.scene));
         folder.add(this.scene, 'selectedDimension', this.scene.dimensions).name('Board Dimensions').onChange(this.scene.changeDimension.bind(this.scene));
         folder.add(this.scene, 'selectedRed', this.scene.redPlayer).name('Red Player').onChange(this.scene.changeRedPlayer.bind(this.scene));
         folder.add(this.scene, 'selectedBlue', this.scene.bluePlayer).name('Blue Player').onChange(this.scene.changeBluePlayer.bind(this.scene));
-        folder.add(this.scene, 'movie').name('Play/Stop Movie');
+        folder.add(this.scene, 'movie').name('Movie');
         folder.add(this.scene, 'undo').name('Undo');
         folder.add(this.scene, 'restart').name('Restart');
     }
