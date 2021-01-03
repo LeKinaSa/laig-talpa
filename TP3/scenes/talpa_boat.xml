@@ -50,6 +50,7 @@
     </textures>
 
     <spritesheets>
+        <spritesheet id="water" path="./scenes/images/river/water-spritesheet.png" sizeM="4" sizeN="4"/>
     </spritesheets>
 
     <materials>
@@ -366,16 +367,18 @@
 
         <node id="river">
             <material id="default" />
-            <texture id="river">
+            <texture id="null">
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
                 <translation x="0" y="-15" z="0" />
-                <rotation axis="x" angle="90" />
+                <scale sx="200" sy="200" sz="200"/>
+                <rotation axis="x" angle="-90" />
             </transformations>
 
             <descendants>
-               <leaf type="cylinder" height="0.1" topRadius="100" bottomRadius="-100" stacks="2" slices="32" />
+               <!-- <leaf type="cylinder" height="0.1" topRadius="100" bottomRadius="-100" stacks="2" slices="32" /> -->
+                 <leaf type="spriteanim" ssid="water" startCell="1" endCell="16" duration="2"/>
             </descendants>
         </node>
 

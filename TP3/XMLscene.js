@@ -29,7 +29,7 @@ class XMLscene extends CGFscene {
             'Boat': "talpa_boat.xml"
         }
 
-        this.selectedTheme = "talpa_living_room.xml";
+        this.selectedTheme = "talpa_boat.xml";
 
         this.dimensions = {
             '8': 8,
