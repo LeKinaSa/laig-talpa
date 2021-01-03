@@ -267,8 +267,10 @@ class XMLscene extends CGFscene {
     }
 
     changeTheme(theme) {
+        this.sceneInited = false;
         this.gameOrchestrator.changeTheme(theme);
         this.selectedTheme = theme;
+        this.interface.restart();
     }
 
     changeRedPlayer(mode) {
@@ -284,10 +286,9 @@ class XMLscene extends CGFscene {
     changeTimed() {
         this.gameOrchestrator.timedGame = this.timedGame;
         this.gameOrchestrator.restart();
-        this.interface.restart();
     }
 
-    rotateCamera(){
+    rotateCamera() {
         if(this.graph.cameras["player1Camera"] == this.camera ||
             this.graph.cameras["player2Camera"] == this.camera)
             this.rotatingcamera = true;
