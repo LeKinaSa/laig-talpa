@@ -12,9 +12,9 @@
         <perspective id="player2Camera" near="0.1" far="500" angle="45">
             <from x="0" y="20" z="-10" />
             <to x="0" y="-2" z="0" />
-        </perspective>        
+        </perspective>
         <perspective id="global" near="0.1" far="500" angle="45">
-            <from x="0" y="30" z="70" />
+            <from x="0" y="40" z="70" />
             <to x="0" y="15" z="0" />
         </perspective>
         <perspective id="boardCamera" near="0.1" far="500" angle="45">
@@ -101,7 +101,7 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="0" y="-10" z="0" />
+                <translation x="0" y="-15" z="0" />
                 <rotation axis="y" angle="180" />
                 <rotation axis="x" angle="90" />
             </transformations>
@@ -117,9 +117,8 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="0" y="-10" z="0" />
+                <translation x="0" y="-15" z="0" />
                 <rotation axis="x" angle="90" />
-                
             </transformations>
 
             <descendants>
@@ -133,7 +132,7 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="0" y="-10" z="0" />
+                <translation x="0" y="-15" z="0" />
             </transformations>
 
             <descendants>
