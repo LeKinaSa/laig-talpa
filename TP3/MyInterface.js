@@ -103,7 +103,7 @@ class MyInterface extends CGFinterface {
         folder.add(this.scene, 'selectedBlue', this.scene.bluePlayer).name('Blue Player').onChange(this.scene.changeBluePlayer.bind(this.scene));
         folder.add(this.scene, 'movie').name('Play/Stop Movie');
         folder.add(this.scene, 'undo').name('Undo');
-        folder.add(this.scene, 'restart').name('Restart').onChange(this.scene.doRestart.bind(this.scene));;
+        folder.add(this.scene, 'restart').name('Restart');
     }
 
     /**
