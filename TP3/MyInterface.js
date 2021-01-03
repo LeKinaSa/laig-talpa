@@ -95,6 +95,7 @@ class MyInterface extends CGFinterface {
     gameOptions() {
         const folder = this.gui.addFolder("Game Options");
         folder.open();
+        folder.add(this.scene, 'start').name('Start Game');
         folder.add(this.scene, 'timedGame').name('Timed Game').onChange(this.scene.changeTimed.bind(this.scene));
         folder.add(this.scene, 'selectedTheme', this.scene.gameScenes).name('Game Scene').onChange(this.scene.changeTheme.bind(this.scene));
         folder.add(this.scene, 'selectedDimension', this.scene.dimensions).name('Board Dimensions').onChange(this.scene.changeDimension.bind(this.scene));

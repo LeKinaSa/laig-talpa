@@ -24,6 +24,10 @@ class XMLscene extends CGFscene {
         this.movie = false;
         this.undo = false;
         this.timedGame = false;
+
+        this.start = function(){
+            this.gameOrchestrator.currentState = this.gameOrchestrator.state.start;
+        }
         
         this.gameScenes = {
             'Living Room': "talpa_living_room.xml",
@@ -41,7 +45,7 @@ class XMLscene extends CGFscene {
         this.selectedDimension = 8;
 
         this.redPlayer = {
-            'Player' : 0,
+            'Human' : 0,
             'Bot (Random)': 1,
             'Bot (Greedy)': 2
         }
@@ -49,7 +53,7 @@ class XMLscene extends CGFscene {
         this.selectedRed = 0;
 
         this.bluePlayer = {
-            'Player' : 0,
+            'Human' : 0,
             'Bot (Random)': 1,
             'Bot (Greedy)': 2
         }

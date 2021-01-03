@@ -160,7 +160,8 @@ class MyGameOrchestrator extends CGFobject{
         // Dimensions
         this.dimensions = this.scene.selectedDimension;
         
-        this.currentState = this.state.start;
+        if(this.currentState != this.state.menu)
+            this.currentState = this.state.start;
         this.scene.restart = false;
     }
 
