@@ -169,4 +169,8 @@ class CGFOBJModel extends CGFobject{
 		
 		this.initGLBuffers();
 	}
+
+	updateTexCoords(afs, aft) {
+        //this.updateTexCoordsGLBuffers();
+    }
 }

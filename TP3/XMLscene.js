@@ -30,7 +30,7 @@ class XMLscene extends CGFscene {
             'Boat': "talpa_boat.xml"
         }
 
-        this.selectedTheme = "talpa_boat.xml";
+        this.selectedTheme = "talpa_living_room.xml";
 
         this.dimensions = {
             '8': 8,
@@ -86,8 +86,6 @@ class XMLscene extends CGFscene {
         this.setPickEnabled(true);
 
         this.gameOrchestrator = new MyGameOrchestrator(this);
-
-		this.male = new CGFOBJModel(this, 'models/male.obj');
     }
 
     /**
