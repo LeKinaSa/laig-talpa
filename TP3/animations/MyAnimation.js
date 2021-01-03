@@ -39,5 +39,3 @@ class MyAnimation {
      */
     update(t) { }
 }
-
-    

@@ -1,8 +1,18 @@
 /**
  * MyMoveAnimator
- * @description Class that defines the animations for the moves
+ * Defines the Animations for the Moves
  */
 class MyMoveAnimator extends MyAnimator {
+    /**
+     * MyMoveAnimator
+     * @constructor
+     * @param {CGFscene} scene - Reference to MyScene object
+     * @param {MyGameOrchestrator} gameOrchestrator - game orchestrator
+     * @param {List of Pieces} pieces - pieces involved in the move
+     * @param {List of int} ids - ids from the pieces involved in the move
+     * @param {int} dimensions - dimensions of the board
+     * @param {MyGameMove} move - move associated with the animation
+     */
     constructor(scene, gameOrchestrator, pieces, ids, dimensions, move) {
         super(scene, gameOrchestrator);
         this.dimensions = dimensions;

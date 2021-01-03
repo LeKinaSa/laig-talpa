@@ -1,4 +1,16 @@
+/**
+ * Class MyGameMove
+ * Represents a Valid or Invalid Move in the Game
+ */
 class MyGameMove {
+    /**
+     * MyGameMove
+     * @constructor
+     * @param {CGFscene} scene - Reference to MyScene object
+     * @param {int} dimensions - dimensions of the board
+     * @param {String} initialBoard - prolog board before the movement
+     * @param {int} player - player on the move
+     */
     constructor(scene, dimensions, initialBoard, player) {
         this.scene = scene;
         this.dimensions = dimensions;

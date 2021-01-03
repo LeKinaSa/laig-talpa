@@ -118,7 +118,3 @@ CGFresourceReader.prototype.onStateChange = function() {
 	  } 
    }  
 };
-
-	
-	
-	

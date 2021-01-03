@@ -268,10 +268,17 @@ class XMLscene extends CGFscene {
         // ---- END Background, camera and axis setup
     }
 
+    /**
+     * Changes the Dimensions of the Game Board
+     */
     changeDimension() {
         this.gameOrchestrator.changeDimension();
     }
 
+    /**
+     * Changes between Scenes
+     * @param {String} theme - path to the selected scene
+     */
     changeTheme(theme) {
         this.sceneInited = false;
         this.gameOrchestrator.changeTheme(theme);
@@ -279,23 +286,39 @@ class XMLscene extends CGFscene {
         this.interface.restart();
     }
 
+    /**
+     * Changes the Red Player Mode
+     * @param {int} mode - mode chosen for red player (Human, Random Bot or Greedy Bot)
+     */
     changeRedPlayer(mode) {
         this.gameOrchestrator.changeRedPlayer(mode);
         this.selectedRed = mode;
     }
 
+    /**
+     * Changes the Blue Player Mode
+     * @param {int} mode - mode chosen for blue player (Human, Random Bot or Greedy Bot)
+     */
     changeBluePlayer(mode) {
         this.gameOrchestrator.changeBluePlayer(mode);
         this.selectedBlue = mode;
     }
 
+    /**
+     * Changes the Type of Game
+     * from  Timed  to Untimed
+     * from Untimed to  Timed
+     */
     changeTimed() {
         this.gameOrchestrator.timedGame = this.timedGame;
         this.gameOrchestrator.restart();
     }
 
+    /**
+     * Rotates the Camera from Player to Player
+     */
     rotateCamera() {
-        if(this.graph.cameras["player1Camera"] == this.camera ||
+        if (this.graph.cameras["player1Camera"] == this.camera ||
             this.graph.cameras["player2Camera"] == this.camera)
             this.rotatingcamera = true;
     }

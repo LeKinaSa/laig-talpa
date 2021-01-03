@@ -214,11 +214,10 @@ class MyLeaf {
                 break;
             
             case 'obj':
-
                 this.url = this.graph.reader.getString(element, 'url');      
 
+                // Create Primitive
                 this.primitive = new CGFOBJModel(this.graph.scene, this.url, false);
-                console.log(this.primitive);
                 break;
 
             default:
