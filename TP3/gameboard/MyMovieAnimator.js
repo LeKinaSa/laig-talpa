@@ -1,6 +1,6 @@
 /**
  * MyMovieAnimator
- * @description
+ * Defines the Animations for the Sequence of Moves
  */
 class MyMovieAnimator extends MyAnimator {
     constructor(scene, gameOrchestrator, sequence) {
@@ -10,11 +10,17 @@ class MyMovieAnimator extends MyAnimator {
         this.index = -1;
     }
 
+    /**
+     * Starts Animation
+     */
     start() {
         this.gameOrchestrator.prolog.startRequest(this.gameOrchestrator.dimensions);
         this.gameOrchestrator.gameboard.toJS(this.gameOrchestrator.startReply(this.gameOrchestrator.prolog.request)[1]);
     }
 
+    /**
+     * Starts New Animator
+     */
     startNewAnimator() {
         ++ this.index;
         if (this.index < this.sequence.length) {
@@ -27,6 +33,10 @@ class MyMovieAnimator extends MyAnimator {
         }
     }
 
+    /**
+     * Updates Animation
+     * @param {time} t - current time
+     */
     update(t) {
         if (this.active == null) {
             this.startNewAnimator();
@@ -43,10 +53,12 @@ class MyMovieAnimator extends MyAnimator {
         }
     }
 
+    /**
+     * Display Animation
+     */
     display() {
         if (this.active != null) {
             this.active.display();
         }
     }
-
 }
