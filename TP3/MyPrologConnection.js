@@ -96,8 +96,8 @@ class MyPrologConnection {
      * @param {*} player current player
      * @param {*} move move that is gonna be made
      */
-    moveRequest(dimensions, board, player, move) {
-        this.sendPrologRequest([this.move, dimensions, board, player, move]);
+    moveRequest(dimensions, board, player, column, line, direction) {
+        this.sendPrologRequest([this.move, dimensions, board, player, column, line, direction]);
     }
 }
 
