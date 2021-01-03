@@ -13,7 +13,6 @@ class MyTile {
         this.scene = scene;
         this.tile = new MyRectangle(this.scene, -0.5, -0.5, 0.5, 0.5);
         this.position = position; // Position = [column, line]
-        //this.piece = this.startingPiece();
         this.piece = null;
         
         this.tileMaterial = new CGFappearance(this.scene);
@@ -29,48 +28,12 @@ class MyTile {
         this.tileMaterial.setTextureWrap('REPEAT', 'REPEAT');
         this.tileMaterial.apply();
     }
-
-    /**
-     * Set the Piece standing on this Tile
-     * @param {MyPiece} piece - Piece Standing on this Tile
-     */
-    setPiece(gameboard, piece) {
-        this.unsetPiece(gameboard);
-        this.piece = piece;
-    }
-
-    /**
-     * Unset the Piece standing on this Tile
-     */
-    unsetPiece(gameboard) {
-        if (this.piece != null) {
-            gameboard.addRemovedPiece(this.piece);
-            this.piece = null;
-        }
-    }
-    unsetPiece() {
-        this.piece = null;
-    }
-
+    
     /**
      * Get Piece
      */
     getPiece() {
         return this.piece;
-    }
-
-    /**
-     * Get Column
-     */
-    getColumn() {
-        return this.position[0];
-    }
-
-    /**
-     * Get Line
-     */
-    getLine() {
-        return this.position[1];
     }
 
     /**
