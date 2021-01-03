@@ -13,9 +13,9 @@ class MyGameOrchestrator extends CGFobject{
         super(scene);
         this.animator = null;
         this.gameboard = new MyGameBoard(this.scene);
-        this.gameSequence = new MyGameSequence(this.scene);
         this.theme = new MySceneGraph(this.scene.selectedTheme, this.scene);
         this.prolog = new MyPrologConnection();
+        this.gameSequence = [];
 
         this.savedboard = null;
 
@@ -136,7 +136,7 @@ class MyGameOrchestrator extends CGFobject{
     }
 
     restart() {        
-        this.gameSequence = new MyGameSequence(this.scene);
+        this.gameSequence = [];
         // Player Moves
         this.selectedPieces = 0;
         this.selected = [null, null];
@@ -154,8 +154,6 @@ class MyGameOrchestrator extends CGFobject{
 
         // Movie
         this.startedMovie = false;
-        // TODO
-        // this.gameSequence.restart();
 
         // Dimensions
         this.dimensions = this.scene.selectedDimension;
@@ -174,9 +172,8 @@ class MyGameOrchestrator extends CGFobject{
         this.gameState = this.gameboard.toProlog();
         var move = new MyMove(this.scene, this, this.dimensions, this.gameState, this.player, this.selectedIds[0], this.selectedIds[1]);
         if (move.isValid()) {
-            this.gameSequence.addGameMove(move); // add move to the game sequence
             this.animator = new MyMoveAnimator(this.scene, this, this.selected, this.selectedIds, this.dimensions, move);
-            this.gameSequence.addMoveAnimator(this.animator); // add move to the game sequence
+            this.gameSequence.push(this.animator); // add move to the game sequence
             this.animator.start();
             
             this.lastMove = move;
@@ -204,7 +201,7 @@ class MyGameOrchestrator extends CGFobject{
         this.lastBotMovedPieces = [move.getPieces()[0], move.getPieces()[1]];
         
         this.animator = new MyMoveAnimator(this.scene, this, move.getPieces(), move.getIds(), this.dimensions);
-        this.gameSequence.addMoveAnimator(this.animator); // add move to the game sequence
+        this.gameSequence.push(this.animator); // add move to the game sequence
         this.animator.start();
     }
 
@@ -219,14 +216,14 @@ class MyGameOrchestrator extends CGFobject{
         this.lastBotMovedPieces = [move.getPieces()[0], move.getPieces()[1]];
         
         this.animator = new MyMoveAnimator(this.scene, this, move.getPieces(), move.getIds(), this.dimensions);
-        this.gameSequence.addMoveAnimator(this.animator); // add move to the game sequence
+        this.gameSequence.push(this.animator); // add move to the game sequence
         this.animator.start();
     }
 
     undo() {
         if (this.lastBotMove != null) {
             this.animator = new MyUndoAnimator(this.scene, this, this.lastBotMove, this.lastBotMovedPieces, this.dimensions);
-            this.gameSequence.addMoveAnimator(this.animator); // add undo move to the game sequence
+            this.gameSequence.push(this.animator); // add undo move to the game sequence
             this.animator.start();
             this.lastBotMove = null;
             this.lastBotMovedPieces = [null, null];
@@ -234,7 +231,7 @@ class MyGameOrchestrator extends CGFobject{
         }
         else if (this.lastMove != null) {
             this.animator = new MyUndoAnimator(this.scene, this, this.lastMove, this.lastMovedPieces, this.dimensions);
-            this.gameSequence.addMoveAnimator(this.animator); // add undo move to the game sequence
+            this.gameSequence.push(this.animator); // add undo move to the game sequence
             this.animator.start();
             this.lastMove = null;
             this.lastMovedPieces = [null, null];
@@ -246,7 +243,7 @@ class MyGameOrchestrator extends CGFobject{
     movie() {
         // activate an animation that plays the game sequence
         this.startedMovie = true;
-        this.animator = new MyMovieAnimator(this.scene, this, this.gameSequence.getMoveAnimators(), this.initialBoard);
+        this.animator = new MyMovieAnimator(this.scene, this, this.gameSequence);
         this.animator.start();
     }
 

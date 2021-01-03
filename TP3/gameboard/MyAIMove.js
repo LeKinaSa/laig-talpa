@@ -8,7 +8,7 @@ class MyAIMove extends MyGameMove {
      * @constructor
      * @param {CGFscene} scene - Reference to MyScene object
      * @param {int} dimensions - dimensions of the board
-     * @param {list} initialBoard - board before the movement
+     * @param {String} initialBoard - prolog board before the movement
      * @param {int} player - player on the move
      * @param {MyGameBoard} gameBoard - current gameboard
      * @param {[int, int, char]} moveParameters - movement parameters : column line direction
