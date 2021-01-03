@@ -195,7 +195,7 @@ class MyGameOrchestrator extends CGFobject{
         this.lastBotMove = move;
         this.lastBotMovedPieces = [move.getPieces()[0], move.getPieces()[1]];
         
-        this.animator = new MyMoveAnimator(this.scene, this, move.getPieces(), move.getIds(), this.dimensions);
+        this.animator = new MyMoveAnimator(this.scene, this, move.getPieces(), move.getIds(), this.dimensions, move);
         this.gameSequence.push(this.animator); // add move to the game sequence
         this.animator.start();
     }
@@ -214,7 +214,7 @@ class MyGameOrchestrator extends CGFobject{
         this.lastMove = move;
         this.lastMovedPieces = [move.getPieces()[0], move.getPieces()[1]];
         
-        this.animator = new MyMoveAnimator(this.scene, this, move.getPieces(), move.getIds(), this.dimensions);
+        this.animator = new MyMoveAnimator(this.scene, this, move.getPieces(), move.getIds(), this.dimensions, move);
         this.gameSequence.push(this.animator); // add move to the game sequence
         this.animator.start();
     }
