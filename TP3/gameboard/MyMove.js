@@ -8,6 +8,7 @@ class MyMove extends MyGameMove {
         this.column = 0;
         this.line   = 0;
         this.direction = 'e';
+        this.getMove();
     }
 
     /**
@@ -74,8 +75,6 @@ class MyMove extends MyGameMove {
      * Verify on Prolog if the Move is Valid
      */
     isValid() {
-        this.getMove();
-
         // Prolog Verification
         this.prolog.playerMoveRequest(this.dimensions, this.initialBoard, this.player, this.column, this.line, this.direction);
         return this.gameOrchestrator.playerMoveReply(this.prolog.request);

@@ -140,9 +140,9 @@ parse_input([3, Dimensions, JSBoard, Player, Column, Line, Direction], 0-Column-
 	verify_player_move(Dimensions-Board-Player, Column-Line-Direction).
 parse_input([3 | _], 1).
 
-parse_input([4, Dimensions, JSBoard, Player, Move], 0-JSNewBoard-NewPlayer) :-
+parse_input([4, Dimensions, JSBoard, Player, Column, Line, Direction], 0-JSNewBoard-NewPlayer) :-
     transform_board(JSBoard, Board),
-	move(Dimensions-Board-Player, Move, Dimensions-NewBoard-NewPlayer),
+	move(Dimensions-Board-Player, Column-Line-Direction, Dimensions-NewBoard-NewPlayer),
     untransform_board(NewBoard, JSNewBoard).
 parse_input([4 | _], 1).
 
