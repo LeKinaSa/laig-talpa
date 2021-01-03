@@ -108,7 +108,8 @@ class XMLscene extends CGFscene {
      * Initializes the scene lights with the values read from the XML file.
      */
     initLights() {
-        var i = 0;          // Lights index.
+        var i = 0;          // Lights index
+        this.lights = [];   // Reset Lights
 
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
@@ -116,6 +117,7 @@ class XMLscene extends CGFscene {
                 break;      // Only eight lights allowed by WebCGF on default shaders.
             
             if (this.graph.lights.hasOwnProperty(key)) {
+                this.lights[i] = new CGFlight(this, i);     // Created New Light
                 var graphLight = this.graph.lights[key];
                 
                 this.lights[i].key = key;
