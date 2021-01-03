@@ -9,6 +9,11 @@
  * Manage object selection
  */
 class MyGameOrchestrator extends CGFobject{
+    /**
+     * MyGameOrchestrator
+     * @constructor
+     * @param {CGFscene} scene - Reference to MyScene object
+     */
     constructor(scene) {
         super(scene);
         this.animator = null;
@@ -17,10 +22,6 @@ class MyGameOrchestrator extends CGFobject{
         this.prolog = new MyPrologConnection();
         this.gameSequence = [];
 
-        this.savedboard = null;
-
-        this.initialBoard = null;
-        this.gameState = [];
         this.over = false;
         this.player = 0;
         this.winner = null;
@@ -91,19 +92,34 @@ class MyGameOrchestrator extends CGFobject{
         this.currentState = this.state.menu;
     }
 
+    /**
+     * Change Dimensions of the Game Board
+     */
     changeDimension() {
         this.restart();
     }
 
+    /**
+     * Change the selected scene
+     * @param {String} theme - selected scene
+     */
     changeTheme(theme) {
         this.theme = new MySceneGraph(theme, this.scene);
     }
 
+    /**
+     * Changes the Red Player Mode
+     * @param {int} mode - mode chosen for red player (Human, Random Bot or Greedy Bot)
+     */
     changeRedPlayer(mode) {
         this.players["1"] = parseInt(mode);
         this.restart();
     }
 
+    /**
+     * Changes the Blue Player Mode
+     * @param {int} mode - mode chosen for blue player (Human, Random Bot or Greedy Bot)
+     */
     changeBluePlayer(mode) {
         this.players["-1"] = parseInt(mode);
         this.restart();
@@ -135,7 +151,111 @@ class MyGameOrchestrator extends CGFobject{
         
     }
 
-    restart() {        
+    /* -----------------------------------------------------------------------------------
+    ---------------------------------------- MOVES ---------------------------------------
+    -------------------------------------------------------------------------------------*/
+
+    /**
+     * Prepares a Human Movement
+     * If the Movement is Valid, executes it
+     */
+    renderMove() {
+        // Check if Move is Valid
+        var gameState = this.gameboard.toProlog();
+        var move = new MyMove(this.scene, this, this.dimensions, gameState, this.player, this.selectedIds[0], this.selectedIds[1]);
+        if (move.isValid()) {
+            this.animator = new MyMoveAnimator(this.scene, this, this.selected, this.selectedIds, this.dimensions, move);
+            this.gameSequence.push(this.animator); // add move to the game sequence
+            this.animator.start();
+            
+            this.lastMove = move;
+            this.lastMovedPieces = [this.selected[0], this.selected[1]];
+            this.lastBotMove = null;
+            this.lastBotMovedPieces = [null, null];
+            
+            this.currentState = this.state.end_game;
+        }
+        else {
+            this.selected[0] = null;
+            this.selected[1] = null;
+            this.currentState = this.state.next_turn;
+        }
+    }
+
+    /**
+     * Prepares and executes a AI Movement
+     */
+    renderAIMove() {
+        var gameState = this.gameboard.toProlog();
+        var levelAI = this.players[this.player.toString()];
+        this.prolog.AIMoveRequest(this.dimensions, gameState, this.player, levelAI);
+        var moveParameters = this.AIMoveReply(this.prolog.request);
+        
+        var move = new MyAIMove(this.scene, this.dimensions, gameState, this.player, this.gameboard, moveParameters);
+        this.lastBotMove = move;
+        this.lastBotMovedPieces = [move.getPieces()[0], move.getPieces()[1]];
+        
+        this.animator = new MyMoveAnimator(this.scene, this, move.getPieces(), move.getIds(), this.dimensions);
+        this.gameSequence.push(this.animator); // add move to the game sequence
+        this.animator.start();
+    }
+
+    /**
+     * The Player has run out of time
+     * Prepares and Executes a Random Move for the Player
+     */
+    forceMove() {
+        var gameState = this.gameboard.toProlog();
+        var levelAI = "1";
+        this.prolog.AIMoveRequest(this.dimensions, gameState, this.player, levelAI);
+        var moveParameters = this.AIMoveReply(this.prolog.request);
+        
+        var move = new MyAIMove(this.scene, this.dimensions, gameState, this.player, this.gameboard, moveParameters);
+        this.lastMove = move;
+        this.lastMovedPieces = [move.getPieces()[0], move.getPieces()[1]];
+        
+        this.animator = new MyMoveAnimator(this.scene, this, move.getPieces(), move.getIds(), this.dimensions);
+        this.gameSequence.push(this.animator); // add move to the game sequence
+        this.animator.start();
+    }
+
+    /**
+     * Undo a Move
+     */
+    undo() {
+        if (this.lastBotMove != null) {
+            this.animator = new MyUndoAnimator(this.scene, this, this.lastBotMove, this.lastBotMovedPieces, this.dimensions);
+            this.gameSequence.push(this.animator); // add undo move to the game sequence
+            this.animator.start();
+            this.lastBotMove = null;
+            this.lastBotMovedPieces = [null, null];
+            return false;
+        }
+        else if (this.lastMove != null) {
+            this.animator = new MyUndoAnimator(this.scene, this, this.lastMove, this.lastMovedPieces, this.dimensions);
+            this.gameSequence.push(this.animator); // add undo move to the game sequence
+            this.animator.start();
+            this.lastMove = null;
+            this.lastMovedPieces = [null, null];
+            return true;
+        }
+        return true;
+    }
+
+    /**
+     * Plays the Game Sequence
+     */
+    movie() {
+        // activate an animation that plays the game sequence
+        this.startedMovie = true;
+        this.animator = new MyMovieAnimator(this.scene, this, this.gameSequence);
+        this.animator.start();
+    }
+
+    /**
+     * Restart the Game
+     */
+    restart() {
         this.gameSequence = [];
         // Player Moves
         this.selectedPieces = 0;
@@ -164,96 +284,12 @@ class MyGameOrchestrator extends CGFobject{
     }
 
     /* -----------------------------------------------------------------------------------
-    ---------------------------------------- MOVES ---------------------------------------
-    -------------------------------------------------------------------------------------*/
-
-    renderMove() {
-        // Check if Move is Valid
-        this.gameState = this.gameboard.toProlog();
-        var move = new MyMove(this.scene, this, this.dimensions, this.gameState, this.player, this.selectedIds[0], this.selectedIds[1]);
-        if (move.isValid()) {
-            this.animator = new MyMoveAnimator(this.scene, this, this.selected, this.selectedIds, this.dimensions, move);
-            this.gameSequence.push(this.animator); // add move to the game sequence
-            this.animator.start();
-            
-            this.lastMove = move;
-            this.lastMovedPieces = [this.selected[0], this.selected[1]];
-            this.lastBotMove = null;
-            this.lastBotMovedPieces = [null, null];
-            
-            this.currentState = this.state.end_game;
-        }
-        else {
-            this.selected[0] = null;
-            this.selected[1] = null;
-            this.currentState = this.state.next_turn;
-        }
-    }
-
-    renderAIMove() {
-        this.gameState = this.gameboard.toProlog();
-        var levelAI = this.players[this.player.toString()];
-        this.prolog.AIMoveRequest(this.dimensions, this.gameState, this.player, levelAI);
-        var moveParameters = this.AIMoveReply(this.prolog.request);
-        
-        var move = new MyAIMove(this.scene, this.dimensions, this.gameState, this.player, this.gameboard, moveParameters);
-        this.lastBotMove = move;
-        this.lastBotMovedPieces = [move.getPieces()[0], move.getPieces()[1]];
-        
-        this.animator = new MyMoveAnimator(this.scene, this, move.getPieces(), move.getIds(), this.dimensions);
-        this.gameSequence.push(this.animator); // add move to the game sequence
-        this.animator.start();
-    }
-
-    forceMove(){
-        this.gameState = this.gameboard.toProlog();
-        var levelAI = "1";
-        this.prolog.AIMoveRequest(this.dimensions, this.gameState, this.player, levelAI);
-        var moveParameters = this.AIMoveReply(this.prolog.request);
-        
-        var move = new MyAIMove(this.scene, this.dimensions, this.gameState, this.player, this.gameboard, moveParameters);
-        this.lastBotMove = move;
-        this.lastBotMovedPieces = [move.getPieces()[0], move.getPieces()[1]];
-        
-        this.animator = new MyMoveAnimator(this.scene, this, move.getPieces(), move.getIds(), this.dimensions);
-        this.gameSequence.push(this.animator); // add move to the game sequence
-        this.animator.start();
-    }
-
-    undo() {
-        if (this.lastBotMove != null) {
-            this.animator = new MyUndoAnimator(this.scene, this, this.lastBotMove, this.lastBotMovedPieces, this.dimensions);
-            this.gameSequence.push(this.animator); // add undo move to the game sequence
-            this.animator.start();
-            this.lastBotMove = null;
-            this.lastBotMovedPieces = [null, null];
-            return false;
-        }
-        else if (this.lastMove != null) {
-            this.animator = new MyUndoAnimator(this.scene, this, this.lastMove, this.lastMovedPieces, this.dimensions);
-            this.gameSequence.push(this.animator); // add undo move to the game sequence
-            this.animator.start();
-            this.lastMove = null;
-            this.lastMovedPieces = [null, null];
-            return true;
-        }
-        return true;
-    }
-
-    movie() {
-        // activate an animation that plays the game sequence
-        this.startedMovie = true;
-        this.animator = new MyMovieAnimator(this.scene, this, this.gameSequence);
-        this.animator.start();
-    }
-
-    /* -----------------------------------------------------------------------------------
     ---------------------------------------- MAIN ----------------------------------------
     -------------------------------------------------------------------------------------*/
 
     /**
      * Updates animation
-     * @param {*} t current time
+     * @param {*} t - current time
      */
     update(t) {
         if (this.animator != null) {
@@ -269,18 +305,16 @@ class MyGameOrchestrator extends CGFobject{
     orchestrate() {
         let result = null;
         if (this.scene.movie && this.currentState != this.state.movie) {
-            this.savedboard = this.gameboard; 
             this.currentState = this.state.movie;
         }
         else if (this.scene.undo && this.currentState != this.state.undo) {
-            this.savedboard = this.gameboard; 
             this.currentState = this.state.undo;
         }
         else if (this.scene.restart && this.currentState != this.state.start) {
             this.restart();
         }
 
-        if(this.currentState == this.state.end_game && this.over){
+        if (this.currentState == this.state.end_game && this.over) {
             this.over = false;
             this.winner = 0;
             this.restart();
@@ -294,8 +328,6 @@ class MyGameOrchestrator extends CGFobject{
                     result = this.startReply(this.prolog.request);
                     this.player = result[0];
                     this.gameboard.toJS(result[1]);
-                    this.initialBoard = new MyGameBoard(this.scene);
-                    this.initialBoard.toJS(result[1]);
                     this.currentState = this.state.next_turn;
                     break;
     
@@ -306,7 +338,7 @@ class MyGameOrchestrator extends CGFobject{
                             if (this.selected[0] != null) {
                                 this.currentState = this.state.destination_piece_selection;
                             }
-                            if(this.timeout){
+                            if (this.timeout) {
                                 this.forceMove();
                                 this.timeout = false;
                                 this.startTurnTime = 0;
@@ -316,6 +348,7 @@ class MyGameOrchestrator extends CGFobject{
                             
                         }
                         else {
+                            // bot
                             this.renderAIMove();
                             this.currentState = this.state.end_game;                            
                         }
@@ -399,19 +432,26 @@ class MyGameOrchestrator extends CGFobject{
         
     }
 
+    /**
+     * Display the Game
+     */
     display() {
         this.theme.displayScene();
         if (this.animator != null) {
             this.animator.display();
         }
         this.gameboard.display();
-        //this.timer.display(this.time);
     }
 
     /* -----------------------------------------------------------------------------------
     --------------------------------------- PICKING --------------------------------------
     -------------------------------------------------------------------------------------*/
 
+    /**
+     * Process Picking Results
+     * @param {Boolean} mode - picking mode
+     * @param {List} results - results from the picking
+     */
     managePick(mode, results) {
         if (mode == false) {
             if (results != null && results.length > 0) {
@@ -428,6 +468,11 @@ class MyGameOrchestrator extends CGFobject{
         }
     }
 
+    /**
+     * Processes Picking on a Piece
+     * @param {Piece} obj - selected piece
+     * @param {int} id - selected piece's id
+     */
     onObjectSelected(obj, id) {
         if (obj instanceof MyPiece) {
             // Selecting a Piece
@@ -455,15 +500,16 @@ class MyGameOrchestrator extends CGFobject{
     -------------------------------------------------------------------------------------*/
 
     /**
-     * Gets the initial Board
-     * @param {*} data initial board and player
+     * Gets the initial Board and Player
+     * @param {Prolog Data} data - 0-Board-Player / 1
      */
     startReply(data) {
-        if(data.response == "Syntax Error")
+        if (data.response == "Syntax Error")
             return data.response;
         let answer = data.response.split("-");
         if (answer[0] != "0") {
             console.log("Error");
+            return;
         }
         var Player = answer[2]; 
         var boardStr = answer[1].substring(2, answer[1].length - 2);
@@ -484,20 +530,21 @@ class MyGameOrchestrator extends CGFobject{
 
     /**
      * Verifies if the game as finished
-     * @param {*} data winner
+     * @param {Prolog Data} data - 0-Winner / 1
      */
     gameOverReply(data) {
         let answer = data.response;
         if (answer[0] != "0") {
             console.log("Error");
+            return;
         }
-        if(answer[2] == " ") return (answer[3] + answer[4]);
+        if (answer[2] == " ") return (answer[3] + answer[4]);
         return answer[2];
     }
 
     /**
      * Gets AI Move
-     * @param {*} data move (column-line-direction)
+     * @param {Prolog Data} data - 0-Column-Line-Direction / 1
      */
     AIMoveReply(data) {
         let answer = data.response.split("-");
@@ -510,7 +557,7 @@ class MyGameOrchestrator extends CGFobject{
 
     /**
      * Verifies if player move is valid
-     * @param {*} data move (column-line-direction)
+     * @param {Prolog Data} data - 0-Column-Line-Direction / 1
      */
     playerMoveReply(data) {
         let answer = data.response;
@@ -521,8 +568,8 @@ class MyGameOrchestrator extends CGFobject{
     }
 
     /**
-     * Makes move, returning new board
-     * @param {*} data new board and next player to move
+     * Makes move, returning new board and next player to move
+     * @param {Prolog Data} data - 0-NewBoard-NewPlayer / 1
      */
     moveReply(data) {
         let answer = data.response.split("-");
@@ -545,14 +592,21 @@ class MyGameOrchestrator extends CGFobject{
         return result;
     }
 
+    /* -----------------------------------------------------------------------------------
+    ---------------------------------------- HTML ----------------------------------------
+    -------------------------------------------------------------------------------------*/
+
+    /**
+     * Updates the Control Panel in the Screen
+     */
     updateHTML() {
-        if(this.currentState != this.state.menu){
+        if (this.currentState != this.state.menu) {
             document.getElementById("info").innerText = "";
-            if(this.player == 1){
+            if (this.player == 1) {
                 document.getElementById("player").innerText = "Red Player's turn";
                 document.getElementById("next").innerText = "Next Turn: Blue Player";
             }
-            else if(this.player == -1){
+            else if (this.player == -1) {
                 document.getElementById("player").innerText = "Blue Player's turn";
                 document.getElementById("next").innerText = "Next Turn: Red Player";
             }
@@ -561,13 +615,14 @@ class MyGameOrchestrator extends CGFobject{
             
             document.getElementById("time").innerText = "Total Time: " + this.timer.getTime(this.time) + " seconds ";
             
-            if(this.timedGame)
+            if (this.timedGame) {
                 document.getElementById("turn-time").innerText = "Time Left: " + this.timer.getTime(this.turnTime) + " seconds ";
-            else{
+            }
+            else {
                 document.getElementById("turn-time").innerText = "Game Not Timed";
             }
         }
-        else{
+        else {
             document.getElementById("info").innerText = "Game didn't start yet";
         }
        
