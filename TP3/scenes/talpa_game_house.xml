@@ -103,7 +103,7 @@
             <transformations>
                 <translation x="0" y="-10" z="0" />
                 <rotation axis="y" angle="180" />
-                <rotation axis="x" angle="90"/>
+                <rotation axis="x" angle="90" />
             </transformations>
 
             <descendants>
@@ -139,10 +139,11 @@
             <descendants>
                 <noderef id="outside-canoe" />
                 <noderef id="inside-canoe" />
-                <!--<noderef id="blue-seat" />
+                <noderef id="blue-seat" />
                 <noderef id="red-seat" />
-                <noderef id="oars" />
-                <noderef id="buoys" />-->
+                <noderef id="sticks" />
+                <noderef id="buoys" />
+                <!--<noderef id="oars" /> -->
             </descendants>
         </node>
 
@@ -152,10 +153,79 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <rotation axis="y" angle="90" />
             </transformations>
 
             <descendants>
-                
+                <noderef id="outside1" />
+                <noderef id="outside2" />
+            </descendants>
+        </node>
+
+        <node id="outside1">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="outside" />
+            </descendants>
+        </node>
+
+        <node id="outside2">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <rotation axis="y" angle="180" />
+            </transformations>
+
+            <descendants>
+                <noderef id="outside" />
+            </descendants>
+        </node>
+
+        <node id="outside">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="0" z="-12" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="patch" npointsU="5" npointsV="4" npartsU="20" npartsV="20" >                
+                    <controlpoint x="-30" y="-12" z="0" />
+                    <controlpoint x="-15" y="-12" z="0" />
+                    <controlpoint x="+15" y="-12" z="0" />
+                    <controlpoint x="+30" y="-12" z="0" />
+
+                    <controlpoint x="-30" y="-12" z="2" />
+                    <controlpoint x="-15" y="0"   z="2" />
+                    <controlpoint x="+15" y="0"   z="2" />
+                    <controlpoint x="+30" y="-12" z="2" />
+
+                    <controlpoint x="-30" y="-12" z="8" />
+                    <controlpoint x="-15" y="+8"  z="8" />
+                    <controlpoint x="+15" y="+8"  z="8" />
+                    <controlpoint x="+30" y="-12" z="8" />
+
+                    <controlpoint x="-30" y="-12" z="12" />
+                    <controlpoint x="-15" y="+12" z="12" />
+                    <controlpoint x="+15" y="+12" z="12" />
+                    <controlpoint x="+30" y="-12" z="12" />
+                    
+                    <controlpoint x="-30" y="-12" z="16" />
+                    <controlpoint x="-15" y="+14" z="16" />
+                    <controlpoint x="+15" y="+14" z="16" />
+                    <controlpoint x="+30" y="-12" z="16" />
+                </leaf>
             </descendants>
         </node>
 
@@ -165,6 +235,7 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <rotation axis="y" angle="90" />
             </transformations>
 
             <descendants>
@@ -240,16 +311,20 @@
             </descendants>
         </node>
 
-        <!--<node id="blue-seat">
+        <node id="blue-seat">
             <material id="default" />
             <texture id="blue">
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <scale sx="3" sy="1" sz="1" />
+                <translation x="0" y="8" z="-12" />
+                <rotation axis="x" angle="-90" />
+                <rotation axis="z" angle="45" />
             </transformations>
 
             <descendants>
-                
+                <leaf type="cylinder" height="1" topRadius="5" bottomRadius="4" stacks="4" slices="4" />
             </descendants>
         </node>
 
@@ -259,14 +334,18 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <scale sx="3" sy="1" sz="1" />
+                <translation x="0" y="8" z="12" />
+                <rotation axis="x" angle="-90" />
+                <rotation axis="z" angle="45" />
             </transformations>
 
             <descendants>
-                
+                <leaf type="cylinder" height="1" topRadius="5" bottomRadius="4" stacks="4" slices="4" />
             </descendants>
         </node>
 
-        <node id="oars">
+        <node id="sticks">
             <material id="default" />
             <texture id="null">
                 <amplification afs="1" aft="1" />
@@ -275,47 +354,96 @@
             </transformations>
 
             <descendants>
-                <noderef id="oar1" />
-                <noderef id="oar2" />
+                <noderef id="stick1" />
+                <noderef id="stick2" />
+                <noderef id="stick3" />
+                <noderef id="stick4" />
             </descendants>
         </node>
 
-        <node id="oar1">
+        <node id="stick1">
             <material id="default" />
             <texture id="null">
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <translation x="0" y="0" z="-14" />
             </transformations>
 
             <descendants>
-                
+                <noderef id="small-stick" />
             </descendants>
         </node>
 
-        <node id="oar2">
+        <node id="stick2">
             <material id="default" />
             <texture id="null">
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <translation x="0" y="0" z="-10" />
             </transformations>
 
             <descendants>
-                
+                <noderef id="large-stick" />
             </descendants>
         </node>
-        
-        <node id="oar">
+
+        <node id="stick3">
             <material id="default" />
-            <texture id="oar">
+            <texture id="null">
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <translation x="0" y="0" z="14" />
             </transformations>
 
             <descendants>
-                
+                <noderef id="small-stick" />
+            </descendants>
+        </node>
+
+        <node id="stick4">
+            <material id="default" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="0" z="10" />
+            </transformations>
+
+            <descendants>
+                <noderef id="large-stick" />
+            </descendants>
+        </node>
+
+        <node id="small-stick">
+            <material id="default" />
+            <texture id="interior">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="-11.9" y="8.2" z="0" />
+                <rotation axis="y" angle="90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="23.8" topRadius="0.5" bottomRadius="0.5" stacks="16" slices="16" />
+            </descendants>
+        </node>
+
+        <node id="large-stick">
+            <material id="default" />
+            <texture id="interior">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="-13" y="8.2" z="0" />
+                <rotation axis="y" angle="90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="26" topRadius="0.5" bottomRadius="0.5" stacks="16" slices="16" />
             </descendants>
         </node>
 
@@ -341,6 +469,9 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <translation x="-14" y="8" z="-12" />
+                <rotation axis="z" angle="38" />
+                <rotation axis="y" angle="-16" />
             </transformations>
 
             <descendants>
@@ -354,6 +485,9 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <translation x="14" y="8" z="-12" />
+                <rotation axis="z" angle="-38" />
+                <rotation axis="y" angle="16" />
             </transformations>
 
             <descendants>
@@ -367,6 +501,9 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <translation x="-14" y="8" z="12" />
+                <rotation axis="z" angle="38" />
+                <rotation axis="y" angle="16" />
             </transformations>
 
             <descendants>
@@ -380,6 +517,9 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <translation x="14" y="8" z="12" />
+                <rotation axis="z" angle="-38" />
+                <rotation axis="y" angle="-16" />
             </transformations>
 
             <descendants>
@@ -393,12 +533,13 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <rotation axis="y" angle="90" />
             </transformations>
 
             <descendants>
-                <leaf type="torus" inner="0.2" outer="1" slices="32" loops="32" />
+                <leaf type="torus" inner="1.3" outer="4" slices="32" loops="32" />
             </descendants>
-        </node>-->
+        </node>
 
     </nodes>
 </lsf>
