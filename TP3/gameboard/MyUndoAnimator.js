@@ -24,6 +24,7 @@ class MyUndoAnimator extends MyMoveAnimator {
         this.removingCurrentPosition[0] = this.removingPositions[0][0];
         this.removingCurrentPosition[1] = this.removingPositions[0][1];
         this.removingCurrentPosition[2] = this.removingPositions[0][2];
+        this.removingPiecePosition = [position[0], position[1]];
     }
 
     /**
