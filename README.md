@@ -45,7 +45,7 @@
   - Second Scene
     - Moving Paddles
     - Fishes Passing By
-    - We are in a lake
+    - The water seems to be moving
 - Scene
   - The first scene is a living room with a fireplace, sofas, and lamps. The gaming spot is a table with one chair for each player.
   - [Link to the Scene Room](https://git.fe.up.pt/laig/laig-2020-2021/t06/laig-t06-g02/-/blob/master/TP3/scenes/talpa_living_room.xml)
