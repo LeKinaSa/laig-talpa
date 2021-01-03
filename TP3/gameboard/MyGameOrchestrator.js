@@ -99,16 +99,14 @@ class MyGameOrchestrator extends CGFobject{
         this.theme = new MySceneGraph(theme, this.scene);
     }
 
-    changeRedPlayer(mode) {        
+    changeRedPlayer(mode) {
         this.players["1"] = parseInt(mode);
         this.restart();
-        
     }
 
     changeBluePlayer(mode) {
         this.players["-1"] = parseInt(mode);
         this.restart();
-        
     }
 
     /**
@@ -163,8 +161,7 @@ class MyGameOrchestrator extends CGFobject{
         // Dimensions
         this.dimensions = this.scene.selectedDimension;
         
-        if(this.currentState != this.state.menu)
-            this.currentState = this.state.start;
+        this.currentState = this.state.start;
         this.scene.restart = false;
     }
 
@@ -383,7 +380,6 @@ class MyGameOrchestrator extends CGFobject{
                         this.startTurnTime = 0;
                         this.turnTime = 30;
                     }
-                    console.log(this.gameboard);
                     break;
                 
                 case this.state.restart:
