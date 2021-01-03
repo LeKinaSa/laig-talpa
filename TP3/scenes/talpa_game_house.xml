@@ -1038,7 +1038,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="cylinder" height="12.5" topRadius="0.4" bottomRadius="0.4" stacks="16" slices="16"/>
+                <leaf type="cylinder" height="13.5" topRadius="0.4" bottomRadius="0.4" stacks="16" slices="16"/>
             </descendants>
         </node>
 
@@ -1048,7 +1048,7 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="0" y="0" z="13" />
+                <translation x="0" y="0" z="14" />
             </transformations>
 
             <descendants>
@@ -1062,7 +1062,7 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="0" y="0" z="13" />
+                <translation x="0" y="0" z="14" />
                 <scale sx="1" sy="0.25" sz="1" />
                 <rotation axis="z" angle="45" />
             </transformations>
@@ -1078,13 +1078,13 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="0" y="0" z="14.5" />
+                <translation x="0" y="0" z="15.5" />
                 <scale sx="1" sy="0.25" sz="1" />
                 <rotation axis="z" angle="45" />
             </transformations>
 
             <descendants>
-                <leaf type="cylinder" height="9" topRadius="2" bottomRadius="2" stacks="12" slices="4" />
+                <leaf type="cylinder" height="8" topRadius="2" bottomRadius="2" stacks="12" slices="4" />
             </descendants>
         </node>
 
