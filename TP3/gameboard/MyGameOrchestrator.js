@@ -68,7 +68,8 @@ class MyGameOrchestrator extends CGFobject{
         this.startedMovie = false;
 
         this.state = {
-            menu: 0, // show menu and handle settings.
+            menu: 10, // before starting game
+            start: 0, // game start
             load_scenario: 1, // (keep game state), load file, render scene, board, pieces, etc.
             next_turn: 2, // Human? pick piece or tile. Prolog? [Request(s) to prolog] get piece/tile, 
             // possible moves and destination piece/tile
@@ -162,7 +163,7 @@ class MyGameOrchestrator extends CGFobject{
         // Dimensions
         this.dimensions = this.scene.selectedDimension;
         
-        this.currentState = this.state.menu;
+        this.currentState = this.state.start;
         this.scene.restart = false;
     }
 
@@ -280,7 +281,7 @@ class MyGameOrchestrator extends CGFobject{
             this.savedboard = this.gameboard; 
             this.currentState = this.state.undo;
         }
-        else if (this.scene.restart && this.currentState != this.state.menu) {
+        else if (this.scene.restart && this.currentState != this.state.start) {
             this.restart();
         }
 
@@ -292,6 +293,8 @@ class MyGameOrchestrator extends CGFobject{
         if (!this.over) {
             switch(this.currentState) {
                 case this.state.menu:
+                    break;
+                case this.state.start:
                     this.prolog.startRequest(this.dimensions);
                     result = this.startReply(this.prolog.request);
                     this.player = result[0];
@@ -387,7 +390,7 @@ class MyGameOrchestrator extends CGFobject{
                 case this.state.restart:
                     if (!this.scene.restart) {
                         this.restart();
-                        this.currentState = this.state.menu;
+                        this.currentState = this.state.start;
                     }
                     break;
 
@@ -546,24 +549,29 @@ class MyGameOrchestrator extends CGFobject{
     }
 
     updateHTML() {
-        
-        if(this.player == 1){
-            document.getElementById("player").innerText = "Red Player's turn";
-            document.getElementById("next").innerText = "Next Turn: Blue Player";
+        if(this.currentState != this.state.menu){
+            if(this.player == 1){
+                document.getElementById("player").innerText = "Red Player's turn";
+                document.getElementById("next").innerText = "Next Turn: Blue Player";
+            }
+            else if(this.player == -1){
+                document.getElementById("player").innerText = "Blue Player's turn";
+                document.getElementById("next").innerText = "Next Turn: Red Player";
+            }
+    
+            document.getElementById("score").innerText = "Red " + this.score["1"] + " : " + this.score["-1"] + " Blue";
+            
+            document.getElementById("time").innerText = "Total Time: " + this.timer.getTime(this.time) + " seconds ";
+            
+            if(this.timedGame)
+                document.getElementById("turn-time").innerText = "Time Left: " + this.timer.getTime(this.turnTime) + " seconds ";
+            else{
+                document.getElementById("turn-time").innerText = "Game Not Timed";
+            }
         }
-        else if(this.player == -1){
-            document.getElementById("player").innerText = "Blue Player's turn";
-            document.getElementById("next").innerText = "Next Turn: Red Player";
-        }
-
-        document.getElementById("score").innerText = "Red " + this.score["1"] + " : " + this.score["-1"] + " Blue";
-        
-        document.getElementById("time").innerText = "Total Time: " + this.timer.getTime(this.time) + " seconds ";
-        
-        if(this.timedGame)
-            document.getElementById("turn-time").innerText = "Time Left: " + this.timer.getTime(this.turnTime) + " seconds ";
         else{
-            document.getElementById("turn-time").innerText = "Game Not Timed";
+            document.getElementById("info").innerText = "Game didn't start yet";
         }
+       
     }
 }
