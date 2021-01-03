@@ -1,8 +1,17 @@
 /**
  * MyUndoAnimator
- * @description Class that defines the animations for the undo moves
+ * Defines the Animations for the Undo Moves
  */
 class MyUndoAnimator extends MyMoveAnimator {
+    /**
+     * MyUndoAnimator
+     * @constructor
+     * @param {CGFscene} scene - Reference to MyScene object
+     * @param {MyGameOrchestrator} gameOrchestrator - game orchestrator
+     * @param {MyGameMove} move - move that is going to be undone
+     * @param {List of Pieces} pieces - pieces involved in the move
+     * @param {int} dimensions - dimensions of the board
+     */
     constructor(scene, gameOrchestrator, move, pieces, dimensions) {
         super(scene, gameOrchestrator, pieces, [], dimensions);
         this.move = move;

@@ -1,8 +1,14 @@
 /**
  * MyAnimator
- * @description Manages the Animation of a Game Sequence
+ * Manages the Game Animations
  */
 class MyAnimator extends CGFobject {
+    /**
+     * MyAnimator
+     * @constructor
+     * @param {CGFscene} scene - Reference to MyScene object
+     * @param {MyGameOrchestrator} gameOrchestrator - game orchestrator
+     */
     constructor(scene, gameOrchestrator) {
         super(scene);
         this.gameOrchestrator = gameOrchestrator;
