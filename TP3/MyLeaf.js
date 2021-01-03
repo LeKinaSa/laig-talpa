@@ -18,7 +18,7 @@ class MyLeaf {
 
         // gets the type of the primitive from the xml file
         var type = this.graph.reader.getItem(element, 'type', ['rectangle', 'torus', 'triangle',
-         'sphere', 'cylinder', 'spritetext', 'spriteanim', 'plane', 'patch', 'defbarrel']);
+         'sphere', 'cylinder', 'spritetext', 'spriteanim', 'plane', 'patch', 'defbarrel', 'obj']);
         
         // switch to decide what primitive is going to be shown in the screen
         switch(type) {
@@ -211,6 +211,14 @@ class MyLeaf {
                 
                 // Create Primitive
                 this.primitive = new MyDefBarrel(this.graph.scene, this.base, this.middle, this.height, this.slices, this.stacks);
+                break;
+            
+            case 'obj':
+
+                this.url = this.graph.reader.getString(element, 'url');      
+
+                this.primitive = new CGFOBJModel(this.graph.scene, this.url, false);
+                console.log(this.primitive);
                 break;
 
             default:
