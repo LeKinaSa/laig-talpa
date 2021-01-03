@@ -6,7 +6,7 @@ class MyMoveAnimator extends MyAnimator {
     constructor(scene, gameOrchestrator, pieces, ids, dimensions) {
         super(scene, gameOrchestrator);
         this.dimensions = dimensions;
-        this.gameboardPieces = [null, null]; // Needed to make sure there are no duplicates
+        this.gameboardPieces = [null, null, null]; // Needed to make sure there are no duplicates
         this.pieces = [null, null];
         this.pieces[0] = pieces[0]; //  Moving  Piece
         this.pieces[1] = pieces[1]; // Removing Piece
@@ -16,8 +16,8 @@ class MyMoveAnimator extends MyAnimator {
         this.totalTime = 1;
         this.movingCurrentPosition   = [0, 0];      // Position = [column, line]
         this.removingCurrentPosition = [0, 0, 0];   // Position = [x, y, z]
-        this.outsideBoardPos = [5, 0, 0];   // Y = 0
-        this.ymax = 3;
+        this.outsideBoardPos = [8, 0, 0];   // Y = 0
+        this.ymax = 5;
     }
 
     /**
@@ -67,6 +67,7 @@ class MyMoveAnimator extends MyAnimator {
         this.removingCurrentPosition[0] = this.removingPositions[0][0];
         this.removingCurrentPosition[1] = this.removingPositions[0][1];
         this.removingCurrentPosition[2] = this.removingPositions[0][2];
+        this.removingPiecePosition = [position[0], position[1]];
     }
 
     /**
@@ -113,15 +114,21 @@ class MyMoveAnimator extends MyAnimator {
         this.calculatePositions();
         this.calculateRemovingMovementEquation();
 
-        var initialTile = this.gameOrchestrator.gameboard.getTile(this.movingPositions[0][0],
-                                                                  this.movingPositions[0][1]);
-        var  finalTile  = this.gameOrchestrator.gameboard.getTile(this.movingPositions[1][0],
-                                                                  this.movingPositions[1][1]);
-        this.gameboardPieces[0] = initialTile.getPiece();
-        this.gameboardPieces[1] =   finalTile.getPiece();
-
+        if (this.ids[0] != this.ids[1]) {
+            var initialTile = this.gameOrchestrator.gameboard.getTile(this.movingPositions[0][0],
+                                                                      this.movingPositions[0][1]);
+            var  finalTile  = this.gameOrchestrator.gameboard.getTile(this.movingPositions[1][0],
+                                                                      this.movingPositions[1][1]);
+            this.gameboardPieces[0] = initialTile.getPiece();
+            this.gameboardPieces[1] =   finalTile.getPiece();
+        }
+        var tile = this.gameOrchestrator.gameboard.getTile(this.removingPiecePosition[0],
+                                                           this.removingPiecePosition[1]);
+        this.gameboardPieces[2] = tile.getPiece();
+        
         if (this.gameboardPieces[0] != null) { this.gameboardPieces[0].startMovement(); }
         if (this.gameboardPieces[1] != null) { this.gameboardPieces[1].startMovement(); }
+        if (this.gameboardPieces[2] != null) { this.gameboardPieces[2].startMovement(); }
         this.pieces[0].startMovement();
         this.pieces[1].startMovement();
     }
@@ -138,6 +145,7 @@ class MyMoveAnimator extends MyAnimator {
         this.pieces[1].finishMovement();
         if (this.gameboardPieces[0] != null) { this.gameboardPieces[0].finishMovement(); }
         if (this.gameboardPieces[1] != null) { this.gameboardPieces[1].finishMovement(); }
+        if (this.gameboardPieces[2] != null) { this.gameboardPieces[2].finishMovement(); }
 
         if (this.ids[0] != this.ids[1]) {
             this.gameOrchestrator.gameboard.movePieceByPosition(this.movingPositions[0][0],
@@ -146,8 +154,8 @@ class MyMoveAnimator extends MyAnimator {
                                                                 this.movingPositions[1][1]);
         }
         else {
-            this.gameOrchestrator.gameboard.removePieceByPosition(this.movingPositions[0][0],
-                                                                  this.movingPositions[0][1]);
+            this.gameOrchestrator.gameboard.removePieceByPosition(this.removingPiecePosition[0],
+                                                                  this.removingPiecePosition[1]);
         }
         return true;
     }
