@@ -41,7 +41,7 @@
 - Scene Strong Points
   - Beautiful Animations for Moving and Removing Pieces
   - First Scene
-    - ???
+    - Plants and Lamps
   - Second Scene
     - Moving Paddles
     - Fishes Passing By
