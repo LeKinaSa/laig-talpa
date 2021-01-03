@@ -14,8 +14,8 @@
             <to x="0" y="-2" z="0" />
         </perspective>        
         <perspective id="global" near="0.1" far="500" angle="45">
-            <from x="0" y="60" z="60" />
-            <to x="0" y="-2" z="0" />
+            <from x="0" y="30" z="70" />
+            <to x="0" y="15" z="0" />
         </perspective>
         <perspective id="boardCamera" near="0.1" far="500" angle="45">
             <from x="10" y="20" z="0" />
@@ -39,15 +39,17 @@
     </lights>
 
     <textures>
-        <texture id="lake"  path="./scenes/images/river/lake.png"  />
-        <texture id="river" path="./scenes/images/river/river.png" />
-        <texture id="buoy"  path="./scenes/images/river/buoy.png"  />
-        <texture id="oar"   path="./scenes/images/river/wood.jpg"  />
+        <texture id="exterior" path="./scenes/images/river/exterior.jpg" />
+        <texture id="interior" path="./scenes/images/river/interior.jpg" />
+        <texture id="lake"     path="./scenes/images/river/lake.png"     />
+        <texture id="river"    path="./scenes/images/river/river.jpg"    />
+        <texture id="buoy"     path="./scenes/images/river/buoy.png"     />
+        <texture id="oar"      path="./scenes/images/river/wood.jpg"     />
+        <texture id="red"      path="./scenes/images/red-chair.jpg"      />
+        <texture id="blue"     path="./scenes/images/blue-chair.jpg"     />
     </textures>
 
     <spritesheets>
-        <spritesheet id="fire" path="./scenes/images/fire.png" sizeM="8" sizeN="8"/>
-        <spritesheet id="tv"   path="./scenes/images/tv.png" sizeM="20" sizeN="15"/>
     </spritesheets>
 
     <materials>
@@ -70,13 +72,6 @@
             <ambient  r="0.2" g="0.0" b="0.0" a="1.0" />
             <diffuse  r="0.6" g="0.0" b="0.0" a="1.0" />
             <specular r="0.8" g="0.0" b="0.0" a="1.0" />
-            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
-        </material>
-        <material id="metalMaterial">
-            <shininess value="10" />
-            <ambient  r="0.8" g="0.8" b="0.8" a="1.0" />
-            <diffuse  r="0.6" g="0.6" b="0.6" a="1.0" />
-            <specular r="0.5" g="0.5" b="0.5" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
     </materials>
@@ -106,10 +101,13 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <translation x="0" y="-10" z="0" />
+                <rotation axis="y" angle="180" />
+                <rotation axis="x" angle="90"/>
             </transformations>
 
             <descendants>
-                <leaf type="sphere" radius="-75" slices="32" stacks="32" />
+                <leaf type="sphere" radius="-100" slices="32" stacks="32" />
             </descendants>
         </node>
 
@@ -119,10 +117,13 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <translation x="0" y="-10" z="0" />
+                <rotation axis="x" angle="90" />
+                
             </transformations>
 
             <descendants>
-                <leaf type="cylinder" height="0.1" topRadius="75" bottomRadius="75" stacks="32" slices="2" />
+               <leaf type="cylinder" height="0.1" topRadius="100" bottomRadius="-100" stacks="2" slices="32" />
             </descendants>
         </node>
 
@@ -132,21 +133,22 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <translation x="0" y="-10" z="0" />
             </transformations>
 
             <descendants>
                 <noderef id="outside-canoe" />
                 <noderef id="inside-canoe" />
-                <noderef id="blue-seat" />
+                <!--<noderef id="blue-seat" />
                 <noderef id="red-seat" />
                 <noderef id="oars" />
-                <noderef id="buoys" />
+                <noderef id="buoys" />-->
             </descendants>
         </node>
 
         <node id="outside-canoe">
             <material id="default" />
-            <texture id="null">
+            <texture id="exterior">
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
@@ -159,6 +161,20 @@
 
         <node id="inside-canoe">
             <material id="default" />
+            <texture id="interior">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="inside1" />
+                <noderef id="inside2" />
+            </descendants>
+        </node>
+
+        <node id="inside1">
+            <material id="null" />
             <texture id="null">
                 <amplification afs="1" aft="1" />
             </texture>
@@ -166,13 +182,67 @@
             </transformations>
 
             <descendants>
-                
+                <noderef id="inside" />
             </descendants>
         </node>
 
-        <node id="blue-seat">
-            <material id="default" />
+        <node id="inside2">
+            <material id="null" />
             <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <rotation axis="y" angle="180" />
+            </transformations>
+
+            <descendants>
+                <noderef id="inside" />
+            </descendants>
+        </node>
+
+        <node id="inside">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="0" z="-12" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="patch" npointsU="5" npointsV="4" npartsU="20" npartsV="20" >
+                    <controlpoint x="-30" y="-12" z="16" />
+                    <controlpoint x="-15" y="+14" z="16" />
+                    <controlpoint x="+15" y="+14" z="16" />
+                    <controlpoint x="+30" y="-12" z="16" />
+
+                    <controlpoint x="-30" y="-12" z="12" />
+                    <controlpoint x="-15" y="+12" z="12" />
+                    <controlpoint x="+15" y="+12" z="12" />
+                    <controlpoint x="+30" y="-12" z="12" />
+
+                    <controlpoint x="-30" y="-12" z="8" />
+                    <controlpoint x="-15" y="+8"  z="8" />
+                    <controlpoint x="+15" y="+8"  z="8" />
+                    <controlpoint x="+30" y="-12" z="8" />
+
+                    <controlpoint x="-30" y="-12" z="2" />
+                    <controlpoint x="-15" y="0"   z="2" />
+                    <controlpoint x="+15" y="0"   z="2" />
+                    <controlpoint x="+30" y="-12" z="2" />
+
+                    <controlpoint x="-30" y="-12" z="0" />
+                    <controlpoint x="-15" y="-12" z="0" />
+                    <controlpoint x="+15" y="-12" z="0" />
+                    <controlpoint x="+30" y="-12" z="0" />
+                </leaf>
+            </descendants>
+        </node>
+
+        <!--<node id="blue-seat">
+            <material id="default" />
+            <texture id="blue">
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
@@ -185,7 +255,7 @@
 
         <node id="red-seat">
             <material id="default" />
-            <texture id="null">
+            <texture id="red">
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
@@ -328,7 +398,7 @@
             <descendants>
                 <leaf type="torus" inner="0.2" outer="1" slices="32" loops="32" />
             </descendants>
-        </node>
+        </node>-->
 
     </nodes>
 </lsf>
