@@ -26,11 +26,11 @@ class XMLscene extends CGFscene {
         this.timedGame = false;
         
         this.gameScenes = {
-            'Living Room': "talpa_scenes.xml",
-            'The GameHouse': "talpa_game_house.xml"
+            'Living Room': "talpa_living_room.xml",
+            'Boat': "talpa_boat.xml"
         }
 
-        this.selectedTheme = "talpa_scenes.xml";
+        this.selectedTheme = "talpa_boat.xml";
 
         this.dimensions = {
             '8': 8,
