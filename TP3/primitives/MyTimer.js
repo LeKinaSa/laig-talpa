@@ -5,7 +5,7 @@
 class MyTimer {
     constructor(scene) {
         this.scene = scene;
-        this.spriteText = new MySpriteText(this.scene, "");
+        //this.spriteText = new MySpriteText(this.scene, "");
     }
 
     getTime(time) {
@@ -22,7 +22,7 @@ class MyTimer {
         return timeStr;
     }
 
-    display(time) {
+/*     display(time) {
         var timeStr = this.getTime(time);
         this.spriteText.text = timeStr;
 
@@ -36,5 +36,5 @@ class MyTimer {
         this.spriteText.display();
 
         this.scene.popMatrix();
-    }
+    } */
 }
