@@ -341,12 +341,12 @@
                 <amplification afs="10" aft="10" />
             </texture>
             <transformations>
-                <translation x="0" y="-0.001" z="0"/>
+                <translation x="0" y="-0.02" z="0"/>
                 <rotation axis="x" angle="-90"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5"/>
+                <leaf type="rectangle" x1="-6" y1="-6" x2="6" y2="6"/>
             </descendants>
         </node>
 
@@ -356,11 +356,11 @@
                 <amplification afs="10" aft="1" />
             </texture>
             <transformations>
-                <translation x="0" y="-0.5" z="5"/>
+                <translation x="0" y="-0.5" z="6"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+                <leaf type="rectangle" x1="-6" y1="-0.5" x2="6" y2="0.5"/>
             </descendants>
         </node>
 
@@ -370,12 +370,12 @@
                 <amplification afs="10" aft="1" />
             </texture>
             <transformations>
-                <translation x="5" y="-0.5" z="0"/>
+                <translation x="6" y="-0.5" z="0"/>
                 <rotation axis="y" angle="90"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+                <leaf type="rectangle" x1="-6" y1="-0.5" x2="6" y2="0.5"/>
             </descendants>
         </node>
 
@@ -385,12 +385,12 @@
                 <amplification afs="10" aft="1" />
             </texture>
             <transformations>
-                <translation x="-5" y="-0.5" z="0"/>
+                <translation x="-6" y="-0.5" z="0"/>
                 <rotation axis="y" angle="-90"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+                <leaf type="rectangle" x1="-6" y1="-0.5" x2="6" y2="0.5"/>
             </descendants>
         </node>
 
@@ -400,12 +400,12 @@
                 <amplification afs="10" aft="1" />
             </texture>
             <transformations>
-                <translation x="0" y="-0.5" z="-5"/>
+                <translation x="0" y="-0.5" z="-6"/>
                 <rotation axis="y" angle="-180"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-5" y1="-0.5" x2="5" y2="0.5"/>
+                <leaf type="rectangle" x1="-6" y1="-0.5" x2="6" y2="0.5"/>
             </descendants>
         </node>
 
@@ -420,7 +420,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5"/>
+                <leaf type="rectangle" x1="-6" y1="-6" x2="6" y2="6"/>
             </descendants>
         </node>
 
@@ -448,7 +448,7 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="-4" y="-4" z="0"/>
+                <translation x="-5" y="-5" z="0"/>
             </transformations>
 
             <descendants>
@@ -462,7 +462,7 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="-4" y="4" z="0"/>
+                <translation x="-5" y="5" z="0"/>
             </transformations>
 
             <descendants>
@@ -476,7 +476,7 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="4" y="-4" z="0"/>
+                <translation x="5" y="-5" z="0"/>
             </transformations>
 
             <descendants>
@@ -490,7 +490,7 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
-                <translation x="4" y="4" z="0"/>
+                <translation x="5" y="5" z="0"/>
             </transformations>
 
             <descendants>
@@ -504,6 +504,7 @@
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <translation x="0" y="-0.01" z="0" />
                 <rotation axis="y" angle="90"/>
             </transformations>
 
@@ -527,7 +528,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="triangle" x1="-6.5" y1="0" x2="0" y2="6.5" x3="0" y3="0" />
+                <leaf type="triangle" x1="-7.5" y1="0" x2="0" y2="7.5" x3="0" y3="0" />
             </descendants>
         </node>
 
@@ -543,7 +544,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="triangle" x1="-6.5" y1="0" x2="0" y2="6.5" x3="0" y3="0" />
+                <leaf type="triangle" x1="-7.5" y1="0" x2="0" y2="7.5" x3="0" y3="0" />
             </descendants>
         </node>
 
@@ -559,7 +560,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="triangle" x1="-6.5" y1="0" x2="0" y2="6.5" x3="0" y3="0" />
+                <leaf type="triangle" x1="-7.5" y1="0" x2="0" y2="7.5" x3="0" y3="0" />
             </descendants>
         </node>
 
@@ -575,7 +576,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="triangle" x1="-6.5" y1="0" x2="0" y2="6.5" x3="0" y3="0" />
+                <leaf type="triangle" x1="-7.5" y1="0" x2="0" y2="7.5" x3="0" y3="0" />
             </descendants>
         </node>
 
