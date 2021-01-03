@@ -38,24 +38,24 @@
     </lights>
 
     <textures>
-        <texture id="wood"          path="./scenes/images/wood.jpg" />
-        <texture id="wood-floor"    path="./scenes/images/wood-floor.jpg" />
-        <texture id="wall-paper"    path="./scenes/images/wall-paper.jpg" />
+        <texture id="wood"          path="./scenes/images/house/wood.jpg" />
+        <texture id="wood-floor"    path="./scenes/images/house/wood-floor.jpg" />
+        <texture id="wall-paper"    path="./scenes/images/house/wall-paper.jpg" />
+        <texture id="rug"           path="./scenes/images/house/rug.jpg" />
+        <texture id="door"          path="./scenes/images/house/door.jpg" />
+        <texture id="window"        path="./scenes/images/house/window.jpg"/>
+        <texture id="fireplace"     path="./scenes/images/house/fireplace.jpg"/>
+        <texture id="drawer"        path="./scenes/images/house/drawer.jpg"/>
+        <texture id="mole-painting" path="./scenes/images/house/mole-painting.jpg"/>
+        <texture id="leather"       path="./scenes/images/house/leather.jpg"/>
+        <texture id="sideboard"     path="./scenes/images/house/sideboard.jpg"/>
         <texture id="red-chair"     path="./scenes/images/red-chair.jpg" />
         <texture id="blue-chair"    path="./scenes/images/blue-chair.jpg" />
-        <texture id="rug"           path="./scenes/images/rug.jpg" />
-        <texture id="door"          path="./scenes/images/door.jpg" />
-        <texture id="window"        path="./scenes/images/window.jpg"/>
-        <texture id="fireplace"     path="./scenes/images/fireplace.jpg"/>
-        <texture id="drawer"        path="./scenes/images/drawer.jpg"/>
-        <texture id="mole-painting" path="./scenes/images/mole-painting.jpg"/>
-        <texture id="leather"       path="./scenes/images/leather.jpg"/>
-        <texture id="sideboard"     path="./scenes/images/sideboard.jpg"/>
     </textures>
 
     <spritesheets>
-        <spritesheet id="fire" path="./scenes/images/fire.png" sizeM="8" sizeN="8"/>
-        <spritesheet id="tv"   path="./scenes/images/tv.png" sizeM="20" sizeN="15"/>
+        <spritesheet id="fire" path="./scenes/images/house/fire.png" sizeM="8" sizeN="8"/>
+        <spritesheet id="tv"   path="./scenes/images/house/tv.png" sizeM="20" sizeN="15"/>
     </spritesheets>
 
     <materials>

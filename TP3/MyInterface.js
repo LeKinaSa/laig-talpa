@@ -18,7 +18,7 @@ class MyInterface extends CGFinterface {
         this.gui = new dat.GUI();
 
         this.first_update = true;
-        this.initKeys();        
+        this.initKeys();
         
         return true;
     }
