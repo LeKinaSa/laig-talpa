@@ -39,14 +39,14 @@
     </lights>
 
     <textures>
-        <texture id="exterior" path="./scenes/images/river/exterior.jpg" />
-        <texture id="interior" path="./scenes/images/river/interior.jpg" />
-        <texture id="lake"     path="./scenes/images/river/lake.png"     />
-        <texture id="river"    path="./scenes/images/river/river.jpg"    />
-        <texture id="buoy"     path="./scenes/images/river/buoy.png"     />
-        <texture id="oar"      path="./scenes/images/river/wood.jpg"     />
-        <texture id="red"      path="./scenes/images/red-chair.jpg"      />
-        <texture id="blue"     path="./scenes/images/blue-chair.jpg"     />
+        <texture id="exterior"     path="./scenes/images/river/exterior.jpg" />
+        <texture id="interior"     path="./scenes/images/river/interior.jpg" />
+        <texture id="lake"         path="./scenes/images/river/lake.png"     />
+        <texture id="river"        path="./scenes/images/river/river.jpg"    />
+        <texture id="buoy"         path="./scenes/images/river/buoy.png"     />
+        <texture id="oar"          path="./scenes/images/river/wood.jpg"     />
+        <texture id="red"          path="./scenes/images/red-chair.jpg"      />
+        <texture id="blue"         path="./scenes/images/blue-chair.jpg"     />
     </textures>
 
     <spritesheets>
@@ -73,6 +73,13 @@
             <ambient  r="0.2" g="0.0" b="0.0" a="1.0" />
             <diffuse  r="0.6" g="0.0" b="0.0" a="1.0" />
             <specular r="0.8" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="orange">
+            <shininess value="10" />
+            <ambient  r="0.8" g="0.4" b="0.0" a="1.0" />
+            <diffuse  r="0.6" g="0.3" b="0.0" a="1.0" />
+            <specular r="0.4" g="0.2" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
     </materials>
@@ -346,7 +353,7 @@
                 <noderef id="surroundings" />
                 <noderef id="river" />
                 <noderef id="canoe" />
-                <noderef id="test" />
+                <noderef id="fishes" />
             </descendants>
         </node>
 
@@ -1092,16 +1099,77 @@
             </descendants>
         </node>
 
-        <node id="test">
+        <node id="fishes">
             <material id="default" />
             <texture id="null">
                 <amplification afs="1" aft="1" />
             </texture>
             <transformations>
+                <translation x="0" y="-17" z="0" />
+                <rotation axis="x" angle="-90" />
             </transformations>
 
             <descendants>
-                <leaf type="obj" url="models/male.obj"/>
+                <noderef id="fish1"/>
+                <noderef id="fish2"/>
+                <noderef id="fish3"/>
+                <noderef id="fish4"/>
+            </descendants>
+        </node>
+
+        <node id="fish1">
+            <material id="orange" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="-40" y="0" z="0" />
+            </transformations>
+
+            <descendants>
+                <leaf type="obj" url="models/fish.obj"/>
+            </descendants>
+        </node>
+
+        <node id="fish2">
+            <material id="orange" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="40" y="0" z="0" />
+            </transformations>
+
+            <descendants>
+                <leaf type="obj" url="models/fish.obj"/>
+            </descendants>
+        </node>
+
+        <node id="fish3">
+            <material id="orange" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="60" z="0" />
+            </transformations>
+
+            <descendants>
+                <leaf type="obj" url="models/fish.obj"/>
+            </descendants>
+        </node>
+
+        <node id="fish4">
+            <material id="orange" />
+            <texture id="null">
+                <amplification afs="1" aft="1" />
+            </texture>
+            <transformations>
+                <translation x="0" y="-60" z="0" />
+            </transformations>
+
+            <descendants>
+                <leaf type="obj" url="models/fish.obj"/>
             </descendants>
         </node>
 
