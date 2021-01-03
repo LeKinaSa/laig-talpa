@@ -550,6 +550,7 @@ class MyGameOrchestrator extends CGFobject{
 
     updateHTML() {
         if(this.currentState != this.state.menu){
+            document.getElementById("info").innerText = "";
             if(this.player == 1){
                 document.getElementById("player").innerText = "Red Player's turn";
                 document.getElementById("next").innerText = "Next Turn: Blue Player";
